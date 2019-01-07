@@ -73,7 +73,6 @@ public class Robot extends TimedRobot {
         break;
     }
   }
-
   /**
    * This function is called periodically during operator control.
    */
