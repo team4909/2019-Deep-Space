@@ -1,11 +1,16 @@
 package frc.team4909.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.buttons.Button;
 
 /**
- * The VM is configured to automatically run this class, and to call the
+ * The VM is configured to automatically run this class, and to call thex
  * functions corresponding to each mode, as described in the TimedRobot
  * documentation. If you change the name of this class or the package after
  * creating this project, you must also update the build.gradle file in the
@@ -15,7 +20,12 @@ public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
+  DigitalInput sensor1;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  private static DifferentialDrive myDrive;
+  private static Joystick rightStick = new Joystick(1);
+  private static Joystick leftStick = new Joystick(1);
+
 
   /**
    * This function is run when the robot is first started up and should be
@@ -26,8 +36,13 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
-  }
+    Spark m_Left = new Spark(1);
+    Spark m_Right = new Spark(2);
+    sensor1 = new DigitalInput(0);
+    myDrive = new DifferentialDrive(m_Left, m_Right);
 
+
+  }
   /**
    * This function is called every robot packet, no matter the mode. Use
    * this for items like diagnostics that you want ran during disabled,
@@ -38,6 +53,19 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    double value;
+    System.out.println(sensor1.get());
+    myDrive.tankDrive(leftStick.getY(),  rightStick.getY());
+    value = rightStick.getX();
+    value = rightStick.getY();
+    value = rightStick.getZ();
+    value = rightStick.getThrottle();
+    value = rightStick.getTwist();
+    value = leftStick.getX();
+    value = leftStick.getY();
+    value = leftStick.getZ();
+    value = leftStick.getThrottle();
+    value = leftStick.getTwist();
   }
 
   /**
@@ -73,6 +101,7 @@ public class Robot extends TimedRobot {
         break;
     }
   }
+
   /**
    * This function is called periodically during operator control.
    */
@@ -80,10 +109,11 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
   }
 
-  /**
-   * This function is called periodically during test mode.
-   */
+
   @Override
   public void testPeriodic() {
   }
+    /**
+   * This function is called periodically during test mode.
+   */
 }
