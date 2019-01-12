@@ -2,6 +2,8 @@ package frc.team4909.robot;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -18,6 +20,8 @@ public class Robot extends TimedRobot {
   private static Joystick leftStick = new Joystick(2);
 
   private static DifferentialDrive myDrive;
+  double velocity;
+  DigitalInput frontLeft, frontMiddle, frontRight;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -28,6 +32,8 @@ public class Robot extends TimedRobot {
     CANSparkMax m_Left = new CANSparkMax(RobotMap.leftMotorCANDevice, CANSparkMaxLowLevel.MotorType.kBrushless);
     CANSparkMax m_Right = new CANSparkMax(RobotMap.rightMotorCANDevice, CANSparkMaxLowLevel.MotorType.kBrushless);
     myDrive = new DifferentialDrive(m_Left, m_Right);
+    velocity = 0.5;
+
   }
 
   /**
@@ -40,7 +46,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    myDrive.tankDrive(leftStick.getY(),  rightStick.getY());
   }
 
   /**
@@ -70,5 +75,21 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    myDrive.tankDrive(velocity, velocity);
+    boolean frontLeftOnLine = frontLeft.get();
+    boolean frontMiddleOnLine = frontMiddle.get();
+    boolean frontRightOnLine = frontRight.get();
+    if(!frontLeftOnLine && frontRightOnLine){
+      myDrive.tankDrive(velocity, velocity - 0.1);
+    }
+    if(frontLeftOnLine && !frontRightOnLine){
+      myDrive.tankDrive(velocity - 0.1, velocity);
+    }
+
+    
+  }
+
+  public void teleopInit(){
+
   }
 }
