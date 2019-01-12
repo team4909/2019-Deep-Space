@@ -1,13 +1,10 @@
 package frc.team4909.robot;
 
-import edu.wpi.first.wpilibj.DigitalInput;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.Spark;
-import edu.wpi.first.wpilibj.buttons.Button;
 
 /**
  * The VM is configured to automatically run this class, and to call thex
@@ -17,17 +14,10 @@ import edu.wpi.first.wpilibj.buttons.Button;
  * project.
  */
 public class Robot extends TimedRobot {
-  private static final String kDefaultAuto = "Default";
-  private static final String kCustomAuto = "My Auto";
-  private String m_autoSelected;
-  DigitalInput frontLeftSensor, frontMiddleSensor, frontRightSensor;
-
-  private final SendableChooser<String> m_chooser = new SendableChooser<>();
-  private static DifferentialDrive myDrive;
   private static Joystick rightStick = new Joystick(1);
-  private static Joystick leftStick = new Joystick(1);
+  private static Joystick leftStick = new Joystick(2);
 
-
+  private static DifferentialDrive myDrive;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -35,19 +25,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
-    m_chooser.addOption("My Auto", kCustomAuto);
-    SmartDashboard.putData("Auto choices", m_chooser);
-    Spark m_Left = new Spark(1);
-    Spark m_Right = new Spark(2);
-    frontLeftSensor = new DigitalInput(0);
-    frontMiddleSensor = new DigitalInput(1);
-    frontRightSensor = new DigitalInput(3);
-
+    CANSparkMax m_Left = new CANSparkMax(RobotMap.leftMotorCANDevice, CANSparkMaxLowLevel.MotorType.kBrushless);
+    CANSparkMax m_Right = new CANSparkMax(RobotMap.rightMotorCANDevice, CANSparkMaxLowLevel.MotorType.kBrushless);
     myDrive = new DifferentialDrive(m_Left, m_Right);
-
-
   }
+
   /**
    * This function is called every robot packet, no matter the mode. Use
    * this for items like diagnostics that you want ran during disabled,
@@ -58,20 +40,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    double value;
     myDrive.tankDrive(leftStick.getY(),  rightStick.getY());
-    value = rightStick.getX();
-    value = rightStick.getY();
-    value = rightStick.getZ();
-    value = rightStick.getThrottle();
-    value = rightStick.getTwist();
-    value = leftStick.getX();
-    value = leftStick.getY();
-    value = leftStick.getZ();
-    value = leftStick.getThrottle();
-    value = leftStick.getTwist();
-
-    
   }
 
   /**
@@ -87,9 +56,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autoSelected = m_chooser.getSelected();
-    // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    System.out.println("Auto selected: " + m_autoSelected);
   }
 
   /**
@@ -97,15 +63,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    switch (m_autoSelected) {
-      case kCustomAuto:
-        // Put custom auto code here
-        break;
-      case kDefaultAuto:
-      default:
-        // Put default auto code here
-        break;
-    }
   }
 
   /**
@@ -114,12 +71,4 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
   }
-
-
-  @Override
-  public void testPeriodic() {
-  }
-    /**
-   * This function is called periodically during test mode.
-   */
 }
