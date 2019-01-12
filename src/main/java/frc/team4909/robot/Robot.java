@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkMaxLowLevel;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
@@ -29,10 +30,16 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    CANSparkMax m_Left = new CANSparkMax(RobotMap.leftMotorCANDevice, CANSparkMaxLowLevel.MotorType.kBrushless);
-    CANSparkMax m_Right = new CANSparkMax(RobotMap.rightMotorCANDevice, CANSparkMaxLowLevel.MotorType.kBrushless);
+    Spark m_Left = new Spark(0);
+    Spark m_Right = new Spark(1);
+    // CANSparkMax m_Left = new CANSparkMax(RobotMap.leftMotorCANDevice, CANSparkMaxLowLevel.MotorType.kBrushless);
+    // CANSparkMax m_Right = new CANSparkMax(RobotMap.rightMotorCANDevice, CANSparkMaxLowLevel.MotorType.kBrushless);
     myDrive = new DifferentialDrive(m_Left, m_Right);
+    
     velocity = 0.5;
+    frontLeft = new DigitalInput(0);
+    frontMiddle = new DigitalInput(1);
+    frontRight = new DigitalInput(2);
 
   }
 
@@ -81,9 +88,15 @@ public class Robot extends TimedRobot {
     boolean frontRightOnLine = frontRight.get();
     if(!frontLeftOnLine && frontRightOnLine){
       myDrive.tankDrive(velocity, velocity - 0.1);
+      System.out.println("Slowing Down Right");
     }
-    if(frontLeftOnLine && !frontRightOnLine){
+    else if(frontLeftOnLine && !frontRightOnLine){
       myDrive.tankDrive(velocity - 0.1, velocity);
+      System.out.println("Slowing Down Left");
+    }
+    else{
+      myDrive.tankDrive(velocity, velocity);
+      System.out.println("Driving");
     }
 
     
