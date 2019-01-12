@@ -20,11 +20,13 @@ public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
-  DigitalInput sensor1;
+  DigitalInput frontLeftSensor, frontMiddleSensor, frontRightSensor;
+
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   private static DifferentialDrive myDrive;
   private static Joystick rightStick = new Joystick(1);
   private static Joystick leftStick = new Joystick(1);
+
 
 
   /**
@@ -38,7 +40,10 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto choices", m_chooser);
     Spark m_Left = new Spark(1);
     Spark m_Right = new Spark(2);
-    sensor1 = new DigitalInput(0);
+    frontLeftSensor = new DigitalInput(0);
+    frontMiddleSensor = new DigitalInput(1);
+    frontRightSensor = new DigitalInput(3);
+
     myDrive = new DifferentialDrive(m_Left, m_Right);
 
 
@@ -54,7 +59,6 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     double value;
-    System.out.println(sensor1.get());
     myDrive.tankDrive(leftStick.getY(),  rightStick.getY());
     value = rightStick.getX();
     value = rightStick.getY();
@@ -66,6 +70,8 @@ public class Robot extends TimedRobot {
     value = leftStick.getZ();
     value = leftStick.getThrottle();
     value = leftStick.getTwist();
+
+    
   }
 
   /**
