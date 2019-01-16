@@ -1,14 +1,17 @@
 package frc.team4909.robot;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel;
-
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.buttons.Button;
+import frc.team4909.robot.operator.controllers.BionicF310;
+import frc.team4909.robot.subsystems.Drivetrain.BionicDrive;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel;
 
 /**
  * The VM is configured to automatically run this class, and to call thex
@@ -18,16 +21,14 @@ import edu.wpi.first.wpilibj.I2C;
  * project.
  */
 public class Robot extends TimedRobot {
-  private static Joystick rightStick = new Joystick(1);
-  private static Joystick leftStick = new Joystick(2);
+  private static final String kDefaultAuto = "Default";
+  private static final String kCustomAuto = "My Auto";
+  private String m_autoSelected;
+  DigitalInput frontLeftSensor, frontMiddleSensor, frontRightSensor;
 
-  private static DifferentialDrive myDrive;
-  double velocity;
-  DigitalInput frontLeft, frontMiddle, frontRight;
-
-  I2C Lidar;
-  byte[] byte1;
-  int count = 2;
+  private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  private static BionicF310 driverGamepad;
+  public static BionicDrive drivetrain;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -35,25 +36,42 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    CANSparkMax m_Left = new CANSparkMax(RobotMap.leftMotorCANDevice, CANSparkMaxLowLevel.MotorType.kBrushless);
-    CANSparkMax m_Right = new CANSparkMax(RobotMap.rightMotorCANDevice, CANSparkMaxLowLevel.MotorType.kBrushless);
+    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
+    m_chooser.addOption("My Auto", kCustomAuto);
+    SmartDashboard.putData("Auto choices", m_chooser);
+    driverGamepad = new BionicF310(0, 0, 0.6);
+    drivetrain = new BionicDrive(
+                new CANSparkMax(
+                        1, false,
+                        FeedbackDevice.QuadEncoder, true,
+                        1, 0.00001, 0,
+                        1
+                ),
+                new CANSparkMax(
+                        2, true,
+                        FeedbackDevice.QuadEncoder, true,
+                        1, 0.00001, 0,
+                        4
+                ),
+                driverGamepad, BionicF310.LY, -1.0, 0.10,
+                driverGamepad, BionicF310.RX, -0.6, 0.10, //rotationMult: -.75
+                new DrivetrainConfig(
+                        25, 0.5, 360,
+                        21.76, 41.88, 654.49,
+                        3, 2.74
+                ),
+    //CANSparkMax m_Left = new CANSparkMax(1, MotorType.kBrushed);
+    //CANSparkMax m_Right = new CANSparkMax(2, MotorType.kBrushed);
+    //frontLeftSensor = new DigitalInput(0);
+    //frontMiddleSensor = new DigitalInput(1);
+    //frontRightSensor = new DigitalInput(3);
+
+
     myDrive = new DifferentialDrive(m_Left, m_Right);
-    velocity = 0.5;
 
-    I2C Lidar = new I2C(Port.kOnboard, 0x62);
-    byte1 = new byte[count];
-    Lidar.write(0x00, 0x04);
-    boolean isNotZero = true;
-    while(isNotZero){
-      Lidar.read(0x04, 1, byte1);
-      if((byte1[0] & 0x01) == 0){
-        isNotZero = false;
-      }
-    }
-    Lidar.read(0x8f, 2, byte1);
-    long lidarDist = (byte1[0]*256)+byte1[1]; //distance of each beam in centimeters.
+     
+
   }
-
   /**
    * This function is called every robot packet, no matter the mode. Use
    * this for items like diagnostics that you want ran during disabled,
@@ -64,6 +82,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    double value;
   }
 
   /**
@@ -111,7 +130,12 @@ public class Robot extends TimedRobot {
     
   }
 
-  public void teleopInit(){
+
+  @Override
+  public void testPeriodic() {
 
   }
+    /**
+   * This function is called periodically during test mode.
+   */
 }
