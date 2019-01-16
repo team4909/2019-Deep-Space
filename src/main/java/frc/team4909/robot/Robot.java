@@ -3,15 +3,19 @@ package frc.team4909.robot;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.I2C.Port;
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.buttons.Button;
 import frc.team4909.robot.operator.controllers.BionicF310;
-import frc.team4909.robot.subsystems.Drivetrain.BionicDrive;
+import frc.team4909.robot.subsystems.Lidar;
+import frc.team4909.robot.subsystems.drivetrain.BionicDrive;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
+import edu.wpi.first.wpilibj.I2C;
 
 /**
  * The VM is configured to automatically run this class, and to call thex
@@ -29,7 +33,11 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   private static BionicF310 driverGamepad;
   public static BionicDrive drivetrain;
-
+  public static DifferentialDrive myDrive;
+  int velocity;
+  I2C Lidar;
+  byte[] byte1;
+  int count;
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -59,15 +67,19 @@ public class Robot extends TimedRobot {
                         25, 0.5, 360,
                         21.76, 41.88, 654.49,
                         3, 2.74
-                ),
-    //CANSparkMax m_Left = new CANSparkMax(1, MotorType.kBrushed);
-    //CANSparkMax m_Right = new CANSparkMax(2, MotorType.kBrushed);
-    //frontLeftSensor = new DigitalInput(0);
-    //frontMiddleSensor = new DigitalInput(1);
-    //frontRightSensor = new DigitalInput(3);
+                ));
+    CANSparkMax m_Left = new CANSparkMax(1, MotorType.kBrushed);
 
+    CANSparkMax m_Right = new CANSparkMax(2, MotorType.kBrushed);
+    frontLeftSensor = new DigitalInput(0);
+    frontMiddleSensor = new DigitalInput(1);
+    frontRightSensor = new DigitalInput(3);
 
-    myDrive = new DifferentialDrive(m_Left, m_Right);
+    count = 2;    
+    //myDrive = new DifferentialDrive(m_Left, m_Right);
+    Lidar = new I2C(Port.kOnboard, 0x62);
+    byte1 = new byte[count];
+     
 
      
 
@@ -112,10 +124,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    myDrive.tankDrive(velocity, velocity);
-    boolean frontLeftOnLine = frontLeft.get();
-    boolean frontMiddleOnLine = frontMiddle.get();
-    boolean frontRightOnLine = frontRight.get();
+    //myDrive.tankDrive(velocity, velocity);
+    boolean frontLeftOnLine = frontLeftSensor.get();
+    boolean frontMiddleOnLine = frontMiddleSensor.get();
+    boolean frontRightOnLine = frontRightSensor.get();
     if(!frontLeftOnLine && frontRightOnLine){
       myDrive.tankDrive(velocity, velocity - 0.1);
     }
@@ -123,9 +135,24 @@ public class Robot extends TimedRobot {
       myDrive.tankDrive(velocity - 0.1, velocity);
     }
 
-    Lidar.write(0x04, 0x00);
-    Lidar.read(0x01, count,byte1);
     
+     
+    Lidar.write(0x00, 0x04);
+    boolean isNotZero = true;
+    while(isNotZero){
+      Lidar.read(0x04, 1, byte1);
+      System.out.println((byte1[0] & 0x01) + "   In while loop");
+      if((byte1[0] & 0x01) == 0){
+        isNotZero = false;
+      }
+    }
+    // Lidar.read(0x8f, 2, byte1);
+    // long lidarDist = byte1[0]*256 + byte1[1]; //distance of each beam in centimeters.
+    // System.out.println(lidarDist);
+    Lidar.read(0x96, 2, byte1);
+    long lidarDist = byte1[0]*256 + byte1[1]; //distance of each beam in centimeters.
+    System.out.println(byte1[0] + "  " + byte1[1]);
+
 
     
   }
