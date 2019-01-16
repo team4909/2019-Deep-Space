@@ -76,7 +76,7 @@ public class Robot extends TimedRobot {
     frontRightSensor = new DigitalInput(3);
 
     count = 2;    
-    //myDrive = new DifferentialDrive(m_Left, m_Right);
+    myDrive = new DifferentialDrive(m_Left, m_Right);
     Lidar = new I2C(Port.kOnboard, 0x62);
     byte1 = new byte[count];
      
@@ -124,7 +124,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    //myDrive.tankDrive(velocity, velocity);
+    myDrive.tankDrive(velocity, velocity);
     boolean frontLeftOnLine = frontLeftSensor.get();
     boolean frontMiddleOnLine = frontMiddleSensor.get();
     boolean frontRightOnLine = frontRightSensor.get();
