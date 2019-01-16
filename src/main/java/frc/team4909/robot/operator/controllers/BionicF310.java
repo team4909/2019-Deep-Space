@@ -1,6 +1,9 @@
 package frc.team4909.robot.operator.controllers;
 
-
+import frc.team4909.robot.operator.generic.BionicAxis;
+import frc.team4909.robot.operator.generic.BionicButton;
+import frc.team4909.robot.operator.generic.BionicJoystick;
+import frc.team4909.robot.operator.generic.BionicPOV;
 
 /**
  * BionicF310 models the Logitech F310 Gamepad and its buttons for easier mapping for the operator interface.

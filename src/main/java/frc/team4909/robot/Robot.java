@@ -1,11 +1,20 @@
 package frc.team4909.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.buttons.Button;
+import frc.team4909.robot.operator.controllers.BionicF310;
+import frc.team4909.robot.subsystems.Drivetrain.BionicDrive;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel;
 
 /**
- * The VM is configured to automatically run this class, and to call the
+ * The VM is configured to automatically run this class, and to call thex
  * functions corresponding to each mode, as described in the TimedRobot
  * documentation. If you change the name of this class or the package after
  * creating this project, you must also update the build.gradle file in the
@@ -15,7 +24,13 @@ public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
+  DigitalInput frontLeftSensor, frontMiddleSensor, frontRightSensor;
+
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  private static BionicF310 driverGamepad;
+  public static BionicDrive drivetrain;
+
+
 
   /**
    * This function is run when the robot is first started up and should be
@@ -26,8 +41,38 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
-  }
+    driverGamepad = new BionicF310(0, 0, 0.6);
+    drivetrain = new BionicDrive(
+                new CANSparkMax(
+                        1, false,
+                        FeedbackDevice.QuadEncoder, true,
+                        1, 0.00001, 0,
+                        1
+                ),
+                new CANSparkMax(
+                        2, true,
+                        FeedbackDevice.QuadEncoder, true,
+                        1, 0.00001, 0,
+                        4
+                ),
+                driverGamepad, BionicF310.LY, -1.0, 0.10,
+                driverGamepad, BionicF310.RX, -0.6, 0.10, //rotationMult: -.75
+                new DrivetrainConfig(
+                        25, 0.5, 360,
+                        21.76, 41.88, 654.49,
+                        3, 2.74
+                ),
+    //CANSparkMax m_Left = new CANSparkMax(1, MotorType.kBrushed);
+    //CANSparkMax m_Right = new CANSparkMax(2, MotorType.kBrushed);
+    //frontLeftSensor = new DigitalInput(0);
+    //frontMiddleSensor = new DigitalInput(1);
+    //frontRightSensor = new DigitalInput(3);
 
+    myDrive = new DifferentialDrive(m_Left, m_Right);
+
+     
+
+  }
   /**
    * This function is called every robot packet, no matter the mode. Use
    * this for items like diagnostics that you want ran during disabled,
@@ -38,6 +83,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    double value;
   }
 
   /**
@@ -73,6 +119,7 @@ public class Robot extends TimedRobot {
         break;
     }
   }
+
   /**
    * This function is called periodically during operator control.
    */
@@ -80,10 +127,11 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
   }
 
-  /**
-   * This function is called periodically during test mode.
-   */
+
   @Override
   public void testPeriodic() {
   }
+    /**
+   * This function is called periodically during test mode.
+   */
 }
