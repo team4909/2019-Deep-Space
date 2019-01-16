@@ -6,7 +6,9 @@ import com.revrobotics.CANSparkMaxLowLevel;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.I2C;
 
 /**
  * The VM is configured to automatically run this class, and to call thex
@@ -23,6 +25,10 @@ public class Robot extends TimedRobot {
   double velocity;
   DigitalInput frontLeft, frontMiddle, frontRight;
 
+  I2C Lidar;
+  byte[] byte1;
+  int count = 2;
+
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -34,6 +40,18 @@ public class Robot extends TimedRobot {
     myDrive = new DifferentialDrive(m_Left, m_Right);
     velocity = 0.5;
 
+    I2C Lidar = new I2C(Port.kOnboard, 0x62);
+    byte1 = new byte[count];
+    Lidar.write(0x00, 0x04);
+    boolean isNotZero = true;
+    while(isNotZero){
+      Lidar.read(0x04, 1, byte1);
+      if((byte1[0] & 0x01) == 0){
+        isNotZero = false;
+      }
+    }
+    Lidar.read(0x8f, 2, byte1);
+    long lidarDist = (byte1[0]*256)+byte1[1]; //distance of each beam in centimeters.
   }
 
   /**
@@ -85,6 +103,10 @@ public class Robot extends TimedRobot {
     if(frontLeftOnLine && !frontRightOnLine){
       myDrive.tankDrive(velocity - 0.1, velocity);
     }
+
+    Lidar.write(0x04, 0x00);
+    Lidar.read(0x01, count,byte1);
+    
 
     
   }
