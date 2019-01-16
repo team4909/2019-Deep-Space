@@ -1,6 +1,6 @@
 package frc.team4909.robot.operator.generic;
 
-import frc.team4909.robot.interfaces.Commandable;
+import frc.team4909.robot.interfaces.*;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
