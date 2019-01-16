@@ -30,8 +30,6 @@ public class Robot extends TimedRobot {
   private static BionicF310 driverGamepad;
   public static BionicDrive drivetrain;
 
-
-
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -68,6 +66,7 @@ public class Robot extends TimedRobot {
     //frontMiddleSensor = new DigitalInput(1);
     //frontRightSensor = new DigitalInput(3);
 
+
     myDrive = new DifferentialDrive(m_Left, m_Right);
 
      
@@ -99,9 +98,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autoSelected = m_chooser.getSelected();
-    // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    System.out.println("Auto selected: " + m_autoSelected);
   }
 
   /**
@@ -109,15 +105,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    switch (m_autoSelected) {
-      case kCustomAuto:
-        // Put custom auto code here
-        break;
-      case kDefaultAuto:
-      default:
-        // Put default auto code here
-        break;
-    }
   }
 
   /**
@@ -125,11 +112,28 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    myDrive.tankDrive(velocity, velocity);
+    boolean frontLeftOnLine = frontLeft.get();
+    boolean frontMiddleOnLine = frontMiddle.get();
+    boolean frontRightOnLine = frontRight.get();
+    if(!frontLeftOnLine && frontRightOnLine){
+      myDrive.tankDrive(velocity, velocity - 0.1);
+    }
+    if(frontLeftOnLine && !frontRightOnLine){
+      myDrive.tankDrive(velocity - 0.1, velocity);
+    }
+
+    Lidar.write(0x04, 0x00);
+    Lidar.read(0x01, count,byte1);
+    
+
+    
   }
 
 
   @Override
   public void testPeriodic() {
+
   }
     /**
    * This function is called periodically during test mode.

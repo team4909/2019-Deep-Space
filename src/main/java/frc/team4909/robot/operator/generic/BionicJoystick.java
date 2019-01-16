@@ -1,3 +1,4 @@
+
 package frc.team4909.robot.operator.generic;
 
 import frc.team4909.robot.interfaces.Commandable;
@@ -148,3 +149,4 @@ public class BionicJoystick extends Joystick {
         }
     }
 }
+
