@@ -78,6 +78,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+      myDrive.ArcadeDrive(driveStick.getY(), driveStick.getX());
+      int throttle = driveStick.getThrottle();
+      int rotrate = driveStick.getTwist();
+      myDrive.ArcadeDrive(throttle, rotrate);
   }
 
   /**
