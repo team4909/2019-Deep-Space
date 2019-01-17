@@ -10,29 +10,33 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class BionicDrive extends Subsystem {
 
-    public final CANSparkMax leftSpark = new CANSparkMax(1, MotorType.kBrushed);
-    public final CANSparkMax rightSpark = new CANSparkMax(2, MotorType.kBrushed);
+    public final CANSparkMax leftSpark;
+    public final CANSparkMax rightSpark;
+
+    public double speedDeltaLimit, rotationDeltaLimit;
 
     public final DriveOI defaultCommand;
     
     /**
-     * @param leftSide              Left Drivetrain SRX
-     * @param rightSide             Right Drivetrain SRX
+     * @param leftSpark              Left Drivetrain SRX
+     * @param rightSpark             Right Drivetrain SRX
      * @param speedInputGamepad    Speed Input Gamepad/Joystick
      * @param speedInputAxis       Speed Input Axis
      * @param rotationInputGamepad Rotation Input Gamepad/Joystick
      * @param rotationInputAxis    Rotation Input Axis
      */
 
-    public BionicDrive(CANSparkMax leftSpark, CANSparkMax rightSpark, BionicF310 speedInputGamepad, BionicAxis speedInputAxis) {
+    public BionicDrive(CANSparkMax leftSpark, CANSparkMax rightSpark, BionicF310 speedInputGamepad, BionicAxis speedInputAxis, double speedMultiplier, double speedDeltaLimit,
+    BionicF310 rotationInputGamepad, BionicAxis rotationInputAxis, double rotationMultiplier, double rotationDeltaLimit) {
         super();
         
-        this.leftSpark =  leftSide;
-        this.rightSpark = rightSide;
+        this.leftSpark =  leftSpark;
+        this.rightSpark = rightSpark;
 
 
-        this.defaultCommand = new DriveOI(this, leftSide, rightSide,
-        speedInputGamepad, speedInputAxis);
+        this.defaultCommand = new DriveOI(this, leftSpark, rightSpark,
+        speedInputGamepad, speedInputAxis, speedMultiplier,
+        rotationInputGamepad, rotationInputAxis, rotationMultiplier);
     }
 
     protected void initDefaultCommand() {

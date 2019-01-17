@@ -9,9 +9,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.buttons.Button;
 import frc.team4909.robot.operator.controllers.BionicF310;
-import frc.team4909.robot.subsystems.Drivetrain.BionicDrive;
+import frc.team4909.robot.subsystems.drivetrain.BionicDrive;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 /**
  * The VM is configured to automatically run this class, and to call thex
@@ -42,24 +42,19 @@ public class Robot extends TimedRobot {
     driverGamepad = new BionicF310(0, 0, 0.6);
     drivetrain = new BionicDrive(
                 new CANSparkMax(
-                        1, false,
-                        FeedbackDevice.QuadEncoder, true,
-                        1, 0.00001, 0,
-                        1
+                        1,
+                        MotorType.kBrushed
                 ),
                 new CANSparkMax(
-                        2, true,
-                        FeedbackDevice.QuadEncoder, true,
-                        1, 0.00001, 0,
-                        4
+                        2,
+                        MotorType.kBrushed
                 ),
                 driverGamepad, BionicF310.LY, -1.0, 0.10,
-                driverGamepad, BionicF310.RX, -0.6, 0.10, //rotationMult: -.75
-                new DrivetrainConfig(
-                        25, 0.5, 360,
-                        21.76, 41.88, 654.49,
-                        3, 2.74
-                ),
+                driverGamepad, BionicF310.RX, -0.6, 0.10 //rotationMult: -.75
+    );
+                
+    
+    
     //CANSparkMax m_Left = new CANSparkMax(1, MotorType.kBrushed);
     //CANSparkMax m_Right = new CANSparkMax(2, MotorType.kBrushed);
     //frontLeftSensor = new DigitalInput(0);
@@ -67,7 +62,7 @@ public class Robot extends TimedRobot {
     //frontRightSensor = new DigitalInput(3);
 
 
-    myDrive = new DifferentialDrive(m_Left, m_Right);
+    //myDrive = new DifferentialDrive(m_Left, m_Right);
 
      
 
@@ -112,7 +107,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    myDrive.tankDrive(velocity, velocity);
+    /*myDrive.tankDrive(velocity, velocity);
     boolean frontLeftOnLine = frontLeft.get();
     boolean frontMiddleOnLine = frontMiddle.get();
     boolean frontRightOnLine = frontRight.get();
@@ -122,10 +117,12 @@ public class Robot extends TimedRobot {
     if(frontLeftOnLine && !frontRightOnLine){
       myDrive.tankDrive(velocity - 0.1, velocity);
     }
+    
 
+    
     Lidar.write(0x04, 0x00);
     Lidar.read(0x01, count,byte1);
-    
+    */
 
     
   }

@@ -1,5 +1,7 @@
 package frc.team4909.robot.subsystems.drivetrain.commands;
 
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.team4909.robot.subsystems.drivetrain.BionicDrive;
 import frc.team4909.robot.operator.controllers.BionicF310;
 import com.revrobotics.CANSparkMax;
@@ -86,8 +88,8 @@ public class DriveOI extends Command {
 //            leftSRX.set(ControlMode.Velocity, maxVelocity * leftMotorOutput);
 //            rightSRX.set(ControlMode.Velocity, maxVelocity * rightMotorOutput);
 //        } else {
-            leftSRX.set(ControlMode.PercentOutput,  leftMotorOutput);
-            rightSRX.set(ControlMode.PercentOutput, rightMotorOutput);
+            leftSRX.set(leftMotorOutput);
+            rightSRX.set(rightMotorOutput);
 //        }
     }
 
