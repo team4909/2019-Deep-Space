@@ -11,12 +11,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.buttons.Button;
 import frc.team4909.robot.operator.controllers.BionicF310;
-//import frc.team4909.robot.subsystems.drivetrain.BionicDrive;
+import frc.team4909.robot.subsystems.drivetrain.BionicDrive;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel;
-import edu.wpi.first.wpilibj.I2C;
-import frc.team4909.robot.LIDAR;
-
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 /**
  * The VM is configured to automatically run this class, and to call thex
@@ -33,7 +30,7 @@ public class Robot extends TimedRobot {
 
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   private static BionicF310 driverGamepad;
-  //public static BionicDrive drivetrain;
+  public static BionicDrive drivetrain;
   public static DifferentialDrive myDrive;
   int velocity;
   I2C Lidar;
@@ -51,42 +48,39 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
     driverGamepad = new BionicF310(0, 0, 0.6);
-    // drivetrain = new BionicDrive(
-    //             new CANSparkMax(
-    //                     1, false,
-    //                     FeedbackDevice.QuadEncoder, true,
-    //                     1, 0.00001, 0,
-    //                     1
-    //             ),
-    //             new CANSparkMax(
-    //                     2, true,
-    //                     FeedbackDevice.QuadEncoder, true,
-    //                     1, 0.00001, 0,
-    //                     4
-    //             ),
-    //             driverGamepad, BionicF310.LY, -1.0, 0.10,
-    //             driverGamepad, BionicF310.RX, -0.6, 0.10, //rotationMult: -.75
-    //             new DrivetrainConfig(
-    //                     25, 0.5, 360,
-    //                     21.76, 41.88, 654.49,
-    //                     3, 2.74
-    //             ));
-    // CANSparkMax m_Left = new CANSparkMax(1, MotorType.kBrushed);
-
-    // CANSparkMax m_Right = new CANSparkMax(2, MotorType.kBrushed);
-    // frontLeftSensor = new DigitalInput(0);
-    // frontMiddleSensor = new DigitalInput(1);
-    // frontRightSensor = new DigitalInput(3);
-
-    // count = 2;    
-    // myDrive = new DifferentialDrive(m_Left, m_Right);
-    // Lidar = new I2C(Port.kOnboard, 0x62);
-    // byte1 = new byte[count];
-     
-    lidar1 = new LIDAR();
-     
-
+    drivetrain = new BionicDrive(
+      new CANSparkMax(
+              1,
+              MotorType.kBrushless
+      ),
+      new CANSparkMax(
+              2,
+              MotorType.kBrushless    
+      ),
+      driverGamepad, BionicF310.LY,
+      driverGamepad, BionicF310.RX);
   }
+  
+    /*drivetrain = new BionicDrive(
+                new CANSparkMax(
+                  2, MotorType.kBrushed
+                ),
+                new CANSparkMax(
+                  2, MotorType.kBrushed  
+                )
+    );
+    //CANSparkMax m_Left = new CANSparkMax(1, MotorType.kBrushed);
+    //CANSparkMax m_Right = new CANSparkMax(2, MotorType.kBrushed);
+    //frontLeftSensor = new DigitalInput(0);
+    //frontMiddleSensor = new DigitalInput(1);
+    //frontRightSensor = new DigitalInput(3);
+
+
+    //myDrive = new DifferentialDrive(m_Left, m_Right);
+
+     
+*/
+  
   /**
    * This function is called every robot packet, no matter the mode. Use
    * this for items like diagnostics that you want ran during disabled,
@@ -127,27 +121,21 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    // myDrive.tankDrive(velocity, velocity);
-    // boolean frontLeftOnLine = frontLeftSensor.get();
-    // boolean frontMiddleOnLine = frontMiddleSensor.get();
-    // boolean frontRightOnLine = frontRightSensor.get();
-    // if(!frontLeftOnLine && frontRightOnLine){
-    //   myDrive.tankDrive(velocity, velocity - 0.1);
-    // }
-    // if(frontLeftOnLine && !frontRightOnLine){
-    //   myDrive.tankDrive(velocity - 0.1, velocity);
-    // }
+    /*myDrive.tankDrive(velocity, velocity);
+    boolean frontLeftOnLine = frontLeft.get();
+    boolean frontMiddleOnLine = frontMiddle.get();
+    boolean frontRightOnLine = frontRight.get();
+    if(!frontLeftOnLine && frontRightOnLine){
+      myDrive.tankDrive(velocity, velocity - 0.1);
+    }
+    if(frontLeftOnLine && !frontRightOnLine){
+      myDrive.tankDrive(velocity - 0.1, velocity);
+    }
 
-    
-     
-    // Lidar.write(0x00, 0x04);
-    // boolean isNotZero = true;
-    // while(isNotZero){
-    //   Lidar.read(0x04, 1, byte1);
-    //   System.out.println((byte1[0] & 0x01) + "   In while loop");
-    //   if((byte1[0] & 0x01) == 0){
-    //     isNotZero = false;
-    //   }
+    Lidar.write(0x04, 0x00);
+    Lidar.read(0x01, count,byte1);
+    */
+
     
     // Lidar.read(0x8f, 2, byte1);
     // long lidarDist = byte1[0]*256 + byte1[1]; //distance of each beam in centimeters.

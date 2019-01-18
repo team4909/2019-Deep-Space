@@ -1,27 +1,49 @@
-// package frc.team4909.robot.subsystems.drivetrain;
+package frc.team4909.robot.subsystems.drivetrain;
 
-// import edu.wpi.first.wpilibj.command.Command;
-// import edu.wpi.first.wpilibj.command.Subsystem;
-// import com.revrobotics.CANSparkMax;
-// import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-// import com.revrobotics.CANSparkMax;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.team4909.robot.subsystems.drivetrain.commands.DriveOI;
+import frc.team4909.robot.operator.controllers.BionicF310;
+import frc.team4909.robot.operator.generic.BionicAxis;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-// public class BionicDrive extends Subsystem {
+public class BionicDrive extends Subsystem {
 
-//     public final CANSparkMax leftSide = new CANSparkMax(1, MotorType.kBrushed);
-//     public final CANSparkMax rightSide = new CANSparkMax(2, MotorType.kBrushed);
+    public final CANSparkMax leftSpark;
+    public final CANSparkMax rightSpark;
 
-//     public BionicDrive(CANSparkMax leftSide, CANSparkMax rightSRX) {
-//         super();
+    public double speedDeltaLimit, rotationDeltaLimit;
 
-//         this.leftSide = leftSpark;
-//         this.rightSide = rightSpark;
+    public final DriveOI defaultCommand;
+    
+    /**
+     * @param leftSpark              Left Drivetrain SRX
+     * @param rightSpark             Right Drivetrain SRX
+     * @param speedInputGamepad    Speed Input Gamepad/Joystick
+     * @param speedInputAxis       Speed Input Axis
+     * @param rotationInputGamepad Rotation Input Gamepad/Joystick
+     * @param rotationInputAxis    Rotation Input Axis
+     */
 
-//        // this.defaultCommand = new DriveOI(this, leftSpark, rightSpark);
-//     }
+    public BionicDrive(CANSparkMax leftSpark, CANSparkMax rightSpark, BionicF310 speedInputGamepad, BionicAxis speedInputAxis,
+    BionicF310 rotationInputGamepad, BionicAxis rotationInputAxis) {
+        super();
+        
+        this.leftSpark =  leftSpark;
+        this.rightSpark = rightSpark;
+
+
+        this.defaultCommand = new DriveOI(this, leftSpark, rightSpark,
+        speedInputGamepad, speedInputAxis);
+    }
+
+    @Override
+    protected void initDefaultCommand() {
+
+    }
 
 //     protected void initDefaultCommand() {
 //         setDefaultCommand(getDefaultCommand());
 //     }
-
-// }
+}
