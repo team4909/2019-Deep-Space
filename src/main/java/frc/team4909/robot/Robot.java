@@ -41,20 +41,26 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto choices", m_chooser);
     driverGamepad = new BionicF310(0, 0, 0.6);
     drivetrain = new BionicDrive(
+      new CANSparkMax(
+              1,
+              MotorType.kBrushless
+      ),
+      new CANSparkMax(
+              2,
+              MotorType.kBrushless    
+      ),
+      driverGamepad, BionicF310.LY,
+      driverGamepad, BionicF310.RX);
+  }
+  
+    /*drivetrain = new BionicDrive(
                 new CANSparkMax(
-                        1,
-                        MotorType.kBrushed
+                  2, MotorType.kBrushed
                 ),
                 new CANSparkMax(
-                        2,
-                        MotorType.kBrushed
-                ),
-                driverGamepad, BionicF310.LY, -1.0, 0.10,
-                driverGamepad, BionicF310.RX, -0.6, 0.10 //rotationMult: -.75
+                  2, MotorType.kBrushed  
+                )
     );
-                
-    
-    
     //CANSparkMax m_Left = new CANSparkMax(1, MotorType.kBrushed);
     //CANSparkMax m_Right = new CANSparkMax(2, MotorType.kBrushed);
     //frontLeftSensor = new DigitalInput(0);
@@ -65,8 +71,8 @@ public class Robot extends TimedRobot {
     //myDrive = new DifferentialDrive(m_Left, m_Right);
 
      
-
-  }
+*/
+  
   /**
    * This function is called every robot packet, no matter the mode. Use
    * this for items like diagnostics that you want ran during disabled,
@@ -117,9 +123,7 @@ public class Robot extends TimedRobot {
     if(frontLeftOnLine && !frontRightOnLine){
       myDrive.tankDrive(velocity - 0.1, velocity);
     }
-    
 
-    
     Lidar.write(0x04, 0x00);
     Lidar.read(0x01, count,byte1);
     */

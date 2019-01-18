@@ -26,8 +26,8 @@ public class BionicDrive extends Subsystem {
      * @param rotationInputAxis    Rotation Input Axis
      */
 
-    public BionicDrive(CANSparkMax leftSpark, CANSparkMax rightSpark, BionicF310 speedInputGamepad, BionicAxis speedInputAxis, double speedMultiplier, double speedDeltaLimit,
-    BionicF310 rotationInputGamepad, BionicAxis rotationInputAxis, double rotationMultiplier, double rotationDeltaLimit) {
+    public BionicDrive(CANSparkMax leftSpark, CANSparkMax rightSpark, BionicF310 speedInputGamepad, BionicAxis speedInputAxis,
+    BionicF310 rotationInputGamepad, BionicAxis rotationInputAxis) {
         super();
         
         this.leftSpark =  leftSpark;
@@ -35,8 +35,7 @@ public class BionicDrive extends Subsystem {
 
 
         this.defaultCommand = new DriveOI(this, leftSpark, rightSpark,
-        speedInputGamepad, speedInputAxis, speedMultiplier,
-        rotationInputGamepad, rotationInputAxis, rotationMultiplier);
+        speedInputGamepad, speedInputAxis);
     }
 
     protected void initDefaultCommand() {
