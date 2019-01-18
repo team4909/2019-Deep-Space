@@ -18,7 +18,7 @@ public class DriveOI extends Command {
     private final BionicAxis speedInputAxis;
     //private final BionicAxis rotationInputAxis;
     public double speedMultiplier, rotationMultiplier;
-    //private double limitedSpeed, limitedRotation;
+    private double limitedSpeed, limitedRotation;
 
     public DriveOI(BionicDrive bionicDrive, CANSparkMax leftSRX, CANSparkMax rightSRX,
                    BionicF310 speedInputGamepad, BionicAxis speedInputAxis) {
@@ -34,8 +34,8 @@ public class DriveOI extends Command {
     @Override
     protected void execute() {
         // Calculate Change Limited Speed Value
-        /*double maxVelocity = 1,
-                
+        double maxVelocity = 1;
+           /*     
                 speedDelta = speed - limitedSpeed,
                 speedDeltaLimit = 0.1;
 
@@ -54,10 +54,10 @@ public class DriveOI extends Command {
 
 */
         // Calculate Left/Right Percentage Output Values
-        double speed = speedInputGamepad.getSensitiveAxis(speedInputAxis) * 100;
+        double speed = speedInputGamepad.getSensitiveAxis(speedInputAxis) * speedMultiplier;
         double leftMotorOutput, rightMotorOutput;
 
-  /*      if (limitedSpeed > 0.0) {
+        if (limitedSpeed > 0.0) {
             if (limitedRotation > 0.0) {
                 leftMotorOutput = limitedSpeed - limitedRotation;
                 rightMotorOutput = Math.max(limitedSpeed, limitedRotation);
@@ -74,18 +74,18 @@ public class DriveOI extends Command {
                 rightMotorOutput = -Math.max(-limitedSpeed, -limitedRotation);
             }
         }
-*/
+
         // Limit Left/Right Percentage Output to -100% to 100%
-        leftMotorOutput = limit(speed);
-        rightMotorOutput = limit(speed);
+        leftMotorOutput = limit(leftMotorOutput);
+        rightMotorOutput = limit(rightMotorOutput) ;
 
         // Set Output to Motors
 //        if(!bionicDrive.encoderOverride) {
-//            leftSRX.set(ControlMode.Velocity, maxVelocity * leftMotorOutput);
-//            rightSRX.set(ControlMode.Velocity, maxVelocity * rightMotorOutput);
+          leftSRX.set(maxVelocity * leftMotorOutput);
+          rightSRX.set(maxVelocity * rightMotorOutput);
 //        } else {
-            leftSRX.set(leftMotorOutput);
-            rightSRX.set(rightMotorOutput);
+            //leftSRX.set(leftMotorOutput);
+            //rightSRX.set(rightMotorOutput);
 //        }
     }
 
