@@ -29,6 +29,7 @@ public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
+  
   DigitalInput frontLeftSensor, frontMiddleSensor, frontRightSensor;
 
   public static DriveTrainSubsystem drivetrainsub;
@@ -36,15 +37,10 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   public static BionicF310 driverGamepad;
   
-  public static DifferentialDrive myDrive;
-
-  int velocity;
-  I2C Lidar;
-  byte[] byte1;
-  int count;
   
+  // public static DifferentialDrive myDrive;   
+  // int velocity;
   
-  //LIDAR lidar1;
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -54,28 +50,15 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
-    driverGamepad = new BionicF310(0, 0, 0.6);
-    drivetrainsub = new DriveTrainSubsystem();
+    driverGamepad = new BionicF310(0, 0, 0.6);  //Creates new drivergamepad object
+    drivetrainsub = new DriveTrainSubsystem(); //Creates new drivetrain subsytem object
 
   }
   
-    /*drivetrain = new BionicDrive(
-                new CANSparkMax(
-                  2, MotorType.kBrushed
-                ),
-                new CANSparkMax(
-                  2, MotorType.kBrushed  
-                )
-    );
-    */
-    //CANSparkMax m_Left = new CANSparkMax(1, MotorType.kBrushed);
-    //CANSparkMax m_Right = new CANSparkMax(2, MotorType.kBrushed);
+    
     //frontLeftSensor = new DigitalInput(0);
     //frontMiddleSensor = new DigitalInput(1);
     //frontRightSensor = new DigitalInput(3);
-
-
-    //myDrive = new DifferentialDrive(m_Left, m_Right);
 
      
 
@@ -120,7 +103,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    drivetrainsub.arcadeDrive(Robot.driverGamepad.getX(), Robot.driverGamepad.getY());
+    drivetrainsub.arcadeDrive(Robot.driverGamepad.getX(), Robot.driverGamepad.getY()); //Calls arcade function using gamepad input
 
     /*myDrive.tankDrive(velocity, velocity);
     boolean frontLeftOnLine = frontLeft.get();
@@ -132,23 +115,8 @@ public class Robot extends TimedRobot {
     if(frontLeftOnLine && !frontRightOnLine){
       myDrive.tankDrive(velocity - 0.1, velocity);
     }
-
-    Lidar.write(0x04, 0x00);
-    Lidar.read(0x01, count,byte1);
-    */
-
-    
-    // Lidar.read(0x8f, 2, byte1);
-    // long lidarDist = byte1[0]*256 + byte1[1]; //distance of each beam in centimeters.
-    // System.out.println(lidarDist);
-    // Lidar.read(0x96, 2, byte1);
-    // long lidarDist = byte1[0]*256 + byte1[1]; //distance of each beam in centimeters.
-    // System.out.println(byte1[0] + "  " + byte1[1]);
-    //System.out.println(lidar1.getDistance());
-    
-    }
-
-
+*/
+  }
   @Override
   public void testPeriodic() {
 
