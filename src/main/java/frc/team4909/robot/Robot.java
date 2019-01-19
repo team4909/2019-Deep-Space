@@ -120,7 +120,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-  
+    drivetrainsub.arcadeDrive(Robot.driverGamepad.getX(), Robot.driverGamepad.getY());
 
     /*myDrive.tankDrive(velocity, velocity);
     boolean frontLeftOnLine = frontLeft.get();
