@@ -1,3 +1,5 @@
+/**Old code, uses communication directly with Rio */
+
 package frc.team4909.robot;
 
 import java.util.TimerTask;
