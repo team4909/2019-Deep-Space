@@ -10,9 +10,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.team4909.robot.operator.controllers.BionicF310;
-import frc.team4909.robot.subsystems.drivetrain.BionicDrive;
 import frc.team4909.robot.operator.generic.BionicAxis;
+import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -29,14 +31,18 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   DigitalInput frontLeftSensor, frontMiddleSensor, frontRightSensor;
 
+  public static DriveTrainSubsystem drivetrainsub;
+
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
-  private static BionicF310 driverGamepad;
-  public static BionicDrive drivetrain;
+  public static BionicF310 driverGamepad;
+  
   public static DifferentialDrive myDrive;
+
   int velocity;
   I2C Lidar;
   byte[] byte1;
   int count;
+  
   
   //LIDAR lidar1;
   /**
@@ -48,19 +54,9 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
-    
     driverGamepad = new BionicF310(0, 0, 0.6);
-    drivetrain = new BionicDrive(
-      new CANSparkMax(
-              1,
-              MotorType.kBrushless
-      ),
-      new CANSparkMax(
-              2,
-              MotorType.kBrushless    
-      ),
-      driverGamepad, BionicF310.LY, -1.0, 0.10,
-      driverGamepad, BionicF310.RX, -0.6, 0.10);
+    drivetrainsub = new DriveTrainSubsystem();
+
   }
   
     /*drivetrain = new BionicDrive(
@@ -94,7 +90,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    double value;
+    
   }
 
   /**
@@ -124,8 +120,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    drivetrain.rotationDeltaLimit = 2;
-    drivetrain.speedDeltaLimit = 0.04;
+  
 
     /*myDrive.tankDrive(velocity, velocity);
     boolean frontLeftOnLine = frontLeft.get();
