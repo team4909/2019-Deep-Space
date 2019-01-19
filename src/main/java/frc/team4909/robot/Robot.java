@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.buttons.Button;
 import frc.team4909.robot.operator.controllers.BionicF310;
 import frc.team4909.robot.subsystems.drivetrain.BionicDrive;
+import frc.team4909.robot.operator.generic.BionicAxis;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -37,7 +38,7 @@ public class Robot extends TimedRobot {
   byte[] byte1;
   int count;
   
-  LIDAR lidar1;
+  //LIDAR lidar1;
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -47,6 +48,7 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+    
     driverGamepad = new BionicF310(0, 0, 0.6);
     drivetrain = new BionicDrive(
       new CANSparkMax(
@@ -57,8 +59,8 @@ public class Robot extends TimedRobot {
               2,
               MotorType.kBrushless    
       ),
-      driverGamepad, BionicF310.LY,
-      driverGamepad, BionicF310.RX);
+      driverGamepad, BionicF310.LY, -1.0, 0.10,
+      driverGamepad, BionicF310.RX, -0.6, 0.10);
   }
   
     /*drivetrain = new BionicDrive(
@@ -69,6 +71,7 @@ public class Robot extends TimedRobot {
                   2, MotorType.kBrushed  
                 )
     );
+    */
     //CANSparkMax m_Left = new CANSparkMax(1, MotorType.kBrushed);
     //CANSparkMax m_Right = new CANSparkMax(2, MotorType.kBrushed);
     //frontLeftSensor = new DigitalInput(0);
@@ -79,7 +82,7 @@ public class Robot extends TimedRobot {
     //myDrive = new DifferentialDrive(m_Left, m_Right);
 
      
-*/
+
   
   /**
    * This function is called every robot packet, no matter the mode. Use
@@ -121,6 +124,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    drivetrain.rotationDeltaLimit = 2;
+    drivetrain.speedDeltaLimit = 0.04;
+
     /*myDrive.tankDrive(velocity, velocity);
     boolean frontLeftOnLine = frontLeft.get();
     boolean frontMiddleOnLine = frontMiddle.get();
@@ -143,7 +149,7 @@ public class Robot extends TimedRobot {
     // Lidar.read(0x96, 2, byte1);
     // long lidarDist = byte1[0]*256 + byte1[1]; //distance of each beam in centimeters.
     // System.out.println(byte1[0] + "  " + byte1[1]);
-  System.out.println(lidar1.getDistance());
+  //System.out.println(lidar1.getDistance());
     
     }
 

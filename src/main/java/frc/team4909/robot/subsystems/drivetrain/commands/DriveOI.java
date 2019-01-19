@@ -14,30 +14,35 @@ public class DriveOI extends Command {
     private final CANSparkMax leftSRX, rightSRX;
 
     private final BionicF310 speedInputGamepad; 
-    //private final BionicF310 rotationInputGamepad;
+    private final BionicF310 rotationInputGamepad;
     private final BionicAxis speedInputAxis;
-    //private final BionicAxis rotationInputAxis;
+    private final BionicAxis rotationInputAxis;
     public double speedMultiplier, rotationMultiplier;
     private double limitedSpeed, limitedRotation;
 
     public DriveOI(BionicDrive bionicDrive, CANSparkMax leftSRX, CANSparkMax rightSRX,
-                   BionicF310 speedInputGamepad, BionicAxis speedInputAxis) {
+                   BionicF310 speedInputGamepad, BionicAxis speedInputAxis, double speedMultiplier, BionicF310 rotationInputGamepad, BionicAxis rotationInputAxis, double rotationMultiplier) {
         requires(bionicDrive);
         this.bionicDrive = bionicDrive;
-
+        
         this.leftSRX = leftSRX;
         this.rightSRX = rightSRX;
 
         this.speedInputGamepad = speedInputGamepad;
         this.speedInputAxis = speedInputAxis;
+        this.speedMultiplier = speedMultiplier;
+
+        this.rotationInputGamepad = rotationInputGamepad;
+        this.rotationInputAxis = rotationInputAxis;
+        this.rotationMultiplier = rotationMultiplier;
                    }
     @Override
     protected void execute() {
         // Calculate Change Limited Speed Value
-        double maxVelocity = 1;
-           /*     
-                speedDelta = speed - limitedSpeed,
-                speedDeltaLimit = 0.1;
+        double maxVelocity = 1;   
+        double speed = speedInputGamepad.getSensitiveAxis(speedInputAxis) * speedMultiplier;
+        double speedDelta = speed - limitedSpeed;
+        double speedDeltaLimit = 0.1;
 
         if (Math.abs(speedDelta) > speedDeltaLimit)
             speedDelta = Math.copySign(speedDeltaLimit, speedDelta);
@@ -52,9 +57,9 @@ public class DriveOI extends Command {
             rotationDelta = Math.copySign(rotationDeltaLimit, rotationDelta);
         limitedRotation += rotationDelta;
 
-*/
+
         // Calculate Left/Right Percentage Output Values
-        double speed = speedInputGamepad.getSensitiveAxis(speedInputAxis) * speedMultiplier;
+        speed = speedInputGamepad.getSensitiveAxis(speedInputAxis) * speedMultiplier;
         double leftMotorOutput, rightMotorOutput;
 
         if (limitedSpeed > 0.0) {
@@ -77,7 +82,7 @@ public class DriveOI extends Command {
 
         // Limit Left/Right Percentage Output to -100% to 100%
         leftMotorOutput = limit(leftMotorOutput);
-        rightMotorOutput = limit(rightMotorOutput) ;
+        rightMotorOutput = limit(rightMotorOutput);
 
         // Set Output to Motors
 //        if(!bionicDrive.encoderOverride) {
