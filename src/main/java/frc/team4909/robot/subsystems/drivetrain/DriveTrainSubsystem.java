@@ -10,8 +10,7 @@ import frc.team4909.robot.operator.controllers.BionicF310;
 
 public class DriveTrainSubsystem extends Subsystem{
     CANSparkMax frontLeftSparkMax, rearLeftSparkMax, frontRightSparkMax, rearRightSparkMax;
-    DifferentialDrive BionicDrive;
-    BionicF310 driverGamepad;
+    DifferentialDrive bionicDrive;
     double speedMultiplier = 1.0;
 
     public DriveTrainSubsystem(){
@@ -23,20 +22,21 @@ public class DriveTrainSubsystem extends Subsystem{
 
         frontRightSparkMax = new CANSparkMax(2
                             ,MotorType.kBrushed);
+
         rearRightSparkMax = new CANSparkMax(2
                             ,MotorType.kBrushed);
         
-        BionicDrive = new DifferentialDrive(frontLeftSparkMax, frontRightSparkMax);
+        bionicDrive = new DifferentialDrive(frontLeftSparkMax, frontRightSparkMax);
     }
 
     public void arcadeDrive(double x, double y){
         double xSpeed = x * speedMultiplier;
         double ySpeed = y * speedMultiplier;
-        BionicDrive.arcadeDrive(xSpeed, ySpeed);
+        bionicDrive.arcadeDrive(xSpeed, ySpeed);
     }
 
     protected void initDefaultCommand(){
-        
+
     }
 
 
