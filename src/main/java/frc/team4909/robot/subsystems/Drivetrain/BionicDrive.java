@@ -2,7 +2,7 @@ package frc.team4909.robot.subsystems.drivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.team4909.robot.subsystems.drivetrain.commands.DriveOI;
+import frc.team4909.robot.commands.DriveOI;
 import frc.team4909.robot.operator.controllers.BionicF310;
 import frc.team4909.robot.operator.generic.BionicAxis;
 import com.revrobotics.CANSparkMax;

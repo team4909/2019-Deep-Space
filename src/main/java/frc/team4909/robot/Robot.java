@@ -149,7 +149,7 @@ public class Robot extends TimedRobot {
     // Lidar.read(0x96, 2, byte1);
     // long lidarDist = byte1[0]*256 + byte1[1]; //distance of each beam in centimeters.
     // System.out.println(byte1[0] + "  " + byte1[1]);
-  //System.out.println(lidar1.getDistance());
+    //System.out.println(lidar1.getDistance());
     
     }
 
