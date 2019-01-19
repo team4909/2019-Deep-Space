@@ -1,11 +1,25 @@
 package frc.team4909.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.I2C.Port;
+import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import frc.team4909.robot.operator.controllers.BionicF310;
+import frc.team4909.robot.operator.generic.BionicAxis;
+import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
+
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 /**
- * The VM is configured to automatically run this class, and to call the
+ * The VM is configured to automatically run this class, and to call thex
  * functions corresponding to each mode, as described in the TimedRobot
  * documentation. If you change the name of this class or the package after
  * creating this project, you must also update the build.gradle file in the
@@ -15,8 +29,22 @@ public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
-  private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  DigitalInput frontLeftSensor, frontMiddleSensor, frontRightSensor;
 
+  public static DriveTrainSubsystem drivetrainsub;
+
+  private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  public static BionicF310 driverGamepad;
+  
+  public static DifferentialDrive myDrive;
+
+  int velocity;
+  I2C Lidar;
+  byte[] byte1;
+  int count;
+  
+  
+  //LIDAR lidar1;
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -26,8 +54,32 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
-  }
+    driverGamepad = new BionicF310(0, 0, 0.6);
+    drivetrainsub = new DriveTrainSubsystem();
 
+  }
+  
+    /*drivetrain = new BionicDrive(
+                new CANSparkMax(
+                  2, MotorType.kBrushed
+                ),
+                new CANSparkMax(
+                  2, MotorType.kBrushed  
+                )
+    );
+    */
+    //CANSparkMax m_Left = new CANSparkMax(1, MotorType.kBrushed);
+    //CANSparkMax m_Right = new CANSparkMax(2, MotorType.kBrushed);
+    //frontLeftSensor = new DigitalInput(0);
+    //frontMiddleSensor = new DigitalInput(1);
+    //frontRightSensor = new DigitalInput(3);
+
+
+    //myDrive = new DifferentialDrive(m_Left, m_Right);
+
+     
+
+  
   /**
    * This function is called every robot packet, no matter the mode. Use
    * this for items like diagnostics that you want ran during disabled,
@@ -38,6 +90,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    
   }
 
   /**
@@ -53,9 +106,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autoSelected = m_chooser.getSelected();
-    // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    System.out.println("Auto selected: " + m_autoSelected);
   }
 
   /**
@@ -63,27 +113,47 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    switch (m_autoSelected) {
-      case kCustomAuto:
-        // Put custom auto code here
-        break;
-      case kDefaultAuto:
-      default:
-        // Put default auto code here
-        break;
-    }
   }
+
   /**
    * This function is called periodically during operator control.
    */
   @Override
   public void teleopPeriodic() {
-  }
+    drivetrainsub.arcadeDrive(Robot.driverGamepad.getX(), Robot.driverGamepad.getY());
 
-  /**
-   * This function is called periodically during test mode.
-   */
+    /*myDrive.tankDrive(velocity, velocity);
+    boolean frontLeftOnLine = frontLeft.get();
+    boolean frontMiddleOnLine = frontMiddle.get();
+    boolean frontRightOnLine = frontRight.get();
+    if(!frontLeftOnLine && frontRightOnLine){
+      myDrive.tankDrive(velocity, velocity - 0.1);
+    }
+    if(frontLeftOnLine && !frontRightOnLine){
+      myDrive.tankDrive(velocity - 0.1, velocity);
+    }
+
+    Lidar.write(0x04, 0x00);
+    Lidar.read(0x01, count,byte1);
+    */
+
+    
+    // Lidar.read(0x8f, 2, byte1);
+    // long lidarDist = byte1[0]*256 + byte1[1]; //distance of each beam in centimeters.
+    // System.out.println(lidarDist);
+    // Lidar.read(0x96, 2, byte1);
+    // long lidarDist = byte1[0]*256 + byte1[1]; //distance of each beam in centimeters.
+    // System.out.println(byte1[0] + "  " + byte1[1]);
+    //System.out.println(lidar1.getDistance());
+    
+    }
+
+
   @Override
   public void testPeriodic() {
+
   }
+    /**
+   * This function is called periodically during test mode.
+   */
 }

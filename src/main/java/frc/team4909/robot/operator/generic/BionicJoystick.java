@@ -1,6 +1,6 @@
 package frc.team4909.robot.operator.generic;
 
-import frc.team4909.robot.interfaces.Commandable;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
@@ -45,20 +45,20 @@ public class BionicJoystick extends Joystick {
 
     }
 
-    public void povActive(BionicPOV povAngle, Commandable commandable) {
+    public void povActive(BionicPOV povAngle, InstantCommand command) {
         BionicJoystickPOVButton newPov = new BionicJoystickPOVButton(this, povAngle.getNumber());
 
-        newPov.whenActive(commandable);
+        newPov.whenActive(command);
     }
 
     /**
      * @param button      Button to Create Handler For
      * @param commandable Returns a Commandable that can be used by the operator and autonomous CommandGroups
      */
-    public void buttonPressed(BionicButton button, Commandable commandable) {
+    public void buttonPressed(BionicButton button, InstantCommand command) {
         JoystickButton newButton = new JoystickButton(this, button.getNumber());
 
-        newButton.whenPressed(commandable);
+        newButton.whenPressed(command);
     }
 
     /**
@@ -66,20 +66,20 @@ public class BionicJoystick extends Joystick {
      * @param threshold   Minimum Threshold to Trigger Command
      * @param commandable Returns a Commandable that can be used by the operator and autonomous CommandGroups
      */
-    public void buttonPressed(BionicAxis axis, double threshold, Commandable commandable) {
+    public void buttonPressed(BionicAxis axis, double threshold, InstantCommand command) {
         BionicJoystickAxisButton newButton = new BionicJoystickAxisButton(this, axis.getNumber(), threshold);
 
-        newButton.whenActive(commandable);
+        newButton.whenActive(command);
     }
 
     /**
      * @param button      Button to Create Handler For
      * @param commandable Returns a Commandable that can be used by the operator and autonomous CommandGroups
      */
-    public void buttonHeld(BionicButton button, Commandable commandable) {
+    public void buttonHeld(BionicButton button, InstantCommand command) {
         JoystickButton newButton = new JoystickButton(this, button.getNumber());
 
-        newButton.whileHeld(commandable);
+        newButton.whileHeld(command);
     }
 
     /**
@@ -87,20 +87,20 @@ public class BionicJoystick extends Joystick {
      * @param threshold   Minimum Threshold to Trigger Command
      * @param commandable Returns a Commandable that can be used by the operator and autonomous CommandGroups
      */
-    public void buttonHeld(BionicAxis axis, double threshold, Commandable commandable) {
+    public void buttonHeld(BionicAxis axis, double threshold, InstantCommand command) {
         BionicJoystickAxisButton newButton = new BionicJoystickAxisButton(this, axis.getNumber(), threshold);
 
-        newButton.whileActive(commandable);
+        newButton.whileActive(command);
     }
 
     /**
      * @param button      Button to Create Handler For
      * @param commandable Returns a Commandable that can be used by the operator and autonomous CommandGroups
      */
-    public void buttonToggled(BionicButton button, Commandable commandable) {
+    public void buttonToggled(BionicButton button, InstantCommand command) {
         JoystickButton newButton = new JoystickButton(this, button.getNumber());
 
-        newButton.toggleWhenPressed(commandable);
+        newButton.toggleWhenPressed(command);
     }
 
     /**
@@ -108,10 +108,10 @@ public class BionicJoystick extends Joystick {
      * @param threshold   Minimum Threshold to Trigger Command
      * @param commandable Returns a Commandable that can be used by the operator and autonomous CommandGroups
      */
-    public void buttonToggled(BionicAxis axis, double threshold, Commandable commandable) {
+    public void buttonToggled(BionicAxis axis, double threshold, InstantCommand command) {
         BionicJoystickAxisButton newButton = new BionicJoystickAxisButton(this, axis.getNumber(), threshold);
 
-        newButton.toggleWhenActive(commandable);
+        newButton.toggleWhenActive(command);
     }
 
     private class BionicJoystickAxisButton extends Trigger {
