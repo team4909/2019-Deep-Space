@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.team4909.robot.operator.controllers.BionicF310;
 import frc.team4909.robot.operator.generic.BionicAxis;
+import frc.team4909.robot.sensors.PhotoElectricSensors;
 import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
 
 import com.revrobotics.CANSparkMax;
@@ -29,14 +30,12 @@ public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
-  DigitalInput frontLeftSensor, frontMiddleSensor, frontRightSensor;
-
+  public static PhotoElectricSensors photoElectricSensors;
   public static DriveTrainSubsystem drivetrainsub;
-
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   public static BionicF310 driverGamepad;
   
-  public static DifferentialDrive myDrive;
+  public static DifferentialDrive myDrive; //For Frankenstein
 
   int velocity;
   I2C Lidar;
@@ -56,8 +55,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto choices", m_chooser);
     driverGamepad = new BionicF310(0, 0, 0.6);
     drivetrainsub = new DriveTrainSubsystem();
+    photoElectricSensors = new PhotoElectricSensors();
 
-  }
+  
   
     /*drivetrain = new BionicDrive(
                 new CANSparkMax(
@@ -70,10 +70,9 @@ public class Robot extends TimedRobot {
     */
     //CANSparkMax m_Left = new CANSparkMax(1, MotorType.kBrushed);
     //CANSparkMax m_Right = new CANSparkMax(2, MotorType.kBrushed);
-    //frontLeftSensor = new DigitalInput(0);
-    //frontMiddleSensor = new DigitalInput(1);
-    //frontRightSensor = new DigitalInput(3);
 
+
+  }
 
     //myDrive = new DifferentialDrive(m_Left, m_Right);
 
@@ -122,20 +121,13 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     drivetrainsub.arcadeDrive(Robot.driverGamepad.getX(), Robot.driverGamepad.getY());
 
-    /*myDrive.tankDrive(velocity, velocity);
-    boolean frontLeftOnLine = frontLeft.get();
-    boolean frontMiddleOnLine = frontMiddle.get();
-    boolean frontRightOnLine = frontRight.get();
-    if(!frontLeftOnLine && frontRightOnLine){
-      myDrive.tankDrive(velocity, velocity - 0.1);
-    }
-    if(frontLeftOnLine && !frontRightOnLine){
-      myDrive.tankDrive(velocity - 0.1, velocity);
-    }
+    photoElectricSensors.onLine();
+    
+    
 
-    Lidar.write(0x04, 0x00);
-    Lidar.read(0x01, count,byte1);
-    */
+    //Lidar.write(0x04, 0x00);
+    //Lidar.read(0x01, count,byte1);
+    
 
     
     // Lidar.read(0x8f, 2, byte1);
