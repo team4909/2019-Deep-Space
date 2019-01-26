@@ -30,7 +30,7 @@ public class DriveTrainSubsystem extends Subsystem{
         rearRightSparkMax = new CANSparkMax(4
                             ,MotorType.kBrushless);
 
-        SpeedControllerGroup m_right = new SpeedControllerGroup(frontLeftSparkMax, rearLeftSparkMax);
+        SpeedControllerGroup m_right = new SpeedControllerGroup(frontRightSparkMax, rearRightSparkMax);
         
         bionicDrive = new DifferentialDrive(m_left, m_right);
     }
