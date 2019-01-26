@@ -46,7 +46,7 @@ public class IntakeSubsystem extends Subsystem{
     public void isOverLimit(PWMVictorSPX spx) 
     {
         if (currentOut() >195) {
-            spx.set(spx.get()%2);
+            spx.set(0.5);
         }   
     }
 
