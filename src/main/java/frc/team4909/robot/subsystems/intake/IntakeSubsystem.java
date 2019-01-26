@@ -3,6 +3,7 @@ package frc.team4909.robot.subsystems.intake;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.RobotController; 
 
 public class IntakeSubsystem extends Subsystem{
     DoubleSolenoid doubleSolenoid;
@@ -36,6 +37,18 @@ public class IntakeSubsystem extends Subsystem{
         leftSPX.set(speed);
         rightSPX.set(-(speed));
     }    
+
+    public double currentOut(PowerDistributionPanel pdp)
+    {
+        return pdp.getCurrent(0);
+    }
+
+    public void isOverLimit(PWMVictorSPX spx) 
+    {
+        if (currentOut() >195) {
+            spx.set(spx.get()%2);
+        }   
+    }
 
     @Override
     protected void initDefaultCommand() {
