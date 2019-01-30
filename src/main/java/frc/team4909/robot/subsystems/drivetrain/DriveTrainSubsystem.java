@@ -35,10 +35,10 @@ public class DriveTrainSubsystem extends Subsystem{
         bionicDrive = new DifferentialDrive(m_left, m_right);
     }
 
-    public void arcadeDrive(double y, double x){
+    public void TankDrive(double y, double x){
         double xSpeed = x * speedMultiplier;
         double ySpeed = y * speedMultiplier;
-        bionicDrive.arcadeDrive(xSpeed, ySpeed);
+        bionicDrive.tankDrive(xSpeed, ySpeed);
     }
 
     protected void initDefaultCommand(){

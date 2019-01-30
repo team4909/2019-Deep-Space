@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.team4909.robot.operator.controllers.BionicF310;
 import frc.team4909.robot.operator.generic.BionicAxis;
 import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
+import frc.team4909.robot.OI;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -26,6 +27,9 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
  * project.
  */
 public class Robot extends TimedRobot {
+  public static OI oi;
+  public Joystick leftDriveJoystick;
+  public Joystick rightDriveJoystick;  
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
@@ -36,7 +40,6 @@ public class Robot extends TimedRobot {
 
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   public static BionicF310 driverGamepad;
-  
   
   // public static DifferentialDrive myDrive;   
   // int velocity;
@@ -52,6 +55,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto choices", m_chooser);
     driverGamepad = new BionicF310(0, 0, 0.6);  //Creates new drivergamepad object
     drivetrainsub = new DriveTrainSubsystem(); //Creates new drivetrain subsytem object
+
 
   }
   
@@ -103,7 +107,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    drivetrainsub.arcadeDrive(Robot.driverGamepad.getX(), Robot.driverGamepad.getY()); //Calls arcade function using gamepad input
+      
+    drivetrainsub.TankDrive(driverGamepad.getRawAxis(1), driverGamepad.getRawAxis(5)); //Calls arcade function using gamepad input
 
     /*myDrive.tankDrive(velocity, velocity);
     boolean frontLeftOnLine = frontLeft.get();
@@ -112,7 +117,7 @@ public class Robot extends TimedRobot {
     if(!frontLeftOnLine && frontRightOnLine){
       myDrive.tankDrive(velocity, velocity - 0.1);
     }
-    if(frontLeftOnLine && !frontRightOnLine){
+    if(frontLeftOnLine && !frontRightOnLine)
       myDrive.tankDrive(velocity - 0.1, velocity);
     }
 */
