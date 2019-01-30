@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.team4909.robot.operator.controllers.BionicF310;
 import frc.team4909.robot.operator.generic.BionicAxis;
+import frc.team4909.robot.sensors.PhotoElectricSensors;
 import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
 import frc.team4909.robot.OI;
 
@@ -40,6 +41,7 @@ public class Robot extends TimedRobot {
 
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   public static BionicF310 driverGamepad;
+  public static PhotoElectricSensors photoelectricsensors;
   
   // public static DifferentialDrive myDrive;   
   // int velocity;
@@ -55,6 +57,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto choices", m_chooser);
     driverGamepad = new BionicF310(0, 0, 0.6);  //Creates new drivergamepad object
     drivetrainsub = new DriveTrainSubsystem(); //Creates new drivetrain subsytem object
+    photoelectricsensors = new PhotoElectricSensors();
 
 
   }
@@ -107,9 +110,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-      
-    drivetrainsub.TankDrive(driverGamepad.getRawAxis(1), driverGamepad.getRawAxis(5)); //Calls arcade function using gamepad input
 
+    drivetrainsub.tankDrive(-Robot.driverGamepad.getThresholdAxis(BionicF310.LY), -Robot.driverGamepad.getThresholdAxis(BionicF310.RY)); //Calls tank function using left Y and right Y
+    //photoelectricsensors.lineFollow();
+
+ 
     /*myDrive.tankDrive(velocity, velocity);
     boolean frontLeftOnLine = frontLeft.get();
     boolean frontMiddleOnLine = frontMiddle.get();
