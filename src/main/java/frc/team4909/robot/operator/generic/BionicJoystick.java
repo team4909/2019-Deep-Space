@@ -71,7 +71,7 @@ public class BionicJoystick extends Joystick {
 
         newButton.whenActive(command);
     }
-
+    
     /**
      * @param button      Button to Create Handler For
      * @param commandable Returns a Commandable that can be used by the operator and autonomous CommandGroups
