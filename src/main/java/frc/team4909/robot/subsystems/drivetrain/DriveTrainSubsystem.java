@@ -35,12 +35,6 @@ public class DriveTrainSubsystem extends Subsystem{
         bionicDrive = new DifferentialDrive(m_left, m_right);
     }
 
-    public void arcadeDrive(double x, double y){
-
-        double xSpeed = x * speedMultiplier;
-        double ySpeed = y * speedMultiplier;
-        bionicDrive.arcadeDrive(xSpeed, ySpeed);
-    }
 
     public void tankDrive(double y, double x){
         double xSpeed = x * speedMultiplier;
