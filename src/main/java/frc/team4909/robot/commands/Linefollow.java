@@ -28,12 +28,6 @@ public class Linefollow extends Command {
         SmartDashboard.putBoolean("LEFT line following", !LeftSensor.get());
         SmartDashboard.putBoolean("RIGHT line following", !RightSensor.get());
 
-       
-
-    }
-
-    public void lineFollow() { // This is to keep the robot moving straight on the line
-
         boolean left = MiddleLeftSensor.get();
         boolean right = MiddleRightSensor.get();
 
@@ -49,7 +43,9 @@ public class Linefollow extends Command {
             System.out.println(left + "  " + right + " ON LINE");
             Robot.drivetrainsub.tankDrive(velocity, velocity);
         }
+
     }
+
 
     /*
      * isFinished - Our isFinished method always returns false meaning this command
