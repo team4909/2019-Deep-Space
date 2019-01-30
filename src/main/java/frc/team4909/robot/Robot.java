@@ -54,6 +54,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto choices", m_chooser);
     driverGamepad = new BionicF310(0, 0, 0.6);
     drivetrainsub = new DriveTrainSubsystem();
+    driverGamepad.buttonPressed(BionicF310.A, new Linefollow());
+
 
     // CANSparkMax frontLeftSparkMax, rearLeftSparkMax, frontRightSparkMax,
     // rearRightSparkMax;
@@ -119,10 +121,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-
-    drivetrainsub.arcadeDrive(Robot.driverGamepad.getX(), Robot.driverGamepad.getY());
-
-    driverGamepad.buttonPressed(BionicF310.A, new Linefollow() );
 
   }
 

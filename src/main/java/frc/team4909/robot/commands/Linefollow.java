@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team4909.robot.Robot;
 import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
 
-public class Linefollow extends InstantCommand {
+public class Linefollow extends Command {
 
     public static DigitalInput LeftSensor, MiddleLeftSensor, MiddleRightSensor, RightSensor;
 
