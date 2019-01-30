@@ -111,7 +111,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-    drivetrainsub.tankDrive(Robot.driverGamepad.getRawAxis(1), Robot.driverGamepad.getRawAxis(5)); //Calls tank function using gamepad input
+    drivetrainsub.tankDrive(-Robot.driverGamepad.getThresholdAxis(BionicF310.LY), -Robot.driverGamepad.getThresholdAxis(BionicF310.RY)); //Calls tank function using left Y and right Y
     //photoelectricsensors.lineFollow();
 
  

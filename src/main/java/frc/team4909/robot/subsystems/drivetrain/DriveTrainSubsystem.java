@@ -16,18 +16,18 @@ public class DriveTrainSubsystem extends Subsystem{
     SpeedControllerGroup m_left, m_right;
 
     public DriveTrainSubsystem(){
-        frontLeftSparkMax = new CANSparkMax(3
+        frontLeftSparkMax = new CANSparkMax(1
                             ,MotorType.kBrushless);
 
-        rearLeftSparkMax = new CANSparkMax(4
+        rearLeftSparkMax = new CANSparkMax(2
                             ,MotorType.kBrushless);
 
         SpeedControllerGroup m_left = new SpeedControllerGroup(frontLeftSparkMax, rearLeftSparkMax);                    
         
-        frontRightSparkMax = new CANSparkMax(1
+        frontRightSparkMax = new CANSparkMax(3
                             ,MotorType.kBrushless);
 
-        rearRightSparkMax = new CANSparkMax(2
+        rearRightSparkMax = new CANSparkMax(4
                             ,MotorType.kBrushless);
 
         SpeedControllerGroup m_right = new SpeedControllerGroup(frontRightSparkMax, rearRightSparkMax);
@@ -36,10 +36,8 @@ public class DriveTrainSubsystem extends Subsystem{
     }
 
 
-    public void tankDrive(double y, double x){
-        double xSpeed = x * speedMultiplier;
-        double ySpeed = y * speedMultiplier;
-        bionicDrive.tankDrive(xSpeed, ySpeed);
+    public void tankDrive(double leftSpeed, double rightSpeed){
+        bionicDrive.tankDrive(leftSpeed, rightSpeed);
     }
 
     protected void initDefaultCommand(){

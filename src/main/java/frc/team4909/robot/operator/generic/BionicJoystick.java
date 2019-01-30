@@ -30,7 +30,7 @@ public class BionicJoystick extends Joystick {
      * @param axis Axis to Measure
      * @return Returns axis value [-1,1]
      */
-    private double getThresholdAxis(BionicAxis axis) {
+    public double getThresholdAxis(BionicAxis axis) {
         if (Math.abs(this.getRawAxis(axis.getNumber())) > Math.abs(deadzone))
             return this.getRawAxis(axis.getNumber());
         else
