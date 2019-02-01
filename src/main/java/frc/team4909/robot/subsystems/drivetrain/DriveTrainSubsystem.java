@@ -13,7 +13,7 @@ import frc.team4909.robot.operator.controllers.BionicF310;
 public class DriveTrainSubsystem extends Subsystem{
     CANSparkMax frontLeftSparkMax, rearLeftSparkMax, frontRightSparkMax, rearRightSparkMax;
     DifferentialDrive bionicDrive;
-    double speedMultiplier = 1.0;
+    double speedMultiplier = 0.5;
     SpeedControllerGroup m_left, m_right;
 
     public DriveTrainSubsystem(){
