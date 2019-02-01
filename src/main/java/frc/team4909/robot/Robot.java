@@ -16,6 +16,7 @@ import frc.team4909.robot.operator.controllers.BionicF310;
 import frc.team4909.robot.operator.generic.BionicAxis;
 import frc.team4909.robot.operator.generic.BionicJoystick;
 import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
+import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -38,6 +39,9 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   public static DriveTrainSubsystem drivetrainsub;
+
+  public static IntakeSubsystem intakeSubsystem;
+
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   public static BionicF310 driverGamepad;
   private static Linefollow linefollow;
@@ -54,29 +58,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto choices", m_chooser);
     driverGamepad = new BionicF310(0, 0, 0.6);
     drivetrainsub = new DriveTrainSubsystem();
+    intakeSubsystem = new IntakeSubsystem();
     driverGamepad.buttonPressed(BionicF310.A, new Linefollow());
-
-
-    // CANSparkMax frontLeftSparkMax, rearLeftSparkMax, frontRightSparkMax,
-    // rearRightSparkMax;
-    // frontLeftSparkMax = new CANSparkMax(1
-    // ,MotorType.kBrushless);
-
-    // rearLeftSparkMax = new CANSparkMax(2
-    // ,MotorType.kBrushless);
-
-    // SpeedControllerGroup m_left = new SpeedControllerGroup(frontLeftSparkMax,
-    // rearLeftSparkMax);
-
-    // frontRightSparkMax = new CANSparkMax(3
-    // ,MotorType.kBrushless);
-
-    // rearRightSparkMax = new CANSparkMax(4
-    // ,MotorType.kBrushless);
-
-    // SpeedControllerGroup m_right = new SpeedControllerGroup(frontRightSparkMax,
-    // rearRightSparkMax);
-
   }
 
   /**
@@ -122,7 +105,9 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-  }
+    drivetrainsub.tankDrive(Robot.driverGamepad.getRawAxis(1), Robot.driverGamepad.getRawAxis(5));
+    }
+
 
   // Lidar.write(0x04, 0x00);
   // Lidar.read(0x01, count,byte1);

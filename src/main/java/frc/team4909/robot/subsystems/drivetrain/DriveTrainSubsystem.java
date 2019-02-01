@@ -37,6 +37,7 @@ public class DriveTrainSubsystem extends Subsystem{
     }
 
 
+
     public void tankDrive(double leftSpeed, double rightSpeed){
         bionicDrive.tankDrive(leftSpeed, rightSpeed);
     }
@@ -44,10 +45,4 @@ public class DriveTrainSubsystem extends Subsystem{
     protected void initDefaultCommand(){
         setDefaultCommand(new Drive());
     }
-
-
-
-
-
-
 }
