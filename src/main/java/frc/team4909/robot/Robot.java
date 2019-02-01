@@ -12,14 +12,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import frc.team4909.robot.commands.Linefollow;
 import frc.team4909.robot.operator.controllers.BionicF310;
 import frc.team4909.robot.operator.generic.BionicAxis;
-import frc.team4909.robot.sensors.PhotoElectricSensors;
+import frc.team4909.robot.operator.generic.BionicJoystick;
 import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
-import frc.team4909.robot.OI;
+import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+
+//import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
+
+// import com.revrobotics.CANSparkMax;
+// import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 /**
  * The VM is configured to automatically run this class, and to call thex
@@ -29,73 +36,77 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static OI oi;
-  public Joystick leftDriveJoystick;
-  public Joystick rightDriveJoystick;  
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
-  
-  DigitalInput frontLeftSensor, frontMiddleSensor, frontRightSensor;
-
   public static DriveTrainSubsystem drivetrainsub;
+
+  public static IntakeSubsystem intakeSubsystem;
 
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   public static BionicF310 driverGamepad;
+
   public static PhotoElectricSensors photoelectricsensors;
   public static AnalogInput analogInput;
   
   // public static DifferentialDrive myDrive;   
   // int velocity;
   
+  private static Linefollow linefollow;
+
+  // LIDAR lidar1;
   /**
-   * This function is run when the robot is first started up and should be
-   * used for any initialization code.
+   * This function is run when the robot is first started up and should be used
+   * for any initialization code.
    */
   @Override
   public void robotInit() {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+
     driverGamepad = new BionicF310(0, 0, 0.6);  //Creates new drivergamepad object
     drivetrainsub = new DriveTrainSubsystem(); //Creates new drivetrain subsytem object
     photoelectricsensors = new PhotoElectricSensors();
     
     analogInput = new AnalogInput(0);
 
+
+    driverGamepad = new BionicF310(0, 0, 0.6);
+    drivetrainsub = new DriveTrainSubsystem();
+    intakeSubsystem = new IntakeSubsystem();
+    driverGamepad.buttonPressed(BionicF310.A, new Linefollow());
+
   }
-  
-    
-    //frontLeftSensor = new DigitalInput(0);
-    //frontMiddleSensor = new DigitalInput(1);
-    //frontRightSensor = new DigitalInput(3);
 
-     
-
-  
   /**
-   * This function is called every robot packet, no matter the mode. Use
-   * this for items like diagnostics that you want ran during disabled,
-   * autonomous, teleoperated and test.
+   * This function is called every robot packet, no matter the mode. Use this for
+   * items like diagnostics that you want ran during disabled, autonomous,
+   * teleoperated and test.
    *
-   * <p>This runs after the mode specific periodic functions, but before
-   * LiveWindow and SmartDashboard integrated updating.
+   * <p>
+   * This runs after the mode specific periodic functions, but before LiveWindow
+   * and SmartDashboard integrated updating.
    */
   @Override
   public void robotPeriodic() {
+
     System.out.println(analogInput.getVoltage());
+
+
   }
 
   /**
    * This autonomous (along with the chooser code above) shows how to select
-   * between different autonomous modes using the dashboard. The sendable
-   * chooser code works with the Java SmartDashboard. If you prefer the
-   * LabVIEW Dashboard, remove all of the chooser code and uncomment the
-   * getString line to get the auto name from the text box below the Gyro
+   * between different autonomous modes using the dashboard. The sendable chooser
+   * code works with the Java SmartDashboard. If you prefer the LabVIEW Dashboard,
+   * remove all of the chooser code and uncomment the getString line to get the
+   * auto name from the text box below the Gyro
    *
-   * <p>You can add additional auto modes by adding additional comparisons to
-   * the switch structure below with additional strings. If using the
-   * SendableChooser make sure to add them to the chooser code above as well.
+   * <p>
+   * You can add additional auto modes by adding additional comparisons to the
+   * switch structure below with additional strings. If using the SendableChooser
+   * make sure to add them to the chooser code above as well.
    */
   @Override
   public void autonomousInit() {
@@ -114,27 +125,28 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-    drivetrainsub.tankDrive(-Robot.driverGamepad.getThresholdAxis(BionicF310.LY), -Robot.driverGamepad.getThresholdAxis(BionicF310.RY)); //Calls tank function using left Y and right Y
-    //photoelectricsensors.lineFollow();
+    drivetrainsub.tankDrive(Robot.driverGamepad.getRawAxis(1), Robot.driverGamepad.getRawAxis(5));
+    }
 
- 
-    /*myDrive.tankDrive(velocity, velocity);
-    boolean frontLeftOnLine = frontLeft.get();
-    boolean frontMiddleOnLine = frontMiddle.get();
-    boolean frontRightOnLine = frontRight.get();
-    if(!frontLeftOnLine && frontRightOnLine){
-      myDrive.tankDrive(velocity, velocity - 0.1);
-    }
-    if(frontLeftOnLine && !frontRightOnLine)
-      myDrive.tankDrive(velocity - 0.1, velocity);
-    }
-*/
-  }
+
+  // Lidar.write(0x04, 0x00);
+  // Lidar.read(0x01, count,byte1);
+
+  // Lidar.read(0x8f, 2, byte1);
+  // long lidarDist = byte1[0]*256 + byte1[1]; //distance of each beam in
+  // centimeters.
+  // System.out.println(lidarDist);
+  // Lidar.read(0x96, 2, byte1);
+  // long lidarDist = byte1[0]*256 + byte1[1]; //distance of each beam in
+  // centimeters.
+  // System.out.println(byte1[0] + " " + byte1[1]);
+  // System.out.println(lidar1.getDistance());
+
   @Override
   public void testPeriodic() {
 
   }
-    /**
+  /**
    * This function is called periodically during test mode.
    */
 }
