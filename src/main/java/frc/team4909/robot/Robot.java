@@ -46,7 +46,7 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   public static BionicF310 driverGamepad;
 
-  public static PhotoElectricSensors photoelectricsensors;
+  //public static PhotoElectricSensors photoelectricsensors;
   public static AnalogInput analogInput;
   
   // public static DifferentialDrive myDrive;   
@@ -67,7 +67,7 @@ public class Robot extends TimedRobot {
 
     driverGamepad = new BionicF310(0, 0, 0.6);  //Creates new drivergamepad object
     drivetrainsub = new DriveTrainSubsystem(); //Creates new drivetrain subsytem object
-    photoelectricsensors = new PhotoElectricSensors();
+    //photoelectricsensors = new PhotoElectricSensors();
     
     analogInput = new AnalogInput(0);
 
