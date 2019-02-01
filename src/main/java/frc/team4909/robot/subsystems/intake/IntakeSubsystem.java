@@ -2,6 +2,8 @@ package frc.team4909.robot.subsystems.intake;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class IntakeSubsystem extends Subsystem{
@@ -22,7 +24,7 @@ public class IntakeSubsystem extends Subsystem{
         doubleSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
 
-    public void setSpeed(double speed){
+    public void setCargoIntakeSpeed(double speed){
         victorSPX.set((speed));
     }
 
