@@ -1,41 +1,30 @@
 package frc.team4909.robot.subsystems.intake;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.PWMVictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class IntakeSubsystem extends Subsystem{
     DoubleSolenoid doubleSolenoid;
-    PWMVictorSPX leftSPX, rightSPX;
+    WPI_VictorSPX victorSPX;
 
     public IntakeSubsystem(){
         doubleSolenoid = new DoubleSolenoid(1,2);
-        leftSPX = new PWMVictorSPX(1);
-        rightSPX = new PWMVictorSPX(2);
+        victorSPX = new WPI_VictorSPX(1);
 
     }
 
-    public void pneumaticForward(){
+    public void hatchPanelIntakeOpen(){
         doubleSolenoid.set(DoubleSolenoid.Value.kForward);
     }
 
-    public void pneumaticReverse(){
+    public void hatchPanelIntakeClose(){
         doubleSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
 
-    public void pneumaticOff(){
-        doubleSolenoid.set(DoubleSolenoid.Value.kOff);
-    }    
-
-    public void motorIn(double speed){
-        leftSPX.set(-(speed));
-        rightSPX.set(speed);
+    public void setSpeed(double speed){
+        victorSPX.set((speed));
     }
-
-    public void motorOut(double speed){
-        leftSPX.set(speed);
-        rightSPX.set(-(speed));
-    }    
 
     @Override
     protected void initDefaultCommand() {
