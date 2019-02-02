@@ -49,11 +49,6 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   public static BionicF310 driverGamepad;
 
-  //public static PhotoElectricSensors photoelectricsensors;
-  
-  // public static DifferentialDrive myDrive;   
-  // int velocity;
-  
   private static Linefollow linefollow;
 
   // LIDAR lidar1;
@@ -66,11 +61,8 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
-
-    driverGamepad = new BionicF310(0, 0, 0.6);  //Creates new drivergamepad object
-    drivetrainsub = new DriveTrainSubsystem(); //Creates new drivetrain subsytem object
-    //photoelectricsensors = new PhotoElectricSensors();
-
+    driverGamepad = new BionicF310(0, 0, 0.6);
+    drivetrainsub = new DriveTrainSubsystem();
     intakeSubsystem = new IntakeSubsystem();
   }
 
@@ -85,6 +77,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    
   }
 
   /**
