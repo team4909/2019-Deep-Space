@@ -72,8 +72,6 @@ public class Robot extends TimedRobot {
     analogInput = new AnalogInput(0);
 
 
-    driverGamepad = new BionicF310(0, 0, 0.6);
-    drivetrainsub = new DriveTrainSubsystem();
     intakeSubsystem = new IntakeSubsystem();
     driverGamepad.buttonPressed(BionicF310.A, new Linefollow());
 
