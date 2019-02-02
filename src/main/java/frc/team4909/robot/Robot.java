@@ -48,7 +48,6 @@ public class Robot extends TimedRobot {
 
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   public static BionicF310 driverGamepad;
-
   private static Linefollow linefollow;
 
   // LIDAR lidar1;
@@ -77,7 +76,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    
+  
   }
 
   /**
