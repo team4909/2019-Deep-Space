@@ -1,0 +1,24 @@
+{
+  "targets": [
+    {
+      "type": "source",
+      "outputPath": "compiled/source"
+    },
+    {
+      "type": "build",
+      "outputPath": "compiled/build"
+    }
+  ],
+  "defaultTarget": "source",
+  "locales": ["en"],
+  "environment": { 
+      "qx.icontheme": "Tango"
+  },     
+  "applications": [
+    {
+      "class": "operator.Application",
+      "theme": "operator.theme.Theme",
+      "name": "operator"
+    }
+  ]
+}

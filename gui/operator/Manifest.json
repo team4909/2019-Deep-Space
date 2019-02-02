@@ -1,0 +1,36 @@
+{
+  "info" : 
+  {
+    "name" : "operator",
+
+    "summary" : "Operator station for 2019 Deep Space Challenge, FRC Team 4909",
+    "description" : "",
+    
+    "homepage" : "",
+
+    "license" : "MIT license",
+    "authors" : [
+  {
+    "name": "",
+    "email": ""
+  }
+],
+
+    "version" : "1.0.0"
+  },
+  
+  "provides" : 
+  {
+    "namespace"   : "operator",
+    "encoding"    : "utf-8",
+    "class"       : "source/class",
+    "resource"    : "source/resource",
+    "translation" : "source/translation",
+    "type"        : "application"
+  },
+  
+  "requires": {
+    "qooxdoo-sdk"     : "^6.0.0-alpha-20181226-a3c2b0b",
+    "qooxdoo-compiler": "^0.2.54"
+  }
+}
