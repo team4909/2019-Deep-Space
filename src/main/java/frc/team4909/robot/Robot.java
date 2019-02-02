@@ -12,6 +12,10 @@ import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.team4909.robot.commands.Linefollow;
+import frc.team4909.robot.commands.CargoIntakeIn;
+import frc.team4909.robot.commands.CargoIntakeOut;
+import frc.team4909.robot.commands.HatchPanelIntakeOpen;
+import frc.team4909.robot.commands.HatchPanelIntakeClose;
 import frc.team4909.robot.operator.controllers.BionicF310;
 import frc.team4909.robot.operator.generic.BionicAxis;
 import frc.team4909.robot.operator.generic.BionicJoystick;
@@ -68,8 +72,6 @@ public class Robot extends TimedRobot {
     //photoelectricsensors = new PhotoElectricSensors();
 
     intakeSubsystem = new IntakeSubsystem();
-    driverGamepad.buttonPressed(BionicF310.A, new Linefollow());
-
   }
 
   /**
@@ -113,7 +115,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-
+    
+    driverGamepad.buttonPressed(BionicF310.A, new Linefollow());
+    driverGamepad.buttonPressed(BionicF310.X, new CargoIntakeIn());
+    driverGamepad.buttonPressed(BionicF310.Y, new CargoIntakeOut());
+    driverGamepad.buttonPressed(BionicF310.LB, new HatchPanelIntakeOpen());
+    driverGamepad.buttonPressed(BionicF310.RB, new HatchPanelIntakeClose());
     drivetrainsub.tankDrive(Robot.driverGamepad.getRawAxis(1), Robot.driverGamepad.getRawAxis(5));
     }
 
