@@ -1,5 +1,5 @@
 package frc.team4909.robot.sensors;
-import frc.team4909.robot.Robot;
+/*import frc.team4909.robot.Robot;
 import edu.wpi.first.wpilibj.DigitalInput;
 public class PhotoElectricSensors{  //not sure if extends or implements
     public static DigitalInput frontLeftSensor, 
@@ -24,13 +24,13 @@ public class PhotoElectricSensors{  //not sure if extends or implements
     boolean frontMiddleRightNotOnLine = frontMiddleRightSensor.get();
     boolean frontRightNotOnLine= frontRightSensor.get();
     
-    Robot.drivetrainsub.arcadeDrive(velocity,velocity);
+    //Robot.drivetrainsub.arcadeDrive(velocity,velocity);
     //Case 1: Coming in from right side at an angle
     if(!frontLeftNotOnLine) {
       frontLeftTripped = true;
     }
       if(frontMiddleRightNotOnLine) {
-        frontRightMiddleTripped = true;
+        //frontRightMiddleTripped = true;
       }
       if(!frontMiddleRightTripped) {
         Robot.drivetrainsub.arcadeDrive(velocity,velocity);
@@ -52,5 +52,5 @@ public class PhotoElectricSensors{  //not sure if extends or implements
     
 }
 
-
+*/
 

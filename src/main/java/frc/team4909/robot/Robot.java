@@ -13,8 +13,9 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.team4909.robot.operator.controllers.BionicF310;
 import frc.team4909.robot.operator.generic.BionicAxis;
-import frc.team4909.robot.sensors.PhotoElectricSensors;
+//import frc.team4909.robot.sensors.PhotoElectricSensors;
 import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
+import frc.team4909.robot.sensors.Stream;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -30,12 +31,14 @@ public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
-  public static PhotoElectricSensors photoElectricSensors;
+  //public static PhotoElectricSensors photoElectricSensors;
   public static DriveTrainSubsystem drivetrainsub;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   public static BionicF310 driverGamepad;
   
   public static DifferentialDrive myDrive; //For Frankenstein
+
+  Stream stream = new Stream();
 
   int velocity;
   I2C Lidar;
@@ -55,9 +58,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto choices", m_chooser);
     driverGamepad = new BionicF310(0, 0, 0.6);
     drivetrainsub = new DriveTrainSubsystem();
-    photoElectricSensors = new PhotoElectricSensors();
-
-  
+    //photoElectricSensors = new PhotoElectricSensors();
+    
+    stream.streamCamera();
   
     /*drivetrain = new BionicDrive(
                 new CANSparkMax(
@@ -119,9 +122,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    drivetrainsub.arcadeDrive(Robot.driverGamepad.getX(), Robot.driverGamepad.getY());
+    //drivetrainsub.arcadeDrive(Robot.driverGamepad.getX(), Robot.driverGamepad.getY());
 
-    photoElectricSensors.onLine();
+    //photoElectricSensors.onLine();
     
     
 

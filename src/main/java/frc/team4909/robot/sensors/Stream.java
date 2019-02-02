@@ -24,12 +24,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
  */
-public class Stream extends Subsystem {
+public class Stream {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
   //Max Bandwidth: 4mbps, 1.6 for each camera.
-  public Stream(){};
+  public Stream(){
+    
+  };
   public void streamCamera(){
     //Camera1 = CameraServer.getInstance().startAutomaticCapture(0);
     //Camera2 = CameraServer.getInstance().startAutomaticCapture(1);
@@ -37,29 +39,28 @@ public class Stream extends Subsystem {
     //Camera2.setResolution(320, 240);
 
     new Thread(() -> {
-                UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
-                camera.setResolution(320, 240);
-                //camera.setConnectionStrategy();
-                //UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture(1);
-                //camera2.setResolution(320, 240);
+      UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture(0);
+      UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture(1);
+      camera1.setResolution(320, 240);
+      camera2.setResolution(320, 240);
+      camera1.setFPS(7);
+      camera2.setFPS(7);
+      CvSink cvSink = CameraServer.getInstance().getVideo();
+      CvSource outputStream = CameraServer.getInstance().putVideo("Blur", 640, 480);
+      
+      Mat source1 = new Mat();
+      Mat source2 = new Mat();
+      Mat output1 = new Mat();
+      Mat output2 = new Mat();
 
-                CvSink cvSink1 = CameraServer.getInstance().getVideo();
-                CvSource outputStream = CameraServer.getInstance().putVideo("Stream", 320, 240);
-                
-                Mat source = new Mat();
-                Mat output = new Mat();
-                
-                while(!Thread.interrupted()) {
-                    cvSink1.grabFrame(source);
-                    Imgproc.cvtColor(source, output, Imgproc.COLOR_BGR2GRAY);
-                    outputStream.putFrame(output);
-                }
-            }).start();
-  }
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-
+      while(!Thread.interrupted()) {
+          cvSink.grabFrame(source1);
+          Imgproc.cvtColor(source1, output1, Imgproc.COLOR_BGR2HSV);
+          outputStream.putFrame(output1);
+          cvSink.grabFrame(source2);
+          Imgproc.cvtColor(source2, output2, Imgproc.COLOR_BGR2HSV);
+          outputStream.putFrame(output2);
+      }
+  }).start();
   }
 }

@@ -14,7 +14,7 @@ public class DriveTrainSubsystem extends Subsystem{
     double speedMultiplier = 1.0;
 
     public DriveTrainSubsystem(){             //Initializes motor controllers
-        frontLeftSparkMax = new CANSparkMax(1
+       /* frontLeftSparkMax = new CANSparkMax(1
                             ,MotorType.kBrushed);
 
         rearLeftSparkMax = new CANSparkMax(1
@@ -27,14 +27,15 @@ public class DriveTrainSubsystem extends Subsystem{
                             ,MotorType.kBrushed);
         
         bionicDrive = new DifferentialDrive(frontLeftSparkMax, frontRightSparkMax); //Creates new drive object
+    */
     }
 
-    public void arcadeDrive(double x, double y){
+    /*public void arcadeDrive(double x, double y){
         double xSpeed = x * speedMultiplier;
         double ySpeed = y * speedMultiplier;
         bionicDrive.arcadeDrive(xSpeed, ySpeed);
     }
-
+*/
     protected void initDefaultCommand(){
 
     }
