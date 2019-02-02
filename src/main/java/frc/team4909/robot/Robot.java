@@ -1,6 +1,7 @@
 package frc.team4909.robot;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalSource;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.I2C.Port;
@@ -49,6 +50,8 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   public static BionicF310 driverGamepad;
   private static Linefollow linefollow;
+  protected DigitalSource m_aSource;
+  public LidarLitePWM lidar;
 
   // LIDAR lidar1;
   /**
@@ -63,6 +66,7 @@ public class Robot extends TimedRobot {
     driverGamepad = new BionicF310(0, 0, 0.6);
     drivetrainsub = new DriveTrainSubsystem();
     intakeSubsystem = new IntakeSubsystem();
+    lidar = new LidarLitePWM(0);
   }
 
   /**
@@ -107,13 +111,13 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    
-    driverGamepad.buttonPressed(BionicF310.A, new Linefollow());
-    driverGamepad.buttonPressed(BionicF310.X, new CargoIntakeIn());
-    driverGamepad.buttonPressed(BionicF310.Y, new CargoIntakeOut());
-    driverGamepad.buttonPressed(BionicF310.LB, new HatchPanelIntakeOpen());
-    driverGamepad.buttonPressed(BionicF310.RB, new HatchPanelIntakeClose());
-    drivetrainsub.tankDrive(Robot.driverGamepad.getRawAxis(1), Robot.driverGamepad.getRawAxis(5));
+    System.out.println(lidar.getDistance());
+    // driverGamepad.buttonPressed(BionicF310.A, new Linefollow());
+    // driverGamepad.buttonPressed(BionicF310.X, new CargoIntakeIn());
+    // driverGamepad.buttonPressed(BionicF310.Y, new CargoIntakeOut());
+    // driverGamepad.buttonPressed(BionicF310.LB, new HatchPanelIntakeOpen());
+    // driverGamepad.buttonPressed(BionicF310.RB, new HatchPanelIntakeClose());
+    // drivetrainsub.tankDrive(Robot.driverGamepad.getRawAxis(1), Robot.driverGamepad.getRawAxis(5));
     }
 
 
