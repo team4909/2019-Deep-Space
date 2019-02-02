@@ -112,7 +112,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     // System.out.println(lidar.getPeriod());
-    lidar.getDistance();
+    System.out.println(lidar.getDistance());    
     // driverGamepad.buttonPressed(BionicF310.A, new Linefollow());
     // driverGamepad.buttonPressed(BionicF310.X, new CargoIntakeIn());
     // driverGamepad.buttonPressed(BionicF310.Y, new CargoIntakeOut());
