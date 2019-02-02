@@ -15,6 +15,7 @@ import frc.team4909.robot.commands.Linefollow;
 import frc.team4909.robot.commands.CargoIntakeIn;
 import frc.team4909.robot.commands.CargoIntakeOut;
 import frc.team4909.robot.commands.HatchPanelIntakeOpen;
+import frc.team4909.robot.commands.InvertDriveDirection;
 import frc.team4909.robot.commands.HatchPanelIntakeClose;
 import frc.team4909.robot.operator.controllers.BionicF310;
 import frc.team4909.robot.operator.generic.BionicAxis;
@@ -57,12 +58,20 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
-    m_chooser.addOption("My Auto", kCustomAuto);
-    SmartDashboard.putData("Auto choices", m_chooser);
+    // Operator Input
     driverGamepad = new BionicF310(0, 0, 0.6);
+    
+    // Subsystem
     drivetrainsub = new DriveTrainSubsystem();
     intakeSubsystem = new IntakeSubsystem();
+
+    // Buttons
+    driverGamepad.buttonPressed(BionicF310.A, new Linefollow());
+    driverGamepad.buttonPressed(BionicF310.X, new CargoIntakeIn());
+    driverGamepad.buttonPressed(BionicF310.Y, new CargoIntakeOut());
+    driverGamepad.buttonPressed(BionicF310.LB, new HatchPanelIntakeOpen());
+    driverGamepad.buttonPressed(BionicF310.RB, new HatchPanelIntakeClose());
+    driverGamepad.buttonPressed(BionicF310.Start, new InvertDriveDirection());
   }
 
   /**
@@ -108,12 +117,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     
-    driverGamepad.buttonPressed(BionicF310.A, new Linefollow());
-    driverGamepad.buttonPressed(BionicF310.X, new CargoIntakeIn());
-    driverGamepad.buttonPressed(BionicF310.Y, new CargoIntakeOut());
-    driverGamepad.buttonPressed(BionicF310.LB, new HatchPanelIntakeOpen());
-    driverGamepad.buttonPressed(BionicF310.RB, new HatchPanelIntakeClose());
-    drivetrainsub.tankDrive(Robot.driverGamepad.getRawAxis(1), Robot.driverGamepad.getRawAxis(5));
+    
     }
 
 
