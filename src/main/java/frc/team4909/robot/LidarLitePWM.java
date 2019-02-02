@@ -9,7 +9,7 @@ public class LidarLitePWM {
  * We've found this is a reasonably constant value for readings in the 25 cm to 600 cm range.
  * You can also use the offset to zero out the distance between the sensor and edge of the robot.
  */
-private static final int CALIBRATION_OFFSET = -18;
+private static final int CALIBRATION_OFFSET = 0;
 
 private Counter counter;
 private int printedWarningCount = 5;
@@ -37,6 +37,8 @@ public double getDistance() {
 	/* If we haven't seen the first rising to falling pulse, then we have no measurement.
 	 * This happens when there is no LIDAR-Lite plugged in, btw.
 	 */
+	System.out.println(counter.getDistance());
+
 	if (counter.get() < 1) {
 		if (printedWarningCount-- > 0) {
 			System.out.println("LidarLitePWM: waiting for distance measurement");
