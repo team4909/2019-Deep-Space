@@ -1,6 +1,5 @@
 package frc.team4909.robot;
 
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -47,7 +46,6 @@ public class Robot extends TimedRobot {
   public static BionicF310 driverGamepad;
 
   //public static PhotoElectricSensors photoelectricsensors;
-  public static AnalogInput analogInput;
   
   // public static DifferentialDrive myDrive;   
   // int velocity;
@@ -68,9 +66,6 @@ public class Robot extends TimedRobot {
     driverGamepad = new BionicF310(0, 0, 0.6);  //Creates new drivergamepad object
     drivetrainsub = new DriveTrainSubsystem(); //Creates new drivetrain subsytem object
     //photoelectricsensors = new PhotoElectricSensors();
-    
-    analogInput = new AnalogInput(0);
-
 
     intakeSubsystem = new IntakeSubsystem();
     driverGamepad.buttonPressed(BionicF310.A, new Linefollow());
@@ -88,10 +83,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-
-    System.out.println(analogInput.getVoltage());
-
-
   }
 
   /**
