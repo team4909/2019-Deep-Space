@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.command.Scheduler;
-// import frc.team4909.robot.commands.Linefollow;
+import frc.team4909.robot.commands.Linefollow;
 // import frc.team4909.robot.commands.CargoIntakeIn;
 // import frc.team4909.robot.commands.CargoIntakeOut;
 // import frc.team4909.robot.commands.HatchPanelIntakeOpen;
@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.team4909.robot.operator.controllers.BionicF310;
 import frc.team4909.robot.operator.generic.BionicAxis;
 import frc.team4909.robot.operator.generic.BionicJoystick;
-// import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
+import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
 // import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
 
 import com.revrobotics.CANSparkMax;
@@ -43,17 +43,14 @@ public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
-  // public static DriveTrainSubsystem drivetrainsub;
-
+  public static DriveTrainSubsystem drivetrainsub;
   // public static IntakeSubsystem intakeSubsystem;
 
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   public static BionicF310 driverGamepad;
   // private static Linefollow linefollow;
-  protected DigitalSource m_aSource;
   public LidarLitePWM lidar;
 
-  // LIDAR lidar1;
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
@@ -64,7 +61,7 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
     driverGamepad = new BionicF310(0, 0, 0.6);
-    // drivetrainsub = new DriveTrainSubsystem();
+    drivetrainsub = new DriveTrainSubsystem();
     // intakeSubsystem = new IntakeSubsystem();
     lidar = new LidarLitePWM(0);
   }
@@ -111,29 +108,15 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    // System.out.println(lidar.getPeriod());
     System.out.println(lidar.getDistance());    
-    // driverGamepad.buttonPressed(BionicF310.A, new Linefollow());
+    
+    driverGamepad.buttonPressed(BionicF310.A, new Linefollow());
     // driverGamepad.buttonPressed(BionicF310.X, new CargoIntakeIn());
     // driverGamepad.buttonPressed(BionicF310.Y, new CargoIntakeOut());
     // driverGamepad.buttonPressed(BionicF310.LB, new HatchPanelIntakeOpen());
     // driverGamepad.buttonPressed(BionicF310.RB, new HatchPanelIntakeClose());
-    // drivetrainsub.tankDrive(Robot.driverGamepad.getRawAxis(1), Robot.driverGamepad.getRawAxis(5));
     }
 
-
-  // Lidar.write(0x04, 0x00);
-  // Lidar.read(0x01, count,byte1);
-
-  // Lidar.read(0x8f, 2, byte1);
-  // long lidarDist = byte1[0]*256 + byte1[1]; //distance of each beam in
-  // centimeters.
-  // System.out.println(lidarDist);
-  // Lidar.read(0x96, 2, byte1);
-  // long lidarDist = byte1[0]*256 + byte1[1]; //distance of each beam in
-  // centimeters.
-  // System.out.println(byte1[0] + " " + byte1[1]);
-  // System.out.println(lidar1.getDistance());
 
   @Override
   public void testPeriodic() {
