@@ -1,23 +1,15 @@
 package frc.team4909.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.team4909.robot.Robot;
-import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
+import frc.team4909.robot.subsystems.DriveTrainSubsystem;
 
-public class InvertDriveDirection extends Command{
-    private Drive drive;
+public class InvertDriveDirection extends InstantCommand {
     public InvertDriveDirection(){
-        requires(Robot.drivetrainsub);
-        drive = Robot.drivetrainsub.defaultCommand;
+        requires(Robot.drivetrainSubsystem);
     }
 
     protected void initialize() {
-        drive.speedMultiplier = -drive.speedMultiplier;
+        Robot.drivetrainSubsystem.invertDriveDirection();
     }
-    @Override
-    protected boolean isFinished() {
-        return false;
-    }
-
-
 }

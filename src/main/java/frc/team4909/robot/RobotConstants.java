@@ -1,6 +1,9 @@
 package frc.team4909.robot;
 
 public class RobotConstants {
+  /* Drivetrain */
+  public static final double speedMultiplier = 1.0;
+
   /* Intake */
   public static final double cargoIntakeInSpeed = 1.0;
   public static final double cargoIntakeOutSpeed = -1.0;
