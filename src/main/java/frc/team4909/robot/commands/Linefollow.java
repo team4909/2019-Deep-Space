@@ -2,10 +2,8 @@ package frc.team4909.robot.commands;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team4909.robot.Robot;
-import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
 
 public class Linefollow extends Command {
 
@@ -14,7 +12,7 @@ public class Linefollow extends Command {
     private double velocity = 0.5;
 
     public Linefollow() {
-        requires(Robot.drivetrainsub);
+        requires(Robot.drivetrainSubsystem);
     }
 
     protected void initialize() {
@@ -35,13 +33,13 @@ public class Linefollow extends Command {
 
         if (!left && right) { // back left is on line, back right is not on line
             System.out.println(left + "  " + right + " off line to RIGHT");
-            Robot.drivetrainsub.tankDrive(0.5, 0.2);
+            Robot.drivetrainSubsystem.tankDrive(0.5, 0.2);
         } else if (left && !right) { // back right is on line, back left is not on line
             System.out.println(left + "  " + right + " off line to LEFT");
-            Robot.drivetrainsub.tankDrive(0.2, 0.5);
+            Robot.drivetrainSubsystem.tankDrive(0.2, 0.5);
         } else {
             System.out.println(left + "  " + right + " ON LINE");
-            Robot.drivetrainsub.tankDrive(velocity, velocity);
+            Robot.drivetrainSubsystem.tankDrive(velocity, velocity);
         }
 
     }

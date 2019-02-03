@@ -1,31 +1,15 @@
 package frc.team4909.robot;
 
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.I2C.Port;
-import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.Spark;
-import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.team4909.robot.commands.Linefollow;
+import frc.team4909.robot.commands.CargoIntakeIn;
+import frc.team4909.robot.commands.CargoIntakeOut;
+import frc.team4909.robot.commands.HatchPanelIntakeOpen;
+import frc.team4909.robot.commands.HatchPanelIntakeClose;
 import frc.team4909.robot.operator.controllers.BionicF310;
-import frc.team4909.robot.operator.generic.BionicAxis;
-import frc.team4909.robot.operator.generic.BionicJoystick;
-import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
-import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
-
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
-
-//import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
-
-// import com.revrobotics.CANSparkMax;
-// import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import frc.team4909.robot.subsystems.DriveTrainSubsystem;
+import frc.team4909.robot.subsystems.IntakeSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call thex
@@ -35,53 +19,32 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
  * project.
  */
 public class Robot extends TimedRobot {
-  private static final String kDefaultAuto = "Default";
-  private static final String kCustomAuto = "My Auto";
-  private String m_autoSelected;
-  public static DriveTrainSubsystem drivetrainsub;
+  // Operator Input
+  public static BionicF310 driverGamepad;
 
+  // Subsystems
+  public static PowerDistributionPanel powerDistributionPanel;
+  public static DriveTrainSubsystem drivetrainSubsystem;
   public static IntakeSubsystem intakeSubsystem;
 
-  private final SendableChooser<String> m_chooser = new SendableChooser<>();
-  public static BionicF310 driverGamepad;
-  private static Linefollow linefollow;
-
-  // LIDAR lidar1;
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
    */
   @Override
   public void robotInit() {
-    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
-    m_chooser.addOption("My Auto", kCustomAuto);
-    SmartDashboard.putData("Auto choices", m_chooser);
-    driverGamepad = new BionicF310(0, 0, 0.6);
-    drivetrainsub = new DriveTrainSubsystem();
+    // Subsystems
+    powerDistributionPanel = new PowerDistributionPanel();
+    drivetrainSubsystem = new DriveTrainSubsystem();
     intakeSubsystem = new IntakeSubsystem();
+
+    // Operator Input
+    driverGamepad = new BionicF310(0, 0, 0.6);
     driverGamepad.buttonPressed(BionicF310.A, new Linefollow());
-
-
-    // CANSparkMax frontLeftSparkMax, rearLeftSparkMax, frontRightSparkMax,
-    // rearRightSparkMax;
-    // frontLeftSparkMax = new CANSparkMax(1
-    // ,MotorType.kBrushless);
-
-    // rearLeftSparkMax = new CANSparkMax(2
-    // ,MotorType.kBrushless);
-
-    // SpeedControllerGroup m_left = new SpeedControllerGroup(frontLeftSparkMax,
-    // rearLeftSparkMax);
-
-    // frontRightSparkMax = new CANSparkMax(3
-    // ,MotorType.kBrushless);
-
-    // rearRightSparkMax = new CANSparkMax(4
-    // ,MotorType.kBrushless);
-
-    // SpeedControllerGroup m_right = new SpeedControllerGroup(frontRightSparkMax,
-    // rearRightSparkMax);
-
+    driverGamepad.buttonPressed(BionicF310.X, new CargoIntakeIn());
+    driverGamepad.buttonPressed(BionicF310.Y, new CargoIntakeOut());
+    driverGamepad.buttonPressed(BionicF310.LB, new HatchPanelIntakeOpen());
+    driverGamepad.buttonPressed(BionicF310.RB, new HatchPanelIntakeClose());
   }
 
   /**
@@ -95,7 +58,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-
   }
 
   /**
@@ -126,55 +88,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-
-    drivetrainsub.tankDrive(Robot.driverGamepad.getRawAxis(1), Robot.driverGamepad.getRawAxis(5));
-
-    /*myDrive.tankDrive(velocity, velocity);
-    boolean frontLeftOnLine = frontLeft.get();
-    boolean frontMiddleOnLine = frontMiddle.get();
-    boolean frontRightOnLine = frontRight.get();
-    if(!frontLeftOnLine && frontRightOnLine){
-      myDrive.tankDrive(velocity, velocity - 0.1);
-    }
-    if(frontLeftOnLine && !frontRightOnLine){
-      myDrive.tankDrive(velocity - 0.1, velocity);
-    }
-
-    Lidar.write(0x04, 0x00);
-    Lidar.read(0x01, count,byte1);
-    */
-
-    
-    // Lidar.read(0x8f, 2, byte1);
-    // long lidarDist = byte1[0]*256 + byte1[1]; //distance of each beam in centimeters.
-    // System.out.println(lidarDist);
-    // Lidar.read(0x96, 2, byte1);
-    // long lidarDist = byte1[0]*256 + byte1[1]; //distance of each beam in centimeters.
-    // System.out.println(byte1[0] + "  " + byte1[1]);
-    //System.out.println(lidar1.getDistance());
-    
-    }
-
   }
 
-  // Lidar.write(0x04, 0x00);
-  // Lidar.read(0x01, count,byte1);
-
-  // Lidar.read(0x8f, 2, byte1);
-  // long lidarDist = byte1[0]*256 + byte1[1]; //distance of each beam in
-  // centimeters.
-  // System.out.println(lidarDist);
-  // Lidar.read(0x96, 2, byte1);
-  // long lidarDist = byte1[0]*256 + byte1[1]; //distance of each beam in
-  // centimeters.
-  // System.out.println(byte1[0] + " " + byte1[1]);
-  // System.out.println(lidar1.getDistance());
-
-  @Override
-  public void testPeriodic() {
-
-  }
   /**
    * This function is called periodically during test mode.
    */
+  @Override
+  public void testPeriodic() {
+  }
 }
