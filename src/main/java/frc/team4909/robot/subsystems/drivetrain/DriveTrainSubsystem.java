@@ -1,4 +1,4 @@
-package frc.team4909.robot.subsystems;
+package frc.team4909.robot.subsystems.drivetrain;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.team4909.robot.RobotMap;
 import frc.team4909.robot.RobotConstants;
-import frc.team4909.robot.commands.Drive;
+import frc.team4909.robot.subsystems.drivetrain.Drive;
 
 public class DriveTrainSubsystem extends Subsystem {
     CANSparkMax frontLeftSparkMax, rearLeftSparkMax, frontRightSparkMax, rearRightSparkMax;
