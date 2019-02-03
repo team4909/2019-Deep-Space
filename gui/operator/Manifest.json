@@ -31,6 +31,6 @@
   
   "requires": {
     "qooxdoo-sdk"     : "^6.0.0-alpha-20181226-a3c2b0b",
-    "qooxdoo-compiler": "^0.2.54"
+    "qooxdoo-compiler": "^0.2.55"
   }
 }

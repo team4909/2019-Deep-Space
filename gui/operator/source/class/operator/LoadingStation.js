@@ -20,12 +20,10 @@ qx.Class.define("operator.LoadingStation",
     // Add the buttons
     //
 
-    butHatch = new operator.Button("Cargo");
-    butHatch.setHeight(60);
+    butHatch = new operator.Button("Cargo", "loadStationCargo");
     this.add(butHatch, { left : 30, top : 170 });
     
-    butHatch = new operator.Button("Hatch");
-    butHatch.setHeight(60);
+    butHatch = new operator.Button("Hatch", "loadStationHatch");
     this.add(butHatch, { left : 30, top : 270 });
   }
 });
