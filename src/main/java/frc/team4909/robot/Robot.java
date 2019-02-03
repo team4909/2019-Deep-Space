@@ -2,14 +2,14 @@ package frc.team4909.robot;
 
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
-import frc.team4909.robot.commands.Linefollow;
-import frc.team4909.robot.commands.CargoIntakeIn;
-import frc.team4909.robot.commands.CargoIntakeOut;
-import frc.team4909.robot.commands.HatchPanelIntakeOpen;
-import frc.team4909.robot.commands.HatchPanelIntakeClose;
+import frc.team4909.robot.subsystems.drivetrain.Linefollow;
+import frc.team4909.robot.subsystems.intake.CargoIntakeIn;
+import frc.team4909.robot.subsystems.intake.CargoIntakeOut;
+import frc.team4909.robot.subsystems.intake.HatchPanelIntakeOpen;
+import frc.team4909.robot.subsystems.intake.HatchPanelIntakeClose;
 import frc.team4909.robot.operator.controllers.BionicF310;
-import frc.team4909.robot.subsystems.DriveTrainSubsystem;
-import frc.team4909.robot.subsystems.IntakeSubsystem;
+import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
+import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call thex

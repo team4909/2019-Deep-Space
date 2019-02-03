@@ -1,4 +1,4 @@
-package frc.team4909.robot.subsystems;
+package frc.team4909.robot.subsystems.intake;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotConstants;
 import frc.team4909.robot.RobotMap;
-import frc.team4909.robot.commands.HatchPanelIntakeClose;
+import frc.team4909.robot.subsystems.intake.HatchPanelIntakeClose;
 
 public class IntakeSubsystem extends Subsystem {
     DoubleSolenoid hatchPanelSolenoid;
