@@ -1,3 +1,5 @@
+***Directories***
+
 server -
   Example of what will go in robot code, to provide the HTTP server that the
   GUI communicates with to request that Commands or CommandGroups be executed.
