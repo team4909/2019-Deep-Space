@@ -7,8 +7,8 @@ import frc.team4909.robot.commands.CargoIntakeOut;
 import frc.team4909.robot.commands.HatchPanelIntakeOpen;
 import frc.team4909.robot.commands.HatchPanelIntakeClose;
 import frc.team4909.robot.operator.controllers.BionicF310;
-import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
-import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
+import frc.team4909.robot.subsystems.DriveTrainSubsystem;
+import frc.team4909.robot.subsystems.IntakeSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call thex

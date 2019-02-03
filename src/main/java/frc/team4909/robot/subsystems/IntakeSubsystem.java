@@ -1,4 +1,4 @@
-package frc.team4909.robot.subsystems.intake;
+package frc.team4909.robot.subsystems;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
