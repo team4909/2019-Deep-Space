@@ -1,0 +1,14 @@
+{
+  "name": "operator",
+  "version": "1.0.0",
+  "description": "Operator station for 2019 Deep Space Challenge, FRC Team 4909",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "qxcompiler": "^0.2.55"
+  }
+}
