@@ -4,6 +4,7 @@ public class RobotConstants {
   /* Intake */
   public static final double cargoIntakeInSpeed = 1.0;
   public static final double cargoIntakeOutSpeed = -1.0;
+  public static final double cargoIntakeCurrentLimit = 20;
 
   /* Sensor Threshold derived by testing the minimum voltage 
    * readouts when the ball is placed LEFT, RIGHT, and CENTER.
