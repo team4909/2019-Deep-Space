@@ -51,6 +51,7 @@ public class IntakeSubsystem extends Subsystem {
             // Revert to Closed by Default, Will Simplify While 
             // Held/Toggle Open Commands in Future
             addParallel(new HatchPanelIntakeClose());
+            addParallel(new CargoIntakeHold());
         }});
     }
 }
