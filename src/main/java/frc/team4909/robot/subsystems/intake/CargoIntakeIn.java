@@ -1,4 +1,4 @@
-package frc.team4909.robot.commands;
+package frc.team4909.robot.subsystems.intake;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.team4909.robot.Robot;
