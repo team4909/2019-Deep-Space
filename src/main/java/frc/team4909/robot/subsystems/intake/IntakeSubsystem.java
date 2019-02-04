@@ -18,7 +18,7 @@ public class IntakeSubsystem extends Subsystem {
 
     public IntakeSubsystem(){
         hatchPanelSolenoid = new DoubleSolenoid(RobotMap.intakeForwardChannel, RobotMap.intakeReverseChannel);
-        cargoIntakeMotor = new WPI_VictorSPX(RobotMap.intakeMotor);
+        cargoIntakeMotor = new WPI_VictorSPX(RobotMap.intakeMotorCAN);
 
         leftIRSensor = new AnalogInput(RobotMap.leftIRSensor);
         rightIRSensor = new AnalogInput(RobotMap.rightIRSensor);
@@ -36,6 +36,10 @@ public class IntakeSubsystem extends Subsystem {
         cargoIntakeMotor.set(speed);
     }
 
+    public double getCargoIntakeCurrent(){
+        return Robot.powerDistributionPanel.getCurrent(RobotMap.intakeMotorPDP);
+    }
+
     public boolean hasCargo(){
         // When either IR Sensor Voltage Reading is Higher than the predetermined threshold.
         return leftIRSensor.getVoltage() > RobotConstants.irSensorThreshold || rightIRSensor.getVoltage() > RobotConstants.irSensorThreshold;
@@ -49,6 +53,7 @@ public class IntakeSubsystem extends Subsystem {
             // Revert to Closed by Default, Will Simplify While 
             // Held/Toggle Open Commands in Future
             addParallel(new HatchPanelIntakeClose());
+            addParallel(new CargoIntakeHold());
         }});
     }
 }

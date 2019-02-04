@@ -1,5 +1,6 @@
 package frc.team4909.robot;
 
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.team4909.robot.subsystems.drivetrain.Linefollow;
@@ -18,6 +19,7 @@ public class Robot extends TimedRobot {
   public static BionicF310 driverGamepad;
 
   // Subsystems
+  public static PowerDistributionPanel powerDistributionPanel;
   public static DriveTrainSubsystem drivetrainSubsystem;
   public static IntakeSubsystem intakeSubsystem;
 
@@ -28,6 +30,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     // Subsystems
+    powerDistributionPanel = new PowerDistributionPanel();
     drivetrainSubsystem = new DriveTrainSubsystem();
     intakeSubsystem = new IntakeSubsystem();
 
