@@ -7,12 +7,15 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.team4909.robot.RobotMap;
+import frc.team4909.robot.RobotConstants;
 import frc.team4909.robot.subsystems.drivetrain.Drive;
 
 public class DriveTrainSubsystem extends Subsystem {
     CANSparkMax frontLeftSparkMax, rearLeftSparkMax, frontRightSparkMax, rearRightSparkMax;
     SpeedControllerGroup m_left, m_right;
     DifferentialDrive bionicDrive;
+    double speedMultiplier = RobotConstants.speedMultiplier;
+    boolean inverted = false;
 
     public DriveTrainSubsystem(){
         frontLeftSparkMax = new CANSparkMax(RobotMap.driveFrontLeftSparkMaxCAN, MotorType.kBrushless);
@@ -27,7 +30,22 @@ public class DriveTrainSubsystem extends Subsystem {
     }
 
     public void tankDrive(double leftSpeed, double rightSpeed){
-        bionicDrive.tankDrive(leftSpeed, rightSpeed);
+        double leftSpeedOutput = leftSpeed;
+        double rightSpeedOutput = rightSpeed;
+
+        if(inverted){
+            leftSpeedOutput = -rightSpeed;
+            rightSpeedOutput = -leftSpeed;
+        }
+
+        leftSpeedOutput = leftSpeedOutput * speedMultiplier;
+        rightSpeedOutput = rightSpeedOutput * speedMultiplier;
+
+        bionicDrive.tankDrive(leftSpeedOutput, rightSpeedOutput);
+    }
+
+    public void invertDriveDirection(){
+        inverted = !inverted;
     }
 
     protected void initDefaultCommand(){

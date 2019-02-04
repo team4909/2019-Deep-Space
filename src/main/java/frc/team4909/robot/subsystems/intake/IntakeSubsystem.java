@@ -48,6 +48,8 @@ public class IntakeSubsystem extends Subsystem {
     @Override
     protected void initDefaultCommand() {
         setDefaultCommand(new CommandGroup() {{
+            requires(Robot.intakeSubsystem);
+            
             // Revert to Closed by Default, Will Simplify While 
             // Held/Toggle Open Commands in Future
             addParallel(new HatchPanelIntakeClose());

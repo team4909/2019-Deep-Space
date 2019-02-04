@@ -2,6 +2,7 @@ package frc.team4909.robot;
 
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.team4909.robot.subsystems.drivetrain.Linefollow;
 import frc.team4909.robot.subsystems.intake.CargoIntakeIn;
 import frc.team4909.robot.subsystems.intake.CargoIntakeOut;
@@ -9,15 +10,10 @@ import frc.team4909.robot.subsystems.intake.HatchPanelIntakeOpen;
 import frc.team4909.robot.subsystems.intake.HatchPanelIntakeClose;
 import frc.team4909.robot.operator.controllers.BionicF310;
 import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
+import frc.team4909.robot.subsystems.drivetrain.InvertDriveDirection;
 import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
 
-/**
- * The VM is configured to automatically run this class, and to call thex
- * functions corresponding to each mode, as described in the TimedRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the build.gradle file in the
- * project.
- */
+
 public class Robot extends TimedRobot {
   // Operator Input
   public static BionicF310 driverGamepad;
@@ -39,12 +35,16 @@ public class Robot extends TimedRobot {
     intakeSubsystem = new IntakeSubsystem();
 
     // Operator Input
-    driverGamepad = new BionicF310(0, 0, 0.6);
+    driverGamepad = new BionicF310(RobotConstants.driverGamepadPort, //Port
+                                   RobotConstants.driverGamepadDeadzone, //Deadzone
+                                   RobotConstants.driverGamepadSensitivity //Gamepad sensitivity
+                                   );
     driverGamepad.buttonPressed(BionicF310.A, new Linefollow());
     driverGamepad.buttonPressed(BionicF310.X, new CargoIntakeIn());
     driverGamepad.buttonPressed(BionicF310.Y, new CargoIntakeOut());
     driverGamepad.buttonPressed(BionicF310.LB, new HatchPanelIntakeOpen());
     driverGamepad.buttonPressed(BionicF310.RB, new HatchPanelIntakeClose());
+    driverGamepad.buttonPressed(BionicF310.Start, new InvertDriveDirection());
   }
 
   /**
@@ -58,20 +58,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    Scheduler.getInstance().run();
   }
 
-  /**
-   * This autonomous (along with the chooser code above) shows how to select
-   * between different autonomous modes using the dashboard. The sendable chooser
-   * code works with the Java SmartDashboard. If you prefer the LabVIEW Dashboard,
-   * remove all of the chooser code and uncomment the getString line to get the
-   * auto name from the text box below the Gyro
-   *
-   * <p>
-   * You can add additional auto modes by adding additional comparisons to the
-   * switch structure below with additional strings. If using the SendableChooser
-   * make sure to add them to the chooser code above as well.
-   */
+  
   @Override
   public void autonomousInit() {
   }

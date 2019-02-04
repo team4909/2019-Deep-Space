@@ -22,10 +22,10 @@ public class RobotMap {
    */
 
   /* Drivetrain  */
-  public static final int driveFrontLeftSparkMaxCAN = 0;
-  public static final int driveRearLeftSparkMaxCAN = 1;
-  public static final int driveFrontRightSparkMaxCAN = 2;
-  public static final int driveRearRightSparkMaxCAN = 3;
+  public static final int driveFrontLeftSparkMaxCAN = 3;
+  public static final int driveRearLeftSparkMaxCAN = 4;
+  public static final int driveFrontRightSparkMaxCAN = 1;
+  public static final int driveRearRightSparkMaxCAN = 2;
 
   /* Intake */
   public static final int intakeForwardChannel = 1;
