@@ -9,6 +9,7 @@ import frc.team4909.robot.subsystems.intake.HatchPanelIntakeOpen;
 import frc.team4909.robot.subsystems.intake.HatchPanelIntakeClose;
 import frc.team4909.robot.operator.controllers.BionicF310;
 import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
+import frc.team4909.robot.subsystems.drivetrain.InvertDriveDirection;
 import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
 
 
@@ -40,6 +41,7 @@ public class Robot extends TimedRobot {
     driverGamepad.buttonPressed(BionicF310.Y, new CargoIntakeOut());
     driverGamepad.buttonPressed(BionicF310.LB, new HatchPanelIntakeOpen());
     driverGamepad.buttonPressed(BionicF310.RB, new HatchPanelIntakeClose());
+    driverGamepad.buttonPressed(BionicF310.Start, new InvertDriveDirection());
   }
 
   /**

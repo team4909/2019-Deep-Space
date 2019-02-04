@@ -1,10 +1,13 @@
 package frc.team4909.robot;
 
 public class RobotConstants {
-  /* Gamepad */
+  /* Operator Input */
   public static final int driverGamepadPort = 0;
   public static final double driverGamepadSensitivity = 0.6; //Value selected from 2018 code
   public static final int driverGamepadDeadzone = 0; //Value selected from 2018 code
+  
+  /* Drivetrain */
+  public static final double speedMultiplier = 1.0;
 
   /* Intake */
   public static final double cargoIntakeInSpeed = 1.0;
