@@ -66,7 +66,7 @@ public class Robot extends TimedRobot {
     driverGamepad = new BionicF310(0, 0, 0.6);
     // drivetrainsub = new DriveTrainSubsystem();
     // intakeSubsystem = new IntakeSubsystem();
-    lidar = new LidarLitePWM(5);
+    lidar = new LidarLitePWM(4);
   }
 
   /**
