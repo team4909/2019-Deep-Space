@@ -3,51 +3,52 @@ package frc.team4909.robot.subsystems.intake;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
-import edu.wpi.first.wpilibj.command.InstantCommand;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.team4909.robot.Robot;
+import frc.team4909.robot.RobotConstants;
+import frc.team4909.robot.RobotMap;
+import frc.team4909.robot.subsystems.intake.HatchPanelIntakeClose;
 
-public class IntakeSubsystem extends Subsystem{
-    // IR Sensor Threshold derived by testing the minimum voltage 
-    // readouts when the ball is placed LEFT, RIGHT, and CENTER.
-    // This value should then be compared to when there is no cargo
-    // to ensure that the values do not overlap. The distinguishing value 
-    // is then denoted as the treshold.
-    double irSensorThreshold = 1.7;
+public class IntakeSubsystem extends Subsystem {
+    DoubleSolenoid hatchPanelSolenoid;
+    WPI_VictorSPX cargoIntakeMotor;
 
-    DoubleSolenoid doubleSolenoid;
-    WPI_VictorSPX victorSPX;
-
-    AnalogInput leftIRSensor;
-    AnalogInput rightIRSensor;
+    AnalogInput leftIRSensor, rightIRSensor;
 
     public IntakeSubsystem(){
-        doubleSolenoid = new DoubleSolenoid(1,2);
-        victorSPX = new WPI_VictorSPX(1);
+        hatchPanelSolenoid = new DoubleSolenoid(RobotMap.intakeForwardChannel, RobotMap.intakeReverseChannel);
+        cargoIntakeMotor = new WPI_VictorSPX(RobotMap.intakeMotor);
 
-        leftIRSensor = new AnalogInput(0);
-        rightIRSensor = new AnalogInput(1);
+        leftIRSensor = new AnalogInput(RobotMap.leftIRSensor);
+        rightIRSensor = new AnalogInput(RobotMap.rightIRSensor);
     }
 
     public void hatchPanelIntakeOpen(){
-        doubleSolenoid.set(DoubleSolenoid.Value.kForward);
+        hatchPanelSolenoid.set(DoubleSolenoid.Value.kForward);
     }
 
     public void hatchPanelIntakeClose(){
-        doubleSolenoid.set(DoubleSolenoid.Value.kReverse);
+        hatchPanelSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
 
     public void setCargoIntakeSpeed(double speed){
-        victorSPX.set((speed));
+        cargoIntakeMotor.set(speed);
     }
 
     public boolean hasCargo(){
         // When either IR Sensor Voltage Reading is Higher than the predetermined threshold.
-        return leftIRSensor.getVoltage() > irSensorThreshold || rightIRSensor.getVoltage() > irSensorThreshold;
+        return leftIRSensor.getVoltage() > RobotConstants.irSensorThreshold || rightIRSensor.getVoltage() > RobotConstants.irSensorThreshold;
     }
 
     @Override
     protected void initDefaultCommand() {
-
+        setDefaultCommand(new CommandGroup() {{
+            requires(Robot.intakeSubsystem);
+            
+            // Revert to Closed by Default, Will Simplify While 
+            // Held/Toggle Open Commands in Future
+            addParallel(new HatchPanelIntakeClose());
+        }});
     }
 }
