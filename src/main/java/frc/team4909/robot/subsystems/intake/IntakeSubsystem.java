@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotConstants;
 import frc.team4909.robot.RobotMap;
 import frc.team4909.robot.subsystems.intake.HatchPanelIntakeClose;
@@ -43,6 +44,8 @@ public class IntakeSubsystem extends Subsystem {
     @Override
     protected void initDefaultCommand() {
         setDefaultCommand(new CommandGroup() {{
+            requires(Robot.intakeSubsystem);
+            
             // Revert to Closed by Default, Will Simplify While 
             // Held/Toggle Open Commands in Future
             addParallel(new HatchPanelIntakeClose());
