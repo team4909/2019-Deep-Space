@@ -66,7 +66,7 @@ public class Robot extends TimedRobot {
     driverGamepad = new BionicF310(0, 0, 0.6);
     // drivetrainsub = new DriveTrainSubsystem();
     // intakeSubsystem = new IntakeSubsystem();
-    lidar = new LidarLitePWM(4);
+    lidar = new LidarLitePWM(5);
   }
 
   /**
@@ -111,8 +111,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    // System.out.println(lidar.getPeriod());
-    System.out.println(lidar.getDistance());    
+    System.out.println(lidar.getDistance());
+    // System.out.println(lidar.getPeriod());    
     // driverGamepad.buttonPressed(BionicF310.A, new Linefollow());
     // driverGamepad.buttonPressed(BionicF310.X, new CargoIntakeIn());
     // driverGamepad.buttonPressed(BionicF310.Y, new CargoIntakeOut());

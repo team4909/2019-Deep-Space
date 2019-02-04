@@ -22,7 +22,7 @@ private int printedWarningCount = 5;
  */
 public LidarLitePWM (int source) {
 	counter = new Counter(source);
-    counter.setMaxPeriod(10);
+    counter.setMaxPeriod(1000000);
     // Configure for measuring rising to falling pulses
     counter.setSemiPeriodMode(true);
     counter.reset();
@@ -51,6 +51,7 @@ public double getDistance() {
 	 *  1 microsecond = 1/1,000,000 sec = 1 cm
 	 */
 	cm = (counter.getPeriod() * 1000000.0 / 10.0) + CALIBRATION_OFFSET;
+	System.out.println(cm);
 	return cm;
 }
 }
