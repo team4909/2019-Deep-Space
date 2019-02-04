@@ -33,7 +33,7 @@ public LidarLitePWM (int source) {
  * 
  * @return Distance in cm
  */
-public double getDistance() {
+public int getDistance() {
 	double cm;
 	/* If we haven't seen the first rising to falling pulse, then we have no measurement.
 	 * This happens when there is no LIDAR-Lite plugged in, btw.
@@ -52,6 +52,6 @@ public double getDistance() {
 	 */
 	cm = (counter.getPeriod() * 1000000.0 / 10.0) + CALIBRATION_OFFSET;
 	System.out.println(cm);
-	return cm;
+	return (int) cm;
 }
 }
