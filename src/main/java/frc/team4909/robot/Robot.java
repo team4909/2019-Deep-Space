@@ -61,7 +61,7 @@ public class Robot extends TimedRobot {
     //photoElectricSensors = new PhotoElectricSensors();
     
     stream.streamCamera();
-  
+    //GripPipeline grip = new GripPipeline();
     /*drivetrain = new BionicDrive(
                 new CANSparkMax(
                   2, MotorType.kBrushed
@@ -92,7 +92,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    
+  //process();
   }
 
   /**
