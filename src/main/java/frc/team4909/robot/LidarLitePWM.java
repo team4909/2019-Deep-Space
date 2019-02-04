@@ -11,7 +11,8 @@ public class LidarLitePWM {
  */
 private static final int CALIBRATION_OFFSET = -18;
 
-private Counter counter;
+public Counter counter;
+
 private int printedWarningCount = 5;
 
 /**
@@ -21,7 +22,7 @@ private int printedWarningCount = 5;
  */
 public LidarLitePWM (int source) {
 	counter = new Counter(source);
-    counter.setMaxPeriod(1.0);
+    counter.setMaxPeriod(10);
     // Configure for measuring rising to falling pulses
     counter.setSemiPeriodMode(true);
     counter.reset();
@@ -37,9 +38,17 @@ public double getDistance() {
 	/* If we haven't seen the first rising to falling pulse, then we have no measurement.
 	 * This happens when there is no LIDAR-Lite plugged in, btw.
 	 */
-
+	//System.out.println(counter.getPeriod());
+	// if (counter.get() < 1) {
+	// 	if (printedWarningCount-- > 0) {
+	// 		System.out.println("LidarLitePWM: waiting for distance measurement");
+	// 	}
+	// 	System.out.println("hello");
+	// 	return 0;
+	// }
 	/* getPeriod returns time in seconds. The hardware resolution is microseconds.
 	 * The LIDAR-Lite unit sends a high signal for 10 microseconds per cm of distance.
+	 *  1 microsecond = 1/1,000,000 sec = 1 cm
 	 */
 	cm = (counter.getPeriod() * 1000000.0 / 10.0) + CALIBRATION_OFFSET;
 	return cm;
