@@ -1,6 +1,7 @@
 package frc.team4909.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.team4909.robot.subsystems.drivetrain.Linefollow;
 import frc.team4909.robot.subsystems.intake.CargoIntakeIn;
 import frc.team4909.robot.subsystems.intake.CargoIntakeOut;
@@ -52,6 +53,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    Scheduler.getInstance().run();
   }
 
   
