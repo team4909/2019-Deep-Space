@@ -1,16 +1,19 @@
 package frc.team4909.robot.subsystems.intake;
 
-import edu.wpi.first.wpilibj.command.InstantCommand;
+import edu.wpi.first.wpilibj.command.Command;
 import frc.team4909.robot.Robot;
 
-public class CargoIntakeOut extends InstantCommand {
-
-    public void CargoIntakeOut() {
+public class CargoIntakeOut extends Command{
+    public void CargoIntakeOut(){
         requires(Robot.intakeSubsystem);
     }
 
-    protected void initialize() {
-        Robot.intakeSubsystem.setCargoIntakeSpeed(-1.0);
+    protected void execute () {
+        Robot.intakeSubsystem.setCargoIntakeSpeed(RobotConstants.cargoIntakeOutSpeed);
     }
 
+    @Override
+    protected boolean isFinished() {
+        return false;
+    }
 }

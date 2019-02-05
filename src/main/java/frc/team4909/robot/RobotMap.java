@@ -14,6 +14,13 @@ package frc.team4909.robot;
  * floating around.
  */
 public class RobotMap {
+  /* The following variables are PWM slots, with the exception of
+   * CAN: CAN Device IDs, need to be configured through respective tool
+   * PDP: PDP Slot Number, corresponds to hardware
+   * IR: Analog Sensor Input
+   * Channel: PCM Solenoid Output
+   */
+
   /* Drivetrain  */
   public static final int driveFrontLeftSparkMaxCAN = 3;
   public static final int driveRearLeftSparkMaxCAN = 4;
@@ -23,7 +30,8 @@ public class RobotMap {
   /* Intake */
   public static final int intakeForwardChannel = 1;
   public static final int intakeReverseChannel = 2;
-  public static final int intakeMotor = 1;
+  public static final int intakeMotorCAN = 1;
+  public static final int intakeMotorPDP = 1;
   public static final int leftIRSensor = 0;
   public static final int rightIRSensor = 1;
   
