@@ -12,7 +12,6 @@ import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
 import frc.team4909.robot.subsystems.drivetrain.InvertDriveDirection;
 import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
 
-
 public class Robot extends TimedRobot {
   // Operator Input
   public static BionicF310 driverGamepad;
@@ -21,9 +20,9 @@ public class Robot extends TimedRobot {
   public static DriveTrainSubsystem drivetrainSubsystem;
   public static IntakeSubsystem intakeSubsystem;
 
-  //Sensors
+  // Sensors
   public static LidarLitePWM lidar;
-  
+
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
@@ -34,14 +33,14 @@ public class Robot extends TimedRobot {
     drivetrainSubsystem = new DriveTrainSubsystem();
     intakeSubsystem = new IntakeSubsystem();
 
-    //Sensors
+    // Sensors
     lidar = new LidarLitePWM(4);
 
     // Operator Input
-    driverGamepad = new BionicF310(RobotConstants.driverGamepadPort, //Port
-                                   RobotConstants.driverGamepadDeadzone, //Deadzone
-                                   RobotConstants.driverGamepadSensitivity //Gamepad sensitivity
-                                   );
+    driverGamepad = new BionicF310(RobotConstants.driverGamepadPort, // Port
+        RobotConstants.driverGamepadDeadzone, // Deadzone
+        RobotConstants.driverGamepadSensitivity // Gamepad sensitivity
+    );
     driverGamepad.buttonPressed(BionicF310.A, new Linefollow());
     driverGamepad.buttonPressed(BionicF310.X, new CargoIntakeIn());
     driverGamepad.buttonPressed(BionicF310.Y, new CargoIntakeOut());
@@ -64,7 +63,6 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
   }
 
-  
   @Override
   public void autonomousInit() {
   }

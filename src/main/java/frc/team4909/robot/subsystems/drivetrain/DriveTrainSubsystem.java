@@ -17,23 +17,23 @@ public class DriveTrainSubsystem extends Subsystem {
     double speedMultiplier = RobotConstants.speedMultiplier;
     boolean inverted = false;
 
-    public DriveTrainSubsystem(){
+    public DriveTrainSubsystem() {
         frontLeftSparkMax = new CANSparkMax(RobotMap.driveFrontLeftSparkMaxCAN, MotorType.kBrushless);
         rearLeftSparkMax = new CANSparkMax(RobotMap.driveRearLeftSparkMaxCAN, MotorType.kBrushless);
-        SpeedControllerGroup m_left = new SpeedControllerGroup(frontLeftSparkMax, rearLeftSparkMax);                    
-        
+        SpeedControllerGroup m_left = new SpeedControllerGroup(frontLeftSparkMax, rearLeftSparkMax);
+
         frontRightSparkMax = new CANSparkMax(RobotMap.driveFrontRightSparkMaxCAN, MotorType.kBrushless);
         rearRightSparkMax = new CANSparkMax(RobotMap.driveRearRightSparkMaxCAN, MotorType.kBrushless);
         SpeedControllerGroup m_right = new SpeedControllerGroup(frontRightSparkMax, rearRightSparkMax);
-    
+
         bionicDrive = new DifferentialDrive(m_left, m_right);
     }
 
-    public void tankDrive(double leftSpeed, double rightSpeed){
+    public void tankDrive(double leftSpeed, double rightSpeed) {
         double leftSpeedOutput = leftSpeed;
         double rightSpeedOutput = rightSpeed;
 
-        if(inverted){
+        if (inverted) {
             leftSpeedOutput = -rightSpeed;
             rightSpeedOutput = -leftSpeed;
         }
@@ -44,11 +44,11 @@ public class DriveTrainSubsystem extends Subsystem {
         bionicDrive.tankDrive(leftSpeedOutput, rightSpeedOutput);
     }
 
-    public void invertDriveDirection(){
+    public void invertDriveDirection() {
         inverted = !inverted;
     }
 
-    protected void initDefaultCommand(){
+    protected void initDefaultCommand() {
         setDefaultCommand(new Drive());
     }
 }
