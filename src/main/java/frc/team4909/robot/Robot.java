@@ -21,6 +21,9 @@ public class Robot extends TimedRobot {
   public static DriveTrainSubsystem drivetrainSubsystem;
   public static IntakeSubsystem intakeSubsystem;
 
+  //Sensors
+  public static LidarLitePWM lidar;
+  
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
@@ -30,6 +33,9 @@ public class Robot extends TimedRobot {
     // Subsystems
     drivetrainSubsystem = new DriveTrainSubsystem();
     intakeSubsystem = new IntakeSubsystem();
+
+    //Sensors
+    lidar = new LidarLitePWM(4);
 
     // Operator Input
     driverGamepad = new BionicF310(RobotConstants.driverGamepadPort, //Port
@@ -75,6 +81,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    System.out.println(lidar.getDistance());
   }
 
   /**

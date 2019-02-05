@@ -25,18 +25,24 @@ public class Linefollow extends Command {
     protected void execute() {
         SmartDashboard.putBoolean("LEFT line following", !leftSensor.get());
         SmartDashboard.putBoolean("RIGHT line following", !rightSensor.get());
-
-        boolean left = middleLeftSensor.get(); // true = sensor is OFF line; false = sensor is ON line
+        boolean outsideLeft = leftSensor.get();
+        boolean left = middleLeftSensor.get(); // true = sensor is OFF line; false =\ sensor is ON line
         boolean right = middleRightSensor.get(); // true = sensor is OFF line; false = sensor is ON line
+        boolean outsideRight = rightSensor.get();
 
-
-        if (!left && right) { // back left is on line, back right is not on line
+        if (!left && right) { // Inside left is on line
             System.out.println(left + "  " + right + " off line to RIGHT");
             Robot.drivetrainSubsystem.tankDrive(RobotConstants.fastVelocity, RobotConstants.slowVelocity);
-        } else if (left && !right) { // back right is on line, back left is not on line
+        } else if (left && !right) { // Inside right is on line
             System.out.println(left + "  " + right + " off line to LEFT");
             Robot.drivetrainSubsystem.tankDrive(RobotConstants.slowVelocity, RobotConstants.fastVelocity);
-        } else { //
+        } else if(!outsideLeft && outsideRight){     // Outside left sensor is on the line
+            Robot.drivetrainSubsystem.tankDrive(0.7, 0.2);
+        
+        } else if(outsideLeft && !outsideRight){ // Outside right sensor is on the line
+            Robot.drivetrainSubsystem.tankDrive(0.2, 0.7);
+        }
+        else {
             System.out.println(left + "  " + right + " ON LINE");
             Robot.drivetrainSubsystem.tankDrive(RobotConstants.fastVelocity, RobotConstants.fastVelocity);
         }
@@ -46,7 +52,7 @@ public class Linefollow extends Command {
 
     
     protected boolean isFinished() {
-        return false;  // return lidar.getDistance() < dist
+        return Robot.lidar.getDistance() < 20;  // return lidar.getDistance() < dist
     }
 
     protected void end() {

@@ -7,7 +7,7 @@ public class RobotConstants {
   public static final int driverGamepadDeadzone = 0; //Value selected from 2018 code
   
   /* Drivetrain */
-  public static final double speedMultiplier = 1.0;
+  public static final double speedMultiplier = .7;
 
   /* Intake */
   public static final double cargoIntakeInSpeed = 1.0;
