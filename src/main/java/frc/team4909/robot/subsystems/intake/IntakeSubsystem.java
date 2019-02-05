@@ -1,35 +1,54 @@
-// package frc.team4909.robot.subsystems.intake;
+package frc.team4909.robot.subsystems.intake;
 
-// import edu.wpi.first.wpilibj.DoubleSolenoid;
-// import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.team4909.robot.Robot;
+import frc.team4909.robot.RobotConstants;
+import frc.team4909.robot.RobotMap;
+import frc.team4909.robot.subsystems.intake.HatchPanelIntakeClose;
 
-// import edu.wpi.first.wpilibj.command.InstantCommand;
-// import edu.wpi.first.wpilibj.command.Subsystem;
+public class IntakeSubsystem extends Subsystem {
+    DoubleSolenoid hatchPanelSolenoid;
+    WPI_VictorSPX cargoIntakeMotor;
 
-// public class IntakeSubsystem extends Subsystem{
-//     DoubleSolenoid doubleSolenoid;
-//     WPI_VictorSPX victorSPX;
+    AnalogInput leftIRSensor, rightIRSensor;
 
-//     public IntakeSubsystem(){
-//         doubleSolenoid = new DoubleSolenoid(1,2);
-//         victorSPX = new WPI_VictorSPX(1);
+    public IntakeSubsystem(){
+        hatchPanelSolenoid = new DoubleSolenoid(RobotMap.intakeForwardChannel, RobotMap.intakeReverseChannel);
+        cargoIntakeMotor = new WPI_VictorSPX(RobotMap.intakeMotor);
 
-//     }
+        leftIRSensor = new AnalogInput(RobotMap.leftIRSensor);
+        rightIRSensor = new AnalogInput(RobotMap.rightIRSensor);
+    }
 
-//     public void hatchPanelIntakeOpen(){
-//         doubleSolenoid.set(DoubleSolenoid.Value.kForward);
-//     }
+    public void hatchPanelIntakeOpen(){
+        hatchPanelSolenoid.set(DoubleSolenoid.Value.kForward);
+    }
 
-//     public void hatchPanelIntakeClose(){
-//         doubleSolenoid.set(DoubleSolenoid.Value.kReverse);
-//     }
+    public void hatchPanelIntakeClose(){
+        hatchPanelSolenoid.set(DoubleSolenoid.Value.kReverse);
+    }
 
-//     public void setCargoIntakeSpeed(double speed){
-//         victorSPX.set((speed));
-//     }
+    public void setCargoIntakeSpeed(double speed){
+        cargoIntakeMotor.set(speed);
+    }
 
-//     @Override
-//     protected void initDefaultCommand() {
+    public boolean hasCargo(){
+        // When either IR Sensor Voltage Reading is Higher than the predetermined threshold.
+        return leftIRSensor.getVoltage() > RobotConstants.irSensorThreshold || rightIRSensor.getVoltage() > RobotConstants.irSensorThreshold;
+    }
 
-//     }
-// }
+    @Override
+    protected void initDefaultCommand() {
+        setDefaultCommand(new CommandGroup() {{
+            requires(Robot.intakeSubsystem);
+            
+            // Revert to Closed by Default, Will Simplify While 
+            // Held/Toggle Open Commands in Future
+            addParallel(new HatchPanelIntakeClose());
+        }});
+    }
+}
