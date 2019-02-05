@@ -1,5 +1,6 @@
 package frc.team4909.robot.operator.generic;
 
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -30,7 +31,7 @@ public class BionicJoystick extends Joystick {
      * @param axis Axis to Measure
      * @return Returns axis value [-1,1]
      */
-    private double getThresholdAxis(BionicAxis axis) {
+    public double getThresholdAxis(BionicAxis axis) {
         if (Math.abs(this.getRawAxis(axis.getNumber())) > Math.abs(deadzone))
             return this.getRawAxis(axis.getNumber());
         else
@@ -45,7 +46,7 @@ public class BionicJoystick extends Joystick {
 
     }
 
-    public void povActive(BionicPOV povAngle, InstantCommand command) {
+    public void povActive(BionicPOV povAngle, Command command) {
         BionicJoystickPOVButton newPov = new BionicJoystickPOVButton(this, povAngle.getNumber());
 
         newPov.whenActive(command);
@@ -55,7 +56,7 @@ public class BionicJoystick extends Joystick {
      * @param button      Button to Create Handler For
      * @param commandable Returns a Commandable that can be used by the operator and autonomous CommandGroups
      */
-    public void buttonPressed(BionicButton button, InstantCommand command) {
+    public void buttonPressed(BionicButton button, Command command) {
         JoystickButton newButton = new JoystickButton(this, button.getNumber());
 
         newButton.whenPressed(command);
@@ -66,12 +67,12 @@ public class BionicJoystick extends Joystick {
      * @param threshold   Minimum Threshold to Trigger Command
      * @param commandable Returns a Commandable that can be used by the operator and autonomous CommandGroups
      */
-    public void buttonPressed(BionicAxis axis, double threshold, InstantCommand command) {
+    public void buttonPressed(BionicAxis axis, double threshold, Command command) {
         BionicJoystickAxisButton newButton = new BionicJoystickAxisButton(this, axis.getNumber(), threshold);
 
         newButton.whenActive(command);
     }
-
+    
     /**
      * @param button      Button to Create Handler For
      * @param commandable Returns a Commandable that can be used by the operator and autonomous CommandGroups
