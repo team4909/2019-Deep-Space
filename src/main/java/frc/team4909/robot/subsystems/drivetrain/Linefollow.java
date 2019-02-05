@@ -52,7 +52,7 @@ public class Linefollow extends Command {
 
     
     protected boolean isFinished() {
-        return Robot.lidar.getDistance() < 20;  // return lidar.getDistance() < dist
+        return Robot.lidar.getDistance() < RobotConstants.lidarLimit;  // return lidar.getDistance() < dist
     }
 
     protected void end() {

@@ -19,7 +19,9 @@ public class RobotConstants {
    * to ensure that the values do not overlap. The distinguishing value 
    * is then denoted as the treshold.
    */
+  /* Sensors */
   public static final double irSensorThreshold = 1.7;
+  public static final double lidarLimit = 20; // cm
 
   /* Linefollow */
   public static final double fastVelocity = 0.5; //constant velocity given to both motors
