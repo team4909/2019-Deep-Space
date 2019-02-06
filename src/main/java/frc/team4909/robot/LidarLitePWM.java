@@ -10,7 +10,7 @@ public class LidarLitePWM {
 	 * 600 cm range. You can also use the offset to zero out the distance between
 	 * the sensor and edge of the robot.
 	 */
-	private static final int CALIBRATION_OFFSET = -2;
+	private static final int CALIBRATION_OFFSET = RobotConstants.calibrationOffset;
 
 	public Counter counter;
 
