@@ -14,18 +14,19 @@ import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
 import frc.team4909.robot.subsystems.drivetrain.InvertDriveDirection;
 import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
 
-
 public class Robot extends TimedRobot {
 
   Stream stream = new Stream();
   // Operator Input
   public static BionicF310 driverGamepad;
 
-
   // Subsystems
   public static PowerDistributionPanel powerDistributionPanel;
   public static DriveTrainSubsystem drivetrainSubsystem;
   public static IntakeSubsystem intakeSubsystem;
+
+  // Sensors
+  public static LidarLitePWM lidar;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -33,20 +34,23 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    
+
     stream.streamCamera();
-    //GripPipeline grip = new GripPipeline();
+    // GripPipeline grip = new GripPipeline();
 
     // Subsystems
     powerDistributionPanel = new PowerDistributionPanel();
     drivetrainSubsystem = new DriveTrainSubsystem();
     intakeSubsystem = new IntakeSubsystem();
 
+    // Sensors
+    lidar = new LidarLitePWM(4);
+
     // Operator Input
-    driverGamepad = new BionicF310(RobotConstants.driverGamepadPort, //Port
-                                   RobotConstants.driverGamepadDeadzone, //Deadzone
-                                   RobotConstants.driverGamepadSensitivity //Gamepad sensitivity
-                                   );
+    driverGamepad = new BionicF310(RobotConstants.driverGamepadPort, // Port
+        RobotConstants.driverGamepadDeadzone, // Deadzone
+        RobotConstants.driverGamepadSensitivity // Gamepad sensitivity
+    );
     driverGamepad.buttonPressed(BionicF310.A, new Linefollow());
     driverGamepad.buttonPressed(BionicF310.X, new CargoIntakeIn());
     driverGamepad.buttonPressed(BionicF310.Y, new CargoIntakeOut());
@@ -54,7 +58,6 @@ public class Robot extends TimedRobot {
     driverGamepad.buttonPressed(BionicF310.RB, new HatchPanelIntakeClose());
     driverGamepad.buttonPressed(BionicF310.Start, new InvertDriveDirection());
   }
-
 
   /**
    * This function is called every robot packet, no matter the mode. Use this for
@@ -68,11 +71,10 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
 
-  //process();
+    // process();
     Scheduler.getInstance().run();
   }
 
-  
   @Override
   public void autonomousInit() {
   }
@@ -89,9 +91,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-
+    System.out.println(lidar.getDistance()); // Remove for competition (necessary only for testing)
   }
-
 
   /**
    * This function is called periodically during test mode.

@@ -16,7 +16,7 @@ public class IntakeSubsystem extends Subsystem {
 
     AnalogInput leftIRSensor, rightIRSensor;
 
-    public IntakeSubsystem(){
+    public IntakeSubsystem() {
         hatchPanelSolenoid = new DoubleSolenoid(RobotMap.intakeForwardChannel, RobotMap.intakeReverseChannel);
         cargoIntakeMotor = new WPI_VictorSPX(RobotMap.intakeMotorCAN);
 
@@ -24,15 +24,15 @@ public class IntakeSubsystem extends Subsystem {
         rightIRSensor = new AnalogInput(RobotMap.rightIRSensor);
     }
 
-    public void hatchPanelIntakeOpen(){
+    public void hatchPanelIntakeOpen() {
         hatchPanelSolenoid.set(DoubleSolenoid.Value.kForward);
     }
 
-    public void hatchPanelIntakeClose(){
+    public void hatchPanelIntakeClose() {
         hatchPanelSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
 
-    public void setCargoIntakeSpeed(double speed){
+    public void setCargoIntakeSpeed(double speed) {
         cargoIntakeMotor.set(speed);
     }
 
