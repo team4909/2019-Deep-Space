@@ -36,38 +36,14 @@ public class Linefollow extends Command {
             System.out.println(leftOffLine + "  " + rightOffLine + " off line to LEFT");
             Robot.drivetrainSubsystem.tankDrive(RobotConstants.fastVelocity, RobotConstants.slowVelocity);
         } else if (!outsideLeft && outsideRight) { // Outside left sensor is on the line
-            Robot.drivetrainSubsystem.tankDrive(0.2, 0.7);
+            Robot.drivetrainSubsystem.tankDrive(RobotConstants.slowVelocity, RobotConstants.fastVelocity);
         } else if (outsideLeft && !outsideRight) { // Outside right sensor is on the line
-            Robot.drivetrainSubsystem.tankDrive(0.7, 0.2);
+            Robot.drivetrainSubsystem.tankDrive(RobotConstants.fastVelocity, RobotConstants.slowVelocity);
         } else {
             System.out.println(leftOffLine + "  " + rightOffLine + " ON LINE");
             Robot.drivetrainSubsystem.tankDrive(RobotConstants.fastVelocity, RobotConstants.fastVelocity);
         }
     }
-
-    // public void lineFollow() { // This is to keep the robot moving straight on
-    // the line
-
-    // boolean leftOffLine = middleLeftSensor.get(); // true = sensor is OFF line;
-    // false =sensor is ON line
-    // boolean rightOffLine = middleRightSensor.get(); // true = sensor is OFF line;
-    // false = sensor is ON line
-
-    // // Should work no matter which side of the robot the cargo ship is on
-
-    // if (!leftOffLine && rightOffLine) { // back left is on line, back right is
-    // not on line
-    // System.out.println(leftOffLine + " " + rightOffLine + " off line to RIGHT");
-    // Robot.drivetrainSubsystem.tankDrive(0.5, 0.2);
-    // } else if (leftOffLine && !rightOffLine) { // back right is on line, back
-    // left is not on line
-    // System.out.println(leftOffLine + " " + rightOffLine + " off line to LEFT");
-    // Robot.drivetrainSubsystem.tankDrive(0.2, 0.5);
-    // } else {
-    // System.out.println(leftOffLine + " " + rightOffLine + " ON LINE");
-    // Robot.drivetrainSubsystem.tankDrive(0.2, 0.2);
-    // }
-    // }
 
     protected boolean isFinished() {
         return Robot.lidar.getDistance() < RobotConstants.lidarLimit; // return lidar.getDistance() < dist

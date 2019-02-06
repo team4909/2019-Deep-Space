@@ -20,7 +20,6 @@ public class Robot extends TimedRobot {
   // Operator Input
   public static BionicF310 driverGamepad;
 
-
   // Subsystems
   public static PowerDistributionPanel powerDistributionPanel;
   public static DriveTrainSubsystem drivetrainSubsystem;
@@ -35,9 +34,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    
+
     stream.streamCamera();
-    //GripPipeline grip = new GripPipeline();
+    // GripPipeline grip = new GripPipeline();
 
     // Subsystems
     powerDistributionPanel = new PowerDistributionPanel();
@@ -60,7 +59,6 @@ public class Robot extends TimedRobot {
     driverGamepad.buttonPressed(BionicF310.Start, new InvertDriveDirection());
   }
 
-
   /**
    * This function is called every robot packet, no matter the mode. Use this for
    * items like diagnostics that you want ran during disabled, autonomous,
@@ -73,7 +71,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
 
-  //process();
+    // process();
     Scheduler.getInstance().run();
   }
 
@@ -95,7 +93,6 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     System.out.println(lidar.getDistance());
   }
-
 
   /**
    * This function is called periodically during test mode.
