@@ -9,14 +9,18 @@ import frc.team4909.robot.subsystems.intake.CargoIntakeOut;
 import frc.team4909.robot.subsystems.intake.HatchPanelIntakeOpen;
 import frc.team4909.robot.subsystems.intake.HatchPanelIntakeClose;
 import frc.team4909.robot.operator.controllers.BionicF310;
+import frc.team4909.robot.sensors.Stream;
 import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
 import frc.team4909.robot.subsystems.drivetrain.InvertDriveDirection;
 import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
 
 
 public class Robot extends TimedRobot {
+
+  Stream stream = new Stream();
   // Operator Input
   public static BionicF310 driverGamepad;
+
 
   // Subsystems
   public static PowerDistributionPanel powerDistributionPanel;
@@ -29,6 +33,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    
+    stream.streamCamera();
+    //GripPipeline grip = new GripPipeline();
+
     // Subsystems
     powerDistributionPanel = new PowerDistributionPanel();
     drivetrainSubsystem = new DriveTrainSubsystem();
@@ -47,6 +55,7 @@ public class Robot extends TimedRobot {
     driverGamepad.buttonPressed(BionicF310.Start, new InvertDriveDirection());
   }
 
+
   /**
    * This function is called every robot packet, no matter the mode. Use this for
    * items like diagnostics that you want ran during disabled, autonomous,
@@ -58,6 +67,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+
+  //process();
     Scheduler.getInstance().run();
   }
 
@@ -78,7 +89,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+
   }
+
 
   /**
    * This function is called periodically during test mode.
