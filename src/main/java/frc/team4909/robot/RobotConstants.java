@@ -1,5 +1,7 @@
 package frc.team4909.robot;
 
+import frc.team4909.robot.operator.generic.BionicAxis;
+
 public class RobotConstants {
   /* Intake */
   public static final double cargoIntakeInSpeed = 1.0;
@@ -13,4 +15,12 @@ public class RobotConstants {
    * is then denoted as the treshold.
    */
   public static final double irSensorThreshold = 1.7;
+
+  /* Elevator */
+  public static int elevatorSRXID = 7;
+  public static int elevatorSPX1ID = 4;
+  public static int elevatorSPX2ID = 5;
+  public static int elevatorSPX3ID = 6;
+
+  public static double elevatorSpeedMultiplier = 1.0;
 }

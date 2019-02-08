@@ -2,18 +2,18 @@ package frc.team4909.robot.subsystems.elevator;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.team4909.robot.subsystems.elevator.ElevatorSubsystem;
+import frc.team4909.robot.Robot;
 
 public class SetElevatorPosition extends InstantCommand {
-    private final int setpoint;
-    private final ElevatorSubsystem elevator;
+    private int setpoint;
 
-    public SetElevatorPosition(int setpoint, ElevatorSubsystem elevator) {
+    public SetElevatorPosition(int setpoint) {
         this.setpoint = setpoint;
-        this.elevator = elevator;
+        requires(Robot.elevatorSubsystem);
     }
 
     @Override
     public void initialize() {
-        elevator.holdingPosition = setpoint;
+        Robot.elevatorSubsystem.holdingPosition = setpoint;
     }
 }

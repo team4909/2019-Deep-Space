@@ -9,6 +9,7 @@ import frc.team4909.robot.subsystems.intake.HatchPanelIntakeClose;
 import frc.team4909.robot.operator.controllers.BionicF310;
 import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
 import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
+import frc.team4909.robot.subsystems.elevator.ElevatorSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call thex
@@ -20,10 +21,12 @@ import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
 public class Robot extends TimedRobot {
   // Operator Input
   public static BionicF310 driverGamepad;
+  public static BionicF310 manipulatorGamepad;
 
   // Subsystems
   public static DriveTrainSubsystem drivetrainSubsystem;
   public static IntakeSubsystem intakeSubsystem;
+  public static ElevatorSubsystem elevatorSubsystem;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -34,9 +37,11 @@ public class Robot extends TimedRobot {
     // Subsystems
     drivetrainSubsystem = new DriveTrainSubsystem();
     intakeSubsystem = new IntakeSubsystem();
+    elevatorSubsystem = new ElevatorSubsystem();
 
     // Operator Input
     driverGamepad = new BionicF310(0, 0, 0.6);
+    driverGamepad = new BionicF310(1, 0, 0.6);
     driverGamepad.buttonPressed(BionicF310.A, new Linefollow());
     driverGamepad.buttonPressed(BionicF310.X, new CargoIntakeIn());
     driverGamepad.buttonPressed(BionicF310.Y, new CargoIntakeOut());
