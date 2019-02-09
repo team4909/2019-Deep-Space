@@ -13,17 +13,20 @@ import frc.team4909.robot.sensors.Stream;
 import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
 import frc.team4909.robot.subsystems.drivetrain.InvertDriveDirection;
 import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
+import frc.team4909.robot.subsystems.elevator.ElevatorSubsystem;
 
 public class Robot extends TimedRobot {
 
   Stream stream = new Stream();
   // Operator Input
   public static BionicF310 driverGamepad;
+  public static BionicF310 manipulatorGamepad;
 
   // Subsystems
   public static PowerDistributionPanel powerDistributionPanel;
   public static DriveTrainSubsystem drivetrainSubsystem;
   public static IntakeSubsystem intakeSubsystem;
+  public static ElevatorSubsystem elevatorSubsystem;
 
   // Sensors
   public static LidarLitePWM lidar;
@@ -42,15 +45,18 @@ public class Robot extends TimedRobot {
     powerDistributionPanel = new PowerDistributionPanel();
     drivetrainSubsystem = new DriveTrainSubsystem();
     intakeSubsystem = new IntakeSubsystem();
+    elevatorSubsystem = new ElevatorSubsystem();
 
     // Sensors
     lidar = new LidarLitePWM(4);
 
     // Operator Input
+
     driverGamepad = new BionicF310(RobotConstants.driverGamepadPort, // Port
-        RobotConstants.driverGamepadDeadzone, // Deadzone
-        RobotConstants.driverGamepadSensitivity // Gamepad sensitivity
+                                   RobotConstants.driverGamepadDeadzone, // Deadzone
+                                   RobotConstants.driverGamepadSensitivity // Gamepad sensitivity
     );
+
     driverGamepad.buttonPressed(BionicF310.A, new Linefollow());
     driverGamepad.buttonPressed(BionicF310.X, new CargoIntakeIn());
     driverGamepad.buttonPressed(BionicF310.Y, new CargoIntakeOut());
