@@ -9,7 +9,7 @@ public class RobotConstants {
   public static final int driverGamepadDeadzone = 0; // Value selected from 2018 code
 
   /* Drivetrain */
-  public static final double speedMultiplier = .7;
+  public static final double speedMultiplier = .7;  
 
   /* Intake */
   public static final double cargoIntakeInSpeed = 1.0;
@@ -32,12 +32,12 @@ public class RobotConstants {
 
 
   /* Elevator */
-  public static int elevatorSRXID = 7;
-  public static int elevatorSPX1ID = 4;
-  public static int elevatorSPX2ID = 5;
-  public static int elevatorSPX3ID = 6;
+  public static final int elevatorSRXID = 7;
+  public static final int elevatorSPX1ID = 4;
+  public static final int elevatorSPX2ID = 5;
+  public static final int elevatorSPX3ID = 6;
 
-  public static double elevatorSpeedMultiplier = 1.0;
+  public static final double elevatorSpeedMultiplier = 1.0;
 
   public static final double lidarLimit = 20; // cm
 
