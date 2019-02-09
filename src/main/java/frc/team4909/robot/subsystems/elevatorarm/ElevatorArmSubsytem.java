@@ -1,5 +1,9 @@
 package frc.team4909.robot.subsystems.elevatorarm;
 
+import frc.team4909.robot.Robot;
+import frc.team4909.robot.RobotConstants;
+import frc.team4909.robot.operator.controllers.BionicF310;
+
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -17,6 +21,20 @@ public class ElevatorArmSubsytem extends Subsystem{
         elevatorArmSRX = new TalonSRX(0);
 
         elevatorArmSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+    }
+
+    @Override
+    public void periodic() {
+        //Sets speed to manipulator gamepad right Y stick value
+        double moveSpeed = Robot.manipulatorGamepad.getThresholdAxis(BionicF310.LY) * RobotConstants.elevatorSpeedMultiplier;
+
+        if(moveSpeed == 0 ) {  //If Y-stick value is not moving, HOLD position
+            elevatorArmSRX.set(ControlMode.Position, holdingPosition);
+        } 
+        else{ //Set speed to Y-stick value and HOLD position
+            elevatorArmSRX.set(ControlMode.PercentOutput, moveSpeed);
+            holdCurrentPosition();
+        }
     }
 
     public InstantCommand setHeight(int height){
