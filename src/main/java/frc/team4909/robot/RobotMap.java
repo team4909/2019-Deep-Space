@@ -43,5 +43,8 @@ public class RobotMap {
   public static final int elevatorArmSRXID = 8;   //front
   // If you are using multiple modules, make sure to define both the port
   // number and the module. For example you with a rangefinder:
+
+  //Sensors
+  public static final int lidarPort = 4;
   
 }

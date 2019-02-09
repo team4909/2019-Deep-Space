@@ -16,6 +16,7 @@ import frc.team4909.robot.subsystems.drivetrain.commands.InvertDriveDirection;
 import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
 import frc.team4909.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.team4909.robot.subsystems.elevatorarm.ElevatorArmSubsytem;;
+import frc.team4909.robot.sensors.LidarLitePWM;
 public class Robot extends TimedRobot {
 
   Stream stream = new Stream();
@@ -57,7 +58,7 @@ public class Robot extends TimedRobot {
     elevatorArmSubsystem = new ElevatorArmSubsytem();
 
     // Sensors
-    lidar = new LidarLitePWM(4);
+    lidar = new LidarLitePWM(RobotMap.lidarPort);
 
     // Operator Input
 

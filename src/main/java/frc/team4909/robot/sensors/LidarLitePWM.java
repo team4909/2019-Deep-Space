@@ -1,7 +1,8 @@
-package frc.team4909.robot;
+package frc.team4909.robot.sensors;
 
 import edu.wpi.first.wpilibj.Counter;
 // import edu.wpi.first.wpilibj.DigitalSource;
+import frc.team4909.robot.RobotConstants;
 
 public class LidarLitePWM {
 	/*
