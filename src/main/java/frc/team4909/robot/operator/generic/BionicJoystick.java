@@ -88,7 +88,7 @@ public class BionicJoystick extends Joystick {
      * @param threshold   Minimum Threshold to Trigger Command
      * @param commandable Returns a Commandable that can be used by the operator and autonomous CommandGroups
      */
-    public void buttonHeld(BionicAxis axis, double threshold, InstantCommand command) {
+    public void buttonHeld(BionicAxis axis, double threshold, Command command) {
         BionicJoystickAxisButton newButton = new BionicJoystickAxisButton(this, axis.getNumber(), threshold);
 
         newButton.whileActive(command);

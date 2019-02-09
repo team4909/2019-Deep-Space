@@ -66,17 +66,16 @@ public class Robot extends TimedRobot {
                                    RobotConstants.driverGamepadSensitivity // Gamepad sensitivity
     );
 
-    manipulatorGamepad = new  BionicF310(RobotConstants.manipulatorGamepadPort, // Port
+    manipulatorGamepad = new BionicF310(RobotConstants.manipulatorGamepadPort, // Port
                                          RobotConstants.manipulatorGamepadDeadzone, // Deadzone 
                                          RobotConstants.manipulatorGamepadSensitivity // Gamepad sensitivity
     );
+    manipulatorGamepad.buttonHeld(BionicF310.RT, 0.2, new CargoIntakeIn());
+    manipulatorGamepad.buttonHeld(BionicF310.RB, new CargoIntakeOut());
+    manipulatorGamepad.buttonHeld(BionicF310.LT, 0.2, new HatchPanelIntakeOpen());
 
     driverGamepad.buttonPressed(BionicF310.A, new Linefollow());
-    driverGamepad.buttonHeld(BionicF310.X, new CargoIntakeIn());
-    driverGamepad.buttonHeld(BionicF310.Y, new CargoIntakeOut());
-    driverGamepad.buttonHeld(BionicF310.LB, new HatchPanelIntakeOpen());
-    driverGamepad.buttonPressed(BionicF310.RB, new HatchPanelIntakeClose());
-    driverGamepad.buttonPressed(BionicF310.Start, new InvertDriveDirection());
+    driverGamepad.buttonPressed(BionicF310.RT, 0.2, new InvertDriveDirection());
   }
 
   /**
@@ -112,6 +111,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     // System.out.println(lidar.getDistance()); // Remove for competition (necessary only for testing)
+
   }
 
   /**

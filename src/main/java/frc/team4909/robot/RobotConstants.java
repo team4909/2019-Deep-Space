@@ -20,11 +20,11 @@ public class RobotConstants {
   public static final double cargoIntakeHoldSpeed = 0;
   public static final double cargoIntakeOutSpeed = -1.0;
 
-  public static final double cargoIntakeCurrentLimit = 20;
+  public static final double cargoIntakeCurrentLimit = 0;
 
   /* LIDAR */
   public static final int calibrationOffset = -2;
-  public static final double lidarLimit = 20; // cm
+  public static final double lidarLimit = 30; // cm
 
   /*
    * Sensor Threshold derived by testing the minimum voltage readouts when the
