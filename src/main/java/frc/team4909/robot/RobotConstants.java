@@ -43,6 +43,7 @@ public class RobotConstants {
   public static final int elevatorSPX3ID = 6; //Slave 3 ID
 
   public static final double elevatorSpeedMultiplier = 1.0; //Multiplier for elevator speed
+  public static final double elevatorArmSpeedMultiplier = 1.0; //Multiplier for elevator arm speed
 
  
 

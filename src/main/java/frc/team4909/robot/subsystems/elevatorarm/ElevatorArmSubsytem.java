@@ -26,7 +26,7 @@ public class ElevatorArmSubsytem extends Subsystem{
     @Override
     public void periodic() {
         //Sets speed to manipulator gamepad right Y stick value
-        double moveSpeed = Robot.manipulatorGamepad.getThresholdAxis(BionicF310.LY) * RobotConstants.elevatorSpeedMultiplier;
+        double moveSpeed = Robot.manipulatorGamepad.getThresholdAxis(BionicF310.LY) * RobotConstants.elevatorArmSpeedMultiplier;
 
         if(moveSpeed == 0 ) {  //If Y-stick value is not moving, HOLD position
             elevatorArmSRX.set(ControlMode.Position, holdingPosition);
