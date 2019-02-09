@@ -8,6 +8,10 @@ public class RobotConstants {
   public static final double driverGamepadSensitivity = 0.6; // Value selected from 2018 code
   public static final int driverGamepadDeadzone = 0; // Value selected from 2018 code
 
+  public static final int manipulatorGamepadPort = 1;
+  public static final double manipulatorGamepadSensitivity = 0.6; // Value selected from 2018 code
+  public static final int manipulatorGamepadDeadzone = 0; // Value selected from 2018 code
+
   /* Drivetrain */
   public static final double speedMultiplier = .7;  
 
@@ -39,6 +43,7 @@ public class RobotConstants {
   public static final int elevatorSPX3ID = 6; //Slave 3 ID
 
   public static final double elevatorSpeedMultiplier = 1.0; //Multiplier for elevator speed
+  public static final double elevatorArmSpeedMultiplier = 1.0; //Multiplier for elevator arm speed
 
  
 

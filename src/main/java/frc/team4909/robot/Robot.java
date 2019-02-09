@@ -13,8 +13,7 @@ import frc.team4909.robot.sensors.Stream;
 import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
 import frc.team4909.robot.subsystems.drivetrain.commands.InvertDriveDirection;
 import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
-import frc.team4909.robot.subsystems.elevator.ElevatorSubsystem;
-
+import frc.team4909.robot.subsystems.elevator.ElevatorSubsystem;;
 public class Robot extends TimedRobot {
 
   Stream stream = new Stream();
@@ -55,6 +54,11 @@ public class Robot extends TimedRobot {
     driverGamepad = new BionicF310(RobotConstants.driverGamepadPort, // Port
                                    RobotConstants.driverGamepadDeadzone, // Deadzone
                                    RobotConstants.driverGamepadSensitivity // Gamepad sensitivity
+    );
+
+    manipulatorGamepad = new  BionicF310(RobotConstants.manipulatorGamepadPort, // Port
+                                         RobotConstants.manipulatorGamepadDeadzone, // Deadzone 
+                                         RobotConstants.manipulatorGamepadSensitivity // Gamepad sensitivity
     );
 
     driverGamepad.buttonPressed(BionicF310.A, new Linefollow());
