@@ -1,5 +1,6 @@
 package frc.team4909.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -26,6 +27,8 @@ public class Robot extends TimedRobot {
   public static DriveTrainSubsystem drivetrainSubsystem;
   public static IntakeSubsystem intakeSubsystem;
   public static ElevatorSubsystem elevatorSubsystem;
+  public static Compressor c;
+
 
   // Sensors
   public static LidarLitePWM lidar;
@@ -36,6 +39,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+
+    c = new Compressor(0);        //Initialize Compressor
+    c.setClosedLoopControl(true); // Start Compressor in Closed Loop Control
+
 
     stream.streamCamera();
     // GripPipeline grip = new GripPipeline();
