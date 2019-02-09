@@ -20,6 +20,7 @@ public class RobotConstants {
 
   /* LIDAR */
   public static final int calibrationOffset = -2;
+  public static final double lidarLimit = 20; // cm
 
   /*
    * Sensor Threshold derived by testing the minimum voltage readouts when the
@@ -32,14 +33,14 @@ public class RobotConstants {
 
 
   /* Elevator */
-  public static final int elevatorSRXID = 7;
-  public static final int elevatorSPX1ID = 4;
-  public static final int elevatorSPX2ID = 5;
-  public static final int elevatorSPX3ID = 6;
+  public static final int elevatorSRXID = 7;  //Master SRX ID
+  public static final int elevatorSPX1ID = 4; //Slave 1 ID
+  public static final int elevatorSPX2ID = 5; //Slave 2 ID
+  public static final int elevatorSPX3ID = 6; //Slave 3 ID
 
-  public static final double elevatorSpeedMultiplier = 1.0;
+  public static final double elevatorSpeedMultiplier = 1.0; //Multiplier for elevator speed
 
-  public static final double lidarLimit = 20; // cm
+ 
 
   /* Linefollow */
   public static final double fastVelocity = 0.7;

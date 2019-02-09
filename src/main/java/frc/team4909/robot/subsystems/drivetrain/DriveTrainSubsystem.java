@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.team4909.robot.RobotMap;
 import frc.team4909.robot.RobotConstants;
-import frc.team4909.robot.subsystems.drivetrain.Drive;
+import frc.team4909.robot.subsystems.drivetrain.commands.Drive;
 
 public class DriveTrainSubsystem extends Subsystem {
     CANSparkMax frontLeftSparkMax, rearLeftSparkMax, frontRightSparkMax, rearRightSparkMax;
