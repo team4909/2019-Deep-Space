@@ -28,13 +28,19 @@ public class RobotMap {
   public static final int driveRearRightSparkMaxCAN = 2;
 
   /* Intake */
-  public static final int intakeForwardChannel = 1;
-  public static final int intakeReverseChannel = 2;
-  public static final int intakeMotorCAN = 1;
-  public static final int intakeMotorPDP = 1;
+  public static final int intakePCMChannel = 0;
+  public static final int intakeMotorCAN = 9;
+  public static final int intakeMotorPDP = 4;
   public static final int leftIRSensor = 0;
   public static final int rightIRSensor = 1;
-  
+
+  // Elevator
+  public static final int elevatorSRXID = 7;  //Master SRX ID    Back left
+  public static final int elevatorSPX1ID = 4; //Slave 1 ID FrontLeft    ELevator Left
+  public static final int elevatorSPX2ID = 5; //Slave 2 ID Bottom   `Elevator Right
+  public static final int elevatorSPX3ID = 6; //Slave 3 ID      Back right    Elevator right
+
+  public static final int elevatorArmSRXID = 8;   //front
   // If you are using multiple modules, make sure to define both the port
   // number and the module. For example you with a rangefinder:
   

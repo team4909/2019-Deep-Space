@@ -15,6 +15,7 @@ public class CargoIntakeIn extends Command {
 
     @Override
     protected boolean isFinished() {
-        return Robot.intakeSubsystem.getCargoIntakeCurrent() > RobotConstants.cargoIntakeCurrentLimit;
+        System.out.println(Robot.intakeSubsystem.getCargoIntakeCurrent());
+        return Robot.intakeSubsystem.getCargoIntakeCurrent() > 1.875; //RobotConstants.cargoIntakeCurrentLimit;
     }
 }

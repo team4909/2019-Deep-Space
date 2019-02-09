@@ -9,7 +9,7 @@ public class CargoIntakeHold extends Command{
         requires(Robot.intakeSubsystem);
     }
 
-    protected void initialize() {
+    protected void execute() {
         Robot.intakeSubsystem.setCargoIntakeSpeed(RobotConstants.cargoIntakeHoldSpeed);
     }
 

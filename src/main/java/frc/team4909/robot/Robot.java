@@ -14,7 +14,8 @@ import frc.team4909.robot.sensors.Stream;
 import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
 import frc.team4909.robot.subsystems.drivetrain.commands.InvertDriveDirection;
 import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
-import frc.team4909.robot.subsystems.elevator.ElevatorSubsystem;;
+import frc.team4909.robot.subsystems.elevator.ElevatorSubsystem;
+import frc.team4909.robot.subsystems.elevatorarm.ElevatorArmSubsytem;;
 public class Robot extends TimedRobot {
 
   Stream stream = new Stream();
@@ -27,6 +28,7 @@ public class Robot extends TimedRobot {
   public static DriveTrainSubsystem drivetrainSubsystem;
   public static IntakeSubsystem intakeSubsystem;
   public static ElevatorSubsystem elevatorSubsystem;
+  public static ElevatorArmSubsytem elevatorArmSubsystem;
   public static Compressor c;
 
 
@@ -44,7 +46,7 @@ public class Robot extends TimedRobot {
     c.setClosedLoopControl(true); // Start Compressor in Closed Loop Control
 
 
-    stream.streamCamera();
+    // stream.streamCamera();
     // GripPipeline grip = new GripPipeline();
 
     // Subsystems
@@ -52,6 +54,7 @@ public class Robot extends TimedRobot {
     drivetrainSubsystem = new DriveTrainSubsystem();
     intakeSubsystem = new IntakeSubsystem();
     elevatorSubsystem = new ElevatorSubsystem();
+    elevatorArmSubsystem = new ElevatorArmSubsytem();
 
     // Sensors
     lidar = new LidarLitePWM(4);
@@ -69,9 +72,9 @@ public class Robot extends TimedRobot {
     );
 
     driverGamepad.buttonPressed(BionicF310.A, new Linefollow());
-    driverGamepad.buttonPressed(BionicF310.X, new CargoIntakeIn());
-    driverGamepad.buttonPressed(BionicF310.Y, new CargoIntakeOut());
-    driverGamepad.buttonPressed(BionicF310.LB, new HatchPanelIntakeOpen());
+    driverGamepad.buttonHeld(BionicF310.X, new CargoIntakeIn());
+    driverGamepad.buttonHeld(BionicF310.Y, new CargoIntakeOut());
+    driverGamepad.buttonHeld(BionicF310.LB, new HatchPanelIntakeOpen());
     driverGamepad.buttonPressed(BionicF310.RB, new HatchPanelIntakeClose());
     driverGamepad.buttonPressed(BionicF310.Start, new InvertDriveDirection());
   }
@@ -108,7 +111,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    System.out.println(lidar.getDistance()); // Remove for competition (necessary only for testing)
+    // System.out.println(lidar.getDistance()); // Remove for competition (necessary only for testing)
   }
 
   /**

@@ -2,6 +2,8 @@ package frc.team4909.robot.subsystems.intake;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
+
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -11,29 +13,30 @@ import frc.team4909.robot.RobotMap;
 import frc.team4909.robot.subsystems.intake.HatchPanelIntakeClose;
 
 public class IntakeSubsystem extends Subsystem {
-    DoubleSolenoid hatchPanelSolenoid;
+    Solenoid hatchPanelSolenoid;
     WPI_VictorSPX cargoIntakeMotor;
 
     AnalogInput leftIRSensor, rightIRSensor;
 
     public IntakeSubsystem() {
-        hatchPanelSolenoid = new DoubleSolenoid(RobotMap.intakeForwardChannel, RobotMap.intakeReverseChannel);
+        hatchPanelSolenoid = new Solenoid(RobotMap.intakePCMChannel);
         cargoIntakeMotor = new WPI_VictorSPX(RobotMap.intakeMotorCAN);
 
+        
         leftIRSensor = new AnalogInput(RobotMap.leftIRSensor);
         rightIRSensor = new AnalogInput(RobotMap.rightIRSensor);
     }
 
     public void hatchPanelIntakeOpen() {
-        hatchPanelSolenoid.set(DoubleSolenoid.Value.kForward);
+        hatchPanelSolenoid.set(true);
     }
 
     public void hatchPanelIntakeClose() {
-        hatchPanelSolenoid.set(DoubleSolenoid.Value.kReverse);
+        hatchPanelSolenoid.set(false);
     }
 
     public void setCargoIntakeSpeed(double speed) {
-        cargoIntakeMotor.set(speed);
+        cargoIntakeMotor.set(-speed);
     }
 
     public double getCargoIntakeCurrent(){

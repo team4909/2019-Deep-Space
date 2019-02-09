@@ -37,14 +37,11 @@ public class RobotConstants {
 
 
   /* Elevator */
-  public static final int elevatorSRXID = 7;  //Master SRX ID
-  public static final int elevatorSPX1ID = 4; //Slave 1 ID
-  public static final int elevatorSPX2ID = 5; //Slave 2 ID
-  public static final int elevatorSPX3ID = 6; //Slave 3 ID
+  
 
   public static final double elevatorSpeedMultiplier = 1.0; //Multiplier for elevator speed
   public static final double elevatorArmSpeedMultiplier = 1.0; //Multiplier for elevator arm speed
-
+ 
  
 
   /* Linefollow */

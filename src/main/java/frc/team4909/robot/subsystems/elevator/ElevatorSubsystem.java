@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.team4909.robot.subsystems.elevator.commands.SetElevatorPosition;
 import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotConstants;
+import frc.team4909.robot.RobotMap;
 import frc.team4909.robot.operator.controllers.BionicF310;
 
 public class ElevatorSubsystem extends Subsystem{
@@ -23,17 +24,22 @@ public class ElevatorSubsystem extends Subsystem{
 
     public int holdingPosition;
 
-    public void ElevatorSubsytem(){
+    public ElevatorSubsystem() {
 
         //Lift
-        masterSRX = new WPI_TalonSRX(RobotConstants.elevatorSRXID);  //master SRX
-        VictorSPX1 = new WPI_VictorSPX(RobotConstants.elevatorSPX1ID); //slave SPX 1
-        VictorSPX2 = new WPI_VictorSPX(RobotConstants.elevatorSPX2ID); //slave SPX 2
-        VictorSPX3 = new WPI_VictorSPX(RobotConstants.elevatorSPX3ID); //slave SPX 3
+        masterSRX = new WPI_TalonSRX(RobotMap.elevatorSRXID);  //master SRX
+        VictorSPX1 = new WPI_VictorSPX(RobotMap.elevatorSPX1ID); //slave SPX 1
+        VictorSPX2 = new WPI_VictorSPX(RobotMap.elevatorSPX2ID); //slave SPX 2
+        VictorSPX3 = new WPI_VictorSPX(RobotMap.elevatorSPX3ID); //slave SPX 3
+
+        
 
         VictorSPX1.follow(masterSRX);  //All slaves will output the same value as the master SRX
         VictorSPX3.follow(masterSRX);  
         VictorSPX2.follow(masterSRX);
+        
+        VictorSPX2.setInverted(true);
+        VictorSPX3.setInverted(true);
         masterSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 
     }

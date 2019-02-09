@@ -5,7 +5,7 @@ import frc.team4909.robot.Robot;
 
 public class HatchPanelIntakeOpen extends InstantCommand {
 
-    public void HatchPanelIntakeOpen() {
+    public HatchPanelIntakeOpen() {
         requires(Robot.intakeSubsystem);
     }
 
