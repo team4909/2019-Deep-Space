@@ -6,11 +6,11 @@ public class RobotConstants {
   /* Operator Input */
   public static final int driverGamepadPort = 0;
   public static final double driverGamepadSensitivity = 0.6; // Value selected from 2018 code
-  public static final int driverGamepadDeadzone = 0; // Value selected from 2018 code
+  public static final double driverGamepadDeadzone = 0.05; // Value selected from 2018 code
 
   public static final int manipulatorGamepadPort = 1;
   public static final double manipulatorGamepadSensitivity = 0.6; // Value selected from 2018 code
-  public static final int manipulatorGamepadDeadzone = 0; // Value selected from 2018 code
+  public static final double manipulatorGamepadDeadzone = 0.05; // Value selected from 2018 code
 
   /* Drivetrain */
   public static final double speedMultiplier = .7;  

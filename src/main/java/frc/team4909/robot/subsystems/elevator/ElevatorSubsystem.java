@@ -41,7 +41,9 @@ public class ElevatorSubsystem extends Subsystem{
         rightSRX1.setInverted(true);
         rightSRX2.setInverted(true);
         leftSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-
+        leftSRX.config_kP(1, 0.6, 0);
+        leftSPX.config_kI(1, 0);
+        leftSPX.config_kD(1, 0);
     }
 
     @Override
