@@ -10,8 +10,11 @@ public class CargoIntakeIn extends Command {
     }
 
     protected void execute() {
-        Robot.intakeSubsystem.setCargoIntakeSpeed(RobotConstants.cargoIntakeInSpeed);
-    }
+        if(Robot.intakeSubsystem.getCargoIntakeCurrent() > RobotConstants.cargoIntakeCurrentLimit){
+            Robot.intakeSubsystem.setCargoIntakeSpeed(0);
+      }  else{
+            Robot.intakeSubsystem.setCargoIntakeSpeed(RobotConstants.cargoIntakeInSpeed);
+    }}
 
     @Override
     protected boolean isFinished() {
