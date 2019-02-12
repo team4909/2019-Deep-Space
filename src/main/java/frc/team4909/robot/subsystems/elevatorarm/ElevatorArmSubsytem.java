@@ -40,7 +40,7 @@ public class ElevatorArmSubsytem extends Subsystem{
             elevatorArmSRX.set(ControlMode.Position, holdingPosition);
         } 
         else{ //Set speed to Y-stick value and HOLD position
-            elevatorArmSRX.set(ControlMode.PercentOutput, moveSpeed);
+            elevatorArmSRX.set(ControlMode.PercentOutput, .75*moveSpeed);
             holdCurrentPosition();
         }
     }

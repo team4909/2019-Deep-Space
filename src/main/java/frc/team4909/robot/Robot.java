@@ -1,5 +1,6 @@
 package frc.team4909.robot;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -43,6 +44,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
 
+    CameraServer.getInstance().startAutomaticCapture();
     c = new Compressor(0);        //Initialize Compressor
     c.setClosedLoopControl(true); // Start Compressor in Closed Loop Control
 
