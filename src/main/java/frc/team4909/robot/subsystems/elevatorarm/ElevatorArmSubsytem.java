@@ -22,6 +22,13 @@ public class ElevatorArmSubsytem extends Subsystem{
         elevatorArmSRX = new TalonSRX(RobotMap.elevatorArmSRXID);
 
         elevatorArmSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+ 
+        elevatorArmSRX.configContinuousCurrentLimit(3);
+        elevatorArmSRX.configPeakCurrentLimit(6);
+        
+        elevatorArmSRX.config_kP(0,1, 0);
+        elevatorArmSRX.config_kI(0,0);
+        elevatorArmSRX.config_kD(0,30, 0);
     }
 
     @Override
@@ -29,7 +36,7 @@ public class ElevatorArmSubsytem extends Subsystem{
         //Sets speed to manipulator gamepad right Y stick value
         double moveSpeed = -Robot.manipulatorGamepad.getThresholdAxis(BionicF310.LY) * RobotConstants.elevatorArmSpeedMultiplier;
 
-        if(moveSpeed == 0 ) {  //If Y-stick value is not moving, HOLD position
+        if(moveSpeed == 0) {  //If Y-stick value is not moving, HOLD position
             elevatorArmSRX.set(ControlMode.Position, holdingPosition);
         } 
         else{ //Set speed to Y-stick value and HOLD position

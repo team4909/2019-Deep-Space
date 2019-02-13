@@ -21,6 +21,11 @@ public class RobotMap {
    * Channel: PCM Solenoid Output
    */
 
+
+  /* Gamepad */
+  public static final int driverGamepadPort = 0;
+  public static final int manipulatorGamepadPort = 1;
+
   /* Drivetrain  */
   public static final int driveFrontLeftSparkMaxCAN = 3;
   public static final int driveRearLeftSparkMaxCAN = 4;

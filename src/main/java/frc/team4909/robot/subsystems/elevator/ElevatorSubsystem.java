@@ -19,7 +19,7 @@ import frc.team4909.robot.RobotMap;
 import frc.team4909.robot.operator.controllers.BionicF310;
 
 public class ElevatorSubsystem extends Subsystem{
-    WPI_VictorSPX leftSPX, rightSRX1, rightSRX2;
+    WPI_VictorSPX leftSPX, rightSPX1, rightSPX2;
     WPI_TalonSRX leftSRX;
 
     public int holdingPosition;
@@ -29,19 +29,21 @@ public class ElevatorSubsystem extends Subsystem{
         //Lift
         leftSRX = new WPI_TalonSRX(RobotMap.elevatorSRXID);  //master SRX
         leftSPX = new WPI_VictorSPX(RobotMap.elevatorSPX1ID); //slave SPX 1
-        rightSRX1 = new WPI_VictorSPX(RobotMap.elevatorSPX2ID); //slave SPX 2
-        rightSRX2 = new WPI_VictorSPX(RobotMap.elevatorSPX3ID); //slave SPX 3
+        rightSPX1 = new WPI_VictorSPX(RobotMap.elevatorSPX2ID); //slave SPX 2
+        rightSPX2 = new WPI_VictorSPX(RobotMap.elevatorSPX3ID); //slave SPX 3
 
         
 
         leftSPX.follow(leftSRX);  //All slaves will output the same value as the master SRX
-        rightSRX1.follow(leftSRX);  
-        rightSRX2.follow(leftSRX);
+        rightSPX1.follow(leftSRX);  
+        rightSPX2.follow(leftSRX);
         
-        rightSRX1.setInverted(true);
-        rightSRX2.setInverted(true);
+        rightSPX1.setInverted(true);
+        rightSPX2.setInverted(true);
         leftSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-
+        leftSRX.config_kP(1, 0.6, 0);
+        leftSPX.config_kI(1, 0);
+        leftSPX.config_kD(1, 0);
     }
 
     @Override

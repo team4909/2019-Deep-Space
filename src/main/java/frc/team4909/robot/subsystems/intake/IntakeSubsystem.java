@@ -39,10 +39,7 @@ public class IntakeSubsystem extends Subsystem {
         speed = -speed;
         
         System.out.println(getCargoIntakeCurrent());
-        if(!(speed > 1.0 && getCargoIntakeCurrent() > RobotConstants.cargoIntakeCurrentLimit)){
-            System.out.println("Run");
-            cargoIntakeMotor.set(speed);
-        }
+        cargoIntakeMotor.set(speed);
     }
 
     public double getCargoIntakeCurrent(){

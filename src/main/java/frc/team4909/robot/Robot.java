@@ -1,5 +1,7 @@
 package frc.team4909.robot;
 
+import frc.team4909.robot.openCV.GripPipeline;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -19,7 +21,9 @@ import frc.team4909.robot.subsystems.elevatorarm.ElevatorArmSubsytem;
 import frc.team4909.robot.sensors.LidarLitePWM;
 public class Robot extends TimedRobot {
 
-  Stream stream = new Stream();
+  //Camera
+  public static Stream stream;
+  public static GripPipeline grip;
   // Operator Input
   public static BionicF310 driverGamepad;
   public static BionicF310 manipulatorGamepad;
@@ -43,12 +47,18 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
 
+    //Cameras
+    stream = new Stream();
+    CameraServer.getInstance().startAutomaticCapture();
+    stream.streamCamera();
+    grip = new GripPipeline();
+    
+    //Compressor
     c = new Compressor(0);        //Initialize Compressor
     c.setClosedLoopControl(true); // Start Compressor in Closed Loop Control
 
 
-    // stream.streamCamera();
-    // GripPipeline grip = new GripPipeline();
+    
 
     // Subsystems
     powerDistributionPanel = new PowerDistributionPanel();
@@ -61,13 +71,15 @@ public class Robot extends TimedRobot {
     lidar = new LidarLitePWM(RobotMap.lidarPort);
 
     // Operator Input
+    
 
-    driverGamepad = new BionicF310(RobotConstants.driverGamepadPort, // Port
+
+    driverGamepad = new BionicF310(RobotMap.driverGamepadPort, // Port
                                    RobotConstants.driverGamepadDeadzone, // Deadzone
                                    RobotConstants.driverGamepadSensitivity // Gamepad sensitivity
     );
 
-    manipulatorGamepad = new BionicF310(RobotConstants.manipulatorGamepadPort, // Port
+    manipulatorGamepad = new BionicF310(RobotMap.manipulatorGamepadPort, // Port
                                          RobotConstants.manipulatorGamepadDeadzone, // Deadzone 
                                          RobotConstants.manipulatorGamepadSensitivity // Gamepad sensitivity
     );
