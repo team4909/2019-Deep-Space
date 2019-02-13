@@ -15,7 +15,7 @@ import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
 import frc.team4909.robot.subsystems.drivetrain.commands.InvertDriveDirection;
 import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
 import frc.team4909.robot.subsystems.elevator.ElevatorSubsystem;
-import frc.team4909.robot.subsystems.elevatorarm.ElevatorArmSubsytem;;
+import frc.team4909.robot.subsystems.elevatorarm.ElevatorArmSubsytem;
 import frc.team4909.robot.sensors.LidarLitePWM;
 public class Robot extends TimedRobot {
 
@@ -111,7 +111,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    // System.out.println(lidar.getDistance()); // Remove for competition (necessary only for testing)
+    System.out.println(lidar.getDistance()); // Remove for competition (necessary only for testing)
 
   }
 
