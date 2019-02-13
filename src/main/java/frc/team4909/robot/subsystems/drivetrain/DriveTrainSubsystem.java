@@ -45,6 +45,21 @@ public class DriveTrainSubsystem extends Subsystem {
         bionicDrive.tankDrive(leftSpeedOutput, rightSpeedOutput);
     }
 
+    public void arcadeDrive(double leftSpeed, double rightSpeed) {
+        double leftSpeedOutput = leftSpeed;
+        double rightSpeedOutput = rightSpeed;
+
+        if (inverted) {
+            leftSpeedOutput = -rightSpeed;
+            rightSpeedOutput = -leftSpeed;
+        }
+
+        leftSpeedOutput = leftSpeedOutput * speedMultiplier;
+        rightSpeedOutput = rightSpeedOutput * speedMultiplier;
+
+        bionicDrive.arcadeDrive(leftSpeedOutput, rightSpeedOutput);
+    }
+
     public void invertDriveDirection() {
         inverted = !inverted;
     }
