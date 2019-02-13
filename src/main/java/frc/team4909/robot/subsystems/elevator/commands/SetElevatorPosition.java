@@ -16,15 +16,13 @@ public class SetElevatorPosition extends InstantCommand {
 
     @Override
     public void initialize() {
-      //  Robot.elevatorSubsystem.setPosition(setpoint);
-    }
-    protected void execute() {
         Robot.elevatorSubsystem.setPosition(setpoint);
 
     }
 
     @Override
     protected boolean isFinished() {
-        return Math.abs(Robot.elevatorSubsystem.getPosition() - setpoint) < threshold;
+        System.out.println("done");
+        return false;
     }
 }

@@ -46,6 +46,8 @@ public class ElevatorSubsystem extends Subsystem{
         leftSRX.config_kP(1, 0.6, 0);
         leftSPX.config_kI(1, 0);
         leftSPX.config_kD(1, 0);
+
+        
     }
 
     public void holdCurrentPosition(){  //hold elevator in position
@@ -56,8 +58,9 @@ public class ElevatorSubsystem extends Subsystem{
         leftSRX.set(ControlMode.PercentOutput, speed);
     }
 
-    public void setPosition(double position){
-        leftSRX.set(ControlMode.Position, position);
+    public void setPosition(int position){
+        //leftSRX.setSelectedSensorPosition(position, 0, 0); Need to test
+        leftSRX.set(ControlMode.Position, position + 100);
     }
 
     public int getPosition(){

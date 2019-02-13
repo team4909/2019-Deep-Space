@@ -52,7 +52,7 @@ public class Robot extends TimedRobot {
 
     //Cameras
     stream = new Stream();
-    CameraServer.getInstance().startAutomaticCapture();
+    //CameraServer.getInstance().startAutomaticCapture();
     stream.streamCamera();
     grip = new GripPipeline();
     
