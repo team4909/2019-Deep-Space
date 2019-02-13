@@ -3,6 +3,7 @@ package frc.team4909.robot.subsystems.elevator;
 import edu.wpi.first.wpilibj.Encoder;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+// import com.sun.org.apache.xerces.internal.xni.QName;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.InstantCommand;
@@ -12,6 +13,7 @@ import java.lang.module.ModuleDescriptor.Requires;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.team4909.robot.subsystems.elevator.commands.ElevatorOperatorControl;
 import frc.team4909.robot.subsystems.elevator.commands.SetElevatorPosition;
 import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotConstants;
@@ -46,34 +48,24 @@ public class ElevatorSubsystem extends Subsystem{
         leftSPX.config_kD(1, 0);
     }
 
-    @Override
-    public void periodic() {
-        //Sets speed to manipulator gamepad right Y stick value
-        double moveSpeed = Robot.manipulatorGamepad.getThresholdAxis(BionicF310.RY) * RobotConstants.elevatorSpeedMultiplier;
-
-        if(moveSpeed == 0 ) {  //If Y-stick value is not moving, HOLD position
-            leftSRX.set(ControlMode.Position, holdingPosition);
-        } 
-        else{ //Set speed to Y-stick value and HOLD position
-            leftSRX.set(ControlMode.PercentOutput, moveSpeed);
-            holdCurrentPosition();
-        }
-    }
-
-    public InstantCommand holdPosition(int height){  //sets elevator height
-        return new SetElevatorPosition(height);
-    }
-
     public void holdCurrentPosition(){  //hold elevator in position
             holdingPosition = leftSRX.getSelectedSensorPosition();
     }
     
-    public void elevatorSetSpeed(double speed){  //set elevator speed value
+    public void setSpeed(double speed){  //set elevator speed value
         leftSRX.set(ControlMode.PercentOutput, speed);
+    }
+
+    public void setPosition(double position){
+        leftSRX.set(ControlMode.Position, position);
+    }
+
+    public int getPosition(){
+        return leftSRX.getSelectedSensorPosition();
     }
 
     @Override
     protected void initDefaultCommand() {
-
+        setDefaultCommand(new ElevatorOperatorControl());
     }
 }
