@@ -74,12 +74,12 @@ public class Robot extends TimedRobot {
     
 
 
-    driverGamepad = new BionicF310(RobotConstants.driverGamepadPort, // Port
+    driverGamepad = new BionicF310(RobotMap.driverGamepadPort, // Port
                                    RobotConstants.driverGamepadDeadzone, // Deadzone
                                    RobotConstants.driverGamepadSensitivity // Gamepad sensitivity
     );
 
-    manipulatorGamepad = new BionicF310(RobotConstants.manipulatorGamepadPort, // Port
+    manipulatorGamepad = new BionicF310(RobotMap.manipulatorGamepadPort, // Port
                                          RobotConstants.manipulatorGamepadDeadzone, // Deadzone 
                                          RobotConstants.manipulatorGamepadSensitivity // Gamepad sensitivity
     );
