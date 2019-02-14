@@ -20,7 +20,7 @@ import frc.team4909.robot.RobotConstants;
 import frc.team4909.robot.RobotMap;
 import frc.team4909.robot.operator.controllers.BionicF310;
 
-public class ElevatorSubsystem extends Subsystem{
+public class ElevatorSubsystem extends Subsystem {
     WPI_VictorSPX leftSPX, rightSPX1, rightSPX2;
     WPI_TalonSRX leftSRX;
 
@@ -28,42 +28,38 @@ public class ElevatorSubsystem extends Subsystem{
 
     public ElevatorSubsystem() {
 
-        //Lift
-        leftSRX = new WPI_TalonSRX(RobotMap.elevatorSRXID);  //master SRX
-        leftSPX = new WPI_VictorSPX(RobotMap.elevatorSPX1ID); //slave SPX 1
-        rightSPX1 = new WPI_VictorSPX(RobotMap.elevatorSPX2ID); //slave SPX 2
-        rightSPX2 = new WPI_VictorSPX(RobotMap.elevatorSPX3ID); //slave SPX 3
+        // Lift
+        leftSRX = new WPI_TalonSRX(RobotMap.elevatorSRXID); // master SRX
+        leftSPX = new WPI_VictorSPX(RobotMap.elevatorSPX1ID); // slave SPX 1
+        rightSPX1 = new WPI_VictorSPX(RobotMap.elevatorSPX2ID); // slave SPX 2
+        rightSPX2 = new WPI_VictorSPX(RobotMap.elevatorSPX3ID); // slave SPX 3
 
-        
-
-        leftSPX.follow(leftSRX);  //All slaves will output the same value as the master SRX
-        rightSPX1.follow(leftSRX);  
+        leftSPX.follow(leftSRX); // All slaves will output the same value as the master SRX
+        rightSPX1.follow(leftSRX);
         rightSPX2.follow(leftSRX);
-        
+
         rightSPX1.setInverted(true);
         rightSPX2.setInverted(true);
         leftSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
         leftSRX.config_kP(1, 0.6, 0);
         leftSPX.config_kI(1, 0);
         leftSPX.config_kD(1, 0);
-
-        
     }
 
-    public void holdCurrentPosition(){  //hold elevator in position
-            holdingPosition = leftSRX.getSelectedSensorPosition();
+    public void holdCurrentPosition() { // hold elevator in position
+        holdingPosition = leftSRX.getSelectedSensorPosition();
     }
-    
-    public void setSpeed(double speed){  //set elevator speed value
+
+    public void setSpeed(double speed) { // set elevator speed value
         leftSRX.set(ControlMode.PercentOutput, speed);
     }
 
-    public void setPosition(int position){
-        //leftSRX.setSelectedSensorPosition(position, 0, 0); Need to test
+    public void setPosition(int position) {
+        // leftSRX.setSelectedSensorPosition(position, 0, 0); Need to test
         leftSRX.set(ControlMode.Position, position + 100);
     }
 
-    public int getPosition(){
+    public int getPosition() {
         return leftSRX.getSelectedSensorPosition();
     }
 

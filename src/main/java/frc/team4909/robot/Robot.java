@@ -13,6 +13,7 @@ import frc.team4909.robot.subsystems.intake.HatchPanelIntakeOpen;
 import frc.team4909.robot.subsystems.intake.HatchPanelIntakeClose;
 import frc.team4909.robot.operator.controllers.BionicF310;
 import frc.team4909.robot.sensors.Stream;
+import frc.team4909.robot.subsystems.climber.*;
 import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
 import frc.team4909.robot.subsystems.drivetrain.commands.InvertDriveDirection;
 import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
@@ -22,12 +23,13 @@ import frc.team4909.robot.subsystems.elevatorarm.ElevatorArmSubsystem;
 import frc.team4909.robot.subsystems.elevatorarm.ElevatorArmSubsystem;
 import frc.team4909.robot.subsystems.elevatorarm.SetAngle;
 import frc.team4909.robot.sensors.LidarLitePWM;
+
 public class Robot extends TimedRobot {
 
-  //Camera
+  // vCamera
   public static Stream stream;
   public static GripPipeline grip;
-  // Operator Input
+  // vOperator Input
   public static BionicF310 driverGamepad;
   public static BionicF310 manipulatorGamepad;
 
@@ -37,8 +39,8 @@ public class Robot extends TimedRobot {
   public static IntakeSubsystem intakeSubsystem;
   public static ElevatorSubsystem elevatorSubsystem;
   public static ElevatorArmSubsystem elevatorArmSubsystem;
+  public static ClimberSubsystem climberSubsystem;
   public static Compressor c;
-
 
   // Sensors
   public static LidarLitePWM lidar;
@@ -47,17 +49,18 @@ public class Robot extends TimedRobot {
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
    */
+
   @Override
   public void robotInit() {
 
-    //Cameras
+    // Cameras
     stream = new Stream();
-    //CameraServer.getInstance().startAutomaticCapture();
+    // CameraServer.getInstance().startAutomaticCapture();
     stream.streamCamera();
     grip = new GripPipeline();
-    
-    //Compressor
-    c = new Compressor(0);        //Initialize Compressor
+
+    // Compressor
+    c = new Compressor(0); // Initialize Compressor
     c.setClosedLoopControl(true); // Start Compressor in Closed Loop Control
 
     // Subsystems
@@ -66,36 +69,42 @@ public class Robot extends TimedRobot {
     intakeSubsystem = new IntakeSubsystem();
     elevatorSubsystem = new ElevatorSubsystem();
     elevatorArmSubsystem = new ElevatorArmSubsystem();
+    climberSubsystem = new ClimberSubsystem();
 
     // Sensors
     lidar = new LidarLitePWM(RobotMap.lidarPort);
 
     // Operator Input
-    
-
-
     driverGamepad = new BionicF310(RobotMap.driverGamepadPort, // Port
-                                   RobotConstants.driverGamepadDeadzone, // Deadzone
-                                   RobotConstants.driverGamepadSensitivity // Gamepad sensitivity
+        RobotConstants.driverGamepadDeadzone, // Deadzone
+        RobotConstants.driverGamepadSensitivity // Gamepad sensitivity
     );
 
     manipulatorGamepad = new BionicF310(RobotMap.manipulatorGamepadPort, // Port
-                                         RobotConstants.manipulatorGamepadDeadzone, // Deadzone 
-                                         RobotConstants.manipulatorGamepadSensitivity // Gamepad sensitivity
+        RobotConstants.manipulatorGamepadDeadzone, // Deadzone
+        RobotConstants.manipulatorGamepadSensitivity // Gamepad sensitivity
     );
+
+    /* Intake */
     manipulatorGamepad.buttonHeld(BionicF310.RT, 0.2, new CargoIntakeIn());
     manipulatorGamepad.buttonHeld(BionicF310.RB, new CargoIntakeOut());
     manipulatorGamepad.buttonHeld(BionicF310.LT, 0.2, new HatchPanelIntakeOpen());
-    
+
+    /* Climber */
+    driverGamepad.buttonHeld(BionicF310.LT, 0.2, new DriveStilts());
+    driverGamepad.buttonPressed(BionicF310.LB, new RetractStilts());
+
+    /* Elevator */
+    manipulatorGamepad.buttonPressed(BionicF310.A, new SetElevatorPosition(-27220, 1));
+
+    /* Sensors/Misc. */
     driverGamepad.buttonPressed(BionicF310.A, new Linefollow());
     driverGamepad.buttonPressed(BionicF310.RT, 0.2, new InvertDriveDirection());
-
-    manipulatorGamepad.buttonPressed(BionicF310.A, new SetElevatorPosition(-27220,1));
   }
 
-  /**''
-   * This function is called every robot packet, no matter the mode. Use this for
-   * items like diagnostics that you want ran during disabled, autonomous,
+  /**
+   * '' This function is called every robot packet, no matter the mode. Use this
+   * for items like diagnostics that you want ran during disabled, autonomous,
    * teleoperated and test.
    *
    * <p>
@@ -125,7 +134,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    // System.out.println(lidar.getDistance()); // Remove for competition (necessary only for testing)
+    // System.out.println(lidar.getDistance()); // Remove for competition (necessary
+    // only for testing)
   }
 
   /**
