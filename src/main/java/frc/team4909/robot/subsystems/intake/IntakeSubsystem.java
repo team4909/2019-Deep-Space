@@ -22,7 +22,6 @@ public class IntakeSubsystem extends Subsystem {
         hatchPanelSolenoid = new Solenoid(RobotMap.intakePCMChannel);
         cargoIntakeMotor = new WPI_VictorSPX(RobotMap.intakeMotorCAN);
 
-        
         leftIRSensor = new AnalogInput(RobotMap.leftIRSensor);
         rightIRSensor = new AnalogInput(RobotMap.rightIRSensor);
     }
@@ -37,29 +36,33 @@ public class IntakeSubsystem extends Subsystem {
 
     public void setCargoIntakeSpeed(double speed) {
         speed = -speed;
-        
+
         System.out.println(getCargoIntakeCurrent());
         cargoIntakeMotor.set(speed);
     }
 
-    public double getCargoIntakeCurrent(){
+    public double getCargoIntakeCurrent() {
         return Robot.powerDistributionPanel.getCurrent(RobotMap.intakeMotorPDP);
     }
 
-    public boolean hasCargo(){
-        // When either IR Sensor Voltage Reading is Higher than the predetermined threshold.
-        return leftIRSensor.getVoltage() > RobotConstants.irSensorThreshold || rightIRSensor.getVoltage() > RobotConstants.irSensorThreshold;
+    public boolean hasCargo() {
+        // When either IR Sensor Voltage Reading is Higher than the predetermined
+        // threshold.
+        return leftIRSensor.getVoltage() > RobotConstants.irSensorThreshold
+                || rightIRSensor.getVoltage() > RobotConstants.irSensorThreshold;
     }
 
     @Override
     protected void initDefaultCommand() {
-        setDefaultCommand(new CommandGroup() {{
-            requires(Robot.intakeSubsystem);
-            
-            // Revert to Closed by Default, Will Simplify While 
-            // Held/Toggle Open Commands in Future
-            addParallel(new HatchPanelIntakeClose());
-            addParallel(new CargoIntakeHold());
-        }});
+        setDefaultCommand(new CommandGroup() {
+            {
+                requires(Robot.intakeSubsystem);
+
+                // Revert to Closed by Default, Will Simplify While
+                // Held/Toggle Open Commands in Future
+                addParallel(new HatchPanelIntakeClose());
+                addParallel(new CargoIntakeHold());
+            }
+        });
     }
 }
