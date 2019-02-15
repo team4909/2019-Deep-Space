@@ -6,6 +6,9 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import frc.team4909.robot.subsystems.climber.DriveStilts;
+import frc.team4909.robot.subsystems.climber.ExtendStilts;
+import frc.team4909.robot.subsystems.climber.RetractStilts;
 import frc.team4909.robot.subsystems.drivetrain.Linefollow;
 import frc.team4909.robot.subsystems.intake.CargoIntakeIn;
 import frc.team4909.robot.subsystems.intake.CargoIntakeOut;
@@ -13,7 +16,7 @@ import frc.team4909.robot.subsystems.intake.HatchPanelIntakeOpen;
 import frc.team4909.robot.subsystems.intake.HatchPanelIntakeClose;
 import frc.team4909.robot.operator.controllers.BionicF310;
 import frc.team4909.robot.sensors.Stream;
-import frc.team4909.robot.subsystems.climber.*;
+import frc.team4909.robot.subsystems.climber.ClimberSubsystem;
 import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
 import frc.team4909.robot.subsystems.drivetrain.commands.InvertDriveDirection;
 import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
@@ -49,10 +52,10 @@ import frc.team4909.robot.sensors.LidarLitePWM;
 
 public class Robot extends TimedRobot {
 
-  // vCamera
+  // Camera
   public static Stream stream;
   public static GripPipeline grip;
-  // vOperator Input
+  // Operator Input
   public static BionicF310 driverGamepad;
   public static BionicF310 manipulatorGamepad;
 
