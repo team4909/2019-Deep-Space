@@ -22,7 +22,6 @@ public class SetElevatorPosition extends InstantCommand {
 
     @Override
     protected boolean isFinished() {
-        System.out.println("done");
         return false;
     }
 }

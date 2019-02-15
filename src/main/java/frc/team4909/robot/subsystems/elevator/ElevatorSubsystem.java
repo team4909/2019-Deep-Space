@@ -5,6 +5,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 // import com.sun.org.apache.xerces.internal.xni.QName;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -38,13 +40,23 @@ public class ElevatorSubsystem extends Subsystem {
         rightSPX1.follow(leftSRX);
         rightSPX2.follow(leftSRX);
 
+        leftSRX.setNeutralMode(NeutralMode.Brake);
+        leftSPX.setNeutralMode(NeutralMode.Brake);
+        rightSPX1.setNeutralMode(NeutralMode.Brake);
+        rightSPX2.setNeutralMode(NeutralMode.Brake);
+
         rightSPX1.setInverted(true);
         rightSPX2.setInverted(true);
-        leftSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+        leftSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
+        
         leftSRX.selectProfileSlot(1, 0);
-        leftSRX.config_kP(1, 0.6, 0);
+        leftSRX.config_kP(1, 0, 0);
         leftSRX.config_kI(1, 0);
         leftSRX.config_kD(1, 0);
+    }
+
+    public void update(){
+        leftSRX.setSelectedSensorPosition(0);
     }
 
     public void holdCurrentPosition() { // hold elevator in position
@@ -58,7 +70,7 @@ public class ElevatorSubsystem extends Subsystem {
     public void setPosition(int position){
         //leftSRX.setSelectedSensorPosition(position, 0, 0); Need to test
         leftSRX.set(ControlMode.Position, position);
-    }
+    }   
 
     public int getPosition() {
         return leftSRX.getSelectedSensorPosition();
