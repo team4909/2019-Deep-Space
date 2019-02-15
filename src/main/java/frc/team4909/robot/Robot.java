@@ -24,6 +24,29 @@ import frc.team4909.robot.subsystems.elevatorarm.ElevatorArmSubsystem;
 import frc.team4909.robot.subsystems.elevatorarm.SetAngle;
 import frc.team4909.robot.sensors.LidarLitePWM;
 
+//  Controls:
+//  
+//  Driver Gamepad (Port 0): 
+//     LY: Drive Speed 
+//     RX: Drive Rotation 
+//     LT: Extend Stilts
+//     RT: Retract Stilts 
+//     LB: Drive Stilt Wheels 
+//     A: Invert Drive Direction 
+//     B: Line Follow
+//  
+//  Operator Gamped (Port 1): 
+//     LY: Elevator Arm Pivot 
+//     RY: Elevator Speed 
+//     RT: Cargo Intake In 
+//     RB: Cargo Intake Out 
+//     LT: Hatch Panel Intake In 
+//     LB: Adjust Rocket Hatch Panel Setpoints for Cargo (Elevator & Arm Setpoint) 
+//     Y: Rocket Top Hatch Panel (Elevator & Arm Setpoint) 
+//     X: Rocket Medium Hatch Panel (Elevator & Arm Setpoint) 
+//     A: Cargo Ship/Human Player/Rocket Low - Hatch Panel (Elevator & Arm Setpoint) 
+//     B: Cargo Ship - Cargo (Elevator & Arm Setpoint)
+
 public class Robot extends TimedRobot {
 
   // vCamera
@@ -91,15 +114,16 @@ public class Robot extends TimedRobot {
     manipulatorGamepad.buttonHeld(BionicF310.LT, 0.2, new HatchPanelIntakeOpen());
 
     /* Climber */
-    driverGamepad.buttonHeld(BionicF310.LT, 0.2, new DriveStilts());
-    driverGamepad.buttonPressed(BionicF310.LB, new RetractStilts());
+    driverGamepad.buttonHeld(BionicF310.LT, 0.2, new ExtendStilts());
+    driverGamepad.buttonHeld(BionicF310.RT, 0.2, new RetractStilts());
+    driverGamepad.buttonPressed(BionicF310.LB, new DriveStilts());
 
     /* Elevator */
     manipulatorGamepad.buttonPressed(BionicF310.A, new SetElevatorPosition(-27220, 1));
 
     /* Sensors/Misc. */
-    driverGamepad.buttonPressed(BionicF310.A, new Linefollow());
-    driverGamepad.buttonPressed(BionicF310.RT, 0.2, new InvertDriveDirection());
+    driverGamepad.buttonPressed(BionicF310.A, new InvertDriveDirection());
+    driverGamepad.buttonPressed(BionicF310.B, new Linefollow());
   }
 
   /**

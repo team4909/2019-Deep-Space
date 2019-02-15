@@ -1,6 +1,7 @@
 package frc.team4909.robot.subsystems.climber;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -9,15 +10,19 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.team4909.robot.RobotMap;
 import frc.team4909.robot.RobotConstants;
 import frc.team4909.robot.subsystems.drivetrain.commands.Drive;
-import frc.team4909.robot.subsystems.climber.DriveStilts;
+import frc.team4909.robot.subsystems.climber.ExtendStilts;
 import frc.team4909.robot.subsystems.climber.RetractStilts;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.team4909.robot.Robot;
 
 public class ClimberSubsystem extends Subsystem {
     WPI_TalonSRX climberSRX;
+    WPI_VictorSPX climberSPX;
 
     public ClimberSubsystem() {
-        climberSRX = new WPI_TalonSRX(RobotMap.);
+        climberSRX = new WPI_TalonSRX(RobotMap.climberSRXID);
+        climberSPX = new WPI_VictorSPX(RobotMap.climberSPXID);
 
         climberSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 
@@ -27,11 +32,18 @@ public class ClimberSubsystem extends Subsystem {
         climberSRX.config_kD(1, 0);
     }
 
-    public void driveStilts() {
-        climberSRX.set(RobotConstants.climberSpeed);
+    public void extendStilts() {
+        climberSRX.set(RobotConstants.climberStiltSpeed);
     }
 
     public void retractStilts() {
-        climberSRX.set(-RobotConstants.climberSpeed);
+        climberSRX.set(-RobotConstants.climberStiltSpeed);
+    }
+
+    public void driveStilts() {
+        climberSPX.set(RobotConstants.climberDriveSpeed);
+    }
+
+    protected void initDefaultCommand() {
     }
 }

@@ -30,6 +30,7 @@ public class RobotConstants {
    * when there is no cargo to ensure that the values do not overlap. The
    * distinguishing value is then denoted as the treshold.
    */
+
   /* Sensors */
   public static final double irSensorThreshold = 1.7;
 
@@ -43,5 +44,6 @@ public class RobotConstants {
   public static final double slowVelocity = 0.2; // value given to motor when trying to turn
 
   /* Climber */
-  public static final double climberSpeed = 0.5;
+  public static final double climberStiltSpeed = 0.5;
+  public static final double climberDriveSpeed = 0.5;
 }

@@ -43,9 +43,13 @@ public class RobotMap {
   public static final int elevatorSPX2ID = 5; // Slave 2 ID Bottom `Elevator Right
   public static final int elevatorSPX3ID = 6; // Slave 3 ID Back right Elevator right
 
-  public static final int elevatorArmSRXID = 8; // front
+  public static final int elevatorArmSRXID = 8; // Front
   // If you are using multiple modules, make sure to define both the port
   // number and the module. For example you with a rangefinder:
+
+  /* Climber */
+  public static final int climberSRXID = 0;
+  public static final int climberSPXID = 1;
 
   /* Sensors */
   public static final int lidarPort = 4;
