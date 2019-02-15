@@ -49,13 +49,14 @@ public class ElevatorSubsystem extends Subsystem{
     @Override
     public void periodic() {
         //Sets speed to manipulator gamepad right Y stick value
-        double moveSpeed = Robot.manipulatorGamepad.getThresholdAxis(BionicF310.RY) * RobotConstants.elevatorSpeedMultiplier;
+        double moveSpeed = Robot.manipulatorGamepad.getThresholdAxis(BionicF310.LY) * RobotConstants.elevatorSpeedMultiplier;
 
         if(moveSpeed == 0 ) {  //If Y-stick value is not moving, HOLD position
             leftSRX.set(ControlMode.Position, holdingPosition);
         } 
         else{ //Set speed to Y-stick value and HOLD position
             leftSRX.set(ControlMode.PercentOutput, moveSpeed);
+            //leftSRX.pidWrite(output);
             holdCurrentPosition();
         }
     }
