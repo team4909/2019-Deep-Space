@@ -34,7 +34,7 @@ public class ElevatorSubsystem extends Subsystem{
         rightSPX1 = new WPI_VictorSPX(RobotMap.elevatorSPX2ID); //slave SPX 2
         rightSPX2 = new WPI_VictorSPX(RobotMap.elevatorSPX3ID); //slave SPX 3
 
-        
+        leftSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
 
         leftSPX.follow(leftSRX);  //All slaves will output the same value as the master SRX
         rightSPX1.follow(leftSRX);  
@@ -42,14 +42,14 @@ public class ElevatorSubsystem extends Subsystem{
         
         rightSPX1.setInverted(true);
         rightSPX2.setInverted(true);
-        leftSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-        leftSRX.config_kP(1, 0.6, 0);
+        
+        leftSRX.config_kP(1, 0.0000001, 0);
         leftSPX.config_kI(1, 0);
         leftSPX.config_kD(1, 0);
     }
 
     public void holdCurrentPosition(){  //hold elevator in position
-            holdingPosition = leftSRX.getSelectedSensorPosition();
+        holdingPosition = leftSRX.getSelectedSensorPosition();
     }
     
     public void setSpeed(double speed){  //set elevator speed value
@@ -58,6 +58,7 @@ public class ElevatorSubsystem extends Subsystem{
 
     public void setPosition(double position){
         leftSRX.set(ControlMode.Position, position);
+        leftSRX.selectProfileSlot(1,);
     }
 
     public int getPosition(){
