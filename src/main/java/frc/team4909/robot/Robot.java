@@ -39,8 +39,8 @@ import frc.team4909.robot.sensors.LidarLitePWM;
 //     B: Line Follow
 //  
 //  Operator Gamped (Port 1): 
-//     LY: Elevator Arm Pivot 
-//     RY: Elevator Speed 
+//     RY: Elevator Arm Pivot 
+//     LY: Elevator Speed 
 //     RT: Cargo Intake In 
 //     RB: Cargo Intake Out 
 //     LT: Hatch Panel Intake In 
