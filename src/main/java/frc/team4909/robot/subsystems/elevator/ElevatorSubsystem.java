@@ -49,7 +49,6 @@ public class ElevatorSubsystem extends Subsystem {
 
         rightSPX1.setInverted(true);
         rightSPX2.setInverted(true);
-        leftSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
         leftSRX.setSensorPhase(false);
         //update();
         leftSRX.selectProfileSlot(1, 0);
