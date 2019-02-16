@@ -21,6 +21,7 @@ import frc.team4909.robot.operator.controllers.BionicF310;
 import frc.team4909.robot.operator.generic.BionicAxis;
 import frc.team4909.robot.sensors.Stream;
 import frc.team4909.robot.subsystems.climber.ClimberSubsystem;
+import frc.team4909.robot.subsystems.climber.DriveStiltsBack;
 import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
 import frc.team4909.robot.subsystems.drivetrain.commands.InvertDriveDirection;
 import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
@@ -36,8 +37,8 @@ import frc.team4909.robot.sensors.LidarLitePWM;
 //  Driver Gamepad (Port 0): 
 //     LY: Drive Speed 
 //     RX: Drive Rotation 
-//     LT: Extend Stilts
-//     RT: Retract Stilts 
+//     LT: Retract Stilts
+//     RT: Extend Stilts 
 //     LB: Drive Stilt Wheels 
 //     A: Invert Drive Direction 
 //     B: Line Follow
@@ -127,10 +128,11 @@ public class Robot extends TimedRobot {
     manipulatorGamepad.buttonHeld(BionicF310.LT, 0.2, new HatchPanelIntakeOpen());
 
     /* Climber */
-    driverGamepad.buttonHeld(BionicF310.LT, 0.2, new ExtendStilts());
-    driverGamepad.buttonHeld(BionicF310.RT, 0.2, new RetractStilts());
-    driverGamepad.buttonHeld(BionicF310.RT, 0.2, new StopExtend());
-    driverGamepad.buttonPressed(BionicF310.LB, new DriveStiltsForward());
+    driverGamepad.buttonHeld(BionicF310.RT, 0.2, new ExtendStilts());
+    driverGamepad.buttonHeld(BionicF310.LT, 0.2, new RetractStilts());
+    driverGamepad.buttonPressed(BionicF310.Y, new StopExtend());
+    driverGamepad.buttonHeld(BionicF310.LB, new DriveStiltsBack());
+    driverGamepad.buttonHeld(BionicF310.RB, new DriveStiltsForward());
 
     /* Elevator */
     manipulatorGamepad.buttonPressed(BionicF310.A, new SetElevatorPosition(-13000, 1));
