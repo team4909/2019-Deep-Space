@@ -13,10 +13,10 @@ import frc.team4909.robot.subsystems.climber.RetractStilts;
 import frc.team4909.robot.subsystems.climber.StopExtend;
 import frc.team4909.robot.subsystems.drivetrain.Linefollow;
 import frc.team4909.robot.subsystems.drivetrain.commands.SwapTurnSpeed;
-import frc.team4909.robot.subsystems.intake.CargoIntakeIn;
-import frc.team4909.robot.subsystems.intake.CargoIntakeOut;
-import frc.team4909.robot.subsystems.intake.HatchPanelIntakeOpen;
-import frc.team4909.robot.subsystems.intake.HatchPanelIntakeClose;
+import frc.team4909.robot.subsystems.intake.commands.CargoIntakeIn;
+import frc.team4909.robot.subsystems.intake.commands.CargoIntakeOut;
+import frc.team4909.robot.subsystems.intake.commands.HatchPanelIntakeOpen;
+import frc.team4909.robot.subsystems.intake.commands.HatchPanelIntakeClose;
 import frc.team4909.robot.operator.controllers.BionicF310;
 import frc.team4909.robot.operator.generic.BionicAxis;
 import frc.team4909.robot.sensors.Stream;
@@ -29,7 +29,7 @@ import frc.team4909.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.team4909.robot.subsystems.elevator.commands.SetElevatorPosition;
 import frc.team4909.robot.subsystems.elevatorarm.ElevatorArmSubsystem;
 import frc.team4909.robot.subsystems.elevatorarm.ElevatorArmSubsystem;
-import frc.team4909.robot.subsystems.elevatorarm.SetAngle;
+import frc.team4909.robot.subsystems.elevatorarm.commands.SetAngle;
 import frc.team4909.robot.sensors.LidarLitePWM;
 
 //  Controls:
@@ -39,7 +39,8 @@ import frc.team4909.robot.sensors.LidarLitePWM;
 //     RX: Drive Rotation 
 //     LT: Retract Stilts
 //     RT: Extend Stilts 
-//     LB: Drive Stilt Wheels 
+//     LB: Drive Stilt Back
+//     RB: Drive Stilt Forward
 //     A: Invert Drive Direction 
 //     B: Line Follow
 //  
@@ -49,11 +50,7 @@ import frc.team4909.robot.sensors.LidarLitePWM;
 //     RT: Cargo Intake In 
 //     RB: Cargo Intake Out 
 //     LT: Hatch Panel Intake In 
-//     LB: Adjust Rocket Hatch Panel Setpoints for Cargo (Elevator & Arm Setpoint) 
-//     Y: Rocket Top Hatch Panel (Elevator & Arm Setpoint) 
-//     X: Rocket Medium Hatch Panel (Elevator & Arm Setpoint) 
-//     A: Cargo Ship/Human Player/Rocket Low - Hatch Panel (Elevator & Arm Setpoint) 
-//     B: Cargo Ship - Cargo (Elevator & Arm Setpoint)
+
 
 public class Robot extends TimedRobot {
 
@@ -121,7 +118,7 @@ public class Robot extends TimedRobot {
         RobotConstants.manipulatorGamepadSensitivity // Gamepad sensitivity
     );
     /* Drivetrain */
-
+    
     /* Intake */
     manipulatorGamepad.buttonHeld(BionicF310.RT, 0.2, new CargoIntakeIn());
     manipulatorGamepad.buttonHeld(BionicF310.RB, new CargoIntakeOut());

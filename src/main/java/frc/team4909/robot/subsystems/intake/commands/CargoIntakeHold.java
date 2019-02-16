@@ -1,11 +1,11 @@
-package frc.team4909.robot.subsystems.intake;
+package frc.team4909.robot.subsystems.intake.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotConstants;
 
 public class CargoIntakeHold extends Command{
-    public void CargoIntakeHold(){
+    public CargoIntakeHold(){
         requires(Robot.intakeSubsystem);
     }
 
