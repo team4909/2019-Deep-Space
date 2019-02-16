@@ -12,6 +12,7 @@ public class RobotConstants {
 
   /* Drivetrain */
   public static final double speedMultiplier = .7;
+  public static final double speedTurnMultiplier = .4;
 
   /* Intake */
   public static final double cargoIntakeInSpeed = 1.0;
@@ -21,7 +22,7 @@ public class RobotConstants {
   public static final double cargoIntakeCurrentLimit = 0;
 
   /* LIDAR */
-  public static final int calibrationOffset = -2;
+  public static final int calibrationOffset = -9;
   public static final double lidarLimit = 30; // cm
 
   /*

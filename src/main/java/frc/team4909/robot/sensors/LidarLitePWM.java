@@ -61,7 +61,6 @@ public class LidarLitePWM {
 		 */
 
 		cm = (counter.getPeriod() * 1000000.0 / 10.0) + CALIBRATION_OFFSET;
-		System.out.println(cm);
 		return (int) cm;
 	}
 }

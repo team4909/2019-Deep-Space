@@ -16,6 +16,7 @@ public class DriveTrainSubsystem extends Subsystem {
     SpeedControllerGroup m_left, m_right;
     DifferentialDrive bionicDrive;
     double speedMultiplier = RobotConstants.speedMultiplier;
+    double speedTurnMultiplier = RobotConstants.speedTurnMultiplier;
     boolean inverted = false;
 
     public DriveTrainSubsystem() {
@@ -55,7 +56,7 @@ public class DriveTrainSubsystem extends Subsystem {
         }
 
         leftSpeedOutput = leftSpeedOutput * speedMultiplier;
-        rightSpeedOutput = rightSpeedOutput * speedMultiplier;
+        rightSpeedOutput = rightSpeedOutput * speedTurnMultiplier;
 
         bionicDrive.arcadeDrive(leftSpeedOutput, rightSpeedOutput);
     }
