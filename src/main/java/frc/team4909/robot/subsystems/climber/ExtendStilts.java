@@ -1,11 +1,11 @@
 package frc.team4909.robot.subsystems.climber;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotConstants;
 
-public class ExtendStilts extends Command {
-    public void ExtendStilts() {
+public class ExtendStilts extends InstantCommand {
+    public ExtendStilts() {
         requires(Robot.climberSubsystem);
     }
 
@@ -13,8 +13,4 @@ public class ExtendStilts extends Command {
         Robot.climberSubsystem.extendStilts();
     }
 
-    @Override
-    protected boolean isFinished() {
-        return false;
-    }
 }
