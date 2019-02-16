@@ -1,16 +1,16 @@
-package frc.team4909.robot.subsystems.climber;
+package frc.team4909.robot.subsystems.climber.commands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotConstants;
 
-public class ExtendStilts extends InstantCommand {
-    public ExtendStilts() {
+public class RetractStilts extends InstantCommand {
+    public RetractStilts() {
         requires(Robot.climberSubsystem);
     }
 
     protected void execute() {
-        Robot.climberSubsystem.extendStilts();
+        Robot.climberSubsystem.retractStilts();
     }
 
 }
