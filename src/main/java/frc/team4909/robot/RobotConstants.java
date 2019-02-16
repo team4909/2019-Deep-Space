@@ -20,10 +20,10 @@ public class RobotConstants {
   public static final double cargoIntakeHoldSpeed = 0.0625;
   public static final double cargoIntakeOutSpeed = -1.0;
 
-  public static final double cargoIntakeCurrentLimit = 0;
+ // public static final double cargoIntakeCurrentLimit = 0;
 
   /* LIDAR */
-  public static final int calibrationOffset = -9;
+  public static final int calibrationOffset = -9; // calibration constant used for Lidar
   public static final double lidarLimit = 30; // cm
 
   /*

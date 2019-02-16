@@ -15,9 +15,9 @@ public class SetElevatorPosition extends Command {
     }
 
     @Override
-    public void initialize() {
+    protected void execute() {
         Robot.elevatorSubsystem.setPosition(setpoint);
-        
+
     }
 
     @Override

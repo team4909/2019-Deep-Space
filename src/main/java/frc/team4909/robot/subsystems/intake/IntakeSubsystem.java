@@ -9,7 +9,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotConstants;
 import frc.team4909.robot.RobotMap;
-import frc.team4909.robot.subsystems.intake.HatchPanelIntakeClose;
+import frc.team4909.robot.subsystems.intake.commands.HatchPanelIntakeClose;
+import frc.team4909.robot.subsystems.intake.commands.CargoIntakeHold;
 
 public class IntakeSubsystem extends Subsystem {
     DoubleSolenoid hatchPanelSolenoid;
@@ -36,7 +37,7 @@ public class IntakeSubsystem extends Subsystem {
     public void setCargoIntakeSpeed(double speed) {
         speed = -speed;
 
-        System.out.println(getCargoIntakeCurrent());
+        //System.out.println(getCargoIntakeCurrent());
         cargoIntakeMotor.set(speed);
     }
 

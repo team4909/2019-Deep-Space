@@ -1,4 +1,4 @@
-package frc.team4909.robot.subsystems.elevatorarm;
+package frc.team4909.robot.subsystems.elevatorarm.commands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.team4909.robot.subsystems.elevatorarm.ElevatorArmSubsystem;
