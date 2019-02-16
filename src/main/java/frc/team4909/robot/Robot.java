@@ -160,11 +160,15 @@ public class Robot extends TimedRobot {
    * This function is called periodically during operator control.
    */
   @Override
-  public void teleopPeriodic() {
-    // System.out.println(lidar.getDistance()); // Remove for competition (necessary
-    // only for testing)
+  public void teleopPeriodic() {  
+    System.out.println("Lidar value is: " + lidar.getDistance()); // Remove for competition (necessary only for testing)
+    // if(lidar.getDistance() > 120) {
+    //   Robot.drivetrainSubsystem.arcadeDrive(0.1, 0.1);
+    // }
+    // if(lidar.getDistance() < 115) {
+    //   Robot.drivetrainSubsystem.arcadeDrive(-0.1, -0.1);
+    // }
   }
-
   /**
    * This function is called periodically during test mode.
    */
