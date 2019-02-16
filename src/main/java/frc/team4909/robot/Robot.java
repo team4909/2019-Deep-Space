@@ -1,6 +1,6 @@
 package frc.team4909.robot;
 
-import frc.team4909.robot.openCV.GripPipeline;
+//import frc.team4909.robot.openCV.GripPipeline;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.team4909.robot.subsystems.climber.DriveStilts;
 import frc.team4909.robot.subsystems.climber.ExtendStilts;
 import frc.team4909.robot.subsystems.climber.RetractStilts;
+import frc.team4909.robot.subsystems.climber.StopExtend;
 import frc.team4909.robot.subsystems.drivetrain.Linefollow;
 import frc.team4909.robot.subsystems.intake.CargoIntakeIn;
 import frc.team4909.robot.subsystems.intake.CargoIntakeOut;
@@ -54,7 +55,7 @@ public class Robot extends TimedRobot {
 
   // Camera
   public static Stream stream;
-  public static GripPipeline grip;
+  //public static GripPipeline grip;
   // Operator Input
   public static BionicF310 driverGamepad;
   public static BionicF310 manipulatorGamepad;
@@ -83,7 +84,7 @@ public class Robot extends TimedRobot {
     stream = new Stream();
     // CameraServer.getInstance().startAutomaticCapture();
     stream.streamCamera();
-    grip = new GripPipeline();
+    //grip = new GripPipeline();
 
     // Compressor
     c = new Compressor(0); // Initialize Compressor
@@ -119,6 +120,7 @@ public class Robot extends TimedRobot {
     /* Climber */
     driverGamepad.buttonHeld(BionicF310.LT, 0.2, new ExtendStilts());
     driverGamepad.buttonHeld(BionicF310.RT, 0.2, new RetractStilts());
+    driverGamepad.buttonHeld(BionicF310.RT, 0.2, new StopExtend());
     driverGamepad.buttonPressed(BionicF310.LB, new DriveStilts());
 
     /* Elevator */

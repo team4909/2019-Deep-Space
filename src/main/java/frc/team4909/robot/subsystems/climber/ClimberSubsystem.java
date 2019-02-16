@@ -15,6 +15,7 @@ import frc.team4909.robot.subsystems.climber.RetractStilts;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.team4909.robot.Robot;
+import frc.team4909.robot.operator.controllers.BionicF310;
 
 public class ClimberSubsystem extends Subsystem {
     WPI_TalonSRX climberSRX;
@@ -41,7 +42,11 @@ public class ClimberSubsystem extends Subsystem {
     }
 
     public void driveStilts() {
-        climberSPX.set(RobotConstants.climberDriveSpeed);
+        climberSPX.set(Robot.driverGamepad.getThresholdAxis(BionicF310.LY));
+    }
+
+    public void stopExtend() {
+        climberSRX.set(0);
     }
 
     protected void initDefaultCommand() {
