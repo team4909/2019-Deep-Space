@@ -10,14 +10,14 @@ import frc.team4909.robot.subsystems.intake.CargoIntakeOut;
 import frc.team4909.robot.subsystems.intake.HatchPanelIntakeOpen;
 import frc.team4909.robot.subsystems.intake.HatchPanelIntakeClose;
 import frc.team4909.robot.operator.controllers.BionicF310;
-import frc.team4909.robot.sensors.Stream;
+// import frc.team4909.robot.sensors.Stream;
 import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
 import frc.team4909.robot.subsystems.drivetrain.commands.InvertDriveDirection;
 import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
 import frc.team4909.robot.subsystems.elevator.ElevatorSubsystem;;
 public class Robot extends TimedRobot {
 
-  Stream stream = new Stream();
+  // Stream stream = new Stream();
   // Operator Input
   public static BionicF310 driverGamepad;
   public static BionicF310 manipulatorGamepad;
@@ -44,7 +44,7 @@ public class Robot extends TimedRobot {
     c.setClosedLoopControl(true); // Start Compressor in Closed Loop Control
 
 
-    stream.streamCamera();
+    // stream.streamCamera();
     // GripPipeline grip = new GripPipeline();
 
     // Subsystems
@@ -108,7 +108,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    System.out.println(lidar.getDistance()); // Remove for competition (necessary only for testing)
+    System.out.println("Distance is  " + lidar.getDistance()); // Remove for competition (necessary only for testing)
   }
 
   /**
