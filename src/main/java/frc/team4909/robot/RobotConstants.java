@@ -12,7 +12,7 @@ public class RobotConstants {
 
   /* Drivetrain */
   public static final double speedMultiplier = .7;
-  public static final double speedTurnMultiplier = .7;
+  public static final double speedTurnMultiplier = .4;
 
   /* Intake */
   public static final double cargoIntakeInSpeed = 1.0;
@@ -22,7 +22,7 @@ public class RobotConstants {
   public static final double cargoIntakeCurrentLimit = 0;
 
   /* LIDAR */
-  public static final int calibrationOffset = -2;
+  public static final int calibrationOffset = -9;
   public static final double lidarLimit = 30; // cm
 
   /*
@@ -36,7 +36,7 @@ public class RobotConstants {
   public static final double irSensorThreshold = 1.7;
 
   /* Elevator */
-  public static final double elevatorSpeedMultiplier = 1.0; // Multiplier for elevator speed
+  public static final double elevatorSpeedMultiplier = 0.5; // Multiplier for elevator speed
   public static final double elevatorArmSpeedMultiplier = 0.75; // Multiplier for elevator arm speed
 
   /* Linefollow */

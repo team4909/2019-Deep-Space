@@ -122,7 +122,7 @@ public class Robot extends TimedRobot {
     driverGamepad.buttonPressed(BionicF310.LB, new DriveStilts());
 
     /* Elevator */
-    manipulatorGamepad.buttonPressed(BionicF310.A, new SetElevatorPosition(-27220, 1));
+    manipulatorGamepad.buttonPressed(BionicF310.A, new SetElevatorPosition(-13000, 1));
 
     /* Sensors/Misc. */
     driverGamepad.buttonPressed(BionicF310.A, new InvertDriveDirection());
@@ -160,11 +160,15 @@ public class Robot extends TimedRobot {
    * This function is called periodically during operator control.
    */
   @Override
-  public void teleopPeriodic() {
-    // System.out.println(lidar.getDistance()); // Remove for competition (necessary
-    // only for testing)
+  public void teleopPeriodic() {  
+    System.out.println("Lidar value is: " + lidar.getDistance()); // Remove for competition (necessary only for testing)
+    // if(lidar.getDistance() > 120) {
+    //   Robot.drivetrainSubsystem.arcadeDrive(0.1, 0.1);
+    // }
+    // if(lidar.getDistance() < 115) {
+    //   Robot.drivetrainSubsystem.arcadeDrive(-0.1, -0.1);
+    // }
   }
-
   /**
    * This function is called periodically during test mode.
    */
