@@ -31,7 +31,8 @@ public class RobotMap {
   public static final int driveRearRightSparkMaxCAN = 2;
 
   /* Intake */
-  public static final int intakePCMChannel = 0;
+  public static final int intakePCMChannelL = 0;
+  public static final int intakePCMChannelR= 1;
   public static final int intakeMotorCAN = 9;
   public static final int intakeMotorPDP = 4;
   public static final int leftIRSensor = 0;

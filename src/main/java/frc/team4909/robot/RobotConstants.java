@@ -13,6 +13,7 @@ public class RobotConstants {
   /* Drivetrain */
   public static final double speedMultiplier = .7;
   public static final double speedTurnMultiplier = .4;
+  public static final double speedTurnPreciseMultiplier = .2;
 
   /* Intake */
   public static final double cargoIntakeInSpeed = 1.0;
