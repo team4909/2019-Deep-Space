@@ -72,7 +72,6 @@ public class ElevatorSubsystem extends Subsystem {
     public void setPosition(int position){
         //leftSRX.setSelectedSensorPosition(position, 0, 0); Need to test
         leftSRX.set(ControlMode.Position, position);
-        leftSRX.selectProfileSlot(1, 0);
     }
 
     public void setMagicPosition(int position){
