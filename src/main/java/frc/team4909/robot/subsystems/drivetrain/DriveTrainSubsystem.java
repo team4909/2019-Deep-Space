@@ -16,6 +16,7 @@ public class DriveTrainSubsystem extends Subsystem {
     SpeedControllerGroup m_left, m_right;
     DifferentialDrive bionicDrive;
     double speedMultiplier = RobotConstants.speedMultiplier;
+    double speedTurnMultiplier = RobotConstants.speedTurnMultiplier;
     boolean inverted = false;
 
     public DriveTrainSubsystem() {
@@ -45,15 +46,19 @@ public class DriveTrainSubsystem extends Subsystem {
         bionicDrive.tankDrive(leftSpeedOutput, rightSpeedOutput);
     }
 
-    public void arcadeDrive(double speed, double direction) {
-        double speedOutput = speed;
-        double directionOutput = direction;
+    public void arcadeDrive(double leftSpeed, double rightSpeed) {
+        double speedOutput = leftSpeed;
+        double turnOutput = rightSpeed;
 
+        if (inverted) {
+            speedOutput = -rightSpeed;
+            turnOutput = -leftSpeed;
+        }
 
-        speedOutput = speed * speedMultiplier;
-        directionOutput = direction * speedMultiplier;
+        speedOutput = speedOutput * speedMultiplier;
+        turnOutput = turnOutput * speedTurnMultiplier;
 
-        bionicDrive.arcadeDrive(speedOutput, directionOutput);
+        bionicDrive.arcadeDrive(speedOutput, turnOutput);
     }
 
     public void invertDriveDirection() {
