@@ -33,36 +33,51 @@ public class Stream {
     
   };
   public void streamCamera(){
-    //Camera1 = CameraServer.getInstance().startAutomaticCapture(0);
-    //Camera2 = CameraServer.getInstance().startAutomaticCapture(1);
-    //Camera1.setResolution(320, 240);
-    //Camera2.setResolution(320, 240);
-
     new Thread(() -> {
       UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture(0);
       UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture(1);
-      camera1.setResolution(160, 120);
+      UsbCamera camera3 = CameraServer.getInstance().startAutomaticCapture(2);
+      UsbCamera camera4 = CameraServer.getInstance().startAutomaticCapture(3);
+      camera1.setResolution(120, 90);
       camera2.setResolution(160, 120);
-      camera1.setFPS(20);
-      camera2.setFPS(20);
+      camera1.setFPS(12);
+      camera2.setFPS(12);
       CvSink cvSink = CameraServer.getInstance().getVideo();
       CvSource outputStream = CameraServer.getInstance().putVideo("Source 1", 160, 120);
       CvSink cvSink2 = CameraServer.getInstance().getVideo();
       CvSource outputStream2 = CameraServer.getInstance().putVideo("Source 2", 160, 120);
-      
+      camera3.setResolution(120, 90);
+      camera4.setResolution(160, 120);
+      camera3.setFPS(12);
+      camera4.setFPS(12);
+      CvSink cvSink3 = CameraServer.getInstance().getVideo();
+      CvSource outputStream3 = CameraServer.getInstance().putVideo("Source 3", 160, 120);
+      CvSink cvSink4 = CameraServer.getInstance().getVideo();
+      CvSource outputStream4 = CameraServer.getInstance().putVideo("Source 4", 160, 120);
+
       Mat source1 = new Mat();
       Mat source2 = new Mat();
       Mat output1 = new Mat();
       Mat output2 = new Mat();
+      Mat source3 = new Mat();
+      Mat source4 = new Mat();
+      Mat output3 = new Mat();
+      Mat output4 = new Mat();
 
       while(!Thread.interrupted()) {
           cvSink.grabFrame(source1);
-          //Imgproc.cvtColor(source1, output1, Imgproc.COLOR_BGR2HSV);
+          Imgproc.cvtColor(source1, output1, Imgproc.COLOR_BGR2HSV);
           outputStream.putFrame(output1);
           cvSink2.grabFrame(source2);
-          //Imgproc.cvtColor(source2, output2, Imgproc.COLOR_BGR2HSV);
+          Imgproc.cvtColor(source2, output2, Imgproc.COLOR_BGR2HSV);
           outputStream2.putFrame(output2);
-      }
+          cvSink3.grabFrame(source3);
+          Imgproc.cvtColor(source3, output3, Imgproc.COLOR_BGR2HSV);
+          outputStream3.putFrame(output3);
+          cvSink4.grabFrame(source4);
+          Imgproc.cvtColor(source4, output4, Imgproc.COLOR_BGR2HSV);
+          outputStream4.putFrame(output4);
+  }
   }).start();
   }
 }
