@@ -35,7 +35,7 @@ public class RobotConstants {
   public static final double irSensorThreshold = 1.7;
 
   /* Elevator */
-  public static final double elevatorSpeedMultiplier = 1.0; // Multiplier for elevator speed
+  public static final double elevatorSpeedMultiplier = 0.5; // Multiplier for elevator speed
   public static final double elevatorArmSpeedMultiplier = 0.75; // Multiplier for elevator arm speed
 
   /* Linefollow */

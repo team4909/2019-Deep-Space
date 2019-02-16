@@ -122,7 +122,7 @@ public class Robot extends TimedRobot {
     driverGamepad.buttonPressed(BionicF310.LB, new DriveStilts());
 
     /* Elevator */
-    manipulatorGamepad.buttonPressed(BionicF310.A, new SetElevatorPosition(-10000, 1));
+    manipulatorGamepad.buttonPressed(BionicF310.A, new SetElevatorPosition(-13000, 1));
 
     /* Sensors/Misc. */
     driverGamepad.buttonPressed(BionicF310.A, new InvertDriveDirection());

@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.team4909.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.team4909.robot.Robot;
 
-public class SetElevatorPosition extends InstantCommand {
+public class SetElevatorPosition extends Command {
     private int setpoint, threshold;
 
     public SetElevatorPosition(int setpoint, int threshold) {
@@ -17,11 +17,13 @@ public class SetElevatorPosition extends InstantCommand {
     @Override
     public void initialize() {
         Robot.elevatorSubsystem.setPosition(setpoint);
-
+        
     }
 
     @Override
     protected boolean isFinished() {
+        System.out.println("New position is: " + Robot.elevatorSubsystem.getPosition());
         return false;
+        //return Math.abs(Robot.elevatorSubsystem.getPosition() - setpoint) < threshold;
     }
 }

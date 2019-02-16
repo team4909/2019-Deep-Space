@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class ElevatorArmSubsystem extends Subsystem{
@@ -22,13 +23,13 @@ public class ElevatorArmSubsystem extends Subsystem{
         elevatorArmSRX = new TalonSRX(RobotMap.elevatorArmSRXID);
 
         elevatorArmSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
- 
+        elevatorArmSRX.setNeutralMode(NeutralMode.Brake);
         elevatorArmSRX.configContinuousCurrentLimit(3);
         elevatorArmSRX.configPeakCurrentLimit(6);
         elevatorArmSRX.selectProfileSlot(0, 0);
-        elevatorArmSRX.config_kP(0,1, 0);
-        elevatorArmSRX.config_kI(0,0);
-        elevatorArmSRX.config_kD(0,30, 0);
+        elevatorArmSRX.config_kP(0, 0.5, 0);
+        elevatorArmSRX.config_kI(0, 0);
+        elevatorArmSRX.config_kD(0, 0.5, 0);
     }
 
 

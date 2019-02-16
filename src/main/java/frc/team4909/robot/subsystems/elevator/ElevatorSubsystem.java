@@ -48,9 +48,10 @@ public class ElevatorSubsystem extends Subsystem {
         rightSPX1.setInverted(true);
         rightSPX2.setInverted(true);
         leftSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
-        
+        leftSRX.setSensorPhase(false);
+        //update();
         leftSRX.selectProfileSlot(1, 0);
-        leftSRX.config_kP(1, 0, 0);
+        leftSRX.config_kP(1, 0.1, 0); 
         leftSRX.config_kI(1, 0);
         leftSRX.config_kD(1, 0);
     }
@@ -71,6 +72,10 @@ public class ElevatorSubsystem extends Subsystem {
         //leftSRX.setSelectedSensorPosition(position, 0, 0); Need to test
         leftSRX.set(ControlMode.Position, position);
     }   
+
+    public void setMagicPosition(int position){
+        leftSRX.set(ControlMode.MotionMagic, position);
+    }
 
     public int getPosition() {
         return leftSRX.getSelectedSensorPosition();
