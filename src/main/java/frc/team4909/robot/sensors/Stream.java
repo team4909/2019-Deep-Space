@@ -41,14 +41,14 @@ public class Stream {
     new Thread(() -> {
       UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture(0);
       UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture(1);
-      camera1.setResolution(640, 480);
+      camera1.setResolution(160, 120);
       camera2.setResolution(160, 120);
-      camera1.setFPS(12);
+      camera1.setFPS(20);
       camera2.setFPS(20);
       CvSink cvSink = CameraServer.getInstance().getVideo();
-      CvSource outputStream = CameraServer.getInstance().putVideo("Blur", 640, 480);
+      CvSource outputStream = CameraServer.getInstance().putVideo("Source 1", 160, 120);
       CvSink cvSink2 = CameraServer.getInstance().getVideo();
-      CvSource outputStream2 = CameraServer.getInstance().putVideo("Blur", 640, 480);
+      CvSource outputStream2 = CameraServer.getInstance().putVideo("Source 2", 160, 120);
       
       Mat source1 = new Mat();
       Mat source2 = new Mat();
@@ -57,10 +57,10 @@ public class Stream {
 
       while(!Thread.interrupted()) {
           cvSink.grabFrame(source1);
-          Imgproc.cvtColor(source1, output1, Imgproc.COLOR_BGR2HSV);
+          //Imgproc.cvtColor(source1, output1, Imgproc.COLOR_BGR2HSV);
           outputStream.putFrame(output1);
           cvSink2.grabFrame(source2);
-          Imgproc.cvtColor(source2, output2, Imgproc.COLOR_BGR2HSV);
+          //Imgproc.cvtColor(source2, output2, Imgproc.COLOR_BGR2HSV);
           outputStream2.putFrame(output2);
       }
   }).start();
