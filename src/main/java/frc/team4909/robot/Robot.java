@@ -6,16 +6,19 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team4909.robot.subsystems.climber.DriveStilts;
 import frc.team4909.robot.subsystems.climber.ExtendStilts;
 import frc.team4909.robot.subsystems.climber.RetractStilts;
 import frc.team4909.robot.subsystems.climber.StopExtend;
 import frc.team4909.robot.subsystems.drivetrain.Linefollow;
+import frc.team4909.robot.subsystems.drivetrain.commands.SwapTurnSpeed;
 import frc.team4909.robot.subsystems.intake.CargoIntakeIn;
 import frc.team4909.robot.subsystems.intake.CargoIntakeOut;
 import frc.team4909.robot.subsystems.intake.HatchPanelIntakeOpen;
 import frc.team4909.robot.subsystems.intake.HatchPanelIntakeClose;
 import frc.team4909.robot.operator.controllers.BionicF310;
+import frc.team4909.robot.operator.generic.BionicAxis;
 import frc.team4909.robot.sensors.Stream;
 import frc.team4909.robot.subsystems.climber.ClimberSubsystem;
 import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
@@ -59,6 +62,7 @@ public class Robot extends TimedRobot {
   // Operator Input
   public static BionicF310 driverGamepad;
   public static BionicF310 manipulatorGamepad;
+  public boolean StiltsStop;
 
   // Subsystems
   public static PowerDistributionPanel powerDistributionPanel;
@@ -71,6 +75,10 @@ public class Robot extends TimedRobot {
 
   // Sensors
   public static LidarLitePWM lidar;
+
+  // SmartDashboard Buttons
+  public boolean CargoIntake;
+  public boolean CargoOuttake;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -129,6 +137,7 @@ public class Robot extends TimedRobot {
     /* Sensors/Misc. */
     driverGamepad.buttonPressed(BionicF310.A, new InvertDriveDirection());
     driverGamepad.buttonPressed(BionicF310.B, new Linefollow());
+    driverGamepad.buttonHeld(BionicF310.R, new SwapTurnSpeed());
   }
 
   /**
@@ -164,6 +173,23 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {  
     System.out.println("Lidar value is: " + lidar.getDistance()); // Remove for competition (necessary only for testing)
+    StiltsStop = SmartDashboard.getBoolean("Stop Stilts", false);
+    if (StiltsStop == true){
+      new StopExtend();
+      SmartDashboard.putBoolean("Stop Stilts", false);
+    }
+    CargoIntake = SmartDashboard.getBoolean("Cargo In", false);
+    if (CargoIntake == true){
+      new CargoIntakeIn();
+      SmartDashboard.putBoolean("Cargo In", false);
+    }
+
+    CargoOuttake = SmartDashboard.getBoolean("Cargo Out", false);
+    if (CargoOuttake == true){
+      new CargoIntakeOut();
+      SmartDashboard.putBoolean("Cargo Out", false);
+    }
+
     // if(lidar.getDistance() > 120) {
     //   Robot.drivetrainSubsystem.arcadeDrive(0.1, 0.1);
     // }
