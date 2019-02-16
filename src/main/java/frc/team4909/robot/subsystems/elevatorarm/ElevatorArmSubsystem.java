@@ -23,6 +23,8 @@ public class ElevatorArmSubsystem extends Subsystem{
         elevatorArmSRX = new TalonSRX(RobotMap.elevatorArmSRXID);
 
         elevatorArmSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+        //elevatorArmSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
+        //update();       
         elevatorArmSRX.setNeutralMode(NeutralMode.Brake);
         elevatorArmSRX.configContinuousCurrentLimit(3);
         elevatorArmSRX.configPeakCurrentLimit(6);
@@ -49,6 +51,9 @@ public class ElevatorArmSubsystem extends Subsystem{
     }
     public void setPosition(double position){
         elevatorArmSRX.set(ControlMode.Position, position);
+    }
+    public void update(){
+        elevatorArmSRX.setSelectedSensorPosition(0);
     }
     
 
