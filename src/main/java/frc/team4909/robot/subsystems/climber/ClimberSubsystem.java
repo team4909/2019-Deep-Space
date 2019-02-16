@@ -22,8 +22,8 @@ public class ClimberSubsystem extends Subsystem {
     WPI_VictorSPX climberSPX;
 
     public ClimberSubsystem() {
-        climberSRX = new WPI_TalonSRX(RobotMap.climberSRXID);
-        climberSPX = new WPI_VictorSPX(RobotMap.climberSPXID);
+        climberSRX = new WPI_TalonSRX(RobotMap.climberSRXID); // Climber lift
+        climberSPX = new WPI_VictorSPX(RobotMap.climberSPXID); // CLimber drive
 
         climberSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 
@@ -41,8 +41,12 @@ public class ClimberSubsystem extends Subsystem {
         climberSRX.set(-RobotConstants.climberStiltSpeed);
     }
 
-    public void driveStilts() {
-        climberSPX.set(Robot.driverGamepad.getThresholdAxis(BionicF310.LY));
+    public void driveStiltsForward() {
+        climberSPX.set(-RobotConstants.climberDriveSpeed);
+    }
+    
+    public void driveStiltsBack(){
+        climberSPX.set(RobotConstants.climberDriveSpeed);
     }
 
     public void stopExtend() {

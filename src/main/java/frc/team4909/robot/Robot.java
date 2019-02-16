@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.team4909.robot.subsystems.climber.DriveStilts;
+import frc.team4909.robot.subsystems.climber.DriveStiltsForward;
 import frc.team4909.robot.subsystems.climber.ExtendStilts;
 import frc.team4909.robot.subsystems.climber.RetractStilts;
 import frc.team4909.robot.subsystems.climber.StopExtend;
@@ -119,6 +119,7 @@ public class Robot extends TimedRobot {
         RobotConstants.manipulatorGamepadDeadzone, // Deadzone
         RobotConstants.manipulatorGamepadSensitivity // Gamepad sensitivity
     );
+    /* Drivetrain */
 
     /* Intake */
     manipulatorGamepad.buttonHeld(BionicF310.RT, 0.2, new CargoIntakeIn());
@@ -129,7 +130,7 @@ public class Robot extends TimedRobot {
     driverGamepad.buttonHeld(BionicF310.LT, 0.2, new ExtendStilts());
     driverGamepad.buttonHeld(BionicF310.RT, 0.2, new RetractStilts());
     driverGamepad.buttonHeld(BionicF310.RT, 0.2, new StopExtend());
-    driverGamepad.buttonPressed(BionicF310.LB, new DriveStilts());
+    driverGamepad.buttonPressed(BionicF310.LB, new DriveStiltsForward());
 
     /* Elevator */
     manipulatorGamepad.buttonPressed(BionicF310.A, new SetElevatorPosition(-13000, 1));
@@ -137,7 +138,6 @@ public class Robot extends TimedRobot {
     /* Sensors/Misc. */
     driverGamepad.buttonPressed(BionicF310.A, new InvertDriveDirection());
     driverGamepad.buttonPressed(BionicF310.B, new Linefollow());
-    driverGamepad.buttonHeld(BionicF310.R, new SwapTurnSpeed());
   }
 
   /**
