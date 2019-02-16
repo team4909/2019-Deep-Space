@@ -85,7 +85,7 @@ public class Stream {
       
       while(!Thread.interrupted()) {
           cvSink1.grabFrame(source1);
-          /////////////////////Imgproc.warpPerspective(source1, output1, hatchWatchMatrix, new Size(height1, length1));
+          Imgproc.warpPerspective(source1, output1, hatchWatchMatrix, new Size(height1, length1));
           //Imgproc.cvtColor(source1, output1, Imgproc.COLOR_BGR2HSV);
           outputStream.putFrame(output1);
           cvSink2.grabFrame(source2);
