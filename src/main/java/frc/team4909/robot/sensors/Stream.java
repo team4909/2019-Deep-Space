@@ -9,6 +9,7 @@ package frc.team4909.robot.sensors;
 
 import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
+import org.opencv.core.*;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
@@ -34,15 +35,15 @@ public class Stream {
   };
   public void streamCamera(){
     new Thread(() -> {
-      UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture(0);
-      UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture(1);
-      UsbCamera camera3 = CameraServer.getInstance().startAutomaticCapture(2);
-      UsbCamera camera4 = CameraServer.getInstance().startAutomaticCapture(3);
+      UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture(0); //Function: 
+      UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture(1); //Function: 
+      UsbCamera camera3 = CameraServer.getInstance().startAutomaticCapture(2); //Function: 
+      UsbCamera camera4 = CameraServer.getInstance().startAutomaticCapture(3); //Function: 
       camera1.setResolution(120, 90);
       camera2.setResolution(160, 120);
       camera1.setFPS(12);
       camera2.setFPS(12);
-      CvSink cvSink = CameraServer.getInstance().getVideo();
+      CvSink cvSink1 = CameraServer.getInstance().getVideo();
       CvSource outputStream = CameraServer.getInstance().putVideo("Source 1", 160, 120);
       CvSink cvSink2 = CameraServer.getInstance().getVideo();
       CvSource outputStream2 = CameraServer.getInstance().putVideo("Source 2", 160, 120);
@@ -64,9 +65,28 @@ public class Stream {
       Mat output3 = new Mat();
       Mat output4 = new Mat();
 
+      Mat image1 = new Mat(cvSink1.grabFrame(source1));
+      int height1 = image1.rows();
+      int length1 = image1.cols();
+      MatOfPoint2f src = new MatOfPoint2f(
+                new Point((1/6)*height1, 0),
+                new Point((5/6)*height1,0),
+                new Point(height1-1,length1-1),
+                new Point(0,length1-1)
+                );
+
+      MatOfPoint2f dst = new MatOfPoint2f(
+                new Point(0, 0),
+                new Point(height1-1,0),
+                new Point(0,length1-1),
+                new Point(height1-1,length1-1)      
+                );
+      Mat hatchWatchMatrix = Imgproc.getPerspectiveTransform(src, dst);
+      
       while(!Thread.interrupted()) {
-          cvSink.grabFrame(source1);
-          Imgproc.cvtColor(source1, output1, Imgproc.COLOR_BGR2HSV);
+          cvSink1.grabFrame(source1);
+          /////////////////////Imgproc.warpPerspective(source1, output1, hatchWatchMatrix, new Size(height1, length1));
+          //Imgproc.cvtColor(source1, output1, Imgproc.COLOR_BGR2HSV);
           outputStream.putFrame(output1);
           cvSink2.grabFrame(source2);
           Imgproc.cvtColor(source2, output2, Imgproc.COLOR_BGR2HSV);
