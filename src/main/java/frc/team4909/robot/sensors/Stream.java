@@ -15,11 +15,13 @@ import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoSink;
-
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.cameraserver.CameraServer;
 //import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.networktables.NetworkTable;
 
 //Init of Camera and Bandwidth control.
 
@@ -57,6 +59,10 @@ public class Stream {
       camera4.setResolution(160, 120);
       camera3.setFPS(12);
       camera4.setFPS(12);
+      NetworkTable smart1 = NetworkTableInstance.getDefault().getTable("");
+      NetworkTable smart2 = NetworkTableInstance.getDefault().getTable("Source 2");
+      
+
       //CvSink cvSink3 = CameraServer.getInstance().getVideo();
       //CvSource outputStream3 = CameraServer.getInstance().putVideo("Source 3", 160, 120);
       //CvSink cvSink4 = CameraServer.getInstance().getVideo();
@@ -97,7 +103,7 @@ public class Stream {
               //Show Cargo Intake Camera
               intakeServer.setSource(camera4);
           }
-          /*cvSink1.grabFrame(source1);
+          cvSink1.grabFrame(source1);
           Imgproc.warpPerspective(source1, output1, hatchWatchMatrix, new Size(height1, length1));
           //Imgproc.cvtColor(source1, output1, Imgproc.COLOR_BGR2HSV);
           outputStream.putFrame(output1);
@@ -109,7 +115,7 @@ public class Stream {
           outputStream3.putFrame(output3);
           cvSink4.grabFrame(source4);
           Imgproc.cvtColor(source4, output4, Imgproc.COLOR_BGR2HSV);
-          outputStream4.putFrame(output4);*/
+          outputStream4.putFrame(output4);
   }
   }).start();
   }
