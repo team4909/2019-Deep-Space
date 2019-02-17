@@ -35,6 +35,7 @@ public class Stream {
   };
   public void streamCamera(){
     new Thread(() -> {
+      //Cameras 3 and 4 have mutual toggle function.
       UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture(0); //Function: 
       UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture(1); //Function: 
       UsbCamera camera3 = CameraServer.getInstance().startAutomaticCapture(2); //Function: 
@@ -43,27 +44,27 @@ public class Stream {
       camera2.setResolution(160, 120);
       camera1.setFPS(12);
       camera2.setFPS(12);
-      CvSink cvSink1 = CameraServer.getInstance().getVideo();
-      CvSource outputStream = CameraServer.getInstance().putVideo("Source 1", 160, 120);
-      CvSink cvSink2 = CameraServer.getInstance().getVideo();
-      CvSource outputStream2 = CameraServer.getInstance().putVideo("Source 2", 160, 120);
+      //CvSink cvSink1 = CameraServer.getInstance().getVideo();
+      //CvSource outputStream = CameraServer.getInstance().putVideo("Source 1", 160, 120);
+      //CvSink cvSink2 = CameraServer.getInstance().getVideo();
+      //CvSource outputStream2 = CameraServer.getInstance().putVideo("Source 2", 160, 120);
       camera3.setResolution(120, 90);
       camera4.setResolution(160, 120);
       camera3.setFPS(12);
       camera4.setFPS(12);
-      CvSink cvSink3 = CameraServer.getInstance().getVideo();
-      CvSource outputStream3 = CameraServer.getInstance().putVideo("Source 3", 160, 120);
-      CvSink cvSink4 = CameraServer.getInstance().getVideo();
-      CvSource outputStream4 = CameraServer.getInstance().putVideo("Source 4", 160, 120);
+      //CvSink cvSink3 = CameraServer.getInstance().getVideo();
+      //CvSource outputStream3 = CameraServer.getInstance().putVideo("Source 3", 160, 120);
+      //CvSink cvSink4 = CameraServer.getInstance().getVideo();
+      //CvSource outputStream4 = CameraServer.getInstance().putVideo("Source 4", 160, 120);
 
-      Mat source1 = new Mat();
-      Mat source2 = new Mat();
-      Mat output1 = new Mat();
-      Mat output2 = new Mat();
-      Mat source3 = new Mat();
-      Mat source4 = new Mat();
-      Mat output3 = new Mat();
-      Mat output4 = new Mat();
+      //Mat source1 = new Mat();
+      //Mat source2 = new Mat();
+      //Mat output1 = new Mat();
+      //Mat output2 = new Mat();
+      //Mat source3 = new Mat();
+      //Mat source4 = new Mat();
+      //Mat output3 = new Mat();
+      //Mat output4 = new Mat();
       /*
       Mat image1 = new Mat(cvSink1.grabFrame(source1));
       int height1 = image1.rows();
