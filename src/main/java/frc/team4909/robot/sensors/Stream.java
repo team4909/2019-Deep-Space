@@ -42,18 +42,18 @@ public class Stream {
       UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture(1); //Function: 
       UsbCamera camera3 = CameraServer.getInstance().startAutomaticCapture(2); //Function: 
       UsbCamera camera4 = CameraServer.getInstance().startAutomaticCapture(3); //Function: 
-      camera1.setResolution(160, 120);
-      camera2.setResolution(160, 120);
-      camera1.setFPS(12);
-      camera2.setFPS(12);
+      camera1.setResolution(240, 180);
+      camera2.setResolution(240, 180);
+      camera1.setFPS(14);
+      camera2.setFPS(14);
       //CvSink cvSink1 = CameraServer.getInstance().getVideo();
       //CvSource outputStream = CameraServer.getInstance().putVideo("Source 1", 160, 120);
       //CvSink cvSink2 = CameraServer.getInstance().getVideo();
       //CvSource outputStream2 = CameraServer.getInstance().putVideo("Source 2", 160, 120);
-      camera3.setResolution(160, 120);
-      camera4.setResolution(160, 120);
-      camera3.setFPS(12);
-      camera4.setFPS(12);
+      camera3.setResolution(240, 180);
+      camera4.setResolution(240, 180);
+      camera3.setFPS(14);
+      camera4.setFPS(14);
       //NetworkTable smart1 = NetworkTableInstance.getDefault().getTable("");
       //NetworkTable smart2 = NetworkTableInstance.getDefault().getTable("Source 2");
       
