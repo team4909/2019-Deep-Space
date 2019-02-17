@@ -89,7 +89,7 @@ public class Stream {
           //Imgproc.cvtColor(source1, output1, Imgproc.COLOR_BGR2HSV);
           outputStream.putFrame(output1);
           cvSink2.grabFrame(source2);
-          Imgproc.cvtColor(source2, output2, Imgproc.COLOR_BGR2HSV);
+          //Imgproc.cvtColor(source2, output2, Imgproc.COLOR_BGR2HSV);
           outputStream2.putFrame(output2);
           cvSink3.grabFrame(source3);
           Imgproc.cvtColor(source3, output3, Imgproc.COLOR_BGR2HSV);
