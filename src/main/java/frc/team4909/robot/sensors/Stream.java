@@ -64,7 +64,7 @@ public class Stream {
       Mat source4 = new Mat();
       Mat output3 = new Mat();
       Mat output4 = new Mat();
-
+      /*
       Mat image1 = new Mat(cvSink1.grabFrame(source1));
       int height1 = image1.rows();
       int length1 = image1.cols();
@@ -97,7 +97,7 @@ public class Stream {
           cvSink4.grabFrame(source4);
           Imgproc.cvtColor(source4, output4, Imgproc.COLOR_BGR2HSV);
           outputStream4.putFrame(output4);
-  }
+  }*/
   }).start();
   }
 }
