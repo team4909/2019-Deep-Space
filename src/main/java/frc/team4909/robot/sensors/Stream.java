@@ -42,17 +42,17 @@ public class Stream extends Subsystem{
       seeHatchCam = !seeHatchCam;
   }
 
-  VideoSink intakeServer = CameraServer.getInstance().getServer();
+  VideoSink intakeServer = CameraServer.getInstance().getServer("Intake Camera");
   UsbCamera camera1, camera2, camera3, camera4;
 
   CvSink cvSink1;
   CvSource outputStream;
   CvSink cvSink2;
   CvSource outputStream2;
-  CvSink cvSink3 = CameraServer.getInstance().getVideo();
-  CvSource outputStream3 = CameraServer.getInstance().putVideo("Source 3", 160, 120);
-  CvSink cvSink4 = CameraServer.getInstance().getVideo();
-  CvSource outputStream4 = CameraServer.getInstance().putVideo("Source 4", 160, 120);
+  CvSink cvSink3;
+  CvSource outputStream3;
+  CvSink cvSink4;
+  CvSource outputStream4;
   
   Mat source1 = new Mat();
   Mat source2 = new Mat();
@@ -72,7 +72,7 @@ public class Stream extends Subsystem{
       camera2 = CameraServer.getInstance().startAutomaticCapture(1); //Function: 
       camera3 = CameraServer.getInstance().startAutomaticCapture(2); //Function: 
       camera4 = CameraServer.getInstance().startAutomaticCapture(3); //Function: 
-      camera1.setResolution(120, 90);
+      camera1.setResolution(160, 120);
       camera2.setResolution(160, 120);
       camera1.setFPS(12);
       camera2.setFPS(12);
@@ -80,7 +80,7 @@ public class Stream extends Subsystem{
       outputStream = CameraServer.getInstance().putVideo("Source 1", 160, 120);
       cvSink2 = CameraServer.getInstance().getVideo();
       outputStream2 = CameraServer.getInstance().putVideo("Source 2", 160, 120);
-      camera3.setResolution(120, 90);
+      camera3.setResolution(160, 120);
       camera4.setResolution(160, 120);
       camera3.setFPS(12);
       camera4.setFPS(12);
@@ -125,12 +125,15 @@ public class Stream extends Subsystem{
               //Show Cargo Intake Camera
               intakeServer.setSource(camera4);
           }
+
+          System.out.println("Source for intake Cam: " + intakeServer.getName());
     
     
           cvSink1.grabFrame(source1);
           Imgproc.warpPerspective(source1, output1, hatchWatchMatrix, new Size(height1, length1));
           //Imgproc.cvtColor(source1, output1, Imgproc.COLOR_BGR2HSV);
           outputStream.putFrame(output1);
+          System.out.println(height1);
           //cvSink2.grabFrame(source2);
           //Imgproc.cvtColor(source2, output2, Imgproc.COLOR_BGR2HSV);
           //outputStream2.putFrame(output2);
