@@ -49,8 +49,8 @@ public class RobotMap {
   // number and the module. For example you with a rangefinder:
 
   /* Climber */
-  public static final int climberSRXID = 0;
-  public static final int climberSPXID = 1;
+  public static final int climberSRXID = 10;
+  public static final int climberSPXID = 11;
 
   /* Sensors */
   public static final int lidarPort = 4;
