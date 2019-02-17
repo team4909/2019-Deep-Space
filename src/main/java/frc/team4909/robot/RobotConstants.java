@@ -46,6 +46,6 @@ public class RobotConstants {
   public static final double slowVelocity = 0.2; // value given to motor when trying to turn
 
   /* Climber */
-  public static final double climberStiltSpeed = 0.5;
-  public static final double climberDriveSpeed = 0.5;
+  public static final double climberStiltSpeed = 0.3;
+  public static final double climberDriveSpeed = 0.3;
 }

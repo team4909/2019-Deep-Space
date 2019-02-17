@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team4909.robot.subsystems.climber.commands.DriveStiltsForward;
 import frc.team4909.robot.subsystems.climber.commands.ExtendStilts;
 import frc.team4909.robot.subsystems.climber.commands.RetractStilts;
-import frc.team4909.robot.subsystems.climber.commands.StopExtend;
 import frc.team4909.robot.subsystems.drivetrain.Linefollow;
 import frc.team4909.robot.subsystems.drivetrain.commands.SwapTurnSpeed;
 import frc.team4909.robot.subsystems.intake.commands.CargoIntakeIn;
@@ -127,7 +126,6 @@ public class Robot extends TimedRobot {
     /* Climber */
     driverGamepad.buttonHeld(BionicF310.RT, 0.2, new ExtendStilts());
     driverGamepad.buttonHeld(BionicF310.LT, 0.2, new RetractStilts());
-    driverGamepad.buttonPressed(BionicF310.Y, new StopExtend());
     driverGamepad.buttonHeld(BionicF310.LB, new DriveStiltsBack());
     driverGamepad.buttonHeld(BionicF310.RB, new DriveStiltsForward());
 
@@ -171,12 +169,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {  
+
     System.out.println("Lidar value is: " + lidar.getDistance()); // Remove for competition (necessary only for testing)
-    StiltsStop = SmartDashboard.getBoolean("Stop Stilts", false);
-    if (StiltsStop == true){
-      new StopExtend();
-      SmartDashboard.putBoolean("Stop Stilts", false);
-    }
+  
     CargoIntake = SmartDashboard.getBoolean("Cargo In", false);
     if (CargoIntake == true){
       new CargoIntakeIn();

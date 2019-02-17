@@ -20,6 +20,7 @@ import frc.team4909.robot.operator.controllers.BionicF310;
 public class ClimberSubsystem extends Subsystem {
     WPI_TalonSRX climberLiftSRX;
     WPI_VictorSPX climberDriveSPX;
+    int driveDirection;
 
     public ClimberSubsystem() {
         climberLiftSRX = new WPI_TalonSRX(RobotMap.climberSRXID); // Climber lift
@@ -28,30 +29,20 @@ public class ClimberSubsystem extends Subsystem {
         climberLiftSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
 
         /* PID yet to be calibrated */
-        climberLiftSRX.config_kP(1, 0.6, 0);
-        climberLiftSRX.config_kI(1, 0);
-        climberLiftSRX.config_kD(1, 0);
+        climberLiftSRX.config_kP(3, 0, 0);
+        climberLiftSRX.config_kI(3, 0);
+        climberLiftSRX.config_kD(3, 0);
     }
 
-    public void extendStilts() {
-        climberLiftSRX.set(RobotConstants.climberStiltSpeed);
+    
+
+    public void setStiltsDriveSpeed(double speed){
+        climberDriveSPX.set(speed);
+    }
+    public void setStiltsClimbSpeed(double speed){
+        climberLiftSRX.set(speed);
     }
 
-    public void retractStilts() {
-        climberLiftSRX.set(-RobotConstants.climberStiltSpeed);
-    }
-
-    public void driveStiltsForward() {
-        climberDriveSPX.set(-RobotConstants.climberDriveSpeed);
-    }
-
-    public void driveStiltsBack() {
-        climberDriveSPX.set(RobotConstants.climberDriveSpeed);
-    }
-
-    public void stopExtend() {
-        climberLiftSRX.set(0);
-    }
 
     protected void initDefaultCommand() {
     }
