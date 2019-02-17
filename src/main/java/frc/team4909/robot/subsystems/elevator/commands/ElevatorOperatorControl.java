@@ -18,6 +18,7 @@ public class ElevatorOperatorControl extends Command {
     public void execute() {
         //Sets speed to manipulator gamepad right Y stick value
         double moveSpeed = Robot.manipulatorGamepad.getThresholdAxis(BionicF310.LY) * RobotConstants.elevatorSpeedMultiplier;
+        holdingPosition = Robot.elevatorSubsystem.getPosition();
         if(moveSpeed == 0 ) {  //If Y-stick value is not moving, HOLD position
             Robot.elevatorSubsystem.setPosition(holdingPosition);
             // System.out.println("Get pos is  " + Robot.elevatorSubsystem.getPosition() + ", Holding Pos is:" + holdingPosition);
@@ -25,7 +26,8 @@ public class ElevatorOperatorControl extends Command {
         } 
         else { //Set speed to Y-stick value and HOLD position
             Robot.elevatorSubsystem.setSpeed(moveSpeed);
-            holdingPosition = Robot.elevatorSubsystem.getPosition();
+
+
         }
          System.out.println("Position " + Robot.elevatorSubsystem.getPosition());
     }
