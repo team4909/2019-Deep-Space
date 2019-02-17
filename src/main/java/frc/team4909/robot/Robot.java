@@ -19,6 +19,7 @@ import frc.team4909.robot.subsystems.intake.commands.HatchPanelIntakeClose;
 import frc.team4909.robot.operator.controllers.BionicF310;
 import frc.team4909.robot.operator.generic.BionicAxis;
 import frc.team4909.robot.sensors.Stream;
+import frc.team4909.robot.sensors.ToggleCamera;
 import frc.team4909.robot.subsystems.climber.ClimberSubsystem;
 import frc.team4909.robot.subsystems.climber.commands.DriveStiltsBack;
 import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
@@ -134,7 +135,8 @@ public class Robot extends TimedRobot {
 
     /* Sensors/Misc. */
     driverGamepad.buttonPressed(BionicF310.A, new InvertDriveDirection());
-    driverGamepad.buttonPressed(BionicF310.B, new Linefollow());
+    driverGamepad.buttonPressed(BionicF310.B, new Linefollow()); 
+    manipulatorGamepad.buttonPressed(BionicF310.X, new ToggleCamera());  
   }
 
   /**
