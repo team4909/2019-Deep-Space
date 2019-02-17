@@ -89,7 +89,7 @@ public class Robot extends TimedRobot {
     // Cameras (subsystem)
     stream = new Stream();
     // CameraServer.getInstance().startAutomaticCapture();
-    stream.initialize();
+    stream.streamCamera();
     //grip = new GripPipeline();
 
     // Compressor
