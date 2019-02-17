@@ -10,6 +10,8 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoSink;
 import edu.wpi.first.cameraserver.CameraServer;
 //Init of Camera and Bandwidth control.
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.NetworkTable;
 
 public class Stream {
 
@@ -37,7 +39,7 @@ public class Stream {
       camera3.setFPS(14);
       camera4.setFPS(14);
       System.out.println(seeHatchCam);
-      VideoSink intakeServer = CameraServer.getInstance().getServer("Intake Cam");
+      //VideoSink intakeServer = CameraServer.getInstance().getServer("Intake Cam");
       
       //CvSink cvSink1 = CameraServer.getInstance().getVideo();//CvSource outputStream = CameraServer.getInstance().putVideo("Source 1", 160, 120);//CvSink cvSink2 = CameraServer.getInstance().getVideo();//CvSource outputStream2 = CameraServer.getInstance().putVideo("Source 2", 160, 120);//CvSink cvSink3 = CameraServer.getInstance().getVideo();//CvSource outputStream3 = CameraServer.getInstance().putVideo("Source 3", 160, 120);//CvSink cvSink4 = CameraServer.getInstance().getVideo();//CvSource outputStream4 = CameraServer.getInstance().putVideo("Source 4", 160, 120);
       //Mat source1 = new Mat();//Mat source2 = new Mat();//Mat output1 = new Mat();//Mat output2 = new Mat();//Mat source3 = new Mat();//Mat source4 = new Mat();//Mat output3 = new Mat();//Mat output4 = new Mat();
@@ -47,10 +49,13 @@ public class Stream {
       while(!Thread.interrupted()) {
           if (seeHatchCam == true){
               //Show Camera for Hatches
-              intakeServer.setSource(camera3);
+              //intakeServer.setSource(new CvSink.grabFrame()); This is throwing an exception and interrupting the thread.
+              System.out.println("lololooololol");
+              NetworkTable nt = NetworkTableInstance.getDefault().getTable("");
+              
           } else if (seeHatchCam == false) {
               //Show Cargo Intake Camera
-              intakeServer.setSource(camera4);
+              //intakeServer.setSource(camera4);
           }
           //cvSink1.grabFrame(source1);//Imgproc.warpPerspective(source1, output1, hatchWatchMatrix, new Size(height1, length1));//Imgproc.cvtColor(source1, output1, Imgproc.COLOR_BGR2HSV);//outputStream.putFrame(output1);//cvSink2.grabFrame(source2);//Imgproc.cvtColor(source2, output2, Imgproc.COLOR_BGR2HSV);//outputStream2.putFrame(output2);//cvSink3.grabFrame(source3);//Imgproc.cvtColor(source3, output3, Imgproc.COLOR_BGR2HSV);//outputStream3.putFrame(output3);//cvSink4.grabFrame(source4);//Imgproc.cvtColor(source4, output4, Imgproc.COLOR_BGR2HSV);//outputStream4.putFrame(output4);
   }
