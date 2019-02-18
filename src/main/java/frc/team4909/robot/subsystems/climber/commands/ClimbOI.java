@@ -20,7 +20,7 @@ public class ClimbOI extends Command {
         // Sets speed to manipulator gamepad right Y stick value
         double moveSpeed = Robot.climbStick.getRawAxis(1) * RobotConstants.climbSpeedMultiplier;
 
-        switch(povAngle){
+        switch(povAngle){   //Checks Joystick POV for Up or Down 
             case(0):
                 new ExtendStiltOnly();
                 break;
