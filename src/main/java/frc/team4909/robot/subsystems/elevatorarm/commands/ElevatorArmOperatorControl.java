@@ -9,7 +9,8 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class ElevatorArmOperatorControl extends Command {
 
-    private int holdingPosition;
+    private int holdingPosition = Robot.elevatorArmSubsystem.getPosition();
+    
     public ElevatorArmOperatorControl(){
         requires(Robot.elevatorArmSubsystem);
     }

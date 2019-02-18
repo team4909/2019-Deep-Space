@@ -50,7 +50,6 @@ public class Stream {
           if (seeHatchCam == true){
               //Show Camera for Hatches
               //intakeServer.setSource(new CvSink.grabFrame()); This is throwing an exception and interrupting the thread.
-              System.out.println("lololooololol");
               NetworkTable nt = NetworkTableInstance.getDefault().getTable("");
               
           } else if (seeHatchCam == false) {

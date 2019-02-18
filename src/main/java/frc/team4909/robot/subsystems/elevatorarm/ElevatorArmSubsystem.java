@@ -8,6 +8,7 @@ import frc.team4909.robot.subsystems.elevatorarm.commands.ElevatorArmOperatorCon
 import frc.team4909.robot.subsystems.elevatorarm.commands.SetAngle;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -23,8 +24,8 @@ public class ElevatorArmSubsystem extends Subsystem{
         //Elevator arm
         elevatorArmSRX = new TalonSRX(RobotMap.elevatorArmSRXID);
 
-        elevatorArmSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-        //elevatorArmSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
+        // elevatorArmSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+        elevatorArmSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
         //update();       
         elevatorArmSRX.setNeutralMode(NeutralMode.Brake);
         elevatorArmSRX.configContinuousCurrentLimit(3);
@@ -33,6 +34,8 @@ public class ElevatorArmSubsystem extends Subsystem{
         elevatorArmSRX.config_kP(0, 0.5, 0);
         elevatorArmSRX.config_kI(0, 0);
         elevatorArmSRX.config_kD(0, 0.5, 0);
+        holdingPosition = elevatorArmSRX.getSelectedSensorPosition();
+        
     }
 
 
@@ -53,10 +56,14 @@ public class ElevatorArmSubsystem extends Subsystem{
     public void setPosition(double position){
         elevatorArmSRX.set(ControlMode.Position, position);
     }
-    public void update(){
+    public void reset(){
         elevatorArmSRX.setSelectedSensorPosition(0);
     }
     
+    @Override
+    public void periodic() {
+        SmartDashboard.putNumber("Elevator position", elevatorArmSRX.getSelectedSensorPosition());
+    }
 
     @Override
     protected void initDefaultCommand() {

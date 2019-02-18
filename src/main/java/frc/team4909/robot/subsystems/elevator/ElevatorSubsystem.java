@@ -10,6 +10,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.lang.module.ModuleDescriptor.Requires;
 
@@ -52,7 +53,7 @@ public class ElevatorSubsystem extends Subsystem {
 
         rightSPX1.setInverted(true);
         rightSPX2.setInverted(true);
-        leftSRX.setSensorPhase(true);
+        leftSRX.setSensorPhase(false);
         //update();
         leftSRX.configNominalOutputForward(0, RobotConstants.timeoutMs);
 		leftSRX.configNominalOutputReverse(0, RobotConstants.timeoutMs);
@@ -61,14 +62,13 @@ public class ElevatorSubsystem extends Subsystem {
         
         leftSRX.selectProfileSlot(1, 0);
         leftSRX.config_kF(1, 0, RobotConstants.timeoutMs); // calcuated fro CTRE Doc
-        leftSRX.config_kP(1, 0, RobotConstants.timeoutMs); // 102.3 / error 
+        leftSRX.config_kP(1, 0.1, RobotConstants.timeoutMs); // 102.3 / error 
         leftSRX.config_kI(1, 0, RobotConstants.timeoutMs);
         leftSRX.config_kD(1, 0, RobotConstants.timeoutMs); // 10 * P
 
         // leftSRX.configMotionCruiseVelocity(14047, RobotConstants.timeoutMs); // calculated
         // leftSRX.configMotionAcceleration(14047, RobotConstants.timeoutMs); // calculated may decrease
 
-        reset();
     }
 
     public void reset(){
@@ -100,6 +100,10 @@ public class ElevatorSubsystem extends Subsystem {
     }
     public ErrorCode getError(){
         return leftSRX.getLastError();
+    }
+    @Override
+    public void periodic() {
+        SmartDashboard.putNumber("Elevator position", leftSRX.getSelectedSensorPosition());
     }
 
 

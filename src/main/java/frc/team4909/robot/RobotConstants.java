@@ -40,6 +40,19 @@ public class RobotConstants {
   public static final double elevatorSpeedMultiplier = 0.5; // Multiplier for elevator speed
   public static final double elevatorArmSpeedMultiplier = 0.75; // Multiplier for elevator arm speed
 
+  /* Elevator Setpoints */
+  public static final int elevatorSetpointHatchLow = 0; // Bottom hatch position
+  public static final int elevatorSetpointHatchMiddle = -25300; // Middle hatch position
+  public static final int elevatorSetpointHatchHigh = -51300; // Top hatch position
+
+  public static final int elevatorSetpointCargoLow = -10582;
+  public static final int elevatorSetpointCargoMiddle = -30638;
+  public static final int elevatorSetpointCargoHigh = -20000;
+
+
+
+
+
   /* Linefollow */
   public static final double fastVelocity = 0.7;
   public static final double mediumVelocity = 0.5; // constant velocity given to both motors
@@ -52,4 +65,5 @@ public class RobotConstants {
 
   /* Timeout */
   public static final int timeoutMs = 30; // milliseconds
+
 }
