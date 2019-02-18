@@ -9,7 +9,7 @@ public class RetractStilts extends Command {
 
     public RetractStilts() {
         requires(Robot.climberSubsystem);
-        // requires(Robot.elevatorSubsystem);
+        requires(Robot.elevatorSubsystem);
     }
 
     @Override

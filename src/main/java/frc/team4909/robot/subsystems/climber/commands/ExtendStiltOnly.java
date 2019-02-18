@@ -12,8 +12,7 @@ public class ExtendStiltOnly extends Command {
 
     @Override
     protected void initialize() {
-        Robot.elevatorSubsystem.setPIDValues();
-        Robot.climberSubsystem.setSpeeds(RobotConstants.climberStiltSpeed);
+        Robot.climberSubsystem.setStiltsClimbSpeed(RobotConstants.climberStiltSpeed);
     }
 
     protected void execute() {
@@ -21,7 +20,7 @@ public class ExtendStiltOnly extends Command {
 
     @Override
     protected void end() {
-        Robot.climberSubsystem.setSpeeds(0);
+        Robot.climberSubsystem.setStiltsClimbSpeed(0);
     }
 
     @Override
