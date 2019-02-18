@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.team4909.robot.RobotMap;
 import frc.team4909.robot.RobotConstants;
+import frc.team4909.robot.subsystems.climber.commands.ClimbOI;
 import frc.team4909.robot.subsystems.elevator.ElevatorSubsystem;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -45,5 +46,6 @@ public class ClimberSubsystem extends Subsystem {
     }
 
     protected void initDefaultCommand() {
+        setDefaultCommand(new ClimbOI());
     }
 }

@@ -3,8 +3,10 @@ package frc.team4909.robot;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.team4909.robot.operator.controllers.BionicF310;
+import frc.team4909.robot.operator.controllers.FlightStick;
 import frc.team4909.robot.sensors.LidarLitePWM;
 import frc.team4909.robot.sensors.Stream;
 import frc.team4909.robot.setpoints.HatchLow;
@@ -12,8 +14,8 @@ import frc.team4909.robot.setpoints.HatchMiddle;
 import frc.team4909.robot.subsystems.climber.ClimberSubsystem;
 import frc.team4909.robot.subsystems.climber.commands.DriveStiltsBack;
 import frc.team4909.robot.subsystems.climber.commands.DriveStiltsForward;
+import frc.team4909.robot.subsystems.climber.commands.ExtendStiltOnly;
 import frc.team4909.robot.subsystems.climber.commands.ExtendStilts;
-import frc.team4909.robot.subsystems.climber.commands.RetractStilts;
 import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
 import frc.team4909.robot.subsystems.drivetrain.Linefollow;
 import frc.team4909.robot.subsystems.drivetrain.commands.InvertDriveDirection;
@@ -43,6 +45,10 @@ import frc.team4909.robot.subsystems.intake.commands.HatchPanelIntakeOpen;
 //     RT: Cargo Intake In 
 //     RB: Cargo Intake Out 
 //     LT: Hatch Panel Intake In 
+//
+//  Flight Stick (Port 2):
+//  Y: Stilt/Elevator Climb Speed
+//  Joystick: Stilt Up/Down
 
 public class Robot extends TimedRobot {
 
@@ -52,7 +58,7 @@ public class Robot extends TimedRobot {
   // Operator Input
   public static BionicF310 driverGamepad;
   public static BionicF310 manipulatorGamepad;
-  public boolean StiltsStop;
+  public static FlightStick climbStick;
 
   // Subsystems
   public static PowerDistributionPanel powerDistributionPanel;
@@ -111,6 +117,9 @@ public class Robot extends TimedRobot {
         RobotConstants.manipulatorGamepadDeadzone, // Deadzone
         RobotConstants.manipulatorGamepadSensitivity // Gamepad sensitivity
     );
+
+    climbStick = new FlightStick(2);
+
     /* Drivetrain */
 
     /* Intake */
@@ -119,8 +128,6 @@ public class Robot extends TimedRobot {
     manipulatorGamepad.buttonHeld(BionicF310.LT, 0.2, new HatchPanelIntakeOpen());
 
     /* Climber */
-    driverGamepad.buttonHeld(BionicF310.RT, 0.2, new ExtendStilts());
-    driverGamepad.buttonHeld(BionicF310.LT, 0.2, new RetractStilts());
     driverGamepad.buttonHeld(BionicF310.LB, new DriveStiltsBack());
     driverGamepad.buttonHeld(BionicF310.RB, new DriveStiltsForward());
 
