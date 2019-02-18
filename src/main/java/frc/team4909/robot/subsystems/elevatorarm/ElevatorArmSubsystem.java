@@ -39,7 +39,7 @@ public class ElevatorArmSubsystem extends Subsystem{
     }
 
 
-    public InstantCommand setHeight(int height){
+    public InstantCommand setAngle(int height){
         return new SetAngle(height, this);
     }
 
