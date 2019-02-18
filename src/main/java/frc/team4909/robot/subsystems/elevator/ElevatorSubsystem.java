@@ -117,11 +117,11 @@ public class ElevatorSubsystem extends Subsystem {
 
     public void setPIDValues() { // TODO: Tune these PID values
         leftSRX.selectProfileSlot(2, 0);
-        leftSRX.config_kF(1, 0, RobotConstants.timeoutMs);
-        leftSRX.config_kP(1, 0.5, RobotConstants.timeoutMs);
-        leftSRX.config_kI(1, 0, RobotConstants.timeoutMs);
-        leftSRX.config_kD(1, 0, RobotConstants.timeoutMs);
-    }
+        leftSRX.config_kF(2, 0, RobotConstants.timeoutMs);
+        leftSRX.config_kP(2, 0, RobotConstants.timeoutMs);
+        leftSRX.config_kI(2, 0, RobotConstants.timeoutMs);
+        leftSRX.config_kD(2, 0, RobotConstants.timeoutMs);
+    }       
 
     @Override
     protected void initDefaultCommand() {

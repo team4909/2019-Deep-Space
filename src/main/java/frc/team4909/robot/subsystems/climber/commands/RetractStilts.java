@@ -14,6 +14,7 @@ public class RetractStilts extends Command {
 
     @Override
     protected void initialize() {
+        Robot.elevatorSubsystem.setPIDValues();
         Robot.climberSubsystem.setSpeeds(-RobotConstants.climberStiltSpeed);
     }
 
