@@ -10,9 +10,11 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.lang.module.ModuleDescriptor.Requires;
 
+import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.team4909.robot.subsystems.elevator.commands.ElevatorOperatorControl;
@@ -29,20 +31,21 @@ public class ElevatorSubsystem extends Subsystem {
     public int holdingPosition;
 
     public ElevatorSubsystem() {
-
         // Lift
         leftSRX = new WPI_TalonSRX(RobotMap.elevatorSRXID); // master SRX
         leftSPX = new WPI_VictorSPX(RobotMap.elevatorSPX1ID); // slave SPX 1
         rightSPX1 = new WPI_VictorSPX(RobotMap.elevatorSPX2ID); // slave SPX 2
         rightSPX2 = new WPI_VictorSPX(RobotMap.elevatorSPX3ID); // slave SPX 3
 
-        leftSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
+        // leftSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
+        leftSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+        leftSRX.configFactoryDefault();
 
         leftSPX.follow(leftSRX); // All slaves will output the same value as the master SRX
         rightSPX1.follow(leftSRX);
         rightSPX2.follow(leftSRX);
 
-        leftSRX.setNeutralMode(NeutralMode.Brake); // TODO: Should these possibly be Coast instead?
+        leftSRX.setNeutralMode(NeutralMode.Brake);
         leftSPX.setNeutralMode(NeutralMode.Brake);
         rightSPX1.setNeutralMode(NeutralMode.Brake);
         rightSPX2.setNeutralMode(NeutralMode.Brake);
@@ -51,14 +54,25 @@ public class ElevatorSubsystem extends Subsystem {
         rightSPX2.setInverted(true);
         leftSRX.setSensorPhase(false);
         // update();
+        leftSRX.configNominalOutputForward(0, RobotConstants.timeoutMs);
+        leftSRX.configNominalOutputReverse(0, RobotConstants.timeoutMs);
+        leftSRX.configPeakOutputForward(1, RobotConstants.timeoutMs);
+        leftSRX.configPeakOutputReverse(-1, RobotConstants.timeoutMs);
+
         leftSRX.selectProfileSlot(1, 0);
-        leftSRX.config_kP(1, 0.1, 0);
-        // leftSRX.config_kP(1, 0);
-        leftSRX.config_kI(1, 0);
-        leftSRX.config_kD(1, 0);
+        leftSRX.config_kF(1, 0, RobotConstants.timeoutMs); // calcuated fro CTRE Doc
+        leftSRX.config_kP(1, 0.1, RobotConstants.timeoutMs); // 102.3 / error
+        leftSRX.config_kI(1, 0, RobotConstants.timeoutMs);
+        leftSRX.config_kD(1, 0, RobotConstants.timeoutMs); // 10 * P
+
+        // leftSRX.configMotionCruiseVelocity(14047, RobotConstants.timeoutMs); //
+        // calculated
+        // leftSRX.configMotionAcceleration(14047, RobotConstants.timeoutMs); //
+        // calculated may decrease
+
     }
 
-    public void update() {
+    public void reset() {
         leftSRX.setSelectedSensorPosition(0);
     }
 
@@ -81,6 +95,19 @@ public class ElevatorSubsystem extends Subsystem {
 
     public int getPosition() {
         return leftSRX.getSelectedSensorPosition();
+    }
+
+    public int getVelocity() {
+        return leftSRX.getSelectedSensorVelocity();
+    }
+
+    public ErrorCode getError() {
+        return leftSRX.getLastError();
+    }
+
+    @Override
+    public void periodic() {
+        SmartDashboard.putNumber("Elevator position", leftSRX.getSelectedSensorPosition());
     }
 
     @Override
