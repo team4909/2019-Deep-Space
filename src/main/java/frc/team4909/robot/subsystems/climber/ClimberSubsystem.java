@@ -25,8 +25,8 @@ public class ClimberSubsystem extends Subsystem {
     int driveDirection;
 
     public ClimberSubsystem() {
-        climberLiftSRX = new WPI_TalonSRX(RobotMap.climberSRXID); // Climber lift
-        climberDriveSPX = new WPI_VictorSPX(RobotMap.climberSPXID); // Climber drive
+        climberLiftSRX = new WPI_TalonSRX(RobotMap.climberSRXID); // Climber Lift
+        climberDriveSPX = new WPI_VictorSPX(RobotMap.climberSPXID); // Climber Drive
 
         climberLiftSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
 
@@ -37,15 +37,13 @@ public class ClimberSubsystem extends Subsystem {
         climberLiftSRX.config_kD(3, 0);
     }
 
-    
-
-    public void setStiltsDriveSpeed(double speed){
+    public void setStiltsDriveSpeed(double speed) {
         climberDriveSPX.set(speed);
     }
-    public void setStiltsClimbSpeed(double speed){
+
+    public void setStiltsClimbSpeed(double speed) {
         climberLiftSRX.set(speed);
     }
-
 
     protected void initDefaultCommand() {
     }

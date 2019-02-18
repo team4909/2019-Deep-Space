@@ -178,6 +178,7 @@ public class Robot extends TimedRobot {
       new StopExtend();
       SmartDashboard.putBoolean("Stop Stilts", false);
     }
+
     CargoIntake = SmartDashboard.getBoolean("Cargo In", false);
     if (CargoIntake == true) {
       new CargoIntakeIn();
