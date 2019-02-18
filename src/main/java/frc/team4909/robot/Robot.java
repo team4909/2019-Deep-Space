@@ -175,7 +175,6 @@ public class Robot extends TimedRobot {
     System.out.println("Lidar value is: " + lidar.getDistance()); // Remove for competition (necessary only for testing)
     StiltsStop = SmartDashboard.getBoolean("Stop Stilts", false);
     if (StiltsStop == true) {
-      new StopExtend();
       SmartDashboard.putBoolean("Stop Stilts", false);
     }
 
