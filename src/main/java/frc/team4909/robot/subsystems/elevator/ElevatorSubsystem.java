@@ -119,10 +119,6 @@ public class ElevatorSubsystem extends Subsystem {
         leftSRX.config_kD(1, 0, RobotConstants.timeoutMs);
     }
 
-    @Override
-    public void periodic() {
-        SmartDashboard.putNumber("Elevator position", leftSRX.getSelectedSensorPosition());
-    }
 
     @Override
     protected void initDefaultCommand() {
