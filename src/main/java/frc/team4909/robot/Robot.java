@@ -16,6 +16,8 @@ import frc.team4909.robot.subsystems.climber.commands.DriveStiltsBack;
 import frc.team4909.robot.subsystems.climber.commands.DriveStiltsForward;
 import frc.team4909.robot.subsystems.climber.commands.ExtendStiltOnly;
 import frc.team4909.robot.subsystems.climber.commands.ExtendStilts;
+import frc.team4909.robot.subsystems.climber.commands.RetractStiltOnly;
+import frc.team4909.robot.subsystems.climber.commands.RetractStilts;
 import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
 import frc.team4909.robot.subsystems.drivetrain.Linefollow;
 import frc.team4909.robot.subsystems.drivetrain.commands.InvertDriveDirection;
@@ -58,6 +60,7 @@ public class Robot extends TimedRobot {
   // Operator Input
   public static BionicF310 driverGamepad;
   public static BionicF310 manipulatorGamepad;
+  public static BionicF310 climberGamepad;
   public static FlightStick climbStick;
 
   // Subsystems
@@ -116,6 +119,12 @@ public class Robot extends TimedRobot {
         RobotConstants.manipulatorGamepadSensitivity // Gamepad sensitivity
     );
 
+    climberGamepad = new BionicF310(3, // Port
+        RobotConstants.manipulatorGamepadDeadzone, // Deadzone
+        RobotConstants.manipulatorGamepadSensitivity // Gamepad sensitivity
+    );
+
+
     climbStick = new FlightStick(2);
 
     /* Drivetrain */
@@ -128,6 +137,13 @@ public class Robot extends TimedRobot {
     /* Climber */
     driverGamepad.buttonHeld(BionicF310.LB, new DriveStiltsBack());
     driverGamepad.buttonHeld(BionicF310.RB, new DriveStiltsForward());
+    driverGamepad.buttonHeld(BionicF310.LT, 0.2, new ExtendStilts()); 
+    driverGamepad.buttonHeld(BionicF310.RT, 0.2, new RetractStilts());
+    
+    climberGamepad.buttonHeld(BionicF310.RT, 0.2, new RetractStiltOnly());
+    climberGamepad.buttonHeld(BionicF310.LT, 0.2, new ExtendStiltOnly());
+
+
 
     /* Elevator Setpoints */
     manipulatorGamepad.buttonPressed(BionicF310.A, new HatchMiddle());
