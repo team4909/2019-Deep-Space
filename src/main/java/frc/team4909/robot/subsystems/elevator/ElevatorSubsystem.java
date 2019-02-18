@@ -107,14 +107,6 @@ public class ElevatorSubsystem extends Subsystem {
     }
 
 
-    public int getVelocity() {
-        return leftSRX.getSelectedSensorVelocity();
-    }
-
-    public ErrorCode getError() {
-        return leftSRX.getLastError();
-    }
-
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Elevator position", leftSRX.getSelectedSensorPosition());
