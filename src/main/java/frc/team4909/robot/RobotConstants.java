@@ -49,4 +49,7 @@ public class RobotConstants {
   public static final double climberStiltSpeed = 0.3;
   public static final double climberDriveSpeed = 0.3;
   public static final double elevatorClimbSpeed = 0.3;
+
+  /* Timeout */
+  public static final int timeoutMs = 30; // milliseconds
 }

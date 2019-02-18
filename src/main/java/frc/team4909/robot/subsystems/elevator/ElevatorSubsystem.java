@@ -31,6 +31,7 @@ public class ElevatorSubsystem extends Subsystem {
     public int holdingPosition;
 
     public ElevatorSubsystem() {
+
         // Lift
         leftSRX = new WPI_TalonSRX(RobotMap.elevatorSRXID); // master SRX
         leftSPX = new WPI_VictorSPX(RobotMap.elevatorSPX1ID); // slave SPX 1
@@ -50,8 +51,10 @@ public class ElevatorSubsystem extends Subsystem {
         rightSPX1.setNeutralMode(NeutralMode.Brake);
         rightSPX2.setNeutralMode(NeutralMode.Brake);
 
+
         rightSPX1.setInverted(true);
         rightSPX2.setInverted(true);
+
         leftSRX.setSensorPhase(false);
         // update();
         leftSRX.configNominalOutputForward(0, RobotConstants.timeoutMs);
@@ -96,6 +99,13 @@ public class ElevatorSubsystem extends Subsystem {
     public int getPosition() {
         return leftSRX.getSelectedSensorPosition();
     }
+    public int getVelocity() {
+        return leftSRX.getSelectedSensorVelocity();
+    }
+    public ErrorCode getError(){
+        return leftSRX.getLastError();
+    }
+
 
     public int getVelocity() {
         return leftSRX.getSelectedSensorVelocity();
@@ -114,4 +124,6 @@ public class ElevatorSubsystem extends Subsystem {
     protected void initDefaultCommand() {
         setDefaultCommand(new ElevatorOperatorControl());
     }
+
+	
 }
