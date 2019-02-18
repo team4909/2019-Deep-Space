@@ -17,6 +17,7 @@ import frc.team4909.robot.subsystems.intake.commands.CargoIntakeIn;
 import frc.team4909.robot.subsystems.intake.commands.CargoIntakeOut;
 import frc.team4909.robot.subsystems.intake.commands.HatchPanelIntakeOpen;
 import frc.team4909.robot.subsystems.intake.commands.HatchPanelIntakeClose;
+import frc.team4909.robot.subsystems.drivetrain.CameraLeftLineFollow;
 import frc.team4909.robot.operator.controllers.BionicF310;
 import frc.team4909.robot.operator.generic.BionicAxis;
 import frc.team4909.robot.sensors.Stream;
@@ -51,12 +52,11 @@ import frc.team4909.robot.sensors.LidarLitePWM;
 //     RB: Cargo Intake Out 
 //     LT: Hatch Panel Intake In 
 
-
 public class Robot extends TimedRobot {
 
   // Camera
   public static Stream stream;
-  //public static GripPipeline grip;
+  // public static GripPipeline grip;
   // Operator Input
   public static BionicF310 driverGamepad;
   public static BionicF310 manipulatorGamepad;
@@ -90,7 +90,7 @@ public class Robot extends TimedRobot {
     stream = new Stream();
     // CameraServer.getInstance().startAutomaticCapture();
     stream.streamCamera();
-    //grip = new GripPipeline();
+    // grip = new GripPipeline();
 
     // Compressor
     c = new Compressor(0); // Initialize Compressor
@@ -118,7 +118,7 @@ public class Robot extends TimedRobot {
         RobotConstants.manipulatorGamepadSensitivity // Gamepad sensitivity
     );
     /* Drivetrain */
-    
+
     /* Intake */
     manipulatorGamepad.buttonHeld(BionicF310.RT, 0.2, new CargoIntakeIn());
     manipulatorGamepad.buttonHeld(BionicF310.RB, new CargoIntakeOut());
@@ -137,6 +137,7 @@ public class Robot extends TimedRobot {
     /* Sensors/Misc. */
     driverGamepad.buttonPressed(BionicF310.A, new InvertDriveDirection());
     driverGamepad.buttonPressed(BionicF310.B, new Linefollow());
+    driverGamepad.buttonPressed(BionicF310.X, new CameraLeftLineFollow());
   }
 
   /**
@@ -170,32 +171,33 @@ public class Robot extends TimedRobot {
    * This function is called periodically during operator control.
    */
   @Override
-  public void teleopPeriodic() {  
+  public void teleopPeriodic() {
     System.out.println("Lidar value is: " + lidar.getDistance()); // Remove for competition (necessary only for testing)
     StiltsStop = SmartDashboard.getBoolean("Stop Stilts", false);
-    if (StiltsStop == true){
+    if (StiltsStop == true) {
       new StopExtend();
       SmartDashboard.putBoolean("Stop Stilts", false);
     }
     CargoIntake = SmartDashboard.getBoolean("Cargo In", false);
-    if (CargoIntake == true){
+    if (CargoIntake == true) {
       new CargoIntakeIn();
       SmartDashboard.putBoolean("Cargo In", false);
     }
 
     CargoOuttake = SmartDashboard.getBoolean("Cargo Out", false);
-    if (CargoOuttake == true){
+    if (CargoOuttake == true) {
       new CargoIntakeOut();
       SmartDashboard.putBoolean("Cargo Out", false);
     }
 
     // if(lidar.getDistance() > 120) {
-    //   Robot.drivetrainSubsystem.arcadeDrive(0.1, 0.1);
+    // Robot.drivetrainSubsystem.arcadeDrive(0.1, 0.1);
     // }
     // if(lidar.getDistance() < 115) {
-    //   Robot.drivetrainSubsystem.arcadeDrive(-0.1, -0.1);
+    // Robot.drivetrainSubsystem.arcadeDrive(-0.1, -0.1);
     // }
   }
+
   /**
    * This function is called periodically during test mode.
    */
