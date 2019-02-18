@@ -2,6 +2,7 @@ package frc.team4909.robot.setpoints;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team4909.robot.Robot;
+import frc.team4909.robot.RobotConstants;
 
 
 public class CargoHigh extends Command {
@@ -12,8 +13,8 @@ public class CargoHigh extends Command {
 
     @Override
     protected void initialize() {
-        Robot.elevatorSubsystem.setPosition(0);  //need to find
-        Robot.elevatorArmSubsystem.setAngle(45);
+        Robot.elevatorSubsystem.setPosition(RobotConstants.elevatorSetpointCargoHigh);  //need to find
+        Robot.elevatorArmSubsystem.setAngle(RobotConstants.elevatorArmSetpoint45);
         setTimeout(1.5);
     }
 

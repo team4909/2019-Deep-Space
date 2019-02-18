@@ -2,6 +2,7 @@ package frc.team4909.robot.setpoints;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team4909.robot.Robot;
+import frc.team4909.robot.RobotConstants;
 
 
 public class HatchMiddle extends Command {
@@ -12,8 +13,8 @@ public class HatchMiddle extends Command {
 
     @Override
     protected void initialize() {
-        Robot.elevatorSubsystem.setPosition(-25300);
-        Robot.elevatorArmSubsystem.setAngle(90);
+        Robot.elevatorSubsystem.setPosition(RobotConstants.elevatorSetpointHatchMiddle);
+        Robot.elevatorArmSubsystem.setAngle(RobotConstants.elevatorArmSetpoint90);
         setTimeout(1.5);
     }
 

@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.team4909.robot.operator.controllers.BionicF310;
 import frc.team4909.robot.sensors.LidarLitePWM;
 import frc.team4909.robot.sensors.Stream;
+import frc.team4909.robot.setpoints.HatchLow;
+import frc.team4909.robot.setpoints.HatchMiddle;
 import frc.team4909.robot.subsystems.climber.ClimberSubsystem;
 import frc.team4909.robot.subsystems.climber.commands.DriveStiltsBack;
 import frc.team4909.robot.subsystems.climber.commands.DriveStiltsForward;
@@ -123,8 +125,8 @@ public class Robot extends TimedRobot {
     driverGamepad.buttonHeld(BionicF310.RB, new DriveStiltsForward());
 
     /* Elevator Setpoints */
-    manipulatorGamepad.buttonPressed(BionicF310.A, new SetElevatorPosition(RobotConstants.elevatorSetpointHatchMiddle));
-    manipulatorGamepad.buttonPressed(BionicF310.B, new SetElevatorPosition(RobotConstants.elevatorSetpointHatchLow)); 
+    manipulatorGamepad.buttonPressed(BionicF310.A, new HatchMiddle());
+    manipulatorGamepad.buttonPressed(BionicF310.B, new HatchLow()); 
 
     /* Sensors/Misc. */
     driverGamepad.buttonPressed(BionicF310.A, new InvertDriveDirection());

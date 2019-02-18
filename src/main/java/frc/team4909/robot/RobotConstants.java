@@ -48,7 +48,10 @@ public class RobotConstants {
   public static final int elevatorSetpointCargoLow = -10582;
   public static final int elevatorSetpointCargoMiddle = -30638;
   public static final int elevatorSetpointCargoHigh = -20000;
+  public static final int elevatorSetpointCargoShip = -25300;
 
+  public static final int elevatorArmSetpoint90 = 90;
+  public static final int elevatorArmSetpoint45 = 45;
   /* Linefollow */
   public static final double fastVelocity = 0.7;
   public static final double mediumVelocity = 0.5; // constant velocity given to both motors
