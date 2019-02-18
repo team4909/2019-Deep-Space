@@ -6,6 +6,7 @@ import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotConstants;
 
 public class RetractStilts extends Command {
+
     public RetractStilts() {
         requires(Robot.climberSubsystem);
         requires(Robot.elevatorSubsystem);
@@ -21,9 +22,9 @@ public class RetractStilts extends Command {
         Robot.climberSubsystem.setStiltsClimbSpeed(0);
         Robot.elevatorSubsystem.setSpeed(0);
     }
+
     @Override
     protected boolean isFinished() {
         return false;
     }
-
 }

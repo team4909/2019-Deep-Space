@@ -30,11 +30,11 @@ public class ElevatorSubsystem extends Subsystem {
 
     public ElevatorSubsystem() {
 
-        //Lift
-        leftSRX = new WPI_TalonSRX(RobotMap.elevatorSRXID);  //master SRX
-        leftSPX = new WPI_VictorSPX(RobotMap.elevatorSPX1ID); //slave SPX 1
-        rightSPX1 = new WPI_VictorSPX(RobotMap.elevatorSPX2ID); //slave SPX 2
-        rightSPX2 = new WPI_VictorSPX(RobotMap.elevatorSPX3ID); //slave SPX 3
+        // Lift
+        leftSRX = new WPI_TalonSRX(RobotMap.elevatorSRXID); // master SRX
+        leftSPX = new WPI_VictorSPX(RobotMap.elevatorSPX1ID); // slave SPX 1
+        rightSPX1 = new WPI_VictorSPX(RobotMap.elevatorSPX2ID); // slave SPX 2
+        rightSPX2 = new WPI_VictorSPX(RobotMap.elevatorSPX3ID); // slave SPX 3
 
         leftSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
 
@@ -42,7 +42,7 @@ public class ElevatorSubsystem extends Subsystem {
         rightSPX1.follow(leftSRX);
         rightSPX2.follow(leftSRX);
 
-        leftSRX.setNeutralMode(NeutralMode.Brake);
+        leftSRX.setNeutralMode(NeutralMode.Brake); // TODO: Should these possibly be Coast instead?
         leftSPX.setNeutralMode(NeutralMode.Brake);
         rightSPX1.setNeutralMode(NeutralMode.Brake);
         rightSPX2.setNeutralMode(NeutralMode.Brake);
@@ -50,15 +50,15 @@ public class ElevatorSubsystem extends Subsystem {
         rightSPX1.setInverted(true);
         rightSPX2.setInverted(true);
         leftSRX.setSensorPhase(false);
-        //update();
+        // update();
         leftSRX.selectProfileSlot(1, 0);
-        leftSRX.config_kP(1, 0.1, 0); 
-       // leftSRX.config_kP(1, 0);
+        leftSRX.config_kP(1, 0.1, 0);
+        // leftSRX.config_kP(1, 0);
         leftSRX.config_kI(1, 0);
         leftSRX.config_kD(1, 0);
     }
 
-    public void update(){
+    public void update() {
         leftSRX.setSelectedSensorPosition(0);
     }
 
@@ -70,12 +70,12 @@ public class ElevatorSubsystem extends Subsystem {
         leftSRX.set(ControlMode.PercentOutput, speed);
     }
 
-    public void setPosition(int position){
-        //leftSRX.setSelectedSensorPosition(position, 0, 0); Need to test
+    public void setPosition(int position) {
+        // leftSRX.setSelectedSensorPosition(position, 0, 0); Need to test
         leftSRX.set(ControlMode.Position, position);
     }
 
-    public void setMagicPosition(int position){
+    public void setMagicPosition(int position) {
         leftSRX.set(ControlMode.MotionMagic, position);
     }
 
