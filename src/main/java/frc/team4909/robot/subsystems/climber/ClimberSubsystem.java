@@ -5,6 +5,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.team4909.robot.RobotMap;
 import frc.team4909.robot.RobotConstants;
+import frc.team4909.robot.subsystems.elevator.ElevatorSubsystem;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import frc.team4909.robot.Robot;
@@ -35,6 +37,11 @@ public class ClimberSubsystem extends Subsystem {
 
     public void setStiltsClimbSpeed(double speed) {
         climberLiftSRX.set(speed);
+    }
+
+    public void setSpeeds(double speed) {
+        climberLiftSRX.set(ControlMode.Velocity, speed);
+        Robot.elevatorSubsystem.setVelocity(speed);
     }
 
     protected void initDefaultCommand() {

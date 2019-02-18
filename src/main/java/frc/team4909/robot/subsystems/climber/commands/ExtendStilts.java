@@ -11,16 +11,18 @@ public class ExtendStilts extends Command {
         requires(Robot.elevatorSubsystem);
     }
 
-    protected void execute() {
+    @Override
+    protected void initialize() {
         Robot.elevatorSubsystem.setPIDValues();
-        Robot.climberSubsystem.setStiltsClimbSpeed(RobotConstants.climberStiltSpeed);
-        // Robot.elevatorSubsystem.setSpeed(-RobotConstants.elevatorClimbSpeed);
+        Robot.climberSubsystem.setSpeeds(RobotConstants.climberStiltSpeed);
+    }
+
+    protected void execute() {
     }
 
     @Override
     protected void end() {
-        Robot.climberSubsystem.setStiltsClimbSpeed(0);
-        Robot.elevatorSubsystem.setSpeed(0);
+        Robot.climberSubsystem.setSpeeds(0);
     }
 
     @Override

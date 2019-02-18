@@ -111,6 +111,10 @@ public class ElevatorSubsystem extends Subsystem {
         SmartDashboard.putNumber("Elevator position", leftSRX.getSelectedSensorPosition());
     }
 
+    public void setVelocity(double speed) {
+        leftSRX.set(ControlMode.Velocity, speed);
+    }
+
     public void setPIDValues() { // TODO: Tune these PID values
         leftSRX.selectProfileSlot(2, 0);
         leftSRX.config_kF(1, 0, RobotConstants.timeoutMs);
@@ -118,7 +122,6 @@ public class ElevatorSubsystem extends Subsystem {
         leftSRX.config_kI(1, 0, RobotConstants.timeoutMs);
         leftSRX.config_kD(1, 0, RobotConstants.timeoutMs);
     }
-
 
     @Override
     protected void initDefaultCommand() {
