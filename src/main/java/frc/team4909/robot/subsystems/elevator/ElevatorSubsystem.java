@@ -31,11 +31,11 @@ public class ElevatorSubsystem extends Subsystem {
     public int holdingPosition;
 
     public ElevatorSubsystem() {
-        //Lift
-        leftSRX = new WPI_TalonSRX(RobotMap.elevatorSRXID);  //master SRX
-        leftSPX = new WPI_VictorSPX(RobotMap.elevatorSPX1ID); //slave SPX 1
-        rightSPX1 = new WPI_VictorSPX(RobotMap.elevatorSPX2ID); //slave SPX 2
-        rightSPX2 = new WPI_VictorSPX(RobotMap.elevatorSPX3ID); //slave SPX 3
+        // Lift
+        leftSRX = new WPI_TalonSRX(RobotMap.elevatorSRXID); // master SRX
+        leftSPX = new WPI_VictorSPX(RobotMap.elevatorSPX1ID); // slave SPX 1
+        rightSPX1 = new WPI_VictorSPX(RobotMap.elevatorSPX2ID); // slave SPX 2
+        rightSPX2 = new WPI_VictorSPX(RobotMap.elevatorSPX3ID); // slave SPX 3
 
         // leftSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
         leftSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
@@ -50,28 +50,29 @@ public class ElevatorSubsystem extends Subsystem {
         rightSPX1.setNeutralMode(NeutralMode.Brake);
         rightSPX2.setNeutralMode(NeutralMode.Brake);
 
-
         rightSPX1.setInverted(true);
         rightSPX2.setInverted(true);
         leftSRX.setSensorPhase(false);
-        //update();
+        // update();
         leftSRX.configNominalOutputForward(0, RobotConstants.timeoutMs);
-		leftSRX.configNominalOutputReverse(0, RobotConstants.timeoutMs);
-		leftSRX.configPeakOutputForward(1, RobotConstants.timeoutMs);
+        leftSRX.configNominalOutputReverse(0, RobotConstants.timeoutMs);
+        leftSRX.configPeakOutputForward(1, RobotConstants.timeoutMs);
         leftSRX.configPeakOutputReverse(-1, RobotConstants.timeoutMs);
-        
+
         leftSRX.selectProfileSlot(1, 0);
         leftSRX.config_kF(1, 0, RobotConstants.timeoutMs); // calcuated fro CTRE Doc
-        leftSRX.config_kP(1, 0.1, RobotConstants.timeoutMs); // 102.3 / error 
+        leftSRX.config_kP(1, 0.1, RobotConstants.timeoutMs); // 102.3 / error
         leftSRX.config_kI(1, 0, RobotConstants.timeoutMs);
         leftSRX.config_kD(1, 0, RobotConstants.timeoutMs); // 10 * P
 
-        // leftSRX.configMotionCruiseVelocity(14047, RobotConstants.timeoutMs); // calculated
-        // leftSRX.configMotionAcceleration(14047, RobotConstants.timeoutMs); // calculated may decrease
+        // leftSRX.configMotionCruiseVelocity(14047, RobotConstants.timeoutMs); //
+        // calculated
+        // leftSRX.configMotionAcceleration(14047, RobotConstants.timeoutMs); //
+        // calculated may decrease
 
     }
 
-    public void reset(){
+    public void reset() {
         leftSRX.setSelectedSensorPosition(0);
     }
 
@@ -83,34 +84,43 @@ public class ElevatorSubsystem extends Subsystem {
         leftSRX.set(ControlMode.PercentOutput, speed);
     }
 
-    public void setPosition(int position){
-        //leftSRX.setSelectedSensorPosition(position, 0, 0); Need to test
+    public void setPosition(int position) {
+        // leftSRX.setSelectedSensorPosition(position, 0, 0); Need to test
         leftSRX.set(ControlMode.Position, position);
     }
 
-    public void setMagicPosition(int position){
+    public void setMagicPosition(int position) {
         leftSRX.set(ControlMode.MotionMagic, position);
     }
 
     public int getPosition() {
         return leftSRX.getSelectedSensorPosition();
     }
+
     public int getVelocity() {
         return leftSRX.getSelectedSensorVelocity();
     }
-    public ErrorCode getError(){
+
+    public ErrorCode getError() {
         return leftSRX.getLastError();
     }
+
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Elevator position", leftSRX.getSelectedSensorPosition());
     }
 
+    public void setPIDValues() { // TODO: Tune these PID values
+        leftSRX.selectProfileSlot(2, 0);
+        leftSRX.config_kF(1, 0, RobotConstants.timeoutMs);
+        leftSRX.config_kP(1, 0.5, RobotConstants.timeoutMs);
+        leftSRX.config_kI(1, 0, RobotConstants.timeoutMs);
+        leftSRX.config_kD(1, 0, RobotConstants.timeoutMs);
+    }
 
     @Override
     protected void initDefaultCommand() {
         setDefaultCommand(new ElevatorOperatorControl());
     }
 
-	
 }

@@ -12,6 +12,7 @@ public class ExtendStilts extends Command {
     }
 
     protected void execute() {
+        Robot.elevatorSubsystem.setPIDValues();
         Robot.climberSubsystem.setStiltsClimbSpeed(RobotConstants.climberStiltSpeed);
         // Robot.elevatorSubsystem.setSpeed(-RobotConstants.elevatorClimbSpeed);
     }
