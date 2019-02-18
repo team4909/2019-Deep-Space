@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.team4909.robot.operator.controllers.BionicF310;
 import frc.team4909.robot.sensors.LidarLitePWM;
 import frc.team4909.robot.sensors.Stream;
+import frc.team4909.robot.setpoints.HatchLow;
+import frc.team4909.robot.setpoints.HatchMiddle;
 import frc.team4909.robot.subsystems.climber.ClimberSubsystem;
 import frc.team4909.robot.subsystems.climber.commands.DriveStiltsBack;
 import frc.team4909.robot.subsystems.climber.commands.DriveStiltsForward;
@@ -77,9 +79,9 @@ public class Robot extends TimedRobot {
   public void robotInit() {
 
     // Cameras (subsystem)
-    stream = new Stream();
-    // CameraServer.getInstance().startAutomaticCapture();
-    stream.streamCamera();
+    // stream = new Stream();
+    // // CameraServer.getInstance().startAutomaticCapture();
+    // stream.streamCamera();
     // grip = new GripPipeline();
 
     // Compressor
@@ -93,6 +95,8 @@ public class Robot extends TimedRobot {
     elevatorSubsystem = new ElevatorSubsystem();
     elevatorArmSubsystem = new ElevatorArmSubsystem();
     climberSubsystem = new ClimberSubsystem();
+    
+
 
     // Sensors
     lidar = new LidarLitePWM(RobotMap.lidarPort);
@@ -120,8 +124,9 @@ public class Robot extends TimedRobot {
     driverGamepad.buttonHeld(BionicF310.LB, new DriveStiltsBack());
     driverGamepad.buttonHeld(BionicF310.RB, new DriveStiltsForward());
 
-    /* Elevator */
-    manipulatorGamepad.buttonPressed(BionicF310.A, new SetElevatorPosition(-13000, 1));
+    /* Elevator Setpoints */
+    manipulatorGamepad.buttonPressed(BionicF310.A, new HatchMiddle());
+    manipulatorGamepad.buttonPressed(BionicF310.B, new HatchLow()); 
 
     /* Sensors/Misc. */
     driverGamepad.buttonPressed(BionicF310.A, new InvertDriveDirection());
@@ -158,6 +163,12 @@ public class Robot extends TimedRobot {
   /**
    * This function is called periodically during operator control.
    */
+
+   @Override
+   public void teleopInit() {
+     // Reset elevator encoder
+    elevatorSubsystem.reset();
+   }
   @Override
   public void teleopPeriodic() {
   }

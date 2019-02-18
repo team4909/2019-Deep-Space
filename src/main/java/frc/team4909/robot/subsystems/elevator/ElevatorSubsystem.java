@@ -31,7 +31,6 @@ public class ElevatorSubsystem extends Subsystem {
     public int holdingPosition;
 
     public ElevatorSubsystem() {
-
         // Lift
         leftSRX = new WPI_TalonSRX(RobotMap.elevatorSRXID); // master SRX
         leftSPX = new WPI_VictorSPX(RobotMap.elevatorSPX1ID); // slave SPX 1
@@ -50,7 +49,6 @@ public class ElevatorSubsystem extends Subsystem {
         leftSPX.setNeutralMode(NeutralMode.Brake);
         rightSPX1.setNeutralMode(NeutralMode.Brake);
         rightSPX2.setNeutralMode(NeutralMode.Brake);
-
 
         rightSPX1.setInverted(true);
         rightSPX2.setInverted(true);
@@ -99,13 +97,27 @@ public class ElevatorSubsystem extends Subsystem {
     public int getPosition() {
         return leftSRX.getSelectedSensorPosition();
     }
+
     public int getVelocity() {
         return leftSRX.getSelectedSensorVelocity();
     }
-    public ErrorCode getError(){
+
+    public ErrorCode getError() {
         return leftSRX.getLastError();
     }
 
+    @Override
+    public void periodic() {
+        SmartDashboard.putNumber("Elevator position", leftSRX.getSelectedSensorPosition());
+    }
+
+    public void setPIDValues() { // TODO: Tune these PID values
+        leftSRX.selectProfileSlot(2, 0);
+        leftSRX.config_kF(1, 0, RobotConstants.timeoutMs);
+        leftSRX.config_kP(1, 0.5, RobotConstants.timeoutMs);
+        leftSRX.config_kI(1, 0, RobotConstants.timeoutMs);
+        leftSRX.config_kD(1, 0, RobotConstants.timeoutMs);
+    }
 
     @Override
     public void periodic() {
@@ -117,5 +129,4 @@ public class ElevatorSubsystem extends Subsystem {
         setDefaultCommand(new ElevatorOperatorControl());
     }
 
-	
 }
