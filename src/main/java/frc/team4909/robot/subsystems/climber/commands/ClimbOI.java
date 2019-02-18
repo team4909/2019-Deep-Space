@@ -23,8 +23,12 @@ public class ClimbOI extends Command {
         switch(povAngle){
             case(0):
                 new ExtendStiltOnly();
+                break;
             case(180):
                 new RetractStiltOnly();
+                break;
+            default:
+                break;
         }
 
         if (moveSpeed == 0) { // If Y-stick value is not moving, HOLD position
