@@ -1,21 +1,18 @@
 package frc.team4909.robot.subsystems.climber.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotConstants;
 
-public class RetractStilts extends Command {
+public class RetractStiltOnly extends Command {
 
-    public RetractStilts() {
+    public RetractStiltOnly() {
         requires(Robot.climberSubsystem);
-        requires(Robot.elevatorSubsystem);
     }
 
     @Override
     protected void initialize() {
-        Robot.elevatorSubsystem.setPIDValues();
-        Robot.climberSubsystem.setSpeeds(-RobotConstants.climberStiltSpeed);
+        Robot.climberSubsystem.setStiltsClimbSpeed(-RobotConstants.climberStiltSpeed);
     }
 
     protected void execute() {
@@ -23,7 +20,7 @@ public class RetractStilts extends Command {
 
     @Override
     protected void end() {
-        Robot.climberSubsystem.setSpeeds(0);
+        Robot.climberSubsystem.setStiltsClimbSpeed(0);
     }
 
     @Override
