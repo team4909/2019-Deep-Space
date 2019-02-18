@@ -1,7 +1,8 @@
-package frc.team4909.robot;
+package frc.team4909.robot.sensors;
 
 import edu.wpi.first.wpilibj.Counter;
 // import edu.wpi.first.wpilibj.DigitalSource;
+import frc.team4909.robot.RobotConstants;
 
 public class LidarLitePWM {
 	/*
@@ -60,7 +61,6 @@ public class LidarLitePWM {
 		 */
 
 		cm = (counter.getPeriod() * 1000000.0 / 10.0) + CALIBRATION_OFFSET;
-		System.out.println(cm);
 		return (int) cm;
 	}
 }

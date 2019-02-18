@@ -4,81 +4,133 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import frc.team4909.robot.subsystems.drivetrain.Linefollow;
-import frc.team4909.robot.subsystems.intake.CargoIntakeIn;
-import frc.team4909.robot.subsystems.intake.CargoIntakeOut;
-import frc.team4909.robot.subsystems.intake.HatchPanelIntakeOpen;
-import frc.team4909.robot.subsystems.intake.HatchPanelIntakeClose;
 import frc.team4909.robot.operator.controllers.BionicF310;
-// import frc.team4909.robot.sensors.Stream;
+import frc.team4909.robot.sensors.LidarLitePWM;
+import frc.team4909.robot.sensors.Stream;
+import frc.team4909.robot.subsystems.climber.ClimberSubsystem;
+import frc.team4909.robot.subsystems.climber.commands.DriveStiltsBack;
+import frc.team4909.robot.subsystems.climber.commands.DriveStiltsForward;
+import frc.team4909.robot.subsystems.climber.commands.ExtendStilts;
+import frc.team4909.robot.subsystems.climber.commands.RetractStilts;
 import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
+import frc.team4909.robot.subsystems.drivetrain.Linefollow;
 import frc.team4909.robot.subsystems.drivetrain.commands.InvertDriveDirection;
+import frc.team4909.robot.subsystems.elevator.ElevatorSubsystem;
+import frc.team4909.robot.subsystems.elevator.commands.SetElevatorPosition;
+import frc.team4909.robot.subsystems.elevatorarm.ElevatorArmSubsystem;
 import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
-import frc.team4909.robot.subsystems.elevator.ElevatorSubsystem;;
+import frc.team4909.robot.subsystems.intake.commands.CargoIntakeIn;
+import frc.team4909.robot.subsystems.intake.commands.CargoIntakeOut;
+import frc.team4909.robot.subsystems.intake.commands.HatchPanelIntakeOpen;
+
+//  Controls:
+//  
+//  Driver Gamepad (Port 0): 
+//     LY: Drive Speed 
+//     RX: Drive Rotation 
+//     LT: Retract Stilts
+//     RT: Extend Stilts 
+//     LB: Drive Stilt Back
+//     RB: Drive Stilt Forward
+//     A: Invert Drive Direction 
+//     B: Line Follow
+//  
+//  Operator Gamped (Port 1): 
+//     RY: Elevator Arm Pivot 
+//     LY: Elevator Speed 
+//     RT: Cargo Intake In 
+//     RB: Cargo Intake Out 
+//     LT: Hatch Panel Intake In 
+
 public class Robot extends TimedRobot {
 
-  // Stream stream = new Stream();
+  // Camera
+  public static Stream stream;
+  // public static GripPipeline grip;
   // Operator Input
   public static BionicF310 driverGamepad;
   public static BionicF310 manipulatorGamepad;
+  public boolean StiltsStop;
 
   // Subsystems
   public static PowerDistributionPanel powerDistributionPanel;
   public static DriveTrainSubsystem drivetrainSubsystem;
   public static IntakeSubsystem intakeSubsystem;
   public static ElevatorSubsystem elevatorSubsystem;
+  public static ElevatorArmSubsystem elevatorArmSubsystem;
+  public static ClimberSubsystem climberSubsystem;
   public static Compressor c;
-
 
   // Sensors
   public static LidarLitePWM lidar;
+
+  // SmartDashboard Buttons
+  public boolean CargoIntake;
+  public boolean CargoOuttake;
 
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
    */
+
   @Override
   public void robotInit() {
 
-    c = new Compressor(0);        //Initialize Compressor
+    // Cameras (subsystem)
+    stream = new Stream();
+    // CameraServer.getInstance().startAutomaticCapture();
+    stream.streamCamera();
+    // grip = new GripPipeline();
+
+    // Compressor
+    c = new Compressor(0); // Initialize Compressor
     c.setClosedLoopControl(true); // Start Compressor in Closed Loop Control
-
-
-    // stream.streamCamera();
-    // GripPipeline grip = new GripPipeline();
 
     // Subsystems
     powerDistributionPanel = new PowerDistributionPanel();
     drivetrainSubsystem = new DriveTrainSubsystem();
     intakeSubsystem = new IntakeSubsystem();
     elevatorSubsystem = new ElevatorSubsystem();
+    elevatorArmSubsystem = new ElevatorArmSubsystem();
+    climberSubsystem = new ClimberSubsystem();
 
     // Sensors
-    lidar = new LidarLitePWM(4);
+    lidar = new LidarLitePWM(RobotMap.lidarPort);
 
     // Operator Input
-
-    driverGamepad = new BionicF310(RobotConstants.driverGamepadPort, // Port
-                                   RobotConstants.driverGamepadDeadzone, // Deadzone
-                                   RobotConstants.driverGamepadSensitivity // Gamepad sensitivity
+    driverGamepad = new BionicF310(RobotMap.driverGamepadPort, // Port
+        RobotConstants.driverGamepadDeadzone, // Deadzone
+        RobotConstants.driverGamepadSensitivity // Gamepad sensitivity
     );
 
-    manipulatorGamepad = new  BionicF310(RobotConstants.manipulatorGamepadPort, // Port
-                                         RobotConstants.manipulatorGamepadDeadzone, // Deadzone 
-                                         RobotConstants.manipulatorGamepadSensitivity // Gamepad sensitivity
+    manipulatorGamepad = new BionicF310(RobotMap.manipulatorGamepadPort, // Port
+        RobotConstants.manipulatorGamepadDeadzone, // Deadzone
+        RobotConstants.manipulatorGamepadSensitivity // Gamepad sensitivity
     );
+    /* Drivetrain */
 
-    driverGamepad.buttonPressed(BionicF310.A, new Linefollow());
-    driverGamepad.buttonPressed(BionicF310.X, new CargoIntakeIn());
-    driverGamepad.buttonPressed(BionicF310.Y, new CargoIntakeOut());
-    driverGamepad.buttonPressed(BionicF310.LB, new HatchPanelIntakeOpen());
-    driverGamepad.buttonPressed(BionicF310.RB, new HatchPanelIntakeClose());
-    driverGamepad.buttonPressed(BionicF310.Start, new InvertDriveDirection());
-  }
+    /* Intake */
+    manipulatorGamepad.buttonHeld(BionicF310.RT, 0.2, new CargoIntakeIn());
+    manipulatorGamepad.buttonHeld(BionicF310.RB, new CargoIntakeOut());
+    manipulatorGamepad.buttonHeld(BionicF310.LT, 0.2, new HatchPanelIntakeOpen());
+
+    /* Climber */
+    driverGamepad.buttonHeld(BionicF310.RT, 0.2, new ExtendStilts());
+    driverGamepad.buttonHeld(BionicF310.LT, 0.2, new RetractStilts());
+    driverGamepad.buttonHeld(BionicF310.LB, new DriveStiltsBack());
+    driverGamepad.buttonHeld(BionicF310.RB, new DriveStiltsForward());
+
+    /* Elevator */
+    manipulatorGamepad.buttonPressed(BionicF310.A, new SetElevatorPosition(-13000, 1));
+
+    /* Sensors/Misc. */
+    driverGamepad.buttonPressed(BionicF310.A, new InvertDriveDirection());
+    driverGamepad.buttonPressed(BionicF310.B, new Linefollow());
+   }
 
   /**
-   * This function is called every robot packet, no matter the mode. Use this for
-   * items like diagnostics that you want ran during disabled, autonomous,
+   * '' This function is called every robot packet, no matter the mode. Use this
+   * for items like diagnostics that you want ran during disabled, autonomous,
    * teleoperated and test.
    *
    * <p>
@@ -108,7 +160,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    System.out.println("Distance is  " + lidar.getDistance()); // Remove for competition (necessary only for testing)
+
   }
 
   /**

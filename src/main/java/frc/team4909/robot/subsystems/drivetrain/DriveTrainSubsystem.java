@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.team4909.robot.RobotMap;
+import frc.team4909.robot.operator.controllers.BionicF310;
+import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotConstants;
 import frc.team4909.robot.subsystems.drivetrain.commands.Drive;
 
@@ -16,7 +18,9 @@ public class DriveTrainSubsystem extends Subsystem {
     SpeedControllerGroup m_left, m_right;
     DifferentialDrive bionicDrive;
     double speedMultiplier = RobotConstants.speedMultiplier;
+    double turnMultiplier = RobotConstants.speedTurnMultiplier;
     boolean inverted = false;
+    boolean preciseMode = false;
 
     public DriveTrainSubsystem() {
         frontLeftSparkMax = new CANSparkMax(RobotMap.driveFrontLeftSparkMaxCAN, MotorType.kBrushless);
@@ -45,8 +49,32 @@ public class DriveTrainSubsystem extends Subsystem {
         bionicDrive.tankDrive(leftSpeedOutput, rightSpeedOutput);
     }
 
+    public void arcadeDrive(double leftSpeed, double rightSpeed) {
+        double speedOutput = leftSpeed;
+        double turnOutput = rightSpeed;
+        double speedTurnMultiplier = turnMultiplier;
+        if (preciseMode == true){
+            speedTurnMultiplier = RobotConstants.speedTurnPreciseMultiplier;
+        } else{
+            speedTurnMultiplier = RobotConstants.speedTurnMultiplier;
+        }
+        if (inverted) {
+            speedOutput = -rightSpeed;
+            turnOutput = -leftSpeed;
+        }
+
+        speedOutput = speedOutput * speedMultiplier;
+        turnOutput = turnOutput * speedTurnMultiplier;
+
+        bionicDrive.arcadeDrive(speedOutput, turnOutput);
+    }
+
     public void invertDriveDirection() {
         inverted = !inverted;
+    }
+
+    public void swapTurnSpeed() {
+        preciseMode = !preciseMode;
     }
 
     protected void initDefaultCommand() {
