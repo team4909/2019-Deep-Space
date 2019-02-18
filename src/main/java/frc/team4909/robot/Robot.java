@@ -101,8 +101,6 @@ public class Robot extends TimedRobot {
     elevatorSubsystem = new ElevatorSubsystem();
     elevatorArmSubsystem = new ElevatorArmSubsystem();
     climberSubsystem = new ClimberSubsystem();
-    
-
 
     // Sensors
     lidar = new LidarLitePWM(RobotMap.lidarPort);
@@ -133,12 +131,12 @@ public class Robot extends TimedRobot {
 
     /* Elevator Setpoints */
     manipulatorGamepad.buttonPressed(BionicF310.A, new HatchMiddle());
-    manipulatorGamepad.buttonPressed(BionicF310.B, new HatchLow()); 
+    manipulatorGamepad.buttonPressed(BionicF310.B, new HatchLow());
 
     /* Sensors/Misc. */
     driverGamepad.buttonPressed(BionicF310.A, new InvertDriveDirection());
     driverGamepad.buttonPressed(BionicF310.B, new Linefollow());
-   }
+  }
 
   /**
    * '' This function is called every robot packet, no matter the mode. Use this
@@ -171,11 +169,12 @@ public class Robot extends TimedRobot {
    * This function is called periodically during operator control.
    */
 
-   @Override
-   public void teleopInit() {
-     // Reset elevator encoder
+  @Override
+  public void teleopInit() {
+    // Reset elevator encoder
     elevatorSubsystem.reset();
-   }
+  }
+
   @Override
   public void teleopPeriodic() {
   }
