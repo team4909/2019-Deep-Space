@@ -12,10 +12,11 @@ public class RetractStiltOnly extends Command {
 
     @Override
     protected void initialize() {
-        Robot.climberSubsystem.setStiltsClimbSpeed(-RobotConstants.climberStiltSpeed);
     }
 
     protected void execute() {
+        Robot.climberSubsystem.setStiltsClimbSpeed(-RobotConstants.climberStiltSpeed);
+
     }
 
     @Override
