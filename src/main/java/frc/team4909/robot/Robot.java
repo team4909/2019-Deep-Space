@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team4909.robot.subsystems.climber.commands.DriveStiltsForward;
 import frc.team4909.robot.subsystems.climber.commands.ExtendStilts;
 import frc.team4909.robot.subsystems.climber.commands.RetractStilts;
-import frc.team4909.robot.subsystems.climber.commands.StopExtend;
 import frc.team4909.robot.subsystems.drivetrain.Linefollow;
 import frc.team4909.robot.subsystems.drivetrain.commands.SwapTurnSpeed;
 import frc.team4909.robot.subsystems.intake.commands.CargoIntakeIn;
@@ -21,6 +20,7 @@ import frc.team4909.robot.subsystems.drivetrain.CameraLeftLineFollow;
 import frc.team4909.robot.operator.controllers.BionicF310;
 import frc.team4909.robot.operator.generic.BionicAxis;
 import frc.team4909.robot.sensors.Stream;
+import frc.team4909.robot.sensors.ToggleCamera;
 import frc.team4909.robot.subsystems.climber.ClimberSubsystem;
 import frc.team4909.robot.subsystems.climber.commands.DriveStiltsBack;
 import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
@@ -86,7 +86,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
 
-    // Cameras
+    // Cameras (subsystem)
     stream = new Stream();
     // CameraServer.getInstance().startAutomaticCapture();
     stream.streamCamera();
@@ -127,7 +127,6 @@ public class Robot extends TimedRobot {
     /* Climber */
     driverGamepad.buttonHeld(BionicF310.RT, 0.2, new ExtendStilts());
     driverGamepad.buttonHeld(BionicF310.LT, 0.2, new RetractStilts());
-    driverGamepad.buttonPressed(BionicF310.Y, new StopExtend());
     driverGamepad.buttonHeld(BionicF310.LB, new DriveStiltsBack());
     driverGamepad.buttonHeld(BionicF310.RB, new DriveStiltsForward());
 
@@ -138,6 +137,7 @@ public class Robot extends TimedRobot {
     driverGamepad.buttonPressed(BionicF310.A, new InvertDriveDirection());
     driverGamepad.buttonPressed(BionicF310.B, new Linefollow());
     driverGamepad.buttonPressed(BionicF310.X, new CameraLeftLineFollow());
+    manipulatorGamepad.buttonPressed(BionicF310.X, new ToggleCamera());
   }
 
   /**

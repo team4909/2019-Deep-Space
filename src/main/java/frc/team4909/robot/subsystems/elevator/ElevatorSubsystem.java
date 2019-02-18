@@ -53,6 +53,7 @@ public class ElevatorSubsystem extends Subsystem {
         //update();
         leftSRX.selectProfileSlot(1, 0);
         leftSRX.config_kP(1, 0.1, 0); 
+       // leftSRX.config_kP(1, 0);
         leftSRX.config_kI(1, 0);
         leftSRX.config_kD(1, 0);
     }
