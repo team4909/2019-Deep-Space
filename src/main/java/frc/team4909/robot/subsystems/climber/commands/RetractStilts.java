@@ -10,7 +10,7 @@ public class RetractStilts extends Command {
     public RetractStilts() {
         requires(Robot.climberSubsystem);
         requires(Robot.elevatorSubsystem);
-        Robot.elevatorSubsystem.setPIDValues();
+        Robot.elevatorSubsystem.setNewPIDValues();
 
     }
 
@@ -25,6 +25,7 @@ public class RetractStilts extends Command {
     @Override
     protected void end() {
         Robot.climberSubsystem.setSpeeds(0);
+        Robot.elevatorSubsystem.setInitialPIDValues();
     }
 
     @Override

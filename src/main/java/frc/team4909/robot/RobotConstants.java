@@ -40,6 +40,14 @@ public class RobotConstants {
   public static final double elevatorSpeedMultiplier = 0.5; // Multiplier for elevator speed
   public static final double elevatorArmSpeedMultiplier = 0.75; // Multiplier for elevator arm speed
 
+  public static final double initialp = 0.1;
+  public static final double initiali = 0;
+  public static final double initiald = 0;
+
+  public static final double newp = 0;
+  public static final double newi = 0;
+  public static final double newd = 0;
+
   /* Elevator Setpoints */
   public static final int elevatorSetpointHatchLow = 0; // Bottom hatch position
   public static final int elevatorSetpointHatchMiddle = -25300; // Middle hatch position

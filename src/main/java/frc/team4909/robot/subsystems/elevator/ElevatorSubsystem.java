@@ -115,13 +115,21 @@ public class ElevatorSubsystem extends Subsystem {
         leftSRX.set(ControlMode.Velocity, speed);
     }
 
-    public void setPIDValues() { // TODO: Tune these PID values
+    public void setInitialPIDValues() {
+        leftSRX.selectProfileSlot(1, 0);
+        leftSRX.config_kF(1, 0, RobotConstants.timeoutMs);
+        leftSRX.config_kP(1, RobotConstants.initialp, RobotConstants.timeoutMs);
+        leftSRX.config_kI(1, RobotConstants.initiali, RobotConstants.timeoutMs);
+        leftSRX.config_kD(1, RobotConstants.initiald, RobotConstants.timeoutMs);
+    }
+
+    public void setNewPIDValues() { // TODO: Tune these PID values
         leftSRX.selectProfileSlot(2, 0);
         leftSRX.config_kF(2, 0, RobotConstants.timeoutMs);
-        leftSRX.config_kP(2, 0, RobotConstants.timeoutMs);
-        leftSRX.config_kI(2, 0, RobotConstants.timeoutMs);
-        leftSRX.config_kD(2, 0, RobotConstants.timeoutMs);
-    }       
+        leftSRX.config_kP(2, RobotConstants.newp, RobotConstants.timeoutMs);
+        leftSRX.config_kI(2, RobotConstants.newi, RobotConstants.timeoutMs);
+        leftSRX.config_kD(2, RobotConstants.newd, RobotConstants.timeoutMs);
+    }
 
     @Override
     protected void initDefaultCommand() {

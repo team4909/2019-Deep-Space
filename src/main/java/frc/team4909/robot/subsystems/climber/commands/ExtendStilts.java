@@ -6,12 +6,10 @@ import frc.team4909.robot.RobotConstants;
 
 public class ExtendStilts extends Command {
 
-
     public ExtendStilts() {
         requires(Robot.climberSubsystem);
         requires(Robot.elevatorSubsystem);
-        Robot.elevatorSubsystem.setPIDValues();
-
+        Robot.elevatorSubsystem.setNewPIDValues();
     }
 
     @Override
@@ -25,6 +23,7 @@ public class ExtendStilts extends Command {
     @Override
     protected void end() {
         Robot.climberSubsystem.setSpeeds(0);
+        Robot.elevatorSubsystem.setInitialPIDValues();
     }
 
     @Override
