@@ -67,9 +67,9 @@ public class ElevatorSubsystem extends Subsystem {
         leftSRX.config_kD(1, 0, RobotConstants.timeoutMs); // 10 * P
 
         leftSRX.config_kF(2, 0, RobotConstants.timeoutMs);
-        leftSRX.config_kP(2, RobotConstants.newp, RobotConstants.timeoutMs);
-        leftSRX.config_kI(2, RobotConstants.newi, RobotConstants.timeoutMs);
-        leftSRX.config_kD(2, RobotConstants.newd, RobotConstants.timeoutMs);
+        leftSRX.config_kP(2, 0.5, RobotConstants.timeoutMs);
+        leftSRX.config_kI(2, 0, RobotConstants.timeoutMs);
+        leftSRX.config_kD(2, 0, RobotConstants.timeoutMs);
         // leftSRX.configMotionCruiseVelocity(14047, RobotConstants.timeoutMs); //
         // calculated
         // leftSRX.configMotionAcceleration(14047, RobotConstants.timeoutMs); //
