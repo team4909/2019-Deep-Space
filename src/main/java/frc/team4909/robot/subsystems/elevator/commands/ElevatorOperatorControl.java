@@ -35,14 +35,11 @@ public class ElevatorOperatorControl extends Command {
         
         if (moveSpeed == 0) { // If Y-stick value is not moving, HOLD position
             Robot.elevatorSubsystem.setPosition(holdingPosition);
-
             // System.out.println("Get pos is " + Robot.elevatorSubsystem.getPosition() + ",
             // Holding Pos is:" + holdingPosition);
 
         } else { // Set speed to Y-stick value and HOLD position
             Robot.elevatorSubsystem.setSpeed(moveSpeed);
-            holdingPosition = Robot.elevatorSubsystem.getPosition();
-
 
         }
         System.out.println("Position " + Robot.elevatorSubsystem.getPosition());
