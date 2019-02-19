@@ -9,7 +9,7 @@ public class ExtendStilts extends Command {
     public ExtendStilts() {
         requires(Robot.climberSubsystem);
         requires(Robot.elevatorSubsystem);
-        Robot.elevatorSubsystem.setNewPIDValues();
+       // Robot.elevatorSubsystem.setNewPIDValues();
     }
 
     @Override
@@ -23,7 +23,7 @@ public class ExtendStilts extends Command {
     @Override
     protected void end() {
         Robot.climberSubsystem.setSpeeds(0);
-        Robot.elevatorSubsystem.setInitialPIDValues();
+       // Robot.elevatorSubsystem.setInitialPIDValues();
     }
 
     @Override

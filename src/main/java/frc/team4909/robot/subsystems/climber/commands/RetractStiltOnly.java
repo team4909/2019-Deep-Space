@@ -6,6 +6,8 @@ import frc.team4909.robot.RobotConstants;
 
 public class RetractStiltOnly extends Command {
 
+    public int holdingPosition;
+
     public RetractStiltOnly() {
         requires(Robot.climberSubsystem);
     }
@@ -15,7 +17,9 @@ public class RetractStiltOnly extends Command {
     }
 
     protected void execute() {
+        holdingPosition = Robot.elevatorSubsystem.getPosition();
         Robot.climberSubsystem.setStiltsClimbSpeed(-RobotConstants.climberStiltSpeed);
+        Robot.climberSubsystem.setStiltsPosition(holdingPosition);
 
     }
 

@@ -189,6 +189,7 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     // Reset elevator encoder
     elevatorSubsystem.reset();
+    climberSubsystem.reset();
   }
 
   @Override

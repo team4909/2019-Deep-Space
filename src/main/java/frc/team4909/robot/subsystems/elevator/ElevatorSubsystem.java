@@ -38,8 +38,8 @@ public class ElevatorSubsystem extends Subsystem {
         rightSPX2 = new WPI_VictorSPX(RobotMap.elevatorSPX3ID); // slave SPX 3
 
         // leftSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
-        leftSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
         leftSRX.configFactoryDefault();
+        leftSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 
         leftSPX.follow(leftSRX); // All slaves will output the same value as the master SRX
         rightSPX1.follow(leftSRX);
@@ -66,6 +66,10 @@ public class ElevatorSubsystem extends Subsystem {
         leftSRX.config_kI(1, 0, RobotConstants.timeoutMs);
         leftSRX.config_kD(1, 0, RobotConstants.timeoutMs); // 10 * P
 
+        leftSRX.config_kF(2, 0, RobotConstants.timeoutMs);
+        leftSRX.config_kP(2, RobotConstants.newp, RobotConstants.timeoutMs);
+        leftSRX.config_kI(2, RobotConstants.newi, RobotConstants.timeoutMs);
+        leftSRX.config_kD(2, RobotConstants.newd, RobotConstants.timeoutMs);
         // leftSRX.configMotionCruiseVelocity(14047, RobotConstants.timeoutMs); //
         // calculated
         // leftSRX.configMotionAcceleration(14047, RobotConstants.timeoutMs); //
@@ -117,18 +121,10 @@ public class ElevatorSubsystem extends Subsystem {
 
     public void setInitialPIDValues() {
         leftSRX.selectProfileSlot(1, 0);
-        leftSRX.config_kF(1, 0, RobotConstants.timeoutMs);
-        leftSRX.config_kP(1, RobotConstants.initialp, RobotConstants.timeoutMs);
-        leftSRX.config_kI(1, RobotConstants.initiali, RobotConstants.timeoutMs);
-        leftSRX.config_kD(1, RobotConstants.initiald, RobotConstants.timeoutMs);
     }
 
     public void setNewPIDValues() { // TODO: Tune these PID values
         leftSRX.selectProfileSlot(2, 0);
-        leftSRX.config_kF(2, 0, RobotConstants.timeoutMs);
-        leftSRX.config_kP(2, RobotConstants.newp, RobotConstants.timeoutMs);
-        leftSRX.config_kI(2, RobotConstants.newi, RobotConstants.timeoutMs);
-        leftSRX.config_kD(2, RobotConstants.newd, RobotConstants.timeoutMs);
     }
 
     @Override

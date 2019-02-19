@@ -12,15 +12,27 @@ public class ElevatorOperatorControl extends Command {
 
     public ElevatorOperatorControl() {
         requires(Robot.elevatorSubsystem);
-        holdingPosition = Robot.elevatorSubsystem.getPosition();
+        holdingPosition = 0;
 
+    }
+    @Override
+    protected void initialize() {
+        Robot.elevatorSubsystem.setPosition(holdingPosition);
     }
 
     @Override
     public void execute() {
         // Sets speed to manipulator gamepad right Y stick value
-        double moveSpeed = Robot.manipulatorGamepad.getThresholdAxis(BionicF310.LY)
+        double moveSpeed = -Robot.manipulatorGamepad.getThresholdAxis(BionicF310.LY)
                 * RobotConstants.elevatorSpeedMultiplier;
+
+        if(holdingPosition < 0){
+            Robot.elevatorSubsystem.setInitialPIDValues();
+        }
+        else if(holdingPosition > 0){
+            Robot.elevatorSubsystem.setNewPIDValues();
+        }
+        
         if (moveSpeed == 0) { // If Y-stick value is not moving, HOLD position
             Robot.elevatorSubsystem.setPosition(holdingPosition);
 
