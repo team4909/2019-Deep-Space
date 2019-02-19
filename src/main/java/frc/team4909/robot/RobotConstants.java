@@ -70,6 +70,8 @@ public class RobotConstants {
   public static final double climberDriveSpeed = 0.3;
   public static final double elevatorClimbSpeed = 0.3;
   public static final double climbSpeedMultiplier = 0.5;
+  public static final double climbVelocityMultiplier = 800;
+
 
   /* Timeout */
   public static final int timeoutMs = 30; // milliseconds

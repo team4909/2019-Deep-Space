@@ -30,6 +30,7 @@ public class ElevatorSubsystem extends Subsystem {
     // Public Methods that allow safe motion should be provided by the subsystem
     private WPI_VictorSPX leftSlave, rightSlave1, rightSlave2;
     private WPI_TalonSRX leftMaster;
+    public int holdingPosition = leftMaster.getSelectedSensorPosition()
 
     public ElevatorSubsystem() {
         // super should always be called to ensure proper subystem initialization
@@ -80,7 +81,7 @@ public class ElevatorSubsystem extends Subsystem {
         final int primarySlotIdx = 1;
         final int pidIdx = 0;
         // set default slot to use for closed loop control
-        leftMaster.selectProfileSlot(primarySlotIdx, primarySlotIdx);
+        leftMaster.selectProfileSlot(primarySlotIdx, pidIdx);
 
         // Set constants for closed loop control
         leftMaster.config_kF(primarySlotIdx, 0, RobotConstants.timeoutMs);

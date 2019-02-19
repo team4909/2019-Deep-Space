@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.team4909.robot.RobotMap;
 import frc.team4909.robot.RobotConstants;
-import frc.team4909.robot.subsystems.climber.commands.ClimbOI;
 import frc.team4909.robot.subsystems.climber.commands.SetStiltPosition;
 import frc.team4909.robot.subsystems.elevator.ElevatorSubsystem;
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -90,6 +89,15 @@ public class ClimberSubsystem extends Subsystem {
     // Use the closed loop control to hold the stilts at holding position
     public void setStiltsPosition(int holdingPosition){
         climberLiftMaster.set(ControlMode.Position, holdingPosition);
+    }
+
+    public void setBothPositions(int holdingPosition){
+        climberLiftMaster.set(ControlMode.Position, holdingPosition);
+        Robot.elevatorSubsystem.setPosition(Robot.elevatorSubsystem.getPosition());
+    }
+
+    public void setStiltVelocity(double moveSpeed){
+        climberLiftMaster.set(ControlMode.Velocity, moveSpeed);
     }
 
     // Allow public access to the encoder position
