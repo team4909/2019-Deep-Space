@@ -108,6 +108,7 @@ public class ElevatorSubsystem extends Subsystem {
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Elevator position", getPosition());
+        SmartDashboard.putNumber("Elevator position Holding", holdingPosition);
         SmartDashboard.putNumber("Elevator error", getError());
     }
 
@@ -120,6 +121,7 @@ public class ElevatorSubsystem extends Subsystem {
     // Zero the relative encoder
     public void reset() {
         leftMaster.setSelectedSensorPosition(0);
+        holdingPosition = 0;
     }
 
     public void setSpeed(double speed) { // set elevator speed value

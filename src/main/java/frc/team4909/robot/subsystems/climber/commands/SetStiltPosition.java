@@ -13,6 +13,11 @@ public class SetStiltPosition extends Command {
         requires(Robot.elevatorSubsystem);
     }
 
+    protected void initialize() {
+        SmartDashboard.putString("end", "waiting");
+        SmartDashboard.putString("interrupted", "waiting");
+    }
+
      @Override
     protected void execute() {
         double moveSpeedBoth = -Robot.climberGamepad.getThresholdAxis(BionicF310.LY)
@@ -56,6 +61,22 @@ public class SetStiltPosition extends Command {
     protected boolean isFinished() {
         return false;
     }
+
+    protected void interrupted()
+    {
+        double holdingPosition = Robot.elevatorSubsystem.holdingPosition;
+        double holdingStiltsPosition = Robot.climberSubsystem.holdingStiltsPosition;
+        SmartDashboard.putString("interrupted",
+                "got interrupted: el=" + holdingPosition + ", st=" + holdingStiltsPosition);
+        Robot.climberSubsystem.setStiltsPosition(Robot.climberSubsystem.holdingStiltsPosition);
+        Robot.elevatorSubsystem.setPosition(Robot.elevatorSubsystem.holdingPosition);
+    }
+
+    protected void end()
+    {
+        SmartDashboard.putString("end", "got end");
+    }
+
 
 
 }

@@ -184,8 +184,8 @@ public class Robot extends TimedRobot {
   }
 @Override
   public void disabledPeriodic() {
-    elevatorSubsystem.reset();
-    climberSubsystem.reset();
+    //elevatorSubsystem.reset();
+    //climberSubsystem.reset();
   }
 
   @Override

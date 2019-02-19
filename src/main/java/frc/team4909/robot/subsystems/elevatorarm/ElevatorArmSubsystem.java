@@ -62,7 +62,7 @@ public class ElevatorArmSubsystem extends Subsystem{
     
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Elevator position", elevatorArmSRX.getSelectedSensorPosition());
+        SmartDashboard.putNumber("Wrist position", elevatorArmSRX.getSelectedSensorPosition());
     }
 
     @Override
