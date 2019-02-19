@@ -11,4 +11,8 @@ public class SwapTurnSpeed extends InstantCommand {
     protected void initialize() {
         Robot.drivetrainSubsystem.swapTurnSpeed();
     }
+
+    protected void end(){
+        Robot.drivetrainSubsystem.swapTurnSpeed();
+    }
 }
