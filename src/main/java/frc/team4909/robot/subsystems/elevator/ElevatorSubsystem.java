@@ -25,65 +25,101 @@ import frc.team4909.robot.RobotMap;
 import frc.team4909.robot.operator.controllers.BionicF310;
 
 public class ElevatorSubsystem extends Subsystem {
-    WPI_VictorSPX leftSlave, rightSlave1, rightSlave2;
-    WPI_TalonSRX leftMaster;
-
-    public int holdingPosition;
+    
+    // All motor controllers should be private.
+    // Public Methods that allow safe motion should be provided by the subsystem
+    private WPI_VictorSPX leftSlave, rightSlave1, rightSlave2;
+    private WPI_TalonSRX leftMaster;
 
     public ElevatorSubsystem() {
+        // super should always be called to ensure proper subystem initialization
+        super();
         // Lift
         leftMaster = new WPI_TalonSRX(RobotMap.elevatorSRXID); // master SRX
         leftSlave = new WPI_VictorSPX(RobotMap.elevatorSPX1ID); // slave SPX 1
         rightSlave1 = new WPI_VictorSPX(RobotMap.elevatorSPX2ID); // slave SPX 2
         rightSlave2 = new WPI_VictorSPX(RobotMap.elevatorSPX3ID); // slave SPX 3
 
-
+        // Talons have sticky nonvolatile flash memory.
+        // Lets clear any sticky settings to ensure we use the settings configured below
         leftMaster.configFactoryDefault();
+
+        // We want Relative to use the quadrature output of the encoder.
+        // Absolute is only good if the output rotates less than 1 revolution
         leftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 
-        leftSlave.follow(leftMaster); // All slaves will output the same value as the master SRX
+        // All slaves will output the same value as the master SRX
+        leftSlave.follow(leftMaster);
         rightSlave1.follow(leftMaster);
         rightSlave2.follow(leftMaster);
 
+        // Set all controllers to brake to help keep the elevator in place when not
+        // being driven
         leftMaster.setNeutralMode(NeutralMode.Brake);
         leftSlave.setNeutralMode(NeutralMode.Brake);
         rightSlave1.setNeutralMode(NeutralMode.Brake);
         rightSlave2.setNeutralMode(NeutralMode.Brake);
 
+        // Pick a value so that positive PercentOutput yields a positive change in
+        // sensor
         leftMaster.setSensorPhase(true);
 
+        // One side needs to be inverted so the motors spin in the same direction
+        // Also some of the 775 motors are wired backwards and require inversion
         leftMaster.setInverted(false);
         leftSlave.setInverted(false);
         rightSlave1.setInverted(true);
         rightSlave2.setInverted(true);
 
-        leftMaster.configNominalOutputForward(0, RobotConstants.timeoutMs);
-        leftMaster.configNominalOutputReverse(0, RobotConstants.timeoutMs);
-        leftMaster.configPeakOutputForward(1, RobotConstants.timeoutMs);
-        leftMaster.configPeakOutputReverse(-1, RobotConstants.timeoutMs);
+        //@todo what is the point of this?
+        // leftMaster.configNominalOutputForward(0, RobotConstants.timeoutMs);
+        // leftMaster.configNominalOutputReverse(0, RobotConstants.timeoutMs);
+        // leftMaster.configPeakOutputForward(1, RobotConstants.timeoutMs);
+        // leftMaster.configPeakOutputReverse(-1, RobotConstants.timeoutMs);
 
-        leftMaster.selectProfileSlot(1, 0);
-        leftMaster.config_kF(1, 0, RobotConstants.timeoutMs);
-        leftMaster.config_kP(1, 0.1, RobotConstants.timeoutMs);
-        leftMaster.config_kI(1, 0, RobotConstants.timeoutMs);
-        leftMaster.config_kD(1, 0, RobotConstants.timeoutMs);
+        final int slotIdx = 1;
+        final int pidIdx = 0;
+        // set default slot to use for closed loop control
+        leftMaster.selectProfileSlot(slotIdx, slotIdx);
 
-        leftMaster.config_kF(2, 0, RobotConstants.timeoutMs);
-        leftMaster.config_kP(2, 0.5, RobotConstants.timeoutMs);
-        leftMaster.config_kI(2, 0, RobotConstants.timeoutMs);
-        leftMaster.config_kD(2, 0, RobotConstants.timeoutMs);
+        // Set constants for closed loop control
+        leftMaster.config_kF(slotIdx, 0, RobotConstants.timeoutMs);
+        leftMaster.config_kP(slotIdx, 0.1, RobotConstants.timeoutMs);
+        leftMaster.config_kI(slotIdx, 0, RobotConstants.timeoutMs);
+        leftMaster.config_kD(slotIdx, 0, RobotConstants.timeoutMs);
 
+        // Used for when elevator is acting as stilt
+        leftMaster.config_kF(slotIdx, 0, RobotConstants.timeoutMs);
+        leftMaster.config_kP(slotIdx, 0.5, RobotConstants.timeoutMs);
+        leftMaster.config_kI(slotIdx, 0, RobotConstants.timeoutMs);
+        leftMaster.config_kD(slotIdx, 0, RobotConstants.timeoutMs);
+
+        // These values are use for motion magic
         // leftSRX.configMotionCruiseVelocity(14047, RobotConstants.timeoutMs);
         // leftSRX.configMotionAcceleration(14047, RobotConstants.timeoutMs);
 
+        // When the code starts (IE robot powered on) call that zero.
+        // @note operators will need to setup the carriage in the same place each match.
+        reset();
+
     }
 
+    @Override
+    public void periodic() {
+        SmartDashboard.putNumber("Elevator position", getPosition());
+        SmartDashboard.putNumber("Elevator error", getError());
+    }
+
+    @Override
+    protected void initDefaultCommand() {
+        setDefaultCommand(new ElevatorOperatorControl());
+    }
+
+    /* Methods */
+
+    // Zero the relative encoder
     public void reset() {
         leftMaster.setSelectedSensorPosition(0);
-    }
-
-    public void holdCurrentPosition() { // hold elevator in position
-        holdingPosition = leftMaster.getSelectedSensorPosition();
     }
 
     public void setSpeed(double speed) { // set elevator speed value
@@ -91,13 +127,12 @@ public class ElevatorSubsystem extends Subsystem {
     }
 
     public void setPosition(int position) {
-        // leftSRX.setSelectedSensorPosition(position, 0, 0); Need to test
         leftMaster.set(ControlMode.Position, position);
     }
 
-    public void setMagicPosition(int position) {
-        leftMaster.set(ControlMode.MotionMagic, position);
-    }
+    // public void setMagicPosition(int position) {
+    //     leftMaster.set(ControlMode.MotionMagic, position);
+    // }
 
     public int getPosition() {
         return leftMaster.getSelectedSensorPosition();
@@ -107,14 +142,9 @@ public class ElevatorSubsystem extends Subsystem {
         return leftMaster.getSelectedSensorVelocity();
     }
 
+    // Get the PID error from the SRX
     public int getError() {
         return leftMaster.getClosedLoopError();
-    }
-
-    @Override
-    public void periodic() {
-        SmartDashboard.putNumber("Elevator position", getPosition());
-        SmartDashboard.putNumber("Elevator error", getError());
     }
 
     public void setVelocity(double speed) {
@@ -125,13 +155,7 @@ public class ElevatorSubsystem extends Subsystem {
         leftMaster.selectProfileSlot(1, 0);
     }
 
-    public void setNewPIDValues() { // TODO: Tune these PID values
+    public void setNewPIDValues() {
         leftMaster.selectProfileSlot(2, 0);
     }
-
-    @Override
-    protected void initDefaultCommand() {
-        setDefaultCommand(new ElevatorOperatorControl());
-    }
-
 }
