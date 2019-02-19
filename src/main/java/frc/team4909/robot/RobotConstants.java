@@ -12,8 +12,8 @@ public class RobotConstants {
 
   /* Drivetrain */
   public static final double speedMultiplier = .7;
-  public static final double speedTurnMultiplier = .4;
-  public static final double speedTurnPreciseMultiplier = .2;
+  public static final double speedTurnMultiplier = .5;
+  public static final double speedTurnPreciseMultiplier = .4;
 
   /* Intake */
   public static final double cargoIntakeInSpeed = 1.0;
@@ -66,9 +66,9 @@ public class RobotConstants {
   public static final double slowVelocity = 0.2; // value given to motor when trying to turn
 
   /* Climber */
-  public static final double climberStiltSpeed = 0.3;
+  public static final double climberStiltSpeed = 0.5;
   public static final double climberDriveSpeedAuto = 0.2;
-  public static final double climberDriveSpeedManual = 0.1;
+  public static final double climberDriveSpeedManual = 0.5;
   public static final double elevatorClimbSpeed = 0.3;
   public static final double climbSpeedMultiplier = 0.5;
   public static final double climbVelocityMultiplier = 800;

@@ -28,6 +28,17 @@ public class SetStiltPosition extends Command {
         double moveSpeed = -Robot.manipulatorGamepad.getThresholdAxis(BionicF310.LY)
         * RobotConstants.elevatorSpeedMultiplier;
 
+        double moveDrivePosSpeed = -Robot.driverGamepad.getThresholdAxis(BionicF310.RT) *
+         RobotConstants.climberDriveSpeedManual;
+        
+        double moveDriveNegSpeed = Robot.driverGamepad.getThresholdAxis(BionicF310.LT) *
+         RobotConstants.climberDriveSpeedManual;
+
+         double moveElevatorSpeed = -Robot.climberGamepad.getThresholdAxis(BionicF310.RY)
+        * RobotConstants.elevatorSpeedMultiplier;
+        
+        
+
 // if(holdingPosition <= 0){
     // Robot.elevatorSubsystem.setInitialPIDValues();
 // }
@@ -91,6 +102,28 @@ public class SetStiltPosition extends Command {
             Robot.elevatorSubsystem.setPosition(Robot.elevatorSubsystem.holdingPosition);
             Robot.climberSubsystem.setPosition(Robot.climberSubsystem.holdingStiltsPosition);
         }
+        
+        if(moveDrivePosSpeed != 0 && moveDriveNegSpeed != 0) {
+            Robot.climberSubsystem.setStiltsDriveSpeed(0);
+        }
+        else if(moveDrivePosSpeed != 0 && moveDriveNegSpeed == 0){
+            Robot.climberSubsystem.setStiltsDriveSpeed(moveDrivePosSpeed);
+        }
+        else if(moveDriveNegSpeed != 0 && moveDrivePosSpeed == 0){
+            Robot.climberSubsystem.setStiltsDriveSpeed(moveDriveNegSpeed);
+        }
+        else{
+            Robot.climberSubsystem.setStiltsDriveSpeed(0);
+        }
+
+        if(moveElevatorSpeed != 0){
+            Robot.elevatorSubsystem.setSpeed(moveElevatorSpeed);
+            Robot.elevatorSubsystem.holdingPosition = Robot.elevatorSubsystem.getPosition();
+        }
+        else{
+            Robot.elevatorSubsystem.setPosition(Robot.elevatorSubsystem.holdingPosition);
+        }
+        
 
     // System.out.println("Get pos is " + Robot.elevatorSubsystem.getPosition() + ",
     // Holding Pos is:" + holdingPosition);
