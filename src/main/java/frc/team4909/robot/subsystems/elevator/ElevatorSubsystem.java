@@ -77,22 +77,23 @@ public class ElevatorSubsystem extends Subsystem {
         // leftMaster.configPeakOutputForward(1, RobotConstants.timeoutMs);
         // leftMaster.configPeakOutputReverse(-1, RobotConstants.timeoutMs);
 
-        final int slotIdx = 1;
+        final int primarySlotIdx = 1;
         final int pidIdx = 0;
         // set default slot to use for closed loop control
-        leftMaster.selectProfileSlot(slotIdx, slotIdx);
+        leftMaster.selectProfileSlot(primarySlotIdx, primarySlotIdx);
 
         // Set constants for closed loop control
-        leftMaster.config_kF(slotIdx, 0, RobotConstants.timeoutMs);
-        leftMaster.config_kP(slotIdx, 0.1, RobotConstants.timeoutMs);
-        leftMaster.config_kI(slotIdx, 0, RobotConstants.timeoutMs);
-        leftMaster.config_kD(slotIdx, 0, RobotConstants.timeoutMs);
+        leftMaster.config_kF(primarySlotIdx, 0, RobotConstants.timeoutMs);
+        leftMaster.config_kP(primarySlotIdx, 0.1, RobotConstants.timeoutMs);
+        leftMaster.config_kI(primarySlotIdx, 0, RobotConstants.timeoutMs);
+        leftMaster.config_kD(primarySlotIdx, 0, RobotConstants.timeoutMs);
 
+        final int secondarySlotIdx = 2;
         // Used for when elevator is acting as stilt
-        leftMaster.config_kF(slotIdx, 0, RobotConstants.timeoutMs);
-        leftMaster.config_kP(slotIdx, 0.5, RobotConstants.timeoutMs);
-        leftMaster.config_kI(slotIdx, 0, RobotConstants.timeoutMs);
-        leftMaster.config_kD(slotIdx, 0, RobotConstants.timeoutMs);
+        leftMaster.config_kF(secondarySlotIdx, 0, RobotConstants.timeoutMs);
+        leftMaster.config_kP(secondarySlotIdx, 0.5, RobotConstants.timeoutMs);
+        leftMaster.config_kI(secondarySlotIdx, 0, RobotConstants.timeoutMs);
+        leftMaster.config_kD(secondarySlotIdx, 0, RobotConstants.timeoutMs);
 
         // These values are use for motion magic
         // leftSRX.configMotionCruiseVelocity(14047, RobotConstants.timeoutMs);
