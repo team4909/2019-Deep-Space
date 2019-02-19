@@ -11,7 +11,7 @@ public class DriveStiltsForward extends Command {
     }
 
     protected void execute() {
-        Robot.climberSubsystem.setStiltsDriveSpeed(RobotConstants.climberDriveSpeed);
+        Robot.climberSubsystem.setStiltsDriveSpeed(RobotConstants.climberDriveSpeedManual);
         
     }
     @Override

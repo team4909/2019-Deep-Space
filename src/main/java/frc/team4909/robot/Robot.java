@@ -180,6 +180,10 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     // Reset elevator encoder
+    
+  }
+@Override
+  public void disabledPeriodic() {
     elevatorSubsystem.reset();
     climberSubsystem.reset();
   }

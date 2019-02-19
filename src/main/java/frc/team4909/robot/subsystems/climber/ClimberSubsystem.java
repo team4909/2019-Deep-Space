@@ -21,6 +21,7 @@ public class ClimberSubsystem extends Subsystem {
     // Methods that allow safe motion should be provided by the subsystem
     private WPI_TalonSRX climberLiftMaster;
     private WPI_VictorSPX climberDriveSPX, climberLiftSlave;
+    public int holdingStiltsPosition = 0;
 
     public ClimberSubsystem() {
         //super should always be called to ensure proper subystem initialization

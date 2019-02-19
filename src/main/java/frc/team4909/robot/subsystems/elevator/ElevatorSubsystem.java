@@ -17,7 +17,6 @@ import java.lang.module.ModuleDescriptor.Requires;
 import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.team4909.robot.subsystems.elevator.commands.ElevatorOperatorControl;
 import frc.team4909.robot.subsystems.elevator.commands.SetElevatorPosition;
 import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotConstants;
@@ -30,7 +29,7 @@ public class ElevatorSubsystem extends Subsystem {
     // Public Methods that allow safe motion should be provided by the subsystem
     private WPI_VictorSPX leftSlave, rightSlave1, rightSlave2;
     private WPI_TalonSRX leftMaster;
-    public int holdingPosition = leftMaster.getSelectedSensorPosition()
+    public int holdingPosition = 0;
 
     public ElevatorSubsystem() {
         // super should always be called to ensure proper subystem initialization
@@ -85,7 +84,7 @@ public class ElevatorSubsystem extends Subsystem {
 
         // Set constants for closed loop control
         leftMaster.config_kF(primarySlotIdx, 0, RobotConstants.timeoutMs);
-        leftMaster.config_kP(primarySlotIdx, 0.1, RobotConstants.timeoutMs);
+        leftMaster.config_kP(primarySlotIdx, 0.2, RobotConstants.timeoutMs);
         leftMaster.config_kI(primarySlotIdx, 0, RobotConstants.timeoutMs);
         leftMaster.config_kD(primarySlotIdx, 0, RobotConstants.timeoutMs);
 
@@ -114,7 +113,6 @@ public class ElevatorSubsystem extends Subsystem {
 
     @Override
     protected void initDefaultCommand() {
-        setDefaultCommand(new ElevatorOperatorControl());
     }
 
     /* Methods */

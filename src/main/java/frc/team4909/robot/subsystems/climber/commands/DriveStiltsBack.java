@@ -10,7 +10,7 @@ public class DriveStiltsBack extends Command {
     }
 
     protected void execute() {
-        Robot.climberSubsystem.setStiltsDriveSpeed(-RobotConstants.climberDriveSpeed);
+        Robot.climberSubsystem.setStiltsDriveSpeed(-RobotConstants.climberDriveSpeedManual);
     }
 
     @Override
