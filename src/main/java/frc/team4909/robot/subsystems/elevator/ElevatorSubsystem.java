@@ -25,106 +25,108 @@ import frc.team4909.robot.RobotMap;
 import frc.team4909.robot.operator.controllers.BionicF310;
 
 public class ElevatorSubsystem extends Subsystem {
-    WPI_VictorSPX leftSPX, rightSPX1, rightSPX2;
-    WPI_TalonSRX leftSRX;
+    WPI_VictorSPX leftSlave, rightSlave1, rightSlave2;
+    WPI_TalonSRX leftMaster;
 
     public int holdingPosition;
 
     public ElevatorSubsystem() {
         // Lift
-        leftSRX = new WPI_TalonSRX(RobotMap.elevatorSRXID); // master SRX
-        leftSPX = new WPI_VictorSPX(RobotMap.elevatorSPX1ID); // slave SPX 1
-        rightSPX1 = new WPI_VictorSPX(RobotMap.elevatorSPX2ID); // slave SPX 2
-        rightSPX2 = new WPI_VictorSPX(RobotMap.elevatorSPX3ID); // slave SPX 3
+        leftMaster = new WPI_TalonSRX(RobotMap.elevatorSRXID); // master SRX
+        leftSlave = new WPI_VictorSPX(RobotMap.elevatorSPX1ID); // slave SPX 1
+        rightSlave1 = new WPI_VictorSPX(RobotMap.elevatorSPX2ID); // slave SPX 2
+        rightSlave2 = new WPI_VictorSPX(RobotMap.elevatorSPX3ID); // slave SPX 3
 
-        // leftSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
-        leftSRX.configFactoryDefault();
-        leftSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 
-        leftSPX.follow(leftSRX); // All slaves will output the same value as the master SRX
-        rightSPX1.follow(leftSRX);
-        rightSPX2.follow(leftSRX);
+        leftMaster.configFactoryDefault();
+        leftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 
-        leftSRX.setNeutralMode(NeutralMode.Brake);
-        leftSPX.setNeutralMode(NeutralMode.Brake);
-        rightSPX1.setNeutralMode(NeutralMode.Brake);
-        rightSPX2.setNeutralMode(NeutralMode.Brake);
+        leftSlave.follow(leftMaster); // All slaves will output the same value as the master SRX
+        rightSlave1.follow(leftMaster);
+        rightSlave2.follow(leftMaster);
 
-        rightSPX1.setInverted(true);
-        rightSPX2.setInverted(true);
+        leftMaster.setNeutralMode(NeutralMode.Brake);
+        leftSlave.setNeutralMode(NeutralMode.Brake);
+        rightSlave1.setNeutralMode(NeutralMode.Brake);
+        rightSlave2.setNeutralMode(NeutralMode.Brake);
 
-        leftSRX.setSensorPhase(false);
-        // update();
-        leftSRX.configNominalOutputForward(0, RobotConstants.timeoutMs);
-        leftSRX.configNominalOutputReverse(0, RobotConstants.timeoutMs);
-        leftSRX.configPeakOutputForward(1, RobotConstants.timeoutMs);
-        leftSRX.configPeakOutputReverse(-1, RobotConstants.timeoutMs);
+        leftMaster.setSensorPhase(true);
 
-        leftSRX.selectProfileSlot(1, 0);
-        leftSRX.config_kF(1, 0, RobotConstants.timeoutMs); // calcuated fro CTRE Doc
-        leftSRX.config_kP(1, 0.1, RobotConstants.timeoutMs); // 102.3 / error
-        leftSRX.config_kI(1, 0, RobotConstants.timeoutMs);
-        leftSRX.config_kD(1, 0, RobotConstants.timeoutMs); // 10 * P
+        leftMaster.setInverted(false);
+        leftSlave.setInverted(false);
+        rightSlave1.setInverted(true);
+        rightSlave2.setInverted(true);
 
-        leftSRX.config_kF(2, 0, RobotConstants.timeoutMs);
-        leftSRX.config_kP(2, 0.5, RobotConstants.timeoutMs);
-        leftSRX.config_kI(2, 0, RobotConstants.timeoutMs);
-        leftSRX.config_kD(2, 0, RobotConstants.timeoutMs);
-        // leftSRX.configMotionCruiseVelocity(14047, RobotConstants.timeoutMs); //
-        // calculated
-        // leftSRX.configMotionAcceleration(14047, RobotConstants.timeoutMs); //
-        // calculated may decrease
+        leftMaster.configNominalOutputForward(0, RobotConstants.timeoutMs);
+        leftMaster.configNominalOutputReverse(0, RobotConstants.timeoutMs);
+        leftMaster.configPeakOutputForward(1, RobotConstants.timeoutMs);
+        leftMaster.configPeakOutputReverse(-1, RobotConstants.timeoutMs);
+
+        leftMaster.selectProfileSlot(1, 0);
+        leftMaster.config_kF(1, 0, RobotConstants.timeoutMs);
+        leftMaster.config_kP(1, 0.1, RobotConstants.timeoutMs);
+        leftMaster.config_kI(1, 0, RobotConstants.timeoutMs);
+        leftMaster.config_kD(1, 0, RobotConstants.timeoutMs);
+
+        leftMaster.config_kF(2, 0, RobotConstants.timeoutMs);
+        leftMaster.config_kP(2, 0.5, RobotConstants.timeoutMs);
+        leftMaster.config_kI(2, 0, RobotConstants.timeoutMs);
+        leftMaster.config_kD(2, 0, RobotConstants.timeoutMs);
+
+        // leftSRX.configMotionCruiseVelocity(14047, RobotConstants.timeoutMs);
+        // leftSRX.configMotionAcceleration(14047, RobotConstants.timeoutMs);
 
     }
 
     public void reset() {
-        leftSRX.setSelectedSensorPosition(0);
+        leftMaster.setSelectedSensorPosition(0);
     }
 
     public void holdCurrentPosition() { // hold elevator in position
-        holdingPosition = leftSRX.getSelectedSensorPosition();
+        holdingPosition = leftMaster.getSelectedSensorPosition();
     }
 
     public void setSpeed(double speed) { // set elevator speed value
-        leftSRX.set(ControlMode.PercentOutput, speed);
+        leftMaster.set(ControlMode.PercentOutput, speed);
     }
 
     public void setPosition(int position) {
         // leftSRX.setSelectedSensorPosition(position, 0, 0); Need to test
-        leftSRX.set(ControlMode.Position, position);
+        leftMaster.set(ControlMode.Position, position);
     }
 
     public void setMagicPosition(int position) {
-        leftSRX.set(ControlMode.MotionMagic, position);
+        leftMaster.set(ControlMode.MotionMagic, position);
     }
 
     public int getPosition() {
-        return leftSRX.getSelectedSensorPosition();
+        return leftMaster.getSelectedSensorPosition();
     }
 
     public int getVelocity() {
-        return leftSRX.getSelectedSensorVelocity();
+        return leftMaster.getSelectedSensorVelocity();
     }
 
-    public ErrorCode getError() {
-        return leftSRX.getLastError();
+    public int getError() {
+        return leftMaster.getClosedLoopError();
     }
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Elevator position", leftSRX.getSelectedSensorPosition());
+        SmartDashboard.putNumber("Elevator position", getPosition());
+        SmartDashboard.putNumber("Elevator error", getError());
     }
 
     public void setVelocity(double speed) {
-        leftSRX.set(ControlMode.Velocity, speed);
+        leftMaster.set(ControlMode.Velocity, speed);
     }
 
     public void setInitialPIDValues() {
-        leftSRX.selectProfileSlot(1, 0);
+        leftMaster.selectProfileSlot(1, 0);
     }
 
     public void setNewPIDValues() { // TODO: Tune these PID values
-        leftSRX.selectProfileSlot(2, 0);
+        leftMaster.selectProfileSlot(2, 0);
     }
 
     @Override
