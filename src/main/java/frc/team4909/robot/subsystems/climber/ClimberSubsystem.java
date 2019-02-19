@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team4909.robot.RobotMap;
 import frc.team4909.robot.RobotConstants;
 import frc.team4909.robot.subsystems.climber.commands.SetStiltPosition;
@@ -53,6 +54,10 @@ public class ClimberSubsystem extends Subsystem {
         // One side needs to be inverted so the motors spin in the same direction
         climberLiftMaster.setInverted(true);
         climberLiftSlave.setInverted(false);
+
+        // Limit the max motor speed
+        climberLiftMaster.configPeakOutputForward(.5, RobotConstants.timeoutMs);
+        climberLiftMaster.configPeakOutputReverse(-.5, RobotConstants.timeoutMs);
        
         final int slotIdx = 1;
         final int pidIdx = 0;
@@ -60,7 +65,7 @@ public class ClimberSubsystem extends Subsystem {
         climberLiftMaster.selectProfileSlot(slotIdx, pidIdx);
 
         //set constants for closed loop control
-        climberLiftMaster.config_kP(slotIdx, 0.5, 0);
+        climberLiftMaster.config_kP(slotIdx, 3, 0);
         climberLiftMaster.config_kI(slotIdx, 0);
         climberLiftMaster.config_kD(slotIdx, 0);
     }
@@ -68,6 +73,7 @@ public class ClimberSubsystem extends Subsystem {
     // Zero the relative encoder
     public void reset(){
         climberLiftMaster.setSelectedSensorPosition(0);
+        holdingStiltsPosition = 0;
     }
 
     // Spin the wheels on the bottom of the stilts to move the robot forward
@@ -80,22 +86,25 @@ public class ClimberSubsystem extends Subsystem {
         climberLiftMaster.set(speed);
     }
 
+    // Use the closed loop control to move the stilts at speed
+    public void setSpeed(double speed) {
+        climberLiftMaster.set(ControlMode.PercentOutput, speed);
+    }
+
     // Attempt to move both the elevator and the stilts at the same velocity.
     // @note, need to make sure the unit conversion works as expected....
-    public void setSpeeds(double speed) {
-        climberLiftMaster.set(ControlMode.Velocity, speed);
-        Robot.elevatorSubsystem.setVelocity(speed);
-    }
+    // public void setSpeeds(double speed) {
+    //     climberLiftMaster.set(ControlMode.Velocity, speed);
+    //     Robot.elevatorSubsystem.setVelocity(speed);
+    // }
 
-    // Use the closed loop control to hold the stilts at holding position
-    public void setStiltsPosition(int holdingPosition){
-        climberLiftMaster.set(ControlMode.Position, holdingPosition);
-    }
+    
 
-    public void setBothPositions(int holdingPosition){
-        climberLiftMaster.set(ControlMode.Position, holdingPosition);
-        Robot.elevatorSubsystem.setPosition(Robot.elevatorSubsystem.getPosition());
-    }
+
+    // public void setBothPositions(int holdingPosition){
+    //     climberLiftMaster.set(ControlMode.Position, holdingPosition);
+    //     Robot.elevatorSubsystem.setPosition(Robot.elevatorSubsystem.getPosition());
+    // }
 
     public void setStiltVelocity(double moveSpeed){
         climberLiftMaster.set(ControlMode.Velocity, moveSpeed);
@@ -104,6 +113,19 @@ public class ClimberSubsystem extends Subsystem {
     // Allow public access to the encoder position
     public int getPosition(){
         return climberLiftMaster.getSelectedSensorPosition();
+    }
+
+    // Use the closed loop control to hold the stilts at pos
+    public void setPosition(int pos) {
+        climberLiftMaster.set(ControlMode.Position, pos);
+    }
+
+   
+
+    @Override
+    public void periodic() {
+        SmartDashboard.putNumber("Stilts position", getPosition());
+        SmartDashboard.putNumber("Stilts position holding", holdingStiltsPosition);
     }
 
     protected void initDefaultCommand(){

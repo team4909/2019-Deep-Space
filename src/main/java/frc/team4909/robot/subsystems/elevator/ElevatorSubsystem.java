@@ -74,8 +74,8 @@ public class ElevatorSubsystem extends Subsystem {
         //@todo what is the point of this?
         // leftMaster.configNominalOutputForward(0, RobotConstants.timeoutMs);
         // leftMaster.configNominalOutputReverse(0, RobotConstants.timeoutMs);
-        // leftMaster.configPeakOutputForward(1, RobotConstants.timeoutMs);
-        // leftMaster.configPeakOutputReverse(-1, RobotConstants.timeoutMs);
+        leftMaster.configPeakOutputForward(.4, RobotConstants.timeoutMs);
+        leftMaster.configPeakOutputReverse(-.4, RobotConstants.timeoutMs);
 
         final int primarySlotIdx = 1;
         final int pidIdx = 0;
@@ -84,7 +84,7 @@ public class ElevatorSubsystem extends Subsystem {
 
         // Set constants for closed loop control
         leftMaster.config_kF(primarySlotIdx, 0, RobotConstants.timeoutMs);
-        leftMaster.config_kP(primarySlotIdx, 0.2, RobotConstants.timeoutMs);
+        leftMaster.config_kP(primarySlotIdx, 0.5, RobotConstants.timeoutMs);
         leftMaster.config_kI(primarySlotIdx, 0, RobotConstants.timeoutMs);
         leftMaster.config_kD(primarySlotIdx, 0, RobotConstants.timeoutMs);
 

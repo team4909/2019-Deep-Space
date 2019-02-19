@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team4909.robot.operator.controllers.BionicF310;
 import frc.team4909.robot.operator.controllers.FlightStick;
 import frc.team4909.robot.sensors.LidarLitePWM;
@@ -24,6 +25,9 @@ import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
 import frc.team4909.robot.subsystems.intake.commands.CargoIntakeIn;
 import frc.team4909.robot.subsystems.intake.commands.CargoIntakeOut;
 import frc.team4909.robot.subsystems.intake.commands.HatchPanelIntakeOpen;
+
+import frc.team4909.robot.subsystems.climber.commands.ZeroStilts;
+import frc.team4909.robot.subsystems.elevator.commands.ZeroElevator;
 
 //  Controls:
 //  
@@ -144,6 +148,9 @@ public class Robot extends TimedRobot {
     /* Sensors/Misc. */
     driverGamepad.buttonPressed(BionicF310.A, new InvertDriveDirection());
     driverGamepad.buttonPressed(BionicF310.B, new Linefollow());
+
+    SmartDashboard.putData(new ZeroElevator());
+    SmartDashboard.putData(new ZeroStilts());
   }
 
   /**
@@ -184,8 +191,9 @@ public class Robot extends TimedRobot {
   }
 @Override
   public void disabledPeriodic() {
-    //elevatorSubsystem.reset();
-    //climberSubsystem.reset();
+    Scheduler.getInstance().run();
+    elevatorSubsystem.reset();
+    climberSubsystem.reset();
   }
 
   @Override
