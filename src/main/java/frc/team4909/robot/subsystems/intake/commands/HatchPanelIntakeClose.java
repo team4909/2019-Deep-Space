@@ -12,5 +12,4 @@ public class HatchPanelIntakeClose extends InstantCommand {
     protected void initialize() {
         Robot.intakeSubsystem.hatchPanelIntakeClose();
     }
-
 }

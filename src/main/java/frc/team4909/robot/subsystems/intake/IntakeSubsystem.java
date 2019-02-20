@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotConstants;
 import frc.team4909.robot.RobotMap;
-import frc.team4909.robot.subsystems.intake.commands.HatchPanelIntakeClose;
 import frc.team4909.robot.subsystems.intake.commands.CargoIntakeHold;
+import frc.team4909.robot.subsystems.intake.commands.HatchPanelIntakeClose;
 
 public class IntakeSubsystem extends Subsystem {
     DoubleSolenoid hatchPanelSolenoid;
