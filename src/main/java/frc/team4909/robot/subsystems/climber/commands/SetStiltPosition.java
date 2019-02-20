@@ -38,7 +38,7 @@ public class SetStiltPosition extends Command {
         * RobotConstants.elevatorSpeedMultiplier;
         
         
-
+System.out.println(moveElevatorSpeed);
 // if(holdingPosition <= 0){
     // Robot.elevatorSubsystem.setInitialPIDValues();
 // }
@@ -46,17 +46,17 @@ public class SetStiltPosition extends Command {
 //     Robot.elevatorSubsystem.setNewPIDValues();
 // }
 
-         if(moveSpeed==0 && moveSpeedBoth == 0){
+         if(moveSpeed==0 && moveSpeedBoth == 0 && moveElevatorSpeed == 0){
              SmartDashboard.putString("thisblock", "1");
              Robot.climberSubsystem.setPosition(Robot.climberSubsystem.holdingStiltsPosition);
              Robot.elevatorSubsystem.setPosition(Robot.elevatorSubsystem.holdingPosition);
          }
-         else if (moveSpeed != 0 && moveSpeedBoth == 0 ) { // If Y-stick value is not moving, HOLD position
+         else if (moveSpeed != 0 && moveSpeedBoth == 0 && moveElevatorSpeed == 0 ) { // If Y-stick value is not moving, HOLD position
             SmartDashboard.putString("thisblock", "2");
             Robot.elevatorSubsystem.setSpeed(moveSpeed);
             Robot.elevatorSubsystem.holdingPosition = Robot.elevatorSubsystem.getPosition();
          }
-        else if(moveSpeed == 0 && moveSpeedBoth!= 0 ){
+        else if(moveSpeed == 0 && moveSpeedBoth!= 0  && moveElevatorSpeed == 0){
             SmartDashboard.putString("thisblock", "3 here "+ moveSpeedBoth);
 
             if (false) {
@@ -97,12 +97,20 @@ public class SetStiltPosition extends Command {
 
             
 
-        } else {
+        } 
+        else if(moveElevatorSpeed != 0 && moveSpeed == 0 && moveSpeedBoth == 0){
+            SmartDashboard.putString("thisblock", "5 here "+ moveElevatorSpeed);
+
+            Robot.elevatorSubsystem.setSpeed(moveElevatorSpeed);
+            Robot.elevatorSubsystem.holdingPosition = Robot.elevatorSubsystem.getPosition();        }
+        else {
             SmartDashboard.putString("thisblock", "4");
             Robot.elevatorSubsystem.setPosition(Robot.elevatorSubsystem.holdingPosition);
             Robot.climberSubsystem.setPosition(Robot.climberSubsystem.holdingStiltsPosition);
         }
         
+
+
         if(moveDrivePosSpeed != 0 && moveDriveNegSpeed != 0) {
             Robot.climberSubsystem.setStiltsDriveSpeed(0);
         }
@@ -116,13 +124,10 @@ public class SetStiltPosition extends Command {
             Robot.climberSubsystem.setStiltsDriveSpeed(0);
         }
 
-        if(moveElevatorSpeed != 0){
-            Robot.elevatorSubsystem.setSpeed(moveElevatorSpeed);
-            Robot.elevatorSubsystem.holdingPosition = Robot.elevatorSubsystem.getPosition();
-        }
-        else{
-            Robot.elevatorSubsystem.setPosition(Robot.elevatorSubsystem.holdingPosition);
-        }
+
+        // else{
+        //     Robot.elevatorSubsystem.setPosition(Robot.elevatorSubsystem.holdingPosition);
+        // }
         
 
     // System.out.println("Get pos is " + Robot.elevatorSubsystem.getPosition() + ",
