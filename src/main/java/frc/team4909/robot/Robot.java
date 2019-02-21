@@ -90,9 +90,9 @@ public class Robot extends TimedRobot {
   public void robotInit() {
 
     // Cameras (subsystem)
-    // stream = new Stream();
+    stream = new Stream();
     // // CameraServer.getInstance().startAutomaticCapture();
-    // stream.streamCamera();
+    stream.streamCamera();
     // grip = new GripPipeline();
 
     // Compressor
@@ -150,6 +150,7 @@ public class Robot extends TimedRobot {
     /* Sensors/Misc. */
     driverGamepad.buttonPressed(BionicF310.A, new InvertDriveDirection());
     driverGamepad.buttonPressed(BionicF310.B, new Linefollow());
+    manipulatorGamepad.buttonPressed(BionicF310.X, new ToggleCamera());
 
     SmartDashboard.putData(new ZeroElevator());
     SmartDashboard.putData(new ZeroStilts());
