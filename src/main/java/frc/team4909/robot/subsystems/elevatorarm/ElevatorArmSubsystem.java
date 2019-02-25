@@ -38,7 +38,14 @@ public class ElevatorArmSubsystem extends Subsystem{
         
     }
 
-
+    public InstantCommand setHeight(int height){
+        if (height==0)
+        {
+            elevatorArmEncoder.setIndexSource(0);
+        }
+        return new SetAngle(height, this);
+    }
+    
     public InstantCommand setAngle(int height){
         return new SetAngle(height, this);
     }
