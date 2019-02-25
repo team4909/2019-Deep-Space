@@ -36,9 +36,11 @@ public class SetStiltPosition extends Command {
 
          double moveElevatorSpeed = -Robot.climberGamepad.getThresholdAxis(BionicF310.RY)
         * RobotConstants.elevatorSpeedMultiplier;
+
+        // Set constant slow drive speed for wheels
+        Robot.climberSubsystem.setStiltsDriveSpeed(RobotConstants.climberDriveSpeedAuto);
         
         
-System.out.println(moveElevatorSpeed);
 // if(holdingPosition <= 0){
     // Robot.elevatorSubsystem.setInitialPIDValues();
 // }
