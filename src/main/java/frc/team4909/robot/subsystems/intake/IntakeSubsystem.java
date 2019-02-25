@@ -36,7 +36,9 @@ public class IntakeSubsystem extends Subsystem {
 
     public void setCargoIntakeSpeed(double speed) {
         speed = -speed;
-
+        if(hasCargo()){
+            speed = 0.0;
+        }
         //System.out.println(getCargoIntakeCurrent());
         cargoIntakeMotor.set(speed);
     }

@@ -1,103 +1,69 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.team4909.robot.sensors;
 
-import org.opencv.core.Mat;
-import org.opencv.imgproc.Imgproc;
-import org.opencv.core.*;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
-
+import edu.wpi.cscore.VideoSink;
+import edu.wpi.cscore.VideoSource;
 import edu.wpi.first.cameraserver.CameraServer;
-//import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.command.Subsystem;
-
 //Init of Camera and Bandwidth control.
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-/**
- * An example subsystem.  You can replace me with your own Subsystem.
- */
 public class Stream {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
 
+  boolean seeHatchCam = true;
+  public void toggleCamera(){
+      seeHatchCam = !seeHatchCam;
+      SmartDashboard.putBoolean("Seeing Hatch Cam", seeHatchCam);
+  }
   //Max Bandwidth: 4mbps, 1.6 for each camera.
   public Stream(){
     
   };
   public void streamCamera(){
     new Thread(() -> {
-      UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture(0); //Function: 
-      UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture(1); //Function: 
-      UsbCamera camera3 = CameraServer.getInstance().startAutomaticCapture(2); //Function: 
-      UsbCamera camera4 = CameraServer.getInstance().startAutomaticCapture(3); //Function: 
-      camera1.setResolution(120, 90);
-      camera2.setResolution(160, 120);
-      camera1.setFPS(12);
-      camera2.setFPS(12);
-      CvSink cvSink1 = CameraServer.getInstance().getVideo();
-      CvSource outputStream = CameraServer.getInstance().putVideo("Source 1", 160, 120);
-      CvSink cvSink2 = CameraServer.getInstance().getVideo();
-      CvSource outputStream2 = CameraServer.getInstance().putVideo("Source 2", 160, 120);
-      camera3.setResolution(120, 90);
-      camera4.setResolution(160, 120);
-      camera3.setFPS(12);
-      camera4.setFPS(12);
-      CvSink cvSink3 = CameraServer.getInstance().getVideo();
-      CvSource outputStream3 = CameraServer.getInstance().putVideo("Source 3", 160, 120);
-      CvSink cvSink4 = CameraServer.getInstance().getVideo();
-      CvSource outputStream4 = CameraServer.getInstance().putVideo("Source 4", 160, 120);
-      //Implement toggle between two cameras between two streams with Button X
-      Mat source1 = new Mat();
-      Mat source2 = new Mat();
-      Mat output1 = new Mat();
-      Mat output2 = new Mat();
-      Mat source3 = new Mat();
-      Mat source4 = new Mat();
-      Mat output3 = new Mat();
-      Mat output4 = new Mat();
-      /*
-      Mat image1 = new Mat(cvSink1.grabFrame(source1));
-      int height1 = image1.rows();
-      int length1 = image1.cols();
-      MatOfPoint2f src = new MatOfPoint2f(
-                new Point((1/6)*height1, 0),
-                new Point((5/6)*height1,0),
-                new Point(height1-1,length1-1),
-                new Point(0,length1-1)
-                );
+      //Instantiate Cameras
+      UsbCamera camera0 = CameraServer.getInstance().startAutomaticCapture(0); //Function: Drive
+      UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture(1); //Function: Line
+      UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture(2); //Function: Hatch 
+      UsbCamera camera3 = CameraServer.getInstance().startAutomaticCapture(3); //Function: Cargo
 
-      MatOfPoint2f dst = new MatOfPoint2f(
-                new Point(0, 0),
-                new Point(height1-1,0),
-                new Point(0,length1-1),
-                new Point(height1-1,length1-1)      
-                );
-      Mat hatchWatchMatrix = Imgproc.getPerspectiveTransform(src, dst);
+      //Set Camera 0 Resolution and FPS
+      camera0.setResolution(160, 120);    
+      camera0.setFPS(21);                   
+
+      //Set Camera 1 Resolution and FPS
+      camera1.setResolution(160, 120);    
+      camera1.setFPS(16);                 
+
+      //Set Camera 2 Resolution and FPS
+      camera2.setResolution(160, 120);    
+      camera2.setFPS(10);                 
+
+      //Set Camera 3 Resolution and FPS
+      camera3.setResolution(160, 120);    
+      camera3.setFPS(10);                 
+      CameraServer intakeServer = CameraServer.getInstance();//.addCamera(intakeServer);
       
+
+      //Toggle Command In progress.
       while(!Thread.interrupted()) {
-          cvSink1.grabFrame(source1);
-          Imgproc.warpPerspective(source1, output1, hatchWatchMatrix, new Size(height1, length1));
-          //Imgproc.cvtColor(source1, output1, Imgproc.COLOR_BGR2HSV);
-          outputStream.putFrame(output1);
-          cvSink2.grabFrame(source2);
-          //Imgproc.cvtColor(source2, output2, Imgproc.COLOR_BGR2HSV);
-          outputStream2.putFrame(output2);
-          cvSink3.grabFrame(source3);
-          Imgproc.cvtColor(source3, output3, Imgproc.COLOR_BGR2HSV);
-          outputStream3.putFrame(output3);
-          cvSink4.grabFrame(source4);
-          Imgproc.cvtColor(source4, output4, Imgproc.COLOR_BGR2HSV);
-          outputStream4.putFrame(output4);
-  }*/
+          if (seeHatchCam){
+              //Show Camera for Hatches
+              intakeServer.addCamera(camera2);
+              intakeServer.removeCamera(camera3.getName());
+              SmartDashboard.putString("Intake Cam", "Source set to Hatch Cam");
+
+          } else {
+              //Show Cargo Intake Camera
+              intakeServer.addCamera(camera3);
+              intakeServer.removeCamera(camera2.getName());
+              SmartDashboard.putString("Intake Cam", "Source set to Cargo Cam");
+          }
+  }
   }).start();
   }
 }
