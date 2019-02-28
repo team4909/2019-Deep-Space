@@ -93,18 +93,7 @@ public class ClimberSubsystem extends Subsystem {
 
     // Attempt to move both the elevator and the stilts at the same velocity.
     // @note, need to make sure the unit conversion works as expected....
-    // public void setSpeeds(double speed) {
-    //     climberLiftMaster.set(ControlMode.Velocity, speed);
-    //     Robot.elevatorSubsystem.setVelocity(speed);
-    // }
 
-    
-
-
-    // public void setBothPositions(int holdingPosition){
-    //     climberLiftMaster.set(ControlMode.Position, holdingPosition);
-    //     Robot.elevatorSubsystem.setPosition(Robot.elevatorSubsystem.getPosition());
-    // }
 
     public void setStiltVelocity(double moveSpeed){
         climberLiftMaster.set(ControlMode.Velocity, moveSpeed);
@@ -129,14 +118,6 @@ public class ClimberSubsystem extends Subsystem {
     }
 
     protected void initDefaultCommand(){
-        // setDefaultCommand(new CommandGroup() {
-        //     {
-        //         requires(Robot.climberSubsystem);
-
-        //         addParallel(new ClimbOI());
-        //         addParallel(new SetStiltPosition());
-        //     }
-        // });
         setDefaultCommand(new SetStiltPosition());
     }
 }

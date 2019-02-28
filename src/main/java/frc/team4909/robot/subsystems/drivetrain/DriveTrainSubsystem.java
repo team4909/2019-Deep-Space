@@ -38,7 +38,7 @@ public class DriveTrainSubsystem extends Subsystem {
         double leftSpeedOutput = leftSpeed;
         double rightSpeedOutput = rightSpeed;
 
-        if (inverted) {
+        if (inverted) { //inverts tankDrive direction
             leftSpeedOutput = -rightSpeed;
             rightSpeedOutput = -leftSpeed;
         }
@@ -58,7 +58,7 @@ public class DriveTrainSubsystem extends Subsystem {
         } else{
             speedTurnMultiplier = RobotConstants.speedTurnMultiplier;
         }
-        if (inverted) {
+        if (inverted) { //inverts arcadeDrive
             speedOutput = -rightSpeed;
             turnOutput = -leftSpeed;
         }

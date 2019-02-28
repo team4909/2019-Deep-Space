@@ -72,8 +72,6 @@ public class ElevatorSubsystem extends Subsystem {
         rightSlave2.setInverted(true);
 
         //@todo what is the point of this?
-        // leftMaster.configNominalOutputForward(0, RobotConstants.timeoutMs);
-        // leftMaster.configNominalOutputReverse(0, RobotConstants.timeoutMs);
         leftMaster.configPeakOutputForward(.4, RobotConstants.timeoutMs);
         leftMaster.configPeakOutputReverse(-.4, RobotConstants.timeoutMs);
 
@@ -96,8 +94,6 @@ public class ElevatorSubsystem extends Subsystem {
         leftMaster.config_kD(secondarySlotIdx, 0, RobotConstants.timeoutMs);
 
         // These values are use for motion magic
-        // leftSRX.configMotionCruiseVelocity(14047, RobotConstants.timeoutMs);
-        // leftSRX.configMotionAcceleration(14047, RobotConstants.timeoutMs);
 
         // When the code starts (IE robot powered on) call that zero.
         // @note operators will need to setup the carriage in the same place each match.
@@ -131,10 +127,6 @@ public class ElevatorSubsystem extends Subsystem {
     public void setPosition(int position) {
         leftMaster.set(ControlMode.Position, position);
     }
-
-    // public void setMagicPosition(int position) {
-    //     leftMaster.set(ControlMode.MotionMagic, position);
-    // }
 
     public int getPosition() {
         return leftMaster.getSelectedSensorPosition();
