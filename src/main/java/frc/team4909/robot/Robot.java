@@ -17,6 +17,7 @@ import frc.team4909.robot.setpoints.HatchLow;
 import frc.team4909.robot.setpoints.HatchMiddle;
 import frc.team4909.robot.setpoints.HatchOnly;
 import frc.team4909.robot.subsystems.climber.ClimberSubsystem;
+import frc.team4909.robot.subsystems.climber.commands.BothLiftDown;
 import frc.team4909.robot.subsystems.climber.commands.BothLiftUp;
 import frc.team4909.robot.subsystems.climber.commands.DriveStiltsBack;
 import frc.team4909.robot.subsystems.climber.commands.DriveStiltsForward;
@@ -144,8 +145,8 @@ public class Robot extends TimedRobot {
     /* Climber */
     climberGamepad.buttonHeld(BionicF310.RB, new StiltsUpOnly());
     climberGamepad.buttonHeld(BionicF310.LB, new StiltsDownOnly());
-    //climberGamepad.buttonHeld(BionicPOV.UP, 0.2, new BothLiftUp()); @TODO: NEED TO ADD
-    //climberGamepad.buttonHeld(BionicPOV.DOWN, 0.2, new BothLiftDown()); @TODO: NEED TO ADD
+    climberGamepad.povActive(BionicF310.Top, new BothLiftUp()); 
+    climberGamepad.povActive(BionicF310.Bottom, new BothLiftDown());
 
 
     /* Sensors/Misc. */
