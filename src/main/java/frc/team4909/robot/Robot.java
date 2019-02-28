@@ -36,14 +36,31 @@ import frc.team4909.robot.subsystems.intake.commands.HatchPanelIntakeOpen;
 import frc.team4909.robot.subsystems.climber.commands.ZeroStilts;
 import frc.team4909.robot.subsystems.elevator.commands.ZeroElevator;
 
-/*  @TODO: Finish typing controls
+/* 
 CONTROLS
 
 Port 0: Driver Gamepad
+  LT: Drive Stilts Back
+  RT: Drive Stilts Forward
+  RB: Invert Drive
+  LY & RY: Arcade Drive
+  Push on R: Reduce Turn Speed
 
 Port 1: Manipulator Gamepad
+  LT: Cargo In
+  RT: Cargo Out
+  RB: Hatch Panel Open
+  A: Elevator Arm Setpoint- Intake
+  B: Elevator Arm Setpoint- Hatch Placement
+  Y: Elevator Arm Settpoint- Outtake
+  LY: Elevator Up/Down
+  RY: Arm Up/Down
 
 Port 2: Climber Gamepad
+  POV UP: Elevator & Stilts Up
+  POV DOWN: Elevator & Stilts Down
+  LY: Elevator Up/Down
+  RY: Stilts Up/Down
 
 */
 
@@ -130,10 +147,6 @@ public class Robot extends TimedRobot {
     //climberGamepad.buttonHeld(BionicPOV.UP, 0.2, new BothLiftUp()); @TODO: NEED TO ADD
     //climberGamepad.buttonHeld(BionicPOV.DOWN, 0.2, new BothLiftDown()); @TODO: NEED TO ADD
 
-
-    /* Elevator Setpoints */
-    manipulatorGamepad.buttonPressed(BionicF310.A, new HatchMiddle());
-    manipulatorGamepad.buttonPressed(BionicF310.B, new HatchLow());
 
     /* Sensors/Misc. */
     driverGamepad.buttonPressed(BionicF310.RB, new InvertDriveDirection());
