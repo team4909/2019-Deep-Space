@@ -13,12 +13,14 @@ public class BothLiftUp extends Command{
 
     public void execute() {
         Robot.climberSubsystem.setStiltsClimbSpeed(RobotConstants.liftClimbSpeed);
-            int climberPos = Robot.climberSubsystem.getPosition();
-            int elevPos = (int) -(climberPos * (1.1/1.3));
-            Robot.elevatorSubsystem.setPosition(elevPos);
+        // Elevator Drum is 1.3" Diameter, C = PI * D = Math.PI * 1.3
+        // Stilts pinion gear Pitch Diameter is 1.1" which is the circumference
+        int climberPos = Robot.climberSubsystem.getPosition();
+        int elevPos = (int) -(climberPos * (1.1/1.3));
+        Robot.elevatorSubsystem.setPosition(elevPos);
 
-            Robot.elevatorSubsystem.holdingPosition = elevPos;
-            Robot.climberSubsystem.holdingStiltsPosition = climberPos;     
+        Robot.elevatorSubsystem.holdingPosition = elevPos;
+        Robot.climberSubsystem.holdingStiltsPosition = climberPos;     
     }
 
     public void end(){
