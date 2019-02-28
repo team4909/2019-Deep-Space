@@ -23,6 +23,7 @@ public class RobotMap {
   /* Gamepad */
   public static final int driverGamepadPort = 0;
   public static final int manipulatorGamepadPort = 1;
+  public static final int climberGamepadPort = 2;
 
   /* Drivetrain */
   public static final int driveFrontLeftSparkMaxCAN = 3;

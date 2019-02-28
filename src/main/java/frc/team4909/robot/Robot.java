@@ -8,11 +8,13 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team4909.robot.operator.controllers.BionicF310;
 import frc.team4909.robot.operator.controllers.FlightStick;
+import frc.team4909.robot.operator.generic.BionicPOV;
 import frc.team4909.robot.sensors.LidarLitePWM;
 import frc.team4909.robot.sensors.Stream;
 import frc.team4909.robot.setpoints.HatchLow;
 import frc.team4909.robot.setpoints.HatchMiddle;
 import frc.team4909.robot.subsystems.climber.ClimberSubsystem;
+import frc.team4909.robot.subsystems.climber.commands.BothLiftUp;
 import frc.team4909.robot.subsystems.climber.commands.DriveStiltsBack;
 import frc.team4909.robot.subsystems.climber.commands.DriveStiltsForward;
 import frc.team4909.robot.subsystems.climber.commands.StiltsDownOnly;
@@ -31,28 +33,16 @@ import frc.team4909.robot.subsystems.intake.commands.HatchPanelIntakeOpen;
 import frc.team4909.robot.subsystems.climber.commands.ZeroStilts;
 import frc.team4909.robot.subsystems.elevator.commands.ZeroElevator;
 
-//  Controls:
-//  
-//  Driver Gamepad (Port 0): 
-//     LY: Drive Speed 
-//     RX: Drive Rotation 
-//     LT: Retract Stilts
-//     RT: Extend Stilts 
-//     LB: Drive Stilt Back
-//     RB: Drive Stilt Forward
-//     A: Invert Drive Direction 
-//     B: Line Follow
-//  
-//  Operator Gamped (Port 1): 
-//     RY: Elevator Arm Pivot 
-//     LY: Elevator Speed 
-//     RT: Cargo Intake In 
-//     RB: Cargo Intake Out 
-//     LT: Hatch Panel Intake In 
-//
-//  Flight Stick (Port 2):
-//  Y: Stilt/Elevator Climb Speed
-//  Joystick: Stilt Up/Down
+/*  @TODO: Finish typing controls
+CONTROLS
+
+Port 0: Driver Gamepad
+
+Port 1: Manipulator Gamepad
+
+Port 2: Climber Gamepad
+
+*/
 
 public class Robot extends TimedRobot {
 
@@ -63,7 +53,6 @@ public class Robot extends TimedRobot {
   public static BionicF310 driverGamepad;
   public static BionicF310 manipulatorGamepad;
   public static BionicF310 climberGamepad;
-  public static FlightStick climbStick;
 
   // Subsystems
   public static PowerDistributionPanel powerDistributionPanel;
@@ -121,26 +110,24 @@ public class Robot extends TimedRobot {
         RobotConstants.manipulatorGamepadSensitivity // Gamepad sensitivity
     );
 
-    climberGamepad = new BionicF310(3, // Port
+    climberGamepad = new BionicF310(RobotMap.climberGamepadPort, // Port
         RobotConstants.manipulatorGamepadDeadzone, // Deadzone
         RobotConstants.manipulatorGamepadSensitivity // Gamepad sensitivity
     );
 
 
-    climbStick = new FlightStick(2);
-
-    /* Drivetrain */
-
     /* Intake */
-    manipulatorGamepad.buttonHeld(BionicF310.RT, 0.2, new CargoIntakeIn());
-    manipulatorGamepad.buttonHeld(BionicF310.RB, new CargoIntakeOut());
-    manipulatorGamepad.buttonHeld(BionicF310.LT, 0.2, new HatchPanelIntakeOpen());
+    manipulatorGamepad.buttonHeld(BionicF310.RT, 0.2, new CargoIntakeOut());
+    manipulatorGamepad.buttonHeld(BionicF310.LT, 0.2, new CargoIntakeIn());
+    manipulatorGamepad.buttonHeld(BionicF310.RB, new HatchPanelIntakeOpen());
 
     /* Climber */
     driverGamepad.buttonHeld(BionicF310.LB, new DriveStiltsBack());
     driverGamepad.buttonHeld(BionicF310.RB, new DriveStiltsForward());
     climberGamepad.buttonHeld(BionicF310.RB, new StiltsUpOnly());
     climberGamepad.buttonHeld(BionicF310.LB, new StiltsDownOnly());
+    //climberGamepad.buttonHeld(BionicPOV.UP, 0.2, new BothLiftUp()); @TODO: NEED TO ADD
+    //climberGamepad.buttonHeld(BionicPOV.DOWN, 0.2, new BothLiftDown()); @TODO: NEED TO ADD
 
 
     /* Elevator Setpoints */
@@ -148,9 +135,15 @@ public class Robot extends TimedRobot {
     manipulatorGamepad.buttonPressed(BionicF310.B, new HatchLow());
 
     /* Sensors/Misc. */
-    driverGamepad.buttonPressed(BionicF310.A, new InvertDriveDirection());
-    driverGamepad.buttonPressed(BionicF310.B, new Linefollow());
-    manipulatorGamepad.buttonPressed(BionicF310.X, new ToggleCamera());
+    driverGamepad.buttonPressed(BionicF310.RB, new InvertDriveDirection());
+    // driverGamepad.buttonPressed(BionicF310.B, new Linefollow());
+    // manipulatorGamepad.buttonPressed(BionicF310.X, new ToggleCamera());
+
+    /* Arm Setpoints */
+    manipulatorGamepad.buttonPressed(BionicF310.A, new CargoIntakeOnly());
+    manipulatorGamepad.buttonPressed(BionicF310.B, new HatchOnly());
+    manipulatorGamepad.buttonPressed(BionicF310.Y, new CargoOutOnly());
+
 
     SmartDashboard.putData(new ZeroElevator());
     SmartDashboard.putData(new ZeroStilts());
