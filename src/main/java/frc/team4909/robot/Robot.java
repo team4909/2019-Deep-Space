@@ -11,8 +11,11 @@ import frc.team4909.robot.operator.controllers.FlightStick;
 import frc.team4909.robot.operator.generic.BionicPOV;
 import frc.team4909.robot.sensors.LidarLitePWM;
 import frc.team4909.robot.sensors.Stream;
+import frc.team4909.robot.setpoints.CargoIntakeOnly;
+import frc.team4909.robot.setpoints.CargoOutOnly;
 import frc.team4909.robot.setpoints.HatchLow;
 import frc.team4909.robot.setpoints.HatchMiddle;
+import frc.team4909.robot.setpoints.HatchOnly;
 import frc.team4909.robot.subsystems.climber.ClimberSubsystem;
 import frc.team4909.robot.subsystems.climber.commands.BothLiftUp;
 import frc.team4909.robot.subsystems.climber.commands.DriveStiltsBack;
@@ -122,8 +125,6 @@ public class Robot extends TimedRobot {
     manipulatorGamepad.buttonHeld(BionicF310.RB, new HatchPanelIntakeOpen());
 
     /* Climber */
-    driverGamepad.buttonHeld(BionicF310.LB, new DriveStiltsBack());
-    driverGamepad.buttonHeld(BionicF310.RB, new DriveStiltsForward());
     climberGamepad.buttonHeld(BionicF310.RB, new StiltsUpOnly());
     climberGamepad.buttonHeld(BionicF310.LB, new StiltsDownOnly());
     //climberGamepad.buttonHeld(BionicPOV.UP, 0.2, new BothLiftUp()); @TODO: NEED TO ADD

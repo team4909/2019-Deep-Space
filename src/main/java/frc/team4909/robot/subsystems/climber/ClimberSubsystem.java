@@ -44,6 +44,7 @@ public class ClimberSubsystem extends Subsystem {
 
         // Set all controllers to coast in case the stilts drop down or hit something
         // during a match
+        climberDriveSPX.setNeutralMode(NeutralMode.Brake);
         climberLiftMaster.setNeutralMode(NeutralMode.Coast);
         climberLiftSlave.setNeutralMode(NeutralMode.Coast);
 
