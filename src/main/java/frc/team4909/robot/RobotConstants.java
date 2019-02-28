@@ -60,6 +60,9 @@ public class RobotConstants {
 
   public static final int elevatorArmSetpoint90 = 90;
   public static final int elevatorArmSetpoint45 = 45;
+
+  public static final int elevatorMax = -54000;
+  public static final int elevatorMinBeforeClimbing = 0;
   /* Linefollow */
   public static final double fastVelocity = 0.7;
   public static final double mediumVelocity = 0.5; // constant velocity given to both motors

@@ -12,6 +12,7 @@ import frc.team4909.robot.operator.controllers.BionicF310;
 import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotConstants;
 import frc.team4909.robot.subsystems.drivetrain.commands.Drive;
+import frc.team4909.robot.subsystems.elevator.*;
 
 public class DriveTrainSubsystem extends Subsystem {
     CANSparkMax frontLeftSparkMax, rearLeftSparkMax, frontRightSparkMax, rearRightSparkMax;
@@ -34,6 +35,18 @@ public class DriveTrainSubsystem extends Subsystem {
         bionicDrive = new DifferentialDrive(m_left, m_right);
     }
 
+    public double getElevatorDependentDriveSpeed(double mult){
+        double dependentSpeedMultiplier = RobotConstants.speedMultiplier;
+        if (Robot.elevatorSubsystem.getPosition() <= 0){
+            dependentSpeedMultiplier = dependentSpeedMultiplier - (mult / (double)RobotConstants.elevatorMax) * Robot.elevatorSubsystem.getPosition(); //value ranges from -54000 to 0
+        } else {
+            dependentSpeedMultiplier = 1 * dependentSpeedMultiplier;
+        }
+
+        return dependentSpeedMultiplier;
+    }
+
+
     public void tankDrive(double leftSpeed, double rightSpeed) {
         double leftSpeedOutput = leftSpeed;
         double rightSpeedOutput = rightSpeed;
@@ -43,8 +56,8 @@ public class DriveTrainSubsystem extends Subsystem {
             rightSpeedOutput = -leftSpeed;
         }
 
-        leftSpeedOutput = leftSpeedOutput * speedMultiplier;
-        rightSpeedOutput = rightSpeedOutput * speedMultiplier;
+        leftSpeedOutput = leftSpeedOutput * getElevatorDependentDriveSpeed(RobotConstants.speedMultiplier);
+        rightSpeedOutput = rightSpeedOutput * getElevatorDependentDriveSpeed(RobotConstants.speedMultiplier);
 
         bionicDrive.tankDrive(leftSpeedOutput, rightSpeedOutput);
     }
@@ -54,16 +67,16 @@ public class DriveTrainSubsystem extends Subsystem {
         double turnOutput = rightSpeed;
         double speedTurnMultiplier = turnMultiplier;
         if (preciseMode == true){
-            speedTurnMultiplier = RobotConstants.speedTurnPreciseMultiplier;
+            speedTurnMultiplier = getElevatorDependentDriveSpeed(RobotConstants.speedTurnPreciseMultiplier);
         } else{
-            speedTurnMultiplier = RobotConstants.speedTurnMultiplier;
+            speedTurnMultiplier = getElevatorDependentDriveSpeed(RobotConstants.speedTurnMultiplier);
         }
         if (inverted) {
             speedOutput = -rightSpeed;
             turnOutput = -leftSpeed;
         }
 
-        speedOutput = speedOutput * speedMultiplier;
+        speedOutput = speedOutput * getElevatorDependentDriveSpeed(RobotConstants.speedMultiplier);
         turnOutput = turnOutput * speedTurnMultiplier;
 
         bionicDrive.arcadeDrive(speedOutput, turnOutput);
