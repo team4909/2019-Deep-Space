@@ -14,7 +14,7 @@ public class CargoMiddle extends Command {
     @Override
     protected void initialize() {
         Robot.elevatorSubsystem.setPosition(RobotConstants.elevatorSetpointCargoMiddle);
-        Robot.elevatorArmSubsystem.setAngle(RobotConstants.elevatorArmSetpoint45);
+        Robot.elevatorArmSubsystem.setAngle(RobotConstants.elevatorArmSetpointCargoOut);
         setTimeout(1.5);
     }
 

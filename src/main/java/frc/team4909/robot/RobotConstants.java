@@ -48,7 +48,7 @@ public class RobotConstants {
   public static final double newi = 0;
   public static final double newd = 0;
 
-  /* Elevator Setpoints */
+  /* Elevator Setpoints */ // TODO: need to be tuned
   public static final int elevatorSetpointHatchLow = 0; // Bottom hatch position
   public static final int elevatorSetpointHatchMiddle = -25300; // Middle hatch position
   public static final int elevatorSetpointHatchHigh = -51300; // Top hatch position
@@ -58,8 +58,9 @@ public class RobotConstants {
   public static final int elevatorSetpointCargoHigh = -20000;
   public static final int elevatorSetpointCargoShip = -25300;
 
-  public static final int elevatorArmSetpoint90 = 90;
-  public static final int elevatorArmSetpoint45 = 45;
+  public static final int elevatorArmSetpointHatch = 90;  
+  public static final int elevatorArmSetpointCargoOut = 45; 
+  public static final int elevatorArmSetpointCargoIn = 135; 
   /* Linefollow */
   public static final double fastVelocity = 0.7;
   public static final double mediumVelocity = 0.5; // constant velocity given to both motors
