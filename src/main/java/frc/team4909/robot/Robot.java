@@ -137,8 +137,6 @@ public class Robot extends TimedRobot {
     manipulatorGamepad.buttonHeld(BionicF310.LT, 0.2, new HatchPanelIntakeOpen());
 
     /* Climber */
-    driverGamepad.buttonHeld(BionicF310.LB, new DriveStiltsBack());
-    driverGamepad.buttonHeld(BionicF310.RB, new DriveStiltsForward());
     climberGamepad.buttonHeld(BionicF310.RB, new StiltsUpOnly());
     climberGamepad.buttonHeld(BionicF310.LB, new StiltsDownOnly());
 
@@ -150,7 +148,6 @@ public class Robot extends TimedRobot {
     /* Sensors/Misc. */
     driverGamepad.buttonPressed(BionicF310.A, new InvertDriveDirection());
     driverGamepad.buttonPressed(BionicF310.B, new Linefollow());
-    manipulatorGamepad.buttonPressed(BionicF310.X, new ToggleCamera());
 
     SmartDashboard.putData(new ZeroElevator());
     SmartDashboard.putData(new ZeroStilts());
