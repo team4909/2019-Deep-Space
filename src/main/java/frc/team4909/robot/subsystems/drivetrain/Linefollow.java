@@ -23,8 +23,6 @@ public class Linefollow extends Command {
     }
 
     protected void execute() {
-        System.out.println("L: " + !leftSensor.get());
-    System.out.println("R: " + !rightSensor.get());
         SmartDashboard.putBoolean("LEFT line following", !leftSensor.get());
         SmartDashboard.putBoolean("RIGHT line following", !rightSensor.get());
         // boolean outsideLeft = leftSensor.get();
@@ -33,17 +31,14 @@ public class Linefollow extends Command {
         // boolean outsideRight = rightSensor.get();
 
         if (!leftOffLine && rightOffLine) { // Middle left is on line
-            System.out.println(leftOffLine + "  " + rightOffLine + " off line to RIGHT");
             Robot.drivetrainSubsystem.tankDrive(RobotConstants.slowVelocity, RobotConstants.fastVelocity);
         } else if (leftOffLine && !rightOffLine) { // Middle right is on line
-            System.out.println(leftOffLine + "  " + rightOffLine + " off line to LEFT");
             Robot.drivetrainSubsystem.tankDrive(RobotConstants.fastVelocity, RobotConstants.slowVelocity);
         // } else if (!outsideLeft && outsideRight) { // Outside left sensor is on the line
         //     Robot.drivetrainSubsystem.tankDrive(RobotConstants.slowVelocity, RobotConstants.fastVelocity);
         // } else if (outsideLeft && !outsideRight) { // Outside right sensor is on the line
         //     Robot.drivetrainSubsystem.tankDrive(RobotConstants.fastVelocity, RobotConstants.slowVelocity);
         } else {
-            System.out.println(leftOffLine + "  " + rightOffLine + " ON LINE");
             Robot.drivetrainSubsystem.tankDrive(RobotConstants.fastVelocity, RobotConstants.fastVelocity);
         }
     }
