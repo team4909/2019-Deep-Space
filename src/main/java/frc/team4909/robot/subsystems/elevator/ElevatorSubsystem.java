@@ -160,4 +160,13 @@ public class ElevatorSubsystem extends Subsystem {
     public void setNewPIDValues() {
         leftMaster.selectProfileSlot(2, 0);
     }
+
+    public void accelerate()
+    {
+        int speed = 2260;
+        for(int i=1; i<=this.getPosition(); i++)
+        {
+            this.setVelocity(2260-speed);
+        }
+    }
 }
