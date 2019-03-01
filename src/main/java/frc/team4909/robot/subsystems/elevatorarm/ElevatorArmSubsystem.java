@@ -39,10 +39,6 @@ public class ElevatorArmSubsystem extends Subsystem{
     }
 
     public InstantCommand setHeight(int height){
-        if (height==0)
-        {
-            elevatorArmEncoder.setIndexSource(0);
-        }
         return new SetAngle(height, this);
     }
     
@@ -59,6 +55,10 @@ public class ElevatorArmSubsystem extends Subsystem{
 
     public void elevatorArmSetSpeed(double speed){
         elevatorArmSRX.set(ControlMode.PercentOutput, speed);
+            if(getPosition()==0)
+            {
+                elevatorArmSRX.set(ControlMode.PercentOutput, 0);
+            }
     }
     public void setPosition(double position){
         elevatorArmSRX.set(ControlMode.Position, position);
@@ -67,6 +67,8 @@ public class ElevatorArmSubsystem extends Subsystem{
         elevatorArmSRX.setSelectedSensorPosition(0);
     }
     
+
+
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Wrist position", elevatorArmSRX.getSelectedSensorPosition());
