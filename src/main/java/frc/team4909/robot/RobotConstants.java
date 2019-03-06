@@ -13,8 +13,11 @@ public class RobotConstants {
   /* Drivetrain */
   //TODO: Tune values
 
-  public static final double speedMultiplier = .7  - ((0.7 - 0.1) / 5000) * (Math.abs(Robot.elevatorSubsystem.getPosition())); // As height increases, decrease speed ; calculation: 0.7 - (0.7 - 0.1)/5000
+  public static final double speedMultiplier = .7  - ((0.7 - 0.1) / 5000) * (Math.abs(Robot.elevatorSubsystem.getPosition())); 
+  //0.7 is the desired multiplier speed at bottom; 0.1 is desired multiplier speed at top; 5000 is total height in encoder ticks
   public static final double speedTurnMultiplier = .5 - ((0.5 - 0.1) / 5000) * (Math.abs(Robot.elevatorSubsystem.getPosition())); // As height increases, decrease speed ; calculation: 0.5 - (0.5-0.1)/5000
+  //0.5 is the desired multiplier speed at bottom; 0.1 is desired multiplier speed at top; 5000 is total height in encoder ticks
+
   public static final double speedTurnPreciseMultiplier = .4;
 
   /* Intake */
