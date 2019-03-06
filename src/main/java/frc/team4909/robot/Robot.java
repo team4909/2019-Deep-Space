@@ -196,6 +196,7 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
     elevatorSubsystem.reset();
     climberSubsystem.reset();
+    elevatorArmSubsystem.reset();
   }
 
   @Override
