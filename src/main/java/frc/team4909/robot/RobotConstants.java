@@ -38,7 +38,7 @@ public class RobotConstants {
 
   /* Elevator */
   public static final double elevatorSpeedMultiplier = 0.5; // Multiplier for elevator speed
-  public static final double elevatorArmSpeedMultiplier = 0.75; // Multiplier for elevator arm speed
+  public static final double elevatorArmSpeedMultiplier = 0.5; // Multiplier for elevator arm speed
 
   public static final double initialp = 0.1;
   public static final double initiali = 0;

@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class ElevatorArmOperatorControl extends Command {
 
-    private int holdingPosition = Robot.elevatorArmSubsystem.getPosition();
+    // private int holdingPosition = Robot.elevatorArmSubsystem.getPosition();
 
     public ElevatorArmOperatorControl() {
         requires(Robot.elevatorArmSubsystem);
@@ -21,10 +21,10 @@ public class ElevatorArmOperatorControl extends Command {
                 * RobotConstants.elevatorArmSpeedMultiplier;
 
         if (moveSpeed == 0) { // If Y-stick value is not moving, HOLD position
-            Robot.elevatorArmSubsystem.setPosition(holdingPosition);
+            Robot.elevatorArmSubsystem.setPosition(Robot.elevatorArmSubsystem.holdingPosition);
         } else { // Set speed to Y-stick value and HOLD position
             Robot.elevatorArmSubsystem.elevatorArmSetSpeed(moveSpeed);
-            holdingPosition = Robot.elevatorArmSubsystem.getPosition();
+            Robot.elevatorArmSubsystem.holdingPosition = Robot.elevatorArmSubsystem.getPosition();
         }
 
     }
