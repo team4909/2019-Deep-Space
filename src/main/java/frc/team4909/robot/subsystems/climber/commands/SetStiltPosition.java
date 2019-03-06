@@ -21,79 +21,61 @@ public class SetStiltPosition extends Command {
 
      @Override
     protected void execute() {
-        double moveSpeedBoth = -Robot.climberGamepad.getThresholdAxis(BionicF310.LY)
+        double moveSpeed = -Robot.manipulatorGamepad.getThresholdAxis(BionicF310.LY) // elevator speed for manipulator gamepad
+        * RobotConstants.elevatorSpeedMultiplier;
+        
+        double moveStiltSpeed = -Robot.climberGamepad.getThresholdAxis(BionicF310.RY) //Stilt Speed
         * RobotConstants.climbSpeedMultiplier;
-
-        double moveSpeed = -Robot.manipulatorGamepad.getThresholdAxis(BionicF310.LY)
+        
+        double moveElevatorSpeed = -Robot.climberGamepad.getThresholdAxis(BionicF310.LY) // elevator speed for climber gamepad
         * RobotConstants.elevatorSpeedMultiplier;
-
-        double moveDrivePosSpeed = -Robot.driverGamepad.getThresholdAxis(BionicF310.RT) 
+        
+        double driveStiltPosSpeed = -Robot.driverGamepad.getThresholdAxis(BionicF310.RT)  // Stilt drive forward
         * RobotConstants.climberDriveSpeedManual;
         
-        double moveDriveNegSpeed = Robot.driverGamepad.getThresholdAxis(BionicF310.LT) 
+        double driveStiltNegSpeed = Robot.driverGamepad.getThresholdAxis(BionicF310.LT)  //Stilt drive backwards
         * RobotConstants.climberDriveSpeedManual;
 
-        double moveElevatorSpeed = -Robot.climberGamepad.getThresholdAxis(BionicF310.RY)
-        * RobotConstants.elevatorSpeedMultiplier;
-
-        // Set constant slow drive speed for wheels
-        Robot.climberSubsystem.setStiltsDriveSpeed(RobotConstants.climberDriveSpeedAuto);
+        Robot.climberSubsystem.setStiltsDriveSpeed(RobotConstants.climberDriveSpeedAuto); // Stilts via climnber
         
 
-         if(moveSpeed==0 && moveSpeedBoth == 0 && moveElevatorSpeed == 0){
+         if(moveSpeed==0 && moveStiltSpeed == 0 && moveElevatorSpeed == 0){
              SmartDashboard.putString("thisblock", "1");
              Robot.climberSubsystem.setPosition(Robot.climberSubsystem.holdingStiltsPosition);
              Robot.elevatorSubsystem.setPosition(Robot.elevatorSubsystem.holdingPosition);
          }
-         else if (moveSpeed != 0 && moveSpeedBoth == 0 && moveElevatorSpeed == 0 ) { // If Y-stick value is not moving, HOLD position
+         else if (moveSpeed != 0 && moveStiltSpeed == 0 && moveElevatorSpeed == 0 ) { // Elevator via manipulator gamepad
             SmartDashboard.putString("thisblock", "2");
             Robot.elevatorSubsystem.setSpeed(moveSpeed);
             Robot.elevatorSubsystem.holdingPosition = Robot.elevatorSubsystem.getPosition();
          }
-         else if(moveSpeed == 0 && moveSpeedBoth != 0  && moveElevatorSpeed == 0){
-            SmartDashboard.putString("thisblock", "3 here "+ moveSpeedBoth);
+         else if(moveSpeed == 0 && moveStiltSpeed != 0  && moveElevatorSpeed == 0){ // Stilts via climber gamepad
+            SmartDashboard.putString("thisblock", "3 here "+ moveStiltSpeed);
 
-            // Elevator Drum is 1.3" Diameter, C = PI * D = Math.PI * 1.3
-            // Stilts pinion gear Pitch Diameter is 1.1" which is the circumference
-
-            Robot.climberSubsystem.setStiltsClimbSpeed(-moveSpeedBoth);
-            int climberPos = Robot.climberSubsystem.getPosition();
-            int elevPos = (int) -(climberPos * (1.1/1.3));
-            
-            // (int) Math.floor(climberPos * ((Math.PI * 1.3) / 1.1));
-            SmartDashboard.putNumber("Elevator Pos calculated", elevPos);
-            // SmartDashboard.putNumber("Climber Pos", climberPos);
-            Robot.elevatorSubsystem.setPosition(elevPos);
-
-            Robot.elevatorSubsystem.holdingPosition = elevPos;
-            Robot.climberSubsystem.holdingStiltsPosition = climberPos;
-
-
-            //@todo how can we make holdingpositon private?
-            
-
+            Robot.elevatorSubsystem.setSpeed(moveStiltSpeed);
+            Robot.climberSubsystem.holdingStiltsPosition = Robot.climberSubsystem.getPosition();
         } 
-        else if(moveElevatorSpeed != 0 && moveSpeed == 0 && moveSpeedBoth == 0){
+        else if(moveElevatorSpeed != 0 && moveSpeed == 0 && moveStiltSpeed == 0){ // Elevator via climber gamepad
             SmartDashboard.putString("thisblock", "5 here "+ moveElevatorSpeed);
 
             Robot.elevatorSubsystem.setSpeed(moveElevatorSpeed);
             Robot.elevatorSubsystem.holdingPosition = Robot.elevatorSubsystem.getPosition();        }
         else {
-            SmartDashboard.putString("thisblock", "4");
+            SmartDashboard.putString("thisblock", "4"); // hold positions
             Robot.elevatorSubsystem.setPosition(Robot.elevatorSubsystem.holdingPosition);
             Robot.climberSubsystem.setPosition(Robot.climberSubsystem.holdingStiltsPosition);
         }
         
 
 
-        if(moveDrivePosSpeed != 0 && moveDriveNegSpeed != 0) {
+        if(driveStiltPosSpeed != 0 && driveStiltNegSpeed != 0) {
             Robot.climberSubsystem.setStiltsDriveSpeed(0);
         }
-        else if(moveDrivePosSpeed != 0 && moveDriveNegSpeed == 0){
-            Robot.climberSubsystem.setStiltsDriveSpeed(moveDrivePosSpeed);
+        else if(driveStiltPosSpeed != 0 && driveStiltNegSpeed == 0){
+            Robot.climberSubsystem.setStiltsDriveSpeed(driveStiltPosSpeed);
         }
-        else if(moveDriveNegSpeed != 0 && moveDrivePosSpeed == 0){
-            Robot.climberSubsystem.setStiltsDriveSpeed(moveDriveNegSpeed);
+        else if(driveStiltNegSpeed != 0 && driveStiltPosSpeed == 0){
+            Robot.climberSubsystem.setStiltsDriveSpeed(driveStiltNegSpeed);
         }
         else{
             Robot.climberSubsystem.setStiltsDriveSpeed(0);
