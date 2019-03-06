@@ -12,8 +12,8 @@ public class RobotConstants {
 
   /* Drivetrain */
   //TODO: Tune values
-  public static final double speedMultiplier = .7 * (-1/(Math.abs((Robot.elevatorSubsystem.getPosition()) + 0.1))) + 0.05; // As height increases, decrease speed
-  public static final double speedTurnMultiplier = .5 * (-1/(Math.abs((Robot.elevatorSubsystem.getPosition()) + 0.1))) + 0.05; // As height increases, decrease speed
+  public static final double speedMultiplier = .7  - 0.00012*(Math.abs(Robot.elevatorSubsystem.getPosition())); // As height increases, decrease speed
+  public static final double speedTurnMultiplier = .5 - 0.00008 * (Math.abs(Robot.elevatorSubsystem.getPosition())); // As height increases, decrease speed
   public static final double speedTurnPreciseMultiplier = .4;
 
   /* Intake */
