@@ -11,8 +11,9 @@ public class RobotConstants {
   public static final double manipulatorGamepadDeadzone = 0.05; // Value selected from 2018 code
 
   /* Drivetrain */
-  public static final double speedMultiplier = .7;
-  public static final double speedTurnMultiplier = .5;
+  //TODO: Tune values
+  public static final double speedMultiplier = .7 * (-1/(Math.abs((Robot.elevatorSubsystem.getPosition()) + 0.1))) + 0.05; // As height increases, decrease speed
+  public static final double speedTurnMultiplier = .5 * (-1/(Math.abs((Robot.elevatorSubsystem.getPosition()) + 0.1))) + 0.05; // As height increases, decrease speed
   public static final double speedTurnPreciseMultiplier = .4;
 
   /* Intake */
