@@ -54,11 +54,11 @@ public class DriveTrainSubsystem extends Subsystem {
         double turnOutput = rightSpeed;
         if (preciseMode == true){
             turnMultiplier = RobotConstants.speedTurnPreciseMultiplier;
-            speedMultiplier = RobotConstants.topSpeed  - ((RobotConstants.topSpeed - RobotConstants.minDriveSpeed) / 5000) * (Math.abs(Robot.elevatorSubsystem.getPosition())); 
+            speedMultiplier = RobotConstants.topSpeed  - ((RobotConstants.topSpeed - RobotConstants.minDriveSpeed) / RobotConstants.elevatorEncoderTicks) * (Math.abs(Robot.elevatorSubsystem.getPosition())); 
 
         } else{
-            turnMultiplier = RobotConstants.topTurnSpeed - ((RobotConstants.topTurnSpeed - RobotConstants.minDriveSpeed) / 5000) * (Math.abs(Robot.elevatorSubsystem.getPosition()));
-            speedMultiplier = RobotConstants.topSpeed  - ((RobotConstants.topSpeed - RobotConstants.minDriveSpeed) / 5000) * (Math.abs(Robot.elevatorSubsystem.getPosition())); 
+            turnMultiplier = RobotConstants.topTurnSpeed - ((RobotConstants.topTurnSpeed - RobotConstants.minDriveSpeed) / RobotConstants.elevatorEncoderTicks) * (Math.abs(Robot.elevatorSubsystem.getPosition()));
+            speedMultiplier = RobotConstants.topSpeed  - ((RobotConstants.topSpeed - RobotConstants.minDriveSpeed) / RobotConstants.elevatorEncoderTicks) * (Math.abs(Robot.elevatorSubsystem.getPosition())); 
         }
         if (inverted) { //inverts arcadeDrive
             speedOutput = -rightSpeed;
