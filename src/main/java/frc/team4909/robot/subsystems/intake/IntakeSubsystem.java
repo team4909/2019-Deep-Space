@@ -34,13 +34,25 @@ public class IntakeSubsystem extends Subsystem {
         hatchPanelSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
 
-    public void setCargoIntakeSpeed(double speed) {
-        speed = -speed;
+    public void holdCargoIntake(){
         if(hasCargo()){
-            speed = 0.0;
+            setCargoIntakeSpeed(RobotConstants.cargoIntakeHoldSpeed);
+        } else {
+            setCargoIntakeSpeed(0);
         }
-        //System.out.println(getCargoIntakeCurrent());
-        cargoIntakeMotor.set(speed);
+    }
+
+    public void setCargoIntakeSpeed(double speed) {
+        if(hasCargo() && speed > 0){
+            speed = RobotConstants.cargoIntakeHoldSpeed;
+        }
+
+        cargoIntakeMotor.set(-speed);
+    }
+
+    @Override
+    public void periodic() {
+        System.out.println(hasCargo());
     }
 
     public double getCargoIntakeCurrent() {
