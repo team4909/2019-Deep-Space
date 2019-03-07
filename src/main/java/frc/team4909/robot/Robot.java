@@ -13,6 +13,11 @@ import frc.team4909.robot.sensors.LidarLitePWM;
 import frc.team4909.robot.sensors.Stream;
 import frc.team4909.robot.setpoints.Arm0;
 import frc.team4909.robot.setpoints.Arm90;
+import frc.team4909.robot.setpoints.CargoHigh;
+import frc.team4909.robot.setpoints.CargoLow;
+import frc.team4909.robot.setpoints.CargoMiddle;
+import frc.team4909.robot.setpoints.CargoShip;
+import frc.team4909.robot.setpoints.HatchHigh;
 import frc.team4909.robot.setpoints.HatchLow;
 import frc.team4909.robot.setpoints.HatchMiddle;
 import frc.team4909.robot.setpoints.Arm135;
@@ -160,9 +165,21 @@ public class Robot extends TimedRobot {
     manipulatorGamepad.buttonPressed(BionicF310.B, new Arm90());
     manipulatorGamepad.buttonPressed(BionicF310.Y, new Arm45());
 
+    /* User Interface Setpoints */
 
+    // all of the following setpoints set both the elevator and the elevator arm
+    SmartDashboard.putData(new CargoHigh()); // top cargo spot
+    SmartDashboard.putData(new CargoLow()); // bottom cargo spot
+    SmartDashboard.putData(new CargoMiddle()); // middle cargo soit
+    SmartDashboard.putData(new CargoShip()); // cargo spot for ship
+    SmartDashboard.putData(new HatchHigh()); // top hatch spot
+    SmartDashboard.putData(new HatchLow()); // bottom hatch spot
+    SmartDashboard.putData(new HatchMiddle()); // middle hatch spot
+
+    
     SmartDashboard.putData(new ZeroElevator());
     SmartDashboard.putData(new ZeroStilts());
+
 
 
   }
