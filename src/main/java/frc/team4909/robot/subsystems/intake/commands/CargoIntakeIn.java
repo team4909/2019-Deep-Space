@@ -11,6 +11,7 @@ public class CargoIntakeIn extends Command {
 
     protected void execute() {
         Robot.intakeSubsystem.setCargoIntakeSpeed(RobotConstants.cargoIntakeInSpeed);
+       
     }
 
     @Override
