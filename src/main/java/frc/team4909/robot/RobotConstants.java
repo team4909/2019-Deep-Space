@@ -58,9 +58,10 @@ public class RobotConstants {
   public static final int elevatorSetpointCargoHigh = -20000;
   public static final int elevatorSetpointCargoShip = -25300;
 
-  public static final int elevatorArmSetpointHatch = 90;  
-  public static final int elevatorArmSetpointCargoOut = 45; 
-  public static final int elevatorArmSetpointCargoIn = 135; 
+  public static final int elevatorArmSetpointZero = 0; // makes arm upright
+  public static final int elevatorArmSetpointHatch = 90;  // horizontal arm
+  public static final int elevatorArmSetpointCargoOut = 45; // 45 degrees up
+  public static final int elevatorArmSetpointCargoIn = 135; // 45 degrees down
   /* Linefollow */
   public static final double fastVelocity = 0.7;
   public static final double mediumVelocity = 0.5; // constant velocity given to both motors

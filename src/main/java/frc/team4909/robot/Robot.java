@@ -11,11 +11,12 @@ import frc.team4909.robot.operator.controllers.FlightStick;
 import frc.team4909.robot.operator.generic.BionicPOV;
 import frc.team4909.robot.sensors.LidarLitePWM;
 import frc.team4909.robot.sensors.Stream;
-import frc.team4909.robot.setpoints.CargoIntakeOnly;
-import frc.team4909.robot.setpoints.CargoOutOnly;
+import frc.team4909.robot.setpoints.Arm0;
+import frc.team4909.robot.setpoints.Arm90;
 import frc.team4909.robot.setpoints.HatchLow;
 import frc.team4909.robot.setpoints.HatchMiddle;
-import frc.team4909.robot.setpoints.HatchOnly;
+import frc.team4909.robot.setpoints.Arm135;
+import frc.team4909.robot.setpoints.Arm45;
 import frc.team4909.robot.subsystems.climber.ClimberSubsystem;
 import frc.team4909.robot.subsystems.climber.commands.BothLiftDown;
 import frc.team4909.robot.subsystems.climber.commands.BothLiftUp;
@@ -155,13 +156,15 @@ public class Robot extends TimedRobot {
     // manipulatorGamepad.buttonPressed(BionicF310.X, new ToggleCamera());
 
     /* Arm Setpoints */
-    manipulatorGamepad.buttonPressed(BionicF310.A, new CargoIntakeOnly());
-    manipulatorGamepad.buttonPressed(BionicF310.B, new HatchOnly());
-    manipulatorGamepad.buttonPressed(BionicF310.Y, new CargoOutOnly());
+    manipulatorGamepad.buttonPressed(BionicF310.A, new Arm135());
+    manipulatorGamepad.buttonPressed(BionicF310.B, new Arm90());
+    manipulatorGamepad.buttonPressed(BionicF310.Y, new Arm45());
 
 
     SmartDashboard.putData(new ZeroElevator());
     SmartDashboard.putData(new ZeroStilts());
+
+
   }
 
   /**
@@ -178,6 +181,10 @@ public class Robot extends TimedRobot {
 
     // process();
     Scheduler.getInstance().run();
+
+    SmartDashboard.putNumber("Elevator encoder position", Robot.elevatorSubsystem.getPosition());
+    SmartDashboard.putNumber("Arm encoder position", Robot.elevatorArmSubsystem.getPosition());
+
   }
 
   @Override
