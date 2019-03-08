@@ -22,7 +22,6 @@ import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotConstants;
 import frc.team4909.robot.RobotMap;
 import frc.team4909.robot.operator.controllers.BionicF310;
-import edu.wpi.first.wpilibj.Counter;
 
 public class ElevatorSubsystem extends Subsystem {
     
@@ -31,9 +30,6 @@ public class ElevatorSubsystem extends Subsystem {
     private WPI_VictorSPX leftSlave, rightSlave1, rightSlave2;
     private WPI_TalonSRX leftMaster;
     public int holdingPosition = 0;
-
-    DigitalInput limitswitch = new DigitalInput(0);
-    Counter count = new Counter(limitswitch);
 
     public ElevatorSubsystem() {
         // super should always be called to ensure proper subystem initialization
@@ -126,24 +122,6 @@ public class ElevatorSubsystem extends Subsystem {
     public void reset() {
         leftMaster.setSelectedSensorPosition(0);
         holdingPosition = 0;
-    }
-
-    public boolean switchSet()
-    {
-        return count.get()>0;//Returns value indicating whether or not input is coming into limit switch
-    }
-
-    public boolean setSpeedtoZero()
-    {
-        boolean set=false;
-        if (switchSet()==true)
-        {
-            if (getPosition()==0)
-            {
-                set=true;
-            }
-        }
-        return set;//returns boolean indicating whether or not speed should be set to zero if getPosition()=0
     }
 
     public void setSpeed(double speed) { // set elevator speed value
