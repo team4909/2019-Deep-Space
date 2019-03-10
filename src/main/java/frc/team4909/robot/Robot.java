@@ -161,9 +161,9 @@ public class Robot extends TimedRobot {
     // manipulatorGamepad.buttonPressed(BionicF310.X, new ToggleCamera());
 
     /* Arm Setpoints */
-    manipulatorGamepad.buttonPressed(BionicF310.A, new Arm135());
-    manipulatorGamepad.buttonPressed(BionicF310.B, new Arm90());
-    manipulatorGamepad.buttonPressed(BionicF310.Y, new Arm45());
+    manipulatorGamepad.buttonPressed(BionicF310.A, new Arm135()); // tune first
+    manipulatorGamepad.buttonPressed(BionicF310.B, new Arm90()); // tune first
+    manipulatorGamepad.buttonPressed(BionicF310.Y, new Arm45()); // tune first
 
     /* User Interface Setpoints */
 
