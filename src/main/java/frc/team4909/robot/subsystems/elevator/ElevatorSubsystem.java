@@ -69,7 +69,7 @@ public class ElevatorSubsystem extends Subsystem {
         leftMaster.setInverted(false);
         leftSlave.setInverted(false);
         rightSlave1.setInverted(true);
-        rightSlave2.setInverted(true);
+        rightSlave2.setInverted(false);
 
         //@todo what is the point of this?
         leftMaster.configPeakOutputForward(.4, RobotConstants.timeoutMs);
