@@ -52,7 +52,7 @@ public class IntakeSubsystem extends Subsystem {
 
     @Override
     public void periodic() {
-        System.out.println(hasCargo());
+     //   System.out.println(hasCargo());
     }
 
     public double getCargoIntakeCurrent() {
