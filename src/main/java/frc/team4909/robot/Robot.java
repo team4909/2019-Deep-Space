@@ -168,17 +168,17 @@ public class Robot extends TimedRobot {
     /* User Interface Setpoints */
 
     // all of the following setpoints set both the elevator and the elevator arm
-    SmartDashboard.putData(new CargoHigh()); // top cargo spot
-    SmartDashboard.putData(new CargoLow()); // bottom cargo spot
-    SmartDashboard.putData(new CargoMiddle()); // middle cargo soit
-    SmartDashboard.putData(new CargoShip()); // cargo spot for ship
-    SmartDashboard.putData(new HatchHigh()); // top hatch spot
-    SmartDashboard.putData(new HatchLow()); // bottom hatch spot
-    SmartDashboard.putData(new HatchMiddle()); // middle hatch spot
+    SmartDashboard.putData("Cargo High", new CargoHigh()); // top cargo spot
+    SmartDashboard.putData("Cargo Low", new CargoLow()); // bottom cargo spot
+    SmartDashboard.putData("Cargo Middle", new CargoMiddle()); // middle cargo soit
+    SmartDashboard.putData("Cargo Ship", new CargoShip()); // cargo spot for ship
+    SmartDashboard.putData("Hatch High", new HatchHigh()); // top hatch spot
+    SmartDashboard.putData("Hitch Low", new HatchLow()); // bottom hatch spot
+    SmartDashboard.putData("Hatch Middle", new HatchMiddle()); // middle hatch spot
 
     
-    SmartDashboard.putData(new ZeroElevator());
-    SmartDashboard.putData(new ZeroStilts());
+    // SmartDashboard.putData(new ZeroElevator());
+    // SmartDashboard.putData(new ZeroStilts());
 
 
 
