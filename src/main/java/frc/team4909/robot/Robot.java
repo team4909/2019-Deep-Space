@@ -12,11 +12,17 @@ import frc.team4909.robot.operator.controllers.FlightStick;
 import frc.team4909.robot.operator.generic.BionicPOV;
 import frc.team4909.robot.sensors.LidarLitePWM;
 import frc.team4909.robot.sensors.Stream;
-import frc.team4909.robot.setpoints.CargoIntakeOnly;
-import frc.team4909.robot.setpoints.CargoOutOnly;
+import frc.team4909.robot.setpoints.Arm0;
+import frc.team4909.robot.setpoints.Arm90;
+import frc.team4909.robot.setpoints.CargoHigh;
+import frc.team4909.robot.setpoints.CargoLow;
+import frc.team4909.robot.setpoints.CargoMiddle;
+import frc.team4909.robot.setpoints.CargoShip;
+import frc.team4909.robot.setpoints.HatchHigh;
 import frc.team4909.robot.setpoints.HatchLow;
 import frc.team4909.robot.setpoints.HatchMiddle;
-import frc.team4909.robot.setpoints.HatchOnly;
+import frc.team4909.robot.setpoints.Arm135;
+import frc.team4909.robot.setpoints.Arm45;
 import frc.team4909.robot.subsystems.climber.ClimberSubsystem;
 import frc.team4909.robot.subsystems.climber.commands.BothLiftDown;
 import frc.team4909.robot.subsystems.climber.commands.BothLiftUp;
@@ -156,13 +162,30 @@ public class Robot extends TimedRobot {
     // manipulatorGamepad.buttonPressed(BionicF310.X, new ToggleCamera());
 
     /* Arm Setpoints */
-    manipulatorGamepad.buttonPressed(BionicF310.A, new CargoIntakeOnly());
-    manipulatorGamepad.buttonPressed(BionicF310.B, new HatchOnly());
-    manipulatorGamepad.buttonPressed(BionicF310.Y, new CargoOutOnly());
+    manipulatorGamepad.buttonPressed(BionicF310.A, new Arm135()); // tune first
+    manipulatorGamepad.buttonPressed(BionicF310.B, new Arm90()); // tune first
+    manipulatorGamepad.buttonPressed(BionicF310.Y, new Arm45()); // tune first
+
+    /* User Interface Setpoints */
+
+    // all of the following setpoints set both the elevator and the elevator arm
+    SmartDashboard.putData("Cargo High", new CargoHigh()); // top cargo spot
+    SmartDashboard.putData("Cargo Low", new CargoLow()); // bottom cargo spot
+    SmartDashboard.putData("Cargo Middle", new CargoMiddle()); // middle cargo soit
+    SmartDashboard.putData("Cargo Ship", new CargoShip()); // cargo spot for ship
+    SmartDashboard.putData("Hatch High", new HatchHigh()); // top hatch spot
+    SmartDashboard.putData("Hitch Low", new HatchLow()); // bottom hatch spot
+    SmartDashboard.putData("Hatch Middle", new HatchMiddle()); // middle hatch spot
+
+    
+    // SmartDashboard.putData(new ZeroElevator());
+    // SmartDashboard.putData(new ZeroStilts());
 
 
-    SmartDashboard.putData(new ZeroElevator());
-    SmartDashboard.putData(new ZeroStilts());
+
+
+
+
   }
 
   /**
@@ -179,6 +202,10 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Time Remaining", DriverStation.getInstance().getMatchTime());//Useful Method to get match data.
     // process();
     Scheduler.getInstance().run();
+
+    SmartDashboard.putNumber("Elevator encoder position", Robot.elevatorSubsystem.getPosition());
+    SmartDashboard.putNumber("Arm encoder position", Robot.elevatorArmSubsystem.getPosition());
+
   }
 
   @Override

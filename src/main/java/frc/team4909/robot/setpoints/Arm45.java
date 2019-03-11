@@ -5,14 +5,14 @@ import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotConstants;
 
 
-public class HatchOnly extends Command {
-    public HatchOnly(){
+public class Arm45 extends Command {
+    public Arm45(){
         requires(Robot.elevatorArmSubsystem);
     }
 
     @Override
     protected void initialize() {
-        Robot.elevatorArmSubsystem.setAngle(RobotConstants.elevatorArmSetpointHatch);
+        Robot.elevatorArmSubsystem.setAngle(RobotConstants.elevatorArmSetpointCargoOut);
         setTimeout(1.5);
     }
 

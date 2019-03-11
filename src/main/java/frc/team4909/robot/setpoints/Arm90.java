@@ -5,14 +5,14 @@ import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotConstants;
 
 
-public class CargoIntakeOnly extends Command {
-    public CargoIntakeOnly(){
+public class Arm90 extends Command {
+    public Arm90(){
         requires(Robot.elevatorArmSubsystem);
     }
 
     @Override
     protected void initialize() {
-        Robot.elevatorArmSubsystem.setAngle(RobotConstants.elevatorArmSetpointCargoIn);
+        Robot.elevatorArmSubsystem.setAngle(RobotConstants.elevatorArmSetpointHatch);
         setTimeout(1.5);
     }
 
