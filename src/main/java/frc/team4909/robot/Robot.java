@@ -180,8 +180,7 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putData(new ZeroElevator());
     // SmartDashboard.putData(new ZeroStilts());
 
-    SmartDashboard.putNumber("Elevator Position", elevatorSubsystem.getPosition());
-    SmartDashboard.putNumber("Elevator  Arm Position", elevatorArmSubsystem.getPosition());
+
 
 
 
