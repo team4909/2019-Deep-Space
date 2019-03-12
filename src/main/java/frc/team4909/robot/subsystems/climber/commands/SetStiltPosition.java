@@ -36,23 +36,26 @@ public class SetStiltPosition extends Command {
         double driveStiltNegSpeed = Robot.driverGamepad.getThresholdAxis(BionicF310.LT)  //Stilt drive backwards
         * RobotConstants.climberDriveSpeedManual;
 
-        Robot.climberSubsystem.setStiltsDriveSpeed(RobotConstants.climberDriveSpeedAuto); // Stilts via climnber
-        
+        if(Robot.elevatorSubsystem.getPosition() > 0){
+            Robot.climberSubsystem.setStiltsDriveSpeed(RobotConstants.climberDriveSpeedAuto); // Stilts via climnber
+        }
 
          if(moveSpeed==0 && moveStiltSpeed == 0 && moveElevatorSpeed == 0){
              SmartDashboard.putString("thisblock", "1");
+             Robot.climberSubsystem.setSpeed(0); 
              Robot.climberSubsystem.setPosition(Robot.climberSubsystem.holdingStiltsPosition);
              Robot.elevatorSubsystem.setPosition(Robot.elevatorSubsystem.holdingPosition);
          }
          else if (moveSpeed != 0 && moveStiltSpeed == 0 && moveElevatorSpeed == 0 ) { // Elevator via manipulator gamepad
             SmartDashboard.putString("thisblock", "2");
+
             Robot.elevatorSubsystem.setSpeed(moveSpeed);
             Robot.elevatorSubsystem.holdingPosition = Robot.elevatorSubsystem.getPosition();
          }
          else if(moveSpeed == 0 && moveStiltSpeed != 0  && moveElevatorSpeed == 0){ // Stilts via climber gamepad
             SmartDashboard.putString("thisblock", "3 here "+ moveStiltSpeed);
 
-            Robot.elevatorSubsystem.setSpeed(moveStiltSpeed);
+            Robot.climberSubsystem.setSpeed(moveStiltSpeed);
             Robot.climberSubsystem.holdingStiltsPosition = Robot.climberSubsystem.getPosition();
         } 
         else if(moveElevatorSpeed != 0 && moveSpeed == 0 && moveStiltSpeed == 0){ // Elevator via climber gamepad
@@ -62,6 +65,7 @@ public class SetStiltPosition extends Command {
             Robot.elevatorSubsystem.holdingPosition = Robot.elevatorSubsystem.getPosition();        }
         else {
             SmartDashboard.putString("thisblock", "4"); // hold positions
+            Robot.climberSubsystem.setSpeed(0);
             Robot.elevatorSubsystem.setPosition(Robot.elevatorSubsystem.holdingPosition);
             Robot.climberSubsystem.setPosition(Robot.climberSubsystem.holdingStiltsPosition);
         }
