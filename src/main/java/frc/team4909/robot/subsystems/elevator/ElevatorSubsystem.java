@@ -44,6 +44,8 @@ public class ElevatorSubsystem extends Subsystem {
         // Lets clear any sticky settings to ensure we use the settings configured below
         leftMaster.configFactoryDefault();
 
+        leftMaster.configClearPositionOnLimitR(true, RobotConstants.timeoutMs);
+
         // We want Relative to use the quadrature output of the encoder.
         // Absolute is only good if the output rotates less than 1 revolution
         leftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
