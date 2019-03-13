@@ -150,8 +150,8 @@ public class Robot extends TimedRobot {
     manipulatorGamepad.buttonHeld(BionicF310.RB, new HatchPanelIntakeOpen());
 
     /* Climber */
-    climberGamepad.buttonHeld(BionicF310.RB, new StiltsUpOnly());
-    climberGamepad.buttonHeld(BionicF310.LB, new StiltsDownOnly());
+    // climberGamepad.buttonHeld(BionicF310.RB, new StiltsUpOnly());
+    // climberGamepad.buttonHeld(BionicF310.LB, new StiltsDownOnly());
     climberGamepad.povActive(BionicF310.Top, new BothLiftUp()); 
     climberGamepad.povActive(BionicF310.Bottom, new BothLiftDown());
 
@@ -232,8 +232,10 @@ public class Robot extends TimedRobot {
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
     elevatorSubsystem.reset();
-    climberSubsystem.reset();
-    elevatorArmSubsystem.reset();
+    // climberSubsystem.reset();
+    elevatorArmSubsystem.reset(); 
+    SmartDashboard.putNumber("Holding Position", Robot.climberSubsystem.holdingStiltsPosition);
+    SmartDashboard.putNumber("Actual position", Robot.climberSubsystem.getPosition());
   }
 
   @Override

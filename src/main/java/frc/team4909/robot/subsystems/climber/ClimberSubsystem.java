@@ -45,12 +45,12 @@ public class ClimberSubsystem extends Subsystem {
         // Set all controllers to coast in case the stilts drop down or hit something
         // during a match
         climberDriveSPX.setNeutralMode(NeutralMode.Brake);
-        climberLiftMaster.setNeutralMode(NeutralMode.Coast);
-        climberLiftSlave.setNeutralMode(NeutralMode.Coast);
+        climberLiftMaster.setNeutralMode(NeutralMode.Brake);
+        climberLiftSlave.setNeutralMode(NeutralMode.Brake);
 
         // Pick a value so that positive PercentOutput yields a positive change in
         // sensor
-        climberLiftMaster.setSensorPhase(false); // @todo validate correct
+        climberLiftMaster.setSensorPhase(true); // @todo validate correct
 
         // One side needs to be inverted so the motors spin in the same direction
         climberLiftMaster.setInverted(true);
