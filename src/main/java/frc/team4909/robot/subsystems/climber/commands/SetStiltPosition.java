@@ -54,7 +54,7 @@ public class SetStiltPosition extends Command {
          else if(moveSpeed == 0 && moveStiltSpeed != 0  && moveElevatorSpeed == 0){ // Stilts via climber gamepad
             SmartDashboard.putString("thisblock", "3 here "+ moveStiltSpeed);
 
-            Robot.climberSubsystem.setSpeed(moveStiltSpeed);
+            Robot.climberSubsystem.setStiltsClimbSpeed(moveStiltSpeed);
             Robot.climberSubsystem.holdingStiltsPosition = Robot.climberSubsystem.getPosition();
         } 
         else if(moveElevatorSpeed != 0 && moveSpeed == 0 && moveStiltSpeed == 0){ // Elevator via climber gamepad
