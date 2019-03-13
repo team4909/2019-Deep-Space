@@ -169,23 +169,16 @@ public class Robot extends TimedRobot {
     /* User Interface Setpoints */
 
     // all of the following setpoints set both the elevator and the elevator arm
-    SmartDashboard.putData("Cargo High", new CargoHigh()); // top cargo spot
-    SmartDashboard.putData("Cargo Low", new CargoLow()); // bottom cargo spot
-    SmartDashboard.putData("Cargo Middle", new CargoMiddle()); // middle cargo soit
-    SmartDashboard.putData("Cargo Ship", new CargoShip()); // cargo spot for ship
-    SmartDashboard.putData("Hatch High", new HatchHigh()); // top hatch spot
-    SmartDashboard.putData("Hitch Low", new HatchLow()); // bottom hatch spot
-    SmartDashboard.putData("Hatch Middle", new HatchMiddle()); // middle hatch spot
+    SmartDashboard.putData("Rocket Cargo High", new CargoHigh()); // top cargo spot
+    SmartDashboard.putData("Rocket Cargo Middle", new CargoMiddle()); // middle cargo spot
+    SmartDashboard.putData("Rocket Cargo Low", new CargoLow()); // bottom cargo spot
+    SmartDashboard.putData("Ship Cargo", new CargoShip()); // cargo spot for ship
+    SmartDashboard.putData("Rocket Hatch High", new HatchHigh()); // top hatch spot
+    SmartDashboard.putData("Rocket Hatch Middle", new HatchMiddle()); // middle hatch spot
+    SmartDashboard.putData("Rocket Hatch Low", new HatchLow()); // bottom hatch spot
+    SmartDashboard.putData("Ship Hatch", new HatchLow()); // bottom hatch spot
 
-    
-    // SmartDashboard.putData(new ZeroElevator());
-    // SmartDashboard.putData(new ZeroStilts());
-
-
-
-
-
-
+    SmartDashboard.putBoolean("Has Cargo?", intakeSubsystem.hasCargo());
   }
 
   /**
