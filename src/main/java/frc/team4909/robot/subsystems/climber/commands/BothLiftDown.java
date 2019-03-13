@@ -13,10 +13,8 @@ public class BothLiftDown extends Command{
     }
 
     public void execute() {
-        SmartDashboard.putString("In Both Lift Down", "7");
-
         Robot.climberSubsystem.setStiltsClimbSpeed(-RobotConstants.liftClimbSpeed);
-        Robot.elevatorSubsystem.setSpeed(-RobotConstants.liftClimbSpeed);
+        // Robot.elevatorSubsystem.setSpeed(-RobotConstants.liftClimbSpeed);
 
         // Elevator Drum is 1.3" Diameter, C = PI * D = Math.PI * 1.3
         // Stilts pinion gear Pitch Diameter is 1.1" which is the circumference
@@ -30,6 +28,7 @@ public class BothLiftDown extends Command{
 
     public void end(){
         Robot.climberSubsystem.setStiltsClimbSpeed(0);
+        Robot.elevatorSubsystem.setSpeed(0);
     }
 
     @Override

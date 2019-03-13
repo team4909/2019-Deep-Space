@@ -232,7 +232,7 @@ public class Robot extends TimedRobot {
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
     elevatorSubsystem.reset();
-    // climberSubsystem.reset();
+    climberSubsystem.reset();
     elevatorArmSubsystem.reset(); 
     SmartDashboard.putNumber("Holding Position", Robot.climberSubsystem.holdingStiltsPosition);
     SmartDashboard.putNumber("Actual position", Robot.climberSubsystem.getPosition());

@@ -74,7 +74,7 @@ public class ClimberSubsystem extends Subsystem {
     // Zero the relative encoder
     public void reset(){
         climberLiftMaster.setSelectedSensorPosition(0);
-        holdingStiltsPosition = 0;
+        holdingStiltsPosition = getPosition();
     }
 
     // Spin the wheels on the bottom of the stilts to move the robot forward

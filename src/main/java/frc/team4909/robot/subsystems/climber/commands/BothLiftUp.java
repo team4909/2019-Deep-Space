@@ -16,11 +16,11 @@ public class BothLiftUp extends Command{
         SmartDashboard.putString("In both lift up", "11");
 
         Robot.climberSubsystem.setStiltsClimbSpeed(RobotConstants.liftClimbSpeed);
-        Robot.elevatorSubsystem.setSpeed(RobotConstants.liftClimbSpeed);
+        // Robot.elevatorSubsystem.setSpeed(RobotConstants.liftClimbSpeed);
         // Elevator Drum is 1.3" Diameter, C = PI * D = Math.PI * 1.3
         // Stilts pinion gear Pitch Diameter is 1.1" which is the circumference
         int climberPos = Robot.climberSubsystem.getPosition();
-        int elevPos = (int) -(climberPos * (1.1/1.3));
+        int elevPos = (int) (climberPos * (1.1/1.3));
         Robot.elevatorSubsystem.setPosition(elevPos);
 
         Robot.elevatorSubsystem.holdingPosition = elevPos;
@@ -28,7 +28,10 @@ public class BothLiftUp extends Command{
     }
 
     public void end(){
-        Robot.climberSubsystem.setStiltsClimbSpeed(0);
+        SmartDashboard.putString("In both lift up", "12");
+        Robot.elevatorSubsystem.setSpeed(0);
+        Robot.climberSubsystem.setSpeed(0);
+
     }
 
     @Override

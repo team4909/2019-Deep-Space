@@ -99,7 +99,7 @@ public class ElevatorSubsystem extends Subsystem {
 
         // When the code starts (IE robot powered on) call that zero.
         // @note operators will need to setup the carriage in the same place each match.
-        reset();
+        // reset();
 
     }
 
@@ -119,7 +119,7 @@ public class ElevatorSubsystem extends Subsystem {
     // Zero the relative encoder
     public void reset() {
         leftMaster.setSelectedSensorPosition(0);
-        holdingPosition = 0;
+        
     }
 
     public void setSpeed(double speed) { // set elevator speed value
