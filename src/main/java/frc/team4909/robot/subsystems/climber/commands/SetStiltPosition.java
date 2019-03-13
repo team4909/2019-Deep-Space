@@ -40,10 +40,13 @@ public class SetStiltPosition extends Command {
             Robot.climberSubsystem.setStiltsDriveSpeed(RobotConstants.climberDriveSpeedAuto); // Stilts via climnber
         }
 
+       
+
+        // no one is touching the joysticks
          if(moveSpeed==0 && moveStiltSpeed == 0 && moveElevatorSpeed == 0){
              SmartDashboard.putString("thisblock", "1");
-             Robot.climberSubsystem.setSpeed(0);
-            //  Robot.climberSubsystem.setPosition(Robot.climberSubsystem.holdingStiltsPosition);
+
+             Robot.climberSubsystem.setPosition(Robot.climberSubsystem.holdingStiltsPosition);
              Robot.elevatorSubsystem.setPosition(Robot.elevatorSubsystem.holdingPosition);
          }
          else if (moveSpeed != 0 && moveStiltSpeed == 0 && moveElevatorSpeed == 0 ) { // Elevator via manipulator gamepad
@@ -101,6 +104,7 @@ public class SetStiltPosition extends Command {
         Robot.elevatorSubsystem.setPosition(Robot.elevatorSubsystem.holdingPosition);
         SmartDashboard.putString("thisblock", "interr");
     }
+
 
     protected void end()
     {
