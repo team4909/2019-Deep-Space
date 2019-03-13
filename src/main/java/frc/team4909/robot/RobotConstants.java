@@ -72,6 +72,7 @@ public class RobotConstants {
   public static final double climberDriveSpeedAuto = 0.2;
   public static final double climberDriveSpeedManual = 0.5;
   public static final double climbSpeedMultiplier = 0.5;
+  public static final double climbBothSpeedMultiplier = 0.3;
   public static final double climbVelocityMultiplier = 800;
   public static final double liftClimbSpeed = 0.3;
 
