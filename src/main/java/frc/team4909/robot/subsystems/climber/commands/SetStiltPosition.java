@@ -42,7 +42,6 @@ public class SetStiltPosition extends Command {
 
          if(moveSpeed==0 && moveStiltSpeed == 0 && moveElevatorSpeed == 0){
              SmartDashboard.putString("thisblock", "1");
-             Robot.climberSubsystem.setSpeed(0); 
              Robot.climberSubsystem.setPosition(Robot.climberSubsystem.holdingStiltsPosition);
              Robot.elevatorSubsystem.setPosition(Robot.elevatorSubsystem.holdingPosition);
          }
