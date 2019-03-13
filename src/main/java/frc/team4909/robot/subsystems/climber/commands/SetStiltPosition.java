@@ -36,6 +36,12 @@ public class SetStiltPosition extends Command {
         double driveStiltNegSpeed = Robot.driverGamepad.getThresholdAxis(BionicF310.LT)  //Stilt drive backwards
             * RobotConstants.climberDriveSpeedManual;
 
+        double driveBothUp = -Robot.climberGamepad.getThresholdAxis(BionicF310.RT) 
+            * RobotConstants.climbBothSpeedMultiplier;
+        
+        double driveBothDown = -Robot.climberGamepad.getThresholdAxis(BionicF310.LT)
+            * RobotConstants.climbBothSpeedMultiplier;
+
         if(Robot.elevatorSubsystem.getPosition() > 0){
             Robot.climberSubsystem.setStiltsDriveSpeed(RobotConstants.climberDriveSpeedAuto); // Stilts via climnber
         }
@@ -43,31 +49,57 @@ public class SetStiltPosition extends Command {
        
 
         // no one is touching the joysticks
-         if(moveSpeed==0 && moveStiltSpeed == 0 && moveElevatorSpeed == 0){
+         if(moveSpeed==0 && moveStiltSpeed == 0 && moveElevatorSpeed == 0 && driveBothDown == 0 && driveBothUp == 0){
              SmartDashboard.putString("thisblock", "1");
 
              Robot.climberSubsystem.setPosition(Robot.climberSubsystem.holdingStiltsPosition);
              Robot.elevatorSubsystem.setPosition(Robot.elevatorSubsystem.holdingPosition);
          }
-         else if (moveSpeed != 0 && moveStiltSpeed == 0 && moveElevatorSpeed == 0 ) { // Elevator via manipulator gamepad
+         else if (moveSpeed != 0 && moveStiltSpeed == 0 && moveElevatorSpeed == 0 && driveBothDown == 0 && driveBothUp == 0) { // Elevator via manipulator gamepad
             SmartDashboard.putString("thisblock", "2");
 
             Robot.elevatorSubsystem.configReverseSoftLimit(true);
             Robot.elevatorSubsystem.setSpeed(moveSpeed);
             Robot.elevatorSubsystem.holdingPosition = Robot.elevatorSubsystem.getPosition();
          }
-         else if(moveSpeed == 0 && moveStiltSpeed != 0  && moveElevatorSpeed == 0){ // Stilts via climber gamepad
+         else if(moveSpeed == 0 && moveStiltSpeed != 0  && moveElevatorSpeed == 0 && driveBothDown == 0 && driveBothUp == 0){ // Stilts via climber gamepad
             SmartDashboard.putString("thisblock", "3 here "+ moveStiltSpeed);
 
             Robot.climberSubsystem.setStiltsClimbSpeed(moveStiltSpeed);
             Robot.climberSubsystem.holdingStiltsPosition = Robot.climberSubsystem.getPosition();
         } 
-        else if(moveElevatorSpeed != 0 && moveSpeed == 0 && moveStiltSpeed == 0){ // Elevator via climber gamepad
+        else if(moveElevatorSpeed != 0 && moveSpeed == 0 && moveStiltSpeed == 0 && driveBothDown == 0 && driveBothUp == 0){ // Elevator via climber gamepad
             SmartDashboard.putString("thisblock", "5 here "+ moveElevatorSpeed);
 
             Robot.elevatorSubsystem.configReverseSoftLimit(false);
             Robot.elevatorSubsystem.setSpeed(moveElevatorSpeed);
             Robot.elevatorSubsystem.holdingPosition = Robot.elevatorSubsystem.getPosition();        }
+        
+        else if(moveElevatorSpeed == 0 && moveSpeed == 0 && moveStiltSpeed == 0 && driveBothDown == 0 && driveBothUp != 0){
+            Robot.climberSubsystem.setStiltsClimbSpeed(driveBothUp);
+            // Robot.elevatorSubsystem.setSpeed(RobotConstants.liftClimbSpeed);
+            // Elevator Drum is 1.3" Diameter, C = PI * D = Math.PI * 1.3
+            // Stilts pinion gear Pitch Diameter is 1.1" which is the circumference
+            int climberPos = Robot.climberSubsystem.getPosition();
+            int elevPos = (int) (climberPos * (1.1/1.3));
+            Robot.elevatorSubsystem.setPosition(elevPos);
+    
+            Robot.elevatorSubsystem.holdingPosition = elevPos;
+            Robot.climberSubsystem.holdingStiltsPosition = climberPos;   
+        }
+        else if(moveElevatorSpeed == 0 && moveSpeed == 0 && moveStiltSpeed == 0 && driveBothDown != 0 && driveBothUp == 0){
+            Robot.climberSubsystem.setStiltsClimbSpeed(driveBothDown);
+            // Robot.elevatorSubsystem.setSpeed(-RobotConstants.liftClimbSpeed);
+
+            // Elevator Drum is 1.3" Diameter, C = PI * D = Math.PI * 1.3
+            // Stilts pinion gear Pitch Diameter is 1.1" which is the circumference
+            int climberPos = Robot.climberSubsystem.getPosition();
+            int elevPos = (int) -(climberPos * (1.1/1.3));
+            Robot.elevatorSubsystem.setPosition(elevPos);
+
+            Robot.elevatorSubsystem.holdingPosition = elevPos;
+            Robot.climberSubsystem.holdingStiltsPosition = climberPos;     
+        }
         else {
             SmartDashboard.putString("thisblock", "4"); // hold positions
             Robot.climberSubsystem.setSpeed(0);

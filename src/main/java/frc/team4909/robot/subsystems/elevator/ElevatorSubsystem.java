@@ -99,7 +99,7 @@ public class ElevatorSubsystem extends Subsystem {
 
         // When the code starts (IE robot powered on) call that zero.
         // @note operators will need to setup the carriage in the same place each match.
-        reset();
+        // reset();
 
     }
 
@@ -119,7 +119,7 @@ public class ElevatorSubsystem extends Subsystem {
     // Zero the relative encoder
     public void reset() {
         leftMaster.setSelectedSensorPosition(0);
-        holdingPosition = 0;
+        
     }
 
     public void setSpeed(double speed) { // set elevator speed value
@@ -155,7 +155,12 @@ public class ElevatorSubsystem extends Subsystem {
         leftMaster.selectProfileSlot(2, 0);
     }
 
-    public void configReverseSoftLimit(boolean enable){
+    public void configReverseSoftLimit(boolean enable) {
         leftMaster.configReverseSoftLimitEnable(enable);
+    }
+
+    public void setSensorZero(){
+        leftMaster.setSelectedSensorPosition(0);
+        holdingPosition = 0;
     }
 }

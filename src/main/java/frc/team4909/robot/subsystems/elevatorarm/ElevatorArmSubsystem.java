@@ -61,6 +61,11 @@ public class ElevatorArmSubsystem extends Subsystem{
     public void reset(){
         holdingPosition = getPosition();
     }
+
+    public void setSensorZero(){
+        elevatorArmSRX.setSelectedSensorPosition(0);
+        holdingPosition = 0;
+    }
     
     @Override
     public void periodic() {

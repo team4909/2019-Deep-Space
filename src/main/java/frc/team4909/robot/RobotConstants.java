@@ -38,7 +38,7 @@ public class RobotConstants {
 
   /* Elevator */
   public static final double elevatorSpeedMultiplier = 0.5; // Multiplier for elevator speed
-  public static final double elevatorArmSpeedMultiplier = 0.5; // Multiplier for elevator arm speed
+  public static final double elevatorArmSpeedMultiplier = 0.3; // Multiplier for elevator arm speed
 
   public static final double initialp = 0.1;
   public static final double initiali = 0;
@@ -71,10 +71,10 @@ public class RobotConstants {
   public static final double climberStiltSpeed = 0.5;
   public static final double climberDriveSpeedAuto = 0.2;
   public static final double climberDriveSpeedManual = 0.5;
-  public static final double elevatorClimbSpeed = 0.3;
   public static final double climbSpeedMultiplier = 0.5;
+  public static final double climbBothSpeedMultiplier = 0.3;
   public static final double climbVelocityMultiplier = 800;
-  public static final double liftClimbSpeed = 0.5;
+  public static final double liftClimbSpeed = 0.3;
 
 
   /* Timeout */

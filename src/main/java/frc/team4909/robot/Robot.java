@@ -24,8 +24,6 @@ import frc.team4909.robot.setpoints.HatchMiddle;
 import frc.team4909.robot.setpoints.Arm135;
 import frc.team4909.robot.setpoints.Arm45;
 import frc.team4909.robot.subsystems.climber.ClimberSubsystem;
-import frc.team4909.robot.subsystems.climber.commands.BothLiftDown;
-import frc.team4909.robot.subsystems.climber.commands.BothLiftUp;
 import frc.team4909.robot.subsystems.climber.commands.DriveStiltsBack;
 import frc.team4909.robot.subsystems.climber.commands.DriveStiltsForward;
 import frc.team4909.robot.subsystems.climber.commands.StiltsDownOnly;
@@ -152,8 +150,6 @@ public class Robot extends TimedRobot {
     /* Climber */
     // climberGamepad.buttonHeld(BionicF310.RB, new StiltsUpOnly());
     // climberGamepad.buttonHeld(BionicF310.LB, new StiltsDownOnly());
-    climberGamepad.povActive(BionicF310.Top, new BothLiftUp()); 
-    climberGamepad.povActive(BionicF310.Bottom, new BothLiftDown());
 
 
     /* Sensors/Misc. */
@@ -203,6 +199,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+    elevatorSubsystem.setSensorZero();
+    elevatorArmSubsystem.setSensorZero();
+    climberSubsystem.setSensorZero();
   }
 
   /**
@@ -224,9 +223,13 @@ public class Robot extends TimedRobot {
 @Override
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
-    elevatorSubsystem.reset();
+    // elevatorSubsystem.reset();
     // climberSubsystem.reset();
-    elevatorArmSubsystem.reset(); 
+    // elevatorArmSubsystem.reset(); 
+    Robot.elevatorSubsystem.holdingPosition = Robot.elevatorSubsystem.getPosition();
+    Robot.elevatorArmSubsystem.holdingPosition = Robot.elevatorArmSubsystem.getPosition();
+    Robot.climberSubsystem.holdingStiltsPosition = Robot.climberSubsystem.getPosition();
+
     SmartDashboard.putNumber("Holding Position", Robot.climberSubsystem.holdingStiltsPosition);
     SmartDashboard.putNumber("Actual position", Robot.climberSubsystem.getPosition());
   }
