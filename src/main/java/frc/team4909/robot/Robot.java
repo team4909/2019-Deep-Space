@@ -206,6 +206,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+    elevatorSubsystem.setSensorZero();
+    elevatorArmSubsystem.setSensorZero();
+    climberSubsystem.setSensorZero();
   }
 
   /**
@@ -227,9 +230,13 @@ public class Robot extends TimedRobot {
 @Override
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
-    elevatorSubsystem.reset();
+    // elevatorSubsystem.reset();
     // climberSubsystem.reset();
-    elevatorArmSubsystem.reset(); 
+    // elevatorArmSubsystem.reset(); 
+    Robot.elevatorSubsystem.holdingPosition = Robot.elevatorSubsystem.getPosition();
+    Robot.elevatorArmSubsystem.holdingPosition = Robot.elevatorArmSubsystem.getPosition();
+    Robot.climberSubsystem.holdingStiltsPosition = Robot.climberSubsystem.getPosition();
+
     SmartDashboard.putNumber("Holding Position", Robot.climberSubsystem.holdingStiltsPosition);
     SmartDashboard.putNumber("Actual position", Robot.climberSubsystem.getPosition());
   }

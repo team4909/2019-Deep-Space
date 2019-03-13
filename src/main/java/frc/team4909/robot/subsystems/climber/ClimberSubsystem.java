@@ -73,7 +73,7 @@ public class ClimberSubsystem extends Subsystem {
 
     // Zero the relative encoder
     public void reset(){
-        climberLiftMaster.setSelectedSensorPosition(0);
+        // climberLiftMaster.setSelectedSensorPosition(0);
         holdingStiltsPosition = getPosition();
     }
 
@@ -108,6 +108,10 @@ public class ClimberSubsystem extends Subsystem {
     // Use the closed loop control to hold the stilts at pos
     public void setPosition(int pos) {
         climberLiftMaster.set(ControlMode.Position, pos);
+    }
+    public void setSensorZero(){
+        climberLiftMaster.setSelectedSensorPosition(0);
+        holdingStiltsPosition = 0;
     }
 
    

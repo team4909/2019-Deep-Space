@@ -154,4 +154,9 @@ public class ElevatorSubsystem extends Subsystem {
     public void setNewPIDValues() {
         leftMaster.selectProfileSlot(2, 0);
     }
+
+    public void setSensorZero(){
+        leftMaster.setSelectedSensorPosition(0);
+        holdingPosition = 0;
+    }
 }
