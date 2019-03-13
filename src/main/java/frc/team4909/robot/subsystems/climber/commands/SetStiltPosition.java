@@ -52,6 +52,7 @@ public class SetStiltPosition extends Command {
          else if (moveSpeed != 0 && moveStiltSpeed == 0 && moveElevatorSpeed == 0 ) { // Elevator via manipulator gamepad
             SmartDashboard.putString("thisblock", "2");
 
+            Robot.elevatorSubsystem.configReverseSoftLimit(true);
             Robot.elevatorSubsystem.setSpeed(moveSpeed);
             Robot.elevatorSubsystem.holdingPosition = Robot.elevatorSubsystem.getPosition();
          }
@@ -64,6 +65,7 @@ public class SetStiltPosition extends Command {
         else if(moveElevatorSpeed != 0 && moveSpeed == 0 && moveStiltSpeed == 0){ // Elevator via climber gamepad
             SmartDashboard.putString("thisblock", "5 here "+ moveElevatorSpeed);
 
+            Robot.elevatorSubsystem.configReverseSoftLimit(false);
             Robot.elevatorSubsystem.setSpeed(moveElevatorSpeed);
             Robot.elevatorSubsystem.holdingPosition = Robot.elevatorSubsystem.getPosition();        }
         else {
