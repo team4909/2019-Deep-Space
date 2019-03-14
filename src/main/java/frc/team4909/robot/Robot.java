@@ -133,8 +133,8 @@ public class Robot extends TimedRobot {
     );
 
     climberGamepad = new BionicF310(RobotMap.climberGamepadPort, // Port
-        RobotConstants.manipulatorGamepadDeadzone, // Deadzone
-        RobotConstants.manipulatorGamepadSensitivity // Gamepad sensitivity
+        RobotConstants.climberGamepadDeadzone, // Deadzone
+        RobotConstants.climberGamepadSensitivity // Gamepad sensitivity
     );
 
 

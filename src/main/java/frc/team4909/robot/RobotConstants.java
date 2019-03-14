@@ -7,8 +7,12 @@ public class RobotConstants {
   public static final double driverGamepadSensitivity = 0.6; // Value selected from 2018 code
   public static final double driverGamepadDeadzone = 0.05; // Value selected from 2018 code
 
-  public static final double manipulatorGamepadSensitivity = 0.6; // Value selected from 2018 code
+  public static final double manipulatorGamepadSensitivity = 0.7; // Value selected from 2018 code
   public static final double manipulatorGamepadDeadzone = 0.05; // Value selected from 2018 code
+
+  public static final double climberGamepadSensitivity = 0.6; // Value selected from 2018 code
+  public static final double climberGamepadDeadzone = 0.05; // Value selected from 2018 code
+
 
   /* Drivetrain */
   //TODO: Tune values
@@ -19,7 +23,7 @@ public class RobotConstants {
 
   public static final double topSpeed = 0.7; // desired values for when elevator is at bottom
   public static final double topTurnSpeed = 0.5; // desired values for when elevator is at bottom
-  public static final double minDriveSpeed = 0.1; // Min velocity when elevator is at top
+  public static final double minDriveSpeed = 0.3; // Min velocity when elevator is at top
   public static final double elevatorEncoderTicks = 51000; // total height of elevator
 
   public static final double speedTurnPreciseMultiplier = .4; // value when precise mode is activated; slows the turn; doesn't affect speed
