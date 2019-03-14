@@ -52,11 +52,13 @@ public class DriveTrainSubsystem extends Subsystem {
     public void arcadeDrive(double leftSpeed, double rightSpeed) {
         double speedOutput = leftSpeed;
         double turnOutput = rightSpeed;
-        double speedTurnMultiplier = turnMultiplier;
         if (preciseMode == true){
-            speedTurnMultiplier = RobotConstants.speedTurnPreciseMultiplier;
+            turnMultiplier = RobotConstants.speedTurnPreciseMultiplier;
+            speedMultiplier = RobotConstants.topSpeed  - ((RobotConstants.topSpeed - RobotConstants.minDriveSpeed) / RobotConstants.elevatorEncoderTicks) * (Math.abs(Robot.elevatorSubsystem.getPosition())); 
+
         } else{
-            speedTurnMultiplier = RobotConstants.speedTurnMultiplier;
+            turnMultiplier = RobotConstants.topTurnSpeed - ((RobotConstants.topTurnSpeed - RobotConstants.minDriveSpeed) / RobotConstants.elevatorEncoderTicks) * (Math.abs(Robot.elevatorSubsystem.getPosition()));
+            speedMultiplier = RobotConstants.topSpeed  - ((RobotConstants.topSpeed - RobotConstants.minDriveSpeed) / RobotConstants.elevatorEncoderTicks) * (Math.abs(Robot.elevatorSubsystem.getPosition())); 
         }
         if (inverted) { //inverts arcadeDrive
             speedOutput = -rightSpeed;
@@ -64,7 +66,7 @@ public class DriveTrainSubsystem extends Subsystem {
         }
 
         speedOutput = speedOutput * speedMultiplier;
-        turnOutput = turnOutput * speedTurnMultiplier;
+        turnOutput = turnOutput * turnMultiplier;
 
         bionicDrive.arcadeDrive(speedOutput, turnOutput);
     }
