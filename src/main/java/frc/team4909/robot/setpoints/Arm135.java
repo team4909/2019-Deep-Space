@@ -12,13 +12,18 @@ public class Arm135 extends Command {
 
     @Override
     protected void initialize() {
-        Robot.elevatorArmSubsystem.setAngle(RobotConstants.elevatorArmSetpointCargoIn);
+        Robot.elevatorArmSubsystem.setPosition(RobotConstants.elevatorArmSetpointCargoIn);
         setTimeout(1.5);
     }
 
     @Override
     protected boolean isFinished() {
         return isTimedOut();
+    }
+    @Override
+    protected void end() {
+        Robot.elevatorArmSubsystem.holdingPosition = Robot.elevatorArmSubsystem.getPosition();
+
     }
 
 }
