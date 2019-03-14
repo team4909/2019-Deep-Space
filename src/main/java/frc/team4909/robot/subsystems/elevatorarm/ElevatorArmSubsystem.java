@@ -34,7 +34,7 @@ public class ElevatorArmSubsystem extends Subsystem{
         elevatorArmSRX.configContinuousCurrentLimit(3);
         elevatorArmSRX.configPeakCurrentLimit(6);
         elevatorArmSRX.selectProfileSlot(0, 0);
-        elevatorArmSRX.config_kP(0, 0.1, 0);
+        elevatorArmSRX.config_kP(0, 3, 0);
         elevatorArmSRX.config_kI(0, 0);
         elevatorArmSRX.config_kD(0, 0, 0);
         holdCurrentPosition();        
