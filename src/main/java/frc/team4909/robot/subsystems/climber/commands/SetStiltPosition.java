@@ -1,7 +1,6 @@
 package frc.team4909.robot.subsystems.climber.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotConstants;
 import frc.team4909.robot.operator.controllers.BionicF310;
@@ -11,12 +10,6 @@ public class SetStiltPosition extends Command {
     public SetStiltPosition(){
         requires(Robot.climberSubsystem);
         requires(Robot.elevatorSubsystem);
-    }
-
-    protected void initialize() {
-        SmartDashboard.putString("end", "waiting");
-        SmartDashboard.putString("interrupted", "waiting");
-        SmartDashboard.putString("thisblock", "waiting");
     }
 
      @Override
@@ -50,28 +43,20 @@ public class SetStiltPosition extends Command {
 
         // no one is touching the joysticks
          if(moveSpeed==0 && moveStiltSpeed == 0 && moveElevatorSpeed == 0 && driveBothDown == 0 && driveBothUp == 0){
-             SmartDashboard.putString("thisblock", "1");
-
              Robot.climberSubsystem.setPosition(Robot.climberSubsystem.holdingStiltsPosition);
              Robot.elevatorSubsystem.setPosition(Robot.elevatorSubsystem.holdingPosition);
          }
          else if (moveSpeed != 0 && moveStiltSpeed == 0 && moveElevatorSpeed == 0 && driveBothDown == 0 && driveBothUp == 0) { // Elevator via manipulator gamepad
-            SmartDashboard.putString("thisblock", "2");
-
-            Robot.elevatorSubsystem.configReverseSoftLimit(true);
+            Robot.elevatorSubsystem.configReverseLimitSwitch(false);
             Robot.elevatorSubsystem.setSpeed(moveSpeed);
             Robot.elevatorSubsystem.holdingPosition = Robot.elevatorSubsystem.getPosition();
          }
          else if(moveSpeed == 0 && moveStiltSpeed != 0  && moveElevatorSpeed == 0 && driveBothDown == 0 && driveBothUp == 0){ // Stilts via climber gamepad
-            SmartDashboard.putString("thisblock", "3 here "+ moveStiltSpeed);
-
             Robot.climberSubsystem.setStiltsClimbSpeed(moveStiltSpeed);
             Robot.climberSubsystem.holdingStiltsPosition = Robot.climberSubsystem.getPosition();
         } 
         else if(moveElevatorSpeed != 0 && moveSpeed == 0 && moveStiltSpeed == 0 && driveBothDown == 0 && driveBothUp == 0){ // Elevator via climber gamepad
-            SmartDashboard.putString("thisblock", "5 here "+ moveElevatorSpeed);
-
-            Robot.elevatorSubsystem.configReverseSoftLimit(false);
+            Robot.elevatorSubsystem.configReverseLimitSwitch(true);
             Robot.elevatorSubsystem.setSpeed(moveElevatorSpeed);
             Robot.elevatorSubsystem.holdingPosition = Robot.elevatorSubsystem.getPosition();        }
         
@@ -101,7 +86,6 @@ public class SetStiltPosition extends Command {
             Robot.climberSubsystem.holdingStiltsPosition = climberPos;     
         }
         else {
-            SmartDashboard.putString("thisblock", "4"); // hold positions
             Robot.climberSubsystem.setSpeed(0);
             Robot.elevatorSubsystem.setPosition(Robot.elevatorSubsystem.holdingPosition);
             Robot.climberSubsystem.setPosition(Robot.climberSubsystem.holdingStiltsPosition);
@@ -132,18 +116,14 @@ public class SetStiltPosition extends Command {
     {
         double holdingPosition = Robot.elevatorSubsystem.holdingPosition;
         double holdingStiltsPosition = Robot.climberSubsystem.holdingStiltsPosition;
-        SmartDashboard.putString("interrupted",
-                "got interrupted: el=" + holdingPosition + ", st=" + holdingStiltsPosition);
+
         Robot.climberSubsystem.setPosition(Robot.climberSubsystem.holdingStiltsPosition);
         Robot.elevatorSubsystem.setPosition(Robot.elevatorSubsystem.holdingPosition);
-        SmartDashboard.putString("thisblock", "interr");
     }
 
 
     protected void end()
     {
-        SmartDashboard.putString("end", "got end");
-        SmartDashboard.putString("thisblock", "end");
     }
 
 

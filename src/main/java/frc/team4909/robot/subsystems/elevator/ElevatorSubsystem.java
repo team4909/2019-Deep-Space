@@ -5,7 +5,10 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 // import com.sun.org.apache.xerces.internal.xni.QName;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
+import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.RemoteLimitSwitchSource;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.InstantCommand;
@@ -155,8 +158,11 @@ public class ElevatorSubsystem extends Subsystem {
         leftMaster.selectProfileSlot(2, 0);
     }
 
-    public void configReverseSoftLimit(boolean enable) {
-        leftMaster.configReverseSoftLimitEnable(enable);
+    public void configReverseLimitSwitch(boolean override) {
+        if(override)
+            leftMaster.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.Disabled);
+        else
+            leftMaster.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
     }
 
     public void setSensorZero(){
