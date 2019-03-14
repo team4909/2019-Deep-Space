@@ -92,10 +92,6 @@ public class Robot extends TimedRobot {
   // Sensors
   public static LidarLitePWM lidar;
 
-  // SmartDashboard Buttons
-  public boolean CargoIntake;
-  public boolean CargoOuttake;
-
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
@@ -208,7 +204,7 @@ public class Robot extends TimedRobot {
     // elevatorSubsystem.reset();
     // climberSubsystem.reset();
     // elevatorArmSubsystem.reset(); 
-    
+
     Robot.elevatorSubsystem.holdingPosition = Robot.elevatorSubsystem.getPosition();
     Robot.elevatorArmSubsystem.holdingPosition = Robot.elevatorArmSubsystem.getPosition();
     Robot.climberSubsystem.holdingStiltsPosition = Robot.climberSubsystem.getPosition();
