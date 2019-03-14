@@ -5,13 +5,13 @@ import frc.team4909.robot.operator.generic.BionicAxis;
 public class RobotConstants {
   /* Operator Input */
   public static final double driverGamepadSensitivity = 0.6; // Value selected from 2018 code
-  public static final double driverGamepadDeadzone = 0.05; // Value selected from 2018 code
+  public static final double driverGamepadDeadzone = 0.1; // Value selected from 2018 code
 
   public static final double manipulatorGamepadSensitivity = 0.7; // Value selected from 2018 code
-  public static final double manipulatorGamepadDeadzone = 0.05; // Value selected from 2018 code
+  public static final double manipulatorGamepadDeadzone = 0.1; // Value selected from 2018 code
 
   public static final double climberGamepadSensitivity = 0.6; // Value selected from 2018 code
-  public static final double climberGamepadDeadzone = 0.05; // Value selected from 2018 code
+  public static final double climberGamepadDeadzone = 0.1; // Value selected from 2018 code
 
 
   /* Drivetrain */
