@@ -118,8 +118,9 @@ public class ClimberSubsystem extends Subsystem {
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Stilts position", getPosition());
-        SmartDashboard.putNumber("Stilts position holding", holdingStiltsPosition);
+        SmartDashboard.putNumber("Climber Stilts - Current Position", getPosition());
+        SmartDashboard.putNumber("Climber Stilts - Setpoint Position", holdingStiltsPosition);
+        SmartDashboard.putNumber("Climber Stilts - Setpoint Error", climberLiftMaster.getClosedLoopError());
     }
 
     protected void initDefaultCommand(){

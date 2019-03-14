@@ -54,7 +54,10 @@ public class IntakeSubsystem extends Subsystem {
 
     @Override
     public void periodic() {
-     //   System.out.println(hasCargo());
+        SmartDashboard.putNumber("Intake - Left IR Sensor Value", leftIRSensor.getVoltage());
+        SmartDashboard.putNumber("Intake - Right IR Sensor Value", rightIRSensor.getVoltage());
+
+        SmartDashboard.putBoolean("Intake - Has Cargo?", hasCargo());
     }
 
     public double getCargoIntakeCurrent() {
@@ -66,9 +69,6 @@ public class IntakeSubsystem extends Subsystem {
         // threshold.
         boolean currentHasCargo = leftIRSensor.getVoltage() > RobotConstants.irSensorThreshold
             || rightIRSensor.getVoltage() > RobotConstants.irSensorThreshold;
-
-        SmartDashboard.putNumber("Left IR Sensor Value", leftIRSensor.getVoltage());
-        SmartDashboard.putNumber("Right IR Sensor Value", rightIRSensor.getVoltage());
 
         boolean hasCargo = lastHasCargo && currentHasCargo;
         lastHasCargo = currentHasCargo;

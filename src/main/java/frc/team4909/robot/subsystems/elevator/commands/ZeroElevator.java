@@ -15,6 +15,5 @@ public class ZeroElevator extends InstantCommand {
     @Override
     protected void initialize() {
         Robot.elevatorSubsystem.reset();
-        SmartDashboard.putString("Elevator Status", "Resetting to "+ Robot.elevatorSubsystem.getPosition());
     }
 }

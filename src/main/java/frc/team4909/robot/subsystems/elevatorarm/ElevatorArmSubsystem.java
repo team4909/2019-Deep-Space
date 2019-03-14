@@ -69,7 +69,9 @@ public class ElevatorArmSubsystem extends Subsystem{
     
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Wrist position", elevatorArmSRX.getSelectedSensorPosition());
+        SmartDashboard.putNumber("Intake Wrist - Current Position", elevatorArmSRX.getSelectedSensorPosition());
+        SmartDashboard.putNumber("Intake Wrist - Setpoint Position", holdingPosition);
+        SmartDashboard.putNumber("Intake Wrist - Setpoint Error", elevatorArmSRX.getClosedLoopError());
     }
 
     @Override

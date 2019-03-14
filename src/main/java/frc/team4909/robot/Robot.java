@@ -161,20 +161,6 @@ public class Robot extends TimedRobot {
     manipulatorGamepad.buttonPressed(BionicF310.A, new Arm135()); // tune first
     manipulatorGamepad.buttonPressed(BionicF310.B, new Arm90()); // tune first
     manipulatorGamepad.buttonPressed(BionicF310.Y, new Arm45()); // tune first
-
-    /* User Interface Setpoints */
-
-    // all of the following setpoints set both the elevator and the elevator arm
-    SmartDashboard.putData("Rocket Cargo High", new CargoHigh()); // top cargo spot
-    SmartDashboard.putData("Rocket Cargo Middle", new CargoMiddle()); // middle cargo spot
-    SmartDashboard.putData("Rocket Cargo Low", new CargoLow()); // bottom cargo spot
-    SmartDashboard.putData("Ship Cargo", new CargoShip()); // cargo spot for ship
-    SmartDashboard.putData("Rocket Hatch High", new HatchHigh()); // top hatch spot
-    SmartDashboard.putData("Rocket Hatch Middle", new HatchMiddle()); // middle hatch spot
-    SmartDashboard.putData("Rocket Hatch Low", new HatchLow()); // bottom hatch spot
-    SmartDashboard.putData("Ship Hatch", new HatchLow()); // bottom hatch spot
-
-    SmartDashboard.putBoolean("Has Cargo?", intakeSubsystem.hasCargo());
   }
 
   /**
@@ -191,10 +177,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Time Remaining", DriverStation.getInstance().getMatchTime());//Useful Method to get match data.
     // process();
     Scheduler.getInstance().run();
-
-    SmartDashboard.putNumber("Elevator encoder position", Robot.elevatorSubsystem.getPosition());
-    SmartDashboard.putNumber("Arm encoder position", Robot.elevatorArmSubsystem.getPosition());
-
   }
 
   @Override
@@ -226,12 +208,10 @@ public class Robot extends TimedRobot {
     // elevatorSubsystem.reset();
     // climberSubsystem.reset();
     // elevatorArmSubsystem.reset(); 
+    
     Robot.elevatorSubsystem.holdingPosition = Robot.elevatorSubsystem.getPosition();
     Robot.elevatorArmSubsystem.holdingPosition = Robot.elevatorArmSubsystem.getPosition();
     Robot.climberSubsystem.holdingStiltsPosition = Robot.climberSubsystem.getPosition();
-
-    SmartDashboard.putNumber("Holding Position", Robot.climberSubsystem.holdingStiltsPosition);
-    SmartDashboard.putNumber("Actual position", Robot.climberSubsystem.getPosition());
   }
 
   @Override
