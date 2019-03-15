@@ -1,0 +1,203 @@
+{
+  "tabPane": [
+    {
+      "title": "Driver Station",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "0,0": {
+            "size": [
+              11,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Time Remaining",
+              "_title": "SmartDashboard/Time Remaining"
+            }
+          },
+          "0,1": {
+            "size": [
+              11,
+              5
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Intake - Has Cargo?",
+              "_title": "SmartDashboard/Intake - Has Cargo?",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Debugging",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "0,2": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "IR Sensors",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Intake - Left IR Sensor Value",
+                  "_title": "SmartDashboard/Intake - Left IR Sensor Value"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Intake - Right IR Sensor Value",
+                  "_title": "SmartDashboard/Intake - Right IR Sensor Value"
+                }
+              ]
+            }
+          },
+          "0,0": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Climber Stilts",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Climber Stilts - Current Position",
+                  "_title": "SmartDashboard/Climber Stilts - Current Position"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Climber Stilts - Setpoint Error",
+                  "_title": "SmartDashboard/Climber Stilts - Setpoint Error"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Climber Stilts - Setpoint Position",
+                  "_title": "SmartDashboard/Climber Stilts - Setpoint Position"
+                }
+              ]
+            }
+          },
+          "3,0": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Elevator Carriage",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Elevator Carriage - Current Position",
+                  "_title": "SmartDashboard/Elevator Carriage - Current Position"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Elevator Carriage - Setpoint Error",
+                  "_title": "SmartDashboard/Elevator Carriage - Setpoint Error"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Elevator Carriage - Setpoint Position",
+                  "_title": "SmartDashboard/Elevator Carriage - Setpoint Position"
+                }
+              ]
+            }
+          },
+          "6,0": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Intake Wrist",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Intake Wrist - Current Position",
+                  "_title": "SmartDashboard/Intake Wrist - Current Position"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Intake Wrist - Setpoint Error",
+                  "_title": "SmartDashboard/Intake Wrist - Setpoint Error"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Intake Wrist - Setpoint Position",
+                  "_title": "SmartDashboard/Intake Wrist - Setpoint Position"
+                }
+              ]
+            }
+          },
+          "3,2": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "PDP",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistributionPanel[0]",
+              "_title": "PDP",
+              "Visuals/Show voltage and current values": true
+            }
+          },
+          "6,3": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Intake - Has Cargo?",
+              "_title": "Has Cargo?",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "6,2": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Time Remaining",
+              "_title": "Time Remaining"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "windowGeometry": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 1680.0,
+    "height": 1050.0
+  }
+}
