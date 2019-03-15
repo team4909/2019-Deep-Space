@@ -22,3 +22,4 @@ bin/
 out/
 hs_err_*
 .vscode/
+node_modules

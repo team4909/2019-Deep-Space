@@ -88,7 +88,7 @@ function connect(camera)
 
                 bitrate = pluginHandle.getBitrate();
                 videoElem = document.getElementById("video" + camera);
-                resolutionElem =
+                resolutionElem = 
                   document.getElementById("resolution" + camera);
 
                 // Display updated bitrate, if supported
