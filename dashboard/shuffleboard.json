@@ -12,7 +12,7 @@
         "tiles": {
           "0,0": {
             "size": [
-              11,
+              9,
               1
             ],
             "content": {
@@ -23,7 +23,7 @@
           },
           "0,1": {
             "size": [
-              11,
+              9,
               5
             ],
             "content": {
@@ -98,34 +98,6 @@
               ]
             }
           },
-          "3,0": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "List Layout",
-              "_title": "Elevator Carriage",
-              "Layout/Label position": "BOTTOM",
-              "_children": [
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Elevator Carriage - Current Position",
-                  "_title": "SmartDashboard/Elevator Carriage - Current Position"
-                },
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Elevator Carriage - Setpoint Error",
-                  "_title": "SmartDashboard/Elevator Carriage - Setpoint Error"
-                },
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Elevator Carriage - Setpoint Position",
-                  "_title": "SmartDashboard/Elevator Carriage - Setpoint Position"
-                }
-              ]
-            }
-          },
           "6,0": {
             "size": [
               3,
@@ -188,6 +160,34 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Time Remaining",
               "_title": "Time Remaining"
+            }
+          },
+          "3,0": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Elevator Carriage",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Elevator - Current Position",
+                  "_title": "/SmartDashboard/Elevator - Current Position"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Elevator - Setpoint Error",
+                  "_title": "/SmartDashboard/Elevator - Setpoint Error"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Elevator - Setpoint Position",
+                  "_title": "/SmartDashboard/Elevator - Setpoint Position"
+                }
+              ]
             }
           }
         }
