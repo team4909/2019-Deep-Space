@@ -7,13 +7,26 @@ public class RobotConstants {
   public static final double driverGamepadSensitivity = 0.6; // Value selected from 2018 code
   public static final double driverGamepadDeadzone = 0.05; // Value selected from 2018 code
 
-  public static final double manipulatorGamepadSensitivity = 0.6; // Value selected from 2018 code
+  public static final double manipulatorGamepadSensitivity = 0.7; // Value selected from 2018 code
   public static final double manipulatorGamepadDeadzone = 0.05; // Value selected from 2018 code
 
+  public static final double climberGamepadSensitivity = 0.6; // Value selected from 2018 code
+  public static final double climberGamepadDeadzone = 0.05; // Value selected from 2018 code
+
+
   /* Drivetrain */
-  public static final double speedMultiplier = .7;
-  public static final double speedTurnMultiplier = .5;
-  public static final double speedTurnPreciseMultiplier = .4;
+  //TODO: Tune values
+
+  public static double speedMultiplier = 0.7; 
+  //0.7 is the desired multiplier speed at bottom; 0.1 is desired multiplier speed at top; 5000 is total height in encoder ticks
+  public static double speedTurnMultiplier = 0.5; // As height increases, decrease speed ; calculation: 0.5 - (0.5-0.1)/5000
+
+  public static final double topSpeed = 0.7; // desired values for when elevator is at bottom
+  public static final double topTurnSpeed = 0.5; // desired values for when elevator is at bottom
+  public static final double minDriveSpeed = 0.3; // Min velocity when elevator is at top
+  public static final double elevatorEncoderTicks = 51000; // total height of elevator
+
+  public static final double speedTurnPreciseMultiplier = .4; // value when precise mode is activated; slows the turn; doesn't affect speed
 
   /* Intake */
   public static final double cargoIntakeInSpeed = 1.0;
@@ -38,7 +51,7 @@ public class RobotConstants {
 
   /* Elevator */
   public static final double elevatorSpeedMultiplier = 0.5; // Multiplier for elevator speed
-  public static final double elevatorArmSpeedMultiplier = 0.75; // Multiplier for elevator arm speed
+  public static final double elevatorArmSpeedMultiplier = 0.3; // Multiplier for elevator arm speed
 
   public static final double initialp = 0.1;
   public static final double initiali = 0;
@@ -48,7 +61,7 @@ public class RobotConstants {
   public static final double newi = 0;
   public static final double newd = 0;
 
-  /* Elevator Setpoints */
+  /* Elevator Setpoints */ // TODO: need to be tuned
   public static final int elevatorSetpointHatchLow = 0; // Bottom hatch position
   public static final int elevatorSetpointHatchMiddle = -25300; // Middle hatch position
   public static final int elevatorSetpointHatchHigh = -51300; // Top hatch position
@@ -58,8 +71,11 @@ public class RobotConstants {
   public static final int elevatorSetpointCargoHigh = -20000;
   public static final int elevatorSetpointCargoShip = -25300;
 
-  public static final int elevatorArmSetpoint90 = 90;
-  public static final int elevatorArmSetpoint45 = 45;
+  public static final int elevatorArmSetpointZero = 0; // makes arm upright
+  
+  public static final int elevatorArmSetpointHatch = -845;  // horizontal arm
+  public static final int elevatorArmSetpointCargoOut = -375 ; // 45 degrees up
+  public static final int elevatorArmSetpointCargoIn = -1000; // 45 degrees down
   /* Linefollow */
   public static final double fastVelocity = 0.7;
   public static final double mediumVelocity = 0.5; // constant velocity given to both motors
@@ -69,9 +85,10 @@ public class RobotConstants {
   public static final double climberStiltSpeed = 0.5;
   public static final double climberDriveSpeedAuto = 0.2;
   public static final double climberDriveSpeedManual = 0.5;
-  public static final double elevatorClimbSpeed = 0.3;
   public static final double climbSpeedMultiplier = 0.5;
+  public static final double climbBothSpeedMultiplier = 0.3;
   public static final double climbVelocityMultiplier = 800;
+  public static final double liftClimbSpeed = 0.3;
 
 
   /* Timeout */

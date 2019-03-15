@@ -2,7 +2,6 @@ package frc.team4909.robot.subsystems.drivetrain;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotConstants;
 
@@ -23,8 +22,6 @@ public class Linefollow extends Command {
     }
 
     protected void execute() {
-        SmartDashboard.putBoolean("LEFT line following", !leftSensor.get());
-        SmartDashboard.putBoolean("RIGHT line following", !rightSensor.get());
         // boolean outsideLeft = leftSensor.get();
         boolean leftOffLine = leftSensor.get(); // true = sensor is OFF line; false = sensor is ON line
         boolean rightOffLine = rightSensor.get(); // true = sensor is OFF line; false = sensor is ON line

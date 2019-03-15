@@ -18,24 +18,26 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 public class ElevatorArmSubsystem extends Subsystem{
     TalonSRX elevatorArmSRX;
 
-    public int holdingPosition;
+    public int holdingPosition = 0;
 
     public ElevatorArmSubsystem(){
         //Elevator arm
+        super();
         elevatorArmSRX = new TalonSRX(RobotMap.elevatorArmSRXID);
+        elevatorArmSRX.configFactoryDefault();
+
 
         // elevatorArmSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-        elevatorArmSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
+        elevatorArmSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
         //update();       
         elevatorArmSRX.setNeutralMode(NeutralMode.Brake);
         elevatorArmSRX.configContinuousCurrentLimit(3);
         elevatorArmSRX.configPeakCurrentLimit(6);
         elevatorArmSRX.selectProfileSlot(0, 0);
-        elevatorArmSRX.config_kP(0, 0.5, 0);
+        elevatorArmSRX.config_kP(0, 3, 0);
         elevatorArmSRX.config_kI(0, 0);
-        elevatorArmSRX.config_kD(0, 0.5, 0);
-        holdingPosition = elevatorArmSRX.getSelectedSensorPosition();
-        
+        elevatorArmSRX.config_kD(0, 0, 0);
+        holdCurrentPosition();        
     }
 
 
@@ -57,12 +59,19 @@ public class ElevatorArmSubsystem extends Subsystem{
         elevatorArmSRX.set(ControlMode.Position, position);
     }
     public void reset(){
+        holdingPosition = getPosition();
+    }
+
+    public void setSensorZero(){
         elevatorArmSRX.setSelectedSensorPosition(0);
+        holdingPosition = 0;
     }
     
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Wrist position", elevatorArmSRX.getSelectedSensorPosition());
+        SmartDashboard.putNumber("Intake Wrist - Current Position", elevatorArmSRX.getSelectedSensorPosition());
+        SmartDashboard.putNumber("Intake Wrist - Setpoint Position", holdingPosition);
+        SmartDashboard.putNumber("Intake Wrist - Setpoint Error", elevatorArmSRX.getClosedLoopError());
     }
 
     @Override

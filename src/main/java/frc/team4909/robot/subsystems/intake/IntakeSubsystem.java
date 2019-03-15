@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotConstants;
 import frc.team4909.robot.RobotMap;
@@ -15,6 +16,7 @@ import frc.team4909.robot.subsystems.intake.commands.HatchPanelIntakeClose;
 public class IntakeSubsystem extends Subsystem {
     DoubleSolenoid hatchPanelSolenoid;
     WPI_VictorSPX cargoIntakeMotor;
+    boolean lastHasCargo;
 
     AnalogInput leftIRSensor, rightIRSensor;
 
@@ -34,13 +36,28 @@ public class IntakeSubsystem extends Subsystem {
         hatchPanelSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
 
-    public void setCargoIntakeSpeed(double speed) {
-        speed = -speed;
+    public void holdCargoIntake(){
         if(hasCargo()){
-            speed = 0.0;
+            setCargoIntakeSpeed(RobotConstants.cargoIntakeHoldSpeed);
+        } else {
+            setCargoIntakeSpeed(0);
         }
-        //System.out.println(getCargoIntakeCurrent());
-        cargoIntakeMotor.set(speed);
+    }
+
+    public void setCargoIntakeSpeed(double speed) {
+        if(hasCargo() && speed > 0){
+            speed = RobotConstants.cargoIntakeHoldSpeed;
+        }
+
+        cargoIntakeMotor.set(-speed);
+    }
+
+    @Override
+    public void periodic() {
+        SmartDashboard.putNumber("Intake - Left IR Sensor Value", leftIRSensor.getVoltage());
+        SmartDashboard.putNumber("Intake - Right IR Sensor Value", rightIRSensor.getVoltage());
+
+        SmartDashboard.putBoolean("Intake - Has Cargo?", hasCargo());
     }
 
     public double getCargoIntakeCurrent() {
@@ -50,8 +67,13 @@ public class IntakeSubsystem extends Subsystem {
     public boolean hasCargo() {
         // When either IR Sensor Voltage Reading is Higher than the predetermined
         // threshold.
-        return leftIRSensor.getVoltage() > RobotConstants.irSensorThreshold
-                || rightIRSensor.getVoltage() > RobotConstants.irSensorThreshold;
+        boolean currentHasCargo = leftIRSensor.getVoltage() > RobotConstants.irSensorThreshold
+            || rightIRSensor.getVoltage() > RobotConstants.irSensorThreshold;
+
+        boolean hasCargo = lastHasCargo && currentHasCargo;
+        lastHasCargo = currentHasCargo;
+
+        return hasCargo;
     }
 
     @Override

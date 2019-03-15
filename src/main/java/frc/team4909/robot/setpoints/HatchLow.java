@@ -14,7 +14,7 @@ public class HatchLow extends Command {
     @Override
     protected void initialize() {
         Robot.elevatorSubsystem.setPosition(RobotConstants.elevatorSetpointHatchLow);
-        Robot.elevatorArmSubsystem.setAngle(RobotConstants.elevatorArmSetpoint90);
+        Robot.elevatorArmSubsystem.setAngle(RobotConstants.elevatorArmSetpointHatch);
         setTimeout(1.5);
     }
 
