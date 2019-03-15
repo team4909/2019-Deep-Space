@@ -5,7 +5,10 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 // import com.sun.org.apache.xerces.internal.xni.QName;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
+import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.RemoteLimitSwitchSource;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.InstantCommand;
@@ -44,6 +47,8 @@ public class ElevatorSubsystem extends Subsystem {
         // Lets clear any sticky settings to ensure we use the settings configured below
         leftMaster.configFactoryDefault();
 
+        leftMaster.configClearPositionOnLimitR(true, RobotConstants.timeoutMs);
+
         // We want Relative to use the quadrature output of the encoder.
         // Absolute is only good if the output rotates less than 1 revolution
         leftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
@@ -69,7 +74,7 @@ public class ElevatorSubsystem extends Subsystem {
         leftMaster.setInverted(false);
         leftSlave.setInverted(false);
         rightSlave1.setInverted(true);
-        rightSlave2.setInverted(true);
+        rightSlave2.setInverted(false);
 
         //@todo what is the point of this?
         leftMaster.configPeakOutputForward(.4, RobotConstants.timeoutMs);
@@ -97,15 +102,15 @@ public class ElevatorSubsystem extends Subsystem {
 
         // When the code starts (IE robot powered on) call that zero.
         // @note operators will need to setup the carriage in the same place each match.
-        reset();
+        // reset();
 
     }
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Elevator position", getPosition());
-        SmartDashboard.putNumber("Elevator position Holding", holdingPosition);
-        SmartDashboard.putNumber("Elevator error", getError());
+        SmartDashboard.putNumber("Elevator Carriage - Current Position", getPosition());
+        SmartDashboard.putNumber("Elevator Carriage - Setpoint Position", holdingPosition);
+        SmartDashboard.putNumber("Elevator Carriage - Setpoint Error", getError());
     }
 
     @Override
@@ -117,7 +122,7 @@ public class ElevatorSubsystem extends Subsystem {
     // Zero the relative encoder
     public void reset() {
         leftMaster.setSelectedSensorPosition(0);
-        holdingPosition = 0;
+        
     }
 
     public void setSpeed(double speed) { // set elevator speed value
@@ -151,5 +156,17 @@ public class ElevatorSubsystem extends Subsystem {
 
     public void setNewPIDValues() {
         leftMaster.selectProfileSlot(2, 0);
+    }
+
+    public void configReverseLimitSwitch(boolean override) {
+        if(override)
+            leftMaster.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.Disabled);
+        else
+            leftMaster.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+    }
+
+    public void setSensorZero(){
+        leftMaster.setSelectedSensorPosition(0);
+        holdingPosition = 0;
     }
 }

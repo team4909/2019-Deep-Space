@@ -51,7 +51,7 @@ public class RobotMap {
 
   /* Climber */
   public static final int climberMasterSRXID = 10;
-  public static final int climberSlaveSPXID = 12; // @todo not on robot yet
+  public static final int climberSlaveSPXID = 2; // @todo not on robot yet
   public static final int climberDriveSPXID = 11;
 
   /* Sensors */

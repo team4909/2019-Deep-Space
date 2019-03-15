@@ -6,19 +6,24 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.team4909.robot.operator.controllers.BionicF310;
 import frc.team4909.robot.operator.controllers.FlightStick;
 import frc.team4909.robot.operator.generic.BionicPOV;
 import frc.team4909.robot.sensors.LidarLitePWM;
 import frc.team4909.robot.sensors.Stream;
-import frc.team4909.robot.setpoints.CargoIntakeOnly;
-import frc.team4909.robot.setpoints.CargoOutOnly;
+import frc.team4909.robot.setpoints.Arm0;
+import frc.team4909.robot.setpoints.Arm90;
+import frc.team4909.robot.setpoints.CargoHigh;
+import frc.team4909.robot.setpoints.CargoLow;
+import frc.team4909.robot.setpoints.CargoMiddle;
+import frc.team4909.robot.setpoints.CargoShip;
+import frc.team4909.robot.setpoints.HatchHigh;
 import frc.team4909.robot.setpoints.HatchLow;
 import frc.team4909.robot.setpoints.HatchMiddle;
-import frc.team4909.robot.setpoints.HatchOnly;
+import frc.team4909.robot.setpoints.Arm135;
+import frc.team4909.robot.setpoints.Arm45;
 import frc.team4909.robot.subsystems.climber.ClimberSubsystem;
-import frc.team4909.robot.subsystems.climber.commands.BothLiftDown;
-import frc.team4909.robot.subsystems.climber.commands.BothLiftUp;
 import frc.team4909.robot.subsystems.climber.commands.DriveStiltsBack;
 import frc.team4909.robot.subsystems.climber.commands.DriveStiltsForward;
 import frc.team4909.robot.subsystems.climber.commands.StiltsDownOnly;
@@ -87,10 +92,6 @@ public class Robot extends TimedRobot {
   // Sensors
   public static LidarLitePWM lidar;
 
-  // SmartDashboard Buttons
-  public boolean CargoIntake;
-  public boolean CargoOuttake;
-
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
@@ -132,8 +133,8 @@ public class Robot extends TimedRobot {
     );
 
     climberGamepad = new BionicF310(RobotMap.climberGamepadPort, // Port
-        RobotConstants.manipulatorGamepadDeadzone, // Deadzone
-        RobotConstants.manipulatorGamepadSensitivity // Gamepad sensitivity
+        RobotConstants.climberGamepadDeadzone, // Deadzone
+        RobotConstants.climberGamepadSensitivity // Gamepad sensitivity
     );
 
 
@@ -143,10 +144,8 @@ public class Robot extends TimedRobot {
     manipulatorGamepad.buttonHeld(BionicF310.RB, new HatchPanelIntakeOpen());
 
     /* Climber */
-    climberGamepad.buttonHeld(BionicF310.RB, new StiltsUpOnly());
-    climberGamepad.buttonHeld(BionicF310.LB, new StiltsDownOnly());
-    climberGamepad.povActive(BionicF310.Top, new BothLiftUp()); 
-    climberGamepad.povActive(BionicF310.Bottom, new BothLiftDown());
+    // climberGamepad.buttonHeld(BionicF310.RB, new StiltsUpOnly());
+    // climberGamepad.buttonHeld(BionicF310.LB, new StiltsDownOnly());
 
 
     /* Sensors/Misc. */
@@ -155,13 +154,9 @@ public class Robot extends TimedRobot {
     // manipulatorGamepad.buttonPressed(BionicF310.X, new ToggleCamera());
 
     /* Arm Setpoints */
-    manipulatorGamepad.buttonPressed(BionicF310.A, new CargoIntakeOnly());
-    manipulatorGamepad.buttonPressed(BionicF310.B, new HatchOnly());
-    manipulatorGamepad.buttonPressed(BionicF310.Y, new CargoOutOnly());
-
-
-    SmartDashboard.putData(new ZeroElevator());
-    SmartDashboard.putData(new ZeroStilts());
+    manipulatorGamepad.buttonPressed(BionicF310.A, new Arm135()); // tune first
+    manipulatorGamepad.buttonPressed(BionicF310.B, new Arm90()); // tune first
+    manipulatorGamepad.buttonPressed(BionicF310.Y, new Arm45()); // tune first
   }
 
   /**
@@ -175,13 +170,16 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-
+    SmartDashboard.putNumber("Time Remaining", DriverStation.getInstance().getMatchTime());//Useful Method to get match data.
     // process();
     Scheduler.getInstance().run();
   }
 
   @Override
   public void autonomousInit() {
+    elevatorSubsystem.setSensorZero();
+    elevatorArmSubsystem.setSensorZero();
+    climberSubsystem.setSensorZero();
   }
 
   /**
@@ -203,9 +201,13 @@ public class Robot extends TimedRobot {
 @Override
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
-    elevatorSubsystem.reset();
-    climberSubsystem.reset();
-    elevatorArmSubsystem.reset();
+    // elevatorSubsystem.reset();
+    // climberSubsystem.reset();
+    // elevatorArmSubsystem.reset(); 
+
+    Robot.elevatorSubsystem.holdingPosition = Robot.elevatorSubsystem.getPosition();
+    Robot.elevatorArmSubsystem.holdingPosition = Robot.elevatorArmSubsystem.getPosition();
+    Robot.climberSubsystem.holdingStiltsPosition = Robot.climberSubsystem.getPosition();
   }
 
   @Override

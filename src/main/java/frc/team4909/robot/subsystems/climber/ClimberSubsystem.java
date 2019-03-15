@@ -45,12 +45,12 @@ public class ClimberSubsystem extends Subsystem {
         // Set all controllers to coast in case the stilts drop down or hit something
         // during a match
         climberDriveSPX.setNeutralMode(NeutralMode.Brake);
-        climberLiftMaster.setNeutralMode(NeutralMode.Coast);
-        climberLiftSlave.setNeutralMode(NeutralMode.Coast);
+        climberLiftMaster.setNeutralMode(NeutralMode.Brake);
+        climberLiftSlave.setNeutralMode(NeutralMode.Brake);
 
         // Pick a value so that positive PercentOutput yields a positive change in
         // sensor
-        climberLiftMaster.setSensorPhase(false); // @todo validate correct
+        climberLiftMaster.setSensorPhase(true); // @todo validate correct
 
         // One side needs to be inverted so the motors spin in the same direction
         climberLiftMaster.setInverted(true);
@@ -73,8 +73,8 @@ public class ClimberSubsystem extends Subsystem {
 
     // Zero the relative encoder
     public void reset(){
-        climberLiftMaster.setSelectedSensorPosition(0);
-        holdingStiltsPosition = 0;
+        // climberLiftMaster.setSelectedSensorPosition(0);
+        holdingStiltsPosition = getPosition();
     }
 
     // Spin the wheels on the bottom of the stilts to move the robot forward
@@ -109,13 +109,18 @@ public class ClimberSubsystem extends Subsystem {
     public void setPosition(int pos) {
         climberLiftMaster.set(ControlMode.Position, pos);
     }
+    public void setSensorZero(){
+        climberLiftMaster.setSelectedSensorPosition(0);
+        holdingStiltsPosition = 0;
+    }
 
    
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Stilts position", getPosition());
-        SmartDashboard.putNumber("Stilts position holding", holdingStiltsPosition);
+        SmartDashboard.putNumber("Climber Stilts - Current Position", getPosition());
+        SmartDashboard.putNumber("Climber Stilts - Setpoint Position", holdingStiltsPosition);
+        SmartDashboard.putNumber("Climber Stilts - Setpoint Error", climberLiftMaster.getClosedLoopError());
     }
 
     protected void initDefaultCommand(){
