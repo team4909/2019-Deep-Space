@@ -7,6 +7,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team4909.robot.RobotMap;
 import frc.team4909.robot.operator.controllers.BionicF310;
 import frc.team4909.robot.Robot;
@@ -52,13 +53,13 @@ public class DriveTrainSubsystem extends Subsystem {
     public void arcadeDrive(double leftSpeed, double rightSpeed) {
         double speedOutput = leftSpeed;
         double turnOutput = rightSpeed;
-        if (preciseMode == true){
-            turnMultiplier = RobotConstants.speedTurnPreciseMultiplier;
-            speedMultiplier = RobotConstants.topSpeed  - ((RobotConstants.topSpeed - RobotConstants.minDriveSpeed) / RobotConstants.elevatorEncoderTicks) * (Math.abs(Robot.elevatorSubsystem.getPosition())); 
+        if (preciseMode == true) {
+            turnMultiplier = RobotConstants.turnPreciseMultiplier;
+            speedMultiplier = RobotConstants.drivePreciseMultiplier;
 
-        } else{
-            turnMultiplier = RobotConstants.topTurnSpeed  - ((RobotConstants.topTurnSpeed - RobotConstants.minDriveSpeed) / RobotConstants.elevatorEncoderTicks) * (Math.abs(Robot.elevatorSubsystem.getPosition())); 
-            speedMultiplier = RobotConstants.topSpeed  - ((RobotConstants.topSpeed - RobotConstants.minDriveSpeed) / RobotConstants.elevatorEncoderTicks) * (Math.abs(Robot.elevatorSubsystem.getPosition())); 
+        } else {
+            turnMultiplier = RobotConstants.maxTurnSpeed  - ((RobotConstants.maxTurnSpeed - RobotConstants.minTurnSpeed) / RobotConstants.elevatorEncoderTicks) * (Math.abs(Robot.elevatorSubsystem.getPosition())); 
+            speedMultiplier = RobotConstants.maxDriveSpeed  - ((RobotConstants.maxDriveSpeed - RobotConstants.minDriveSpeed) / RobotConstants.elevatorEncoderTicks) * (Math.abs(Robot.elevatorSubsystem.getPosition())); 
         }
         if (inverted) { //inverts arcadeDrive
             speedOutput = -rightSpeed;
@@ -75,11 +76,16 @@ public class DriveTrainSubsystem extends Subsystem {
         inverted = !inverted;
     }
 
-    public void swapTurnSpeed() {
+    public void togglePreciseMode() {
         preciseMode = !preciseMode;
     }
 
     protected void initDefaultCommand() {
         setDefaultCommand(new Drive());
+    }
+
+    @Override
+    public void periodic() {
+        SmartDashboard.putBoolean("Drivatrain - Precise", preciseMode);
     }
 }

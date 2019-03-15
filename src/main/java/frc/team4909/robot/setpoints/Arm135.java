@@ -12,7 +12,7 @@ public class Arm135 extends Command {
 
     @Override
     protected void initialize() {
-        Robot.elevatorArmSubsystem.setPosition(RobotConstants.elevatorArmSetpointCargoIn);
+        Robot.elevatorArmSubsystem.setPosition(RobotConstants.wristSetpointCargoIn);
         setTimeout(1.5);
     }
 

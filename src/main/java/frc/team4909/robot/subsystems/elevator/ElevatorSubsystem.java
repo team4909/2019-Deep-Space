@@ -76,9 +76,9 @@ public class ElevatorSubsystem extends Subsystem {
         rightSlave1.setInverted(true);
         rightSlave2.setInverted(false);
 
-        //@todo what is the point of this?
-        leftMaster.configPeakOutputForward(.4, RobotConstants.timeoutMs);
-        leftMaster.configPeakOutputReverse(-.4, RobotConstants.timeoutMs);
+        //Limit the max percent output
+        leftMaster.configPeakOutputForward(RobotConstants.elevatorMaxSpeedUp, RobotConstants.timeoutMs);
+        leftMaster.configPeakOutputReverse(RobotConstants.elevatorMaxSpeedDown, RobotConstants.timeoutMs);
 
         final int primarySlotIdx = 1;
         final int pidIdx = 0;
@@ -108,10 +108,12 @@ public class ElevatorSubsystem extends Subsystem {
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Elevator Carriage - Current Position", getPosition());
-        SmartDashboard.putNumber("Elevator Carriage - Setpoint Position", holdingPosition);
-        SmartDashboard.putNumber("Elevator Carriage - Setpoint Error", getError());
+        SmartDashboard.putNumber("Elevator test", Math.random());
+        SmartDashboard.putNumber("Elevator - Current Position", getPosition());
+        SmartDashboard.putNumber("Elevator - Setpoint Position", holdingPosition);
+        SmartDashboard.putNumber("Elevator - Setpoint Error", getError());
     }
+
 
     @Override
     protected void initDefaultCommand() {

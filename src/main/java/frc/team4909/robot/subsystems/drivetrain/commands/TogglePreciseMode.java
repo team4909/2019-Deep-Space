@@ -3,21 +3,20 @@ package frc.team4909.robot.subsystems.drivetrain.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team4909.robot.Robot;
 
-public class SwapTurnSpeed extends Command {
-    public SwapTurnSpeed() {
+public class TogglePreciseMode extends Command {
+    public TogglePreciseMode() {
         requires(Robot.drivetrainSubsystem);
     }
 
     protected void initialize() {
-        Robot.drivetrainSubsystem.swapTurnSpeed();
+        Robot.drivetrainSubsystem.togglePreciseMode();
     }
 
     protected void end(){
-        Robot.drivetrainSubsystem.swapTurnSpeed();
     }
 
     @Override
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 }

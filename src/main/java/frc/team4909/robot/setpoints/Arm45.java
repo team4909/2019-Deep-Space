@@ -12,7 +12,7 @@ public class Arm45 extends Command {
 
     @Override
     protected void initialize() {
-        Robot.elevatorArmSubsystem.setPosition(RobotConstants.elevatorArmSetpointCargoOut);
+        Robot.elevatorArmSubsystem.setPosition(RobotConstants.wristSetpointCargoScore);
         setTimeout(1.5);
     }
 
