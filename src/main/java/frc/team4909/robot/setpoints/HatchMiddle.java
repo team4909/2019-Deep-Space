@@ -14,7 +14,7 @@ public class HatchMiddle extends Command {
     @Override
     protected void initialize() {
         Robot.elevatorSubsystem.setPosition(RobotConstants.elevatorSetpointHatchMiddle);
-        Robot.elevatorArmSubsystem.setAngle(RobotConstants.elevatorArmSetpointHatch);
+        Robot.elevatorArmSubsystem.setAngle(RobotConstants.wristSetpointHatch);
         setTimeout(1.5);
     }
 

@@ -49,7 +49,7 @@ public class BionicJoystick extends Joystick {
     public void povActive(BionicPOV povAngle, Command command) {
         BionicJoystickPOVButton newPov = new BionicJoystickPOVButton(this, povAngle.getNumber());
 
-        newPov.whenActive(command);
+        newPov.whileActive(command);
     }
 
     /**

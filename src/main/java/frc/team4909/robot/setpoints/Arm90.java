@@ -5,20 +5,25 @@ import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotConstants;
 
 
-public class CargoIntakeOnly extends Command {
-    public CargoIntakeOnly(){
+public class Arm90 extends Command {
+    public Arm90(){
         requires(Robot.elevatorArmSubsystem);
     }
 
     @Override
     protected void initialize() {
-        Robot.elevatorArmSubsystem.setAngle(RobotConstants.elevatorArmSetpointCargoIn);
+        Robot.elevatorArmSubsystem.setPosition(RobotConstants.wristSetpointHatch);
         setTimeout(1.5);
     }
 
     @Override
     protected boolean isFinished() {
         return isTimedOut();
+    }
+    @Override
+    protected void end() {
+        Robot.elevatorArmSubsystem.holdingPosition = Robot.elevatorArmSubsystem.getPosition();
+
     }
 
 }

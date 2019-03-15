@@ -10,14 +10,12 @@ import edu.wpi.first.cameraserver.CameraServer;
 //Init of Camera and Bandwidth control.
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Stream {
 
   boolean seeHatchCam = true;
   public void toggleCamera(){
       seeHatchCam = !seeHatchCam;
-      SmartDashboard.putBoolean("Seeing Hatch Cam", seeHatchCam);
   }
   //Max Bandwidth: 4mbps, 1.6 for each camera.
   public Stream(){
@@ -55,13 +53,11 @@ public class Stream {
               //Show Camera for Hatches
               intakeServer.addCamera(camera2);
               intakeServer.removeCamera(camera3.getName());
-              SmartDashboard.putString("Intake Cam", "Source set to Hatch Cam");
 
           } else {
               //Show Cargo Intake Camera
               intakeServer.addCamera(camera3);
               intakeServer.removeCamera(camera2.getName());
-              SmartDashboard.putString("Intake Cam", "Source set to Cargo Cam");
           }
   }
   }).start();

@@ -5,22 +5,25 @@ import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotConstants;
 
 
-public class CargoHigh extends Command {
-    public CargoHigh(){
-        requires(Robot.elevatorSubsystem);
+public class Arm135 extends Command {
+    public Arm135(){
         requires(Robot.elevatorArmSubsystem);
     }
 
     @Override
     protected void initialize() {
-        Robot.elevatorSubsystem.setPosition(RobotConstants.elevatorSetpointCargoHigh);  //need to find
-        Robot.elevatorArmSubsystem.setAngle(RobotConstants.wristSetpointCargoScore);
+        Robot.elevatorArmSubsystem.setPosition(RobotConstants.wristSetpointCargoIn);
         setTimeout(1.5);
     }
 
     @Override
     protected boolean isFinished() {
         return isTimedOut();
+    }
+    @Override
+    protected void end() {
+        Robot.elevatorArmSubsystem.holdingPosition = Robot.elevatorArmSubsystem.getPosition();
+
     }
 
 }

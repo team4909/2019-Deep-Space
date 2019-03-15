@@ -5,14 +5,14 @@ import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotConstants;
 
 
-public class CargoOutOnly extends Command {
-    public CargoOutOnly(){
+public class Arm0 extends Command {
+    public Arm0(){
         requires(Robot.elevatorArmSubsystem);
     }
 
     @Override
     protected void initialize() {
-        Robot.elevatorArmSubsystem.setAngle(RobotConstants.elevatorArmSetpointCargoOut);
+        Robot.elevatorArmSubsystem.setAngle(RobotConstants.wristSetpointUpright);
         setTimeout(1.5);
     }
 
