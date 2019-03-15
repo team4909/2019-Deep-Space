@@ -12,7 +12,7 @@ public class Arm90 extends Command {
 
     @Override
     protected void initialize() {
-        Robot.elevatorArmSubsystem.setPosition(RobotConstants.elevatorArmSetpointHatch);
+        Robot.elevatorArmSubsystem.setPosition(RobotConstants.wristSetpointHatch);
         setTimeout(1.5);
     }
 

@@ -34,6 +34,7 @@ import frc.team4909.robot.subsystems.drivetrain.commands.InvertDriveDirection;
 import frc.team4909.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.team4909.robot.subsystems.elevator.commands.SetElevatorPosition;
 import frc.team4909.robot.subsystems.elevatorarm.ElevatorArmSubsystem;
+import frc.team4909.robot.subsystems.elevatorarm.commands.SetWristAngle;
 import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
 import frc.team4909.robot.subsystems.intake.commands.CargoIntakeIn;
 import frc.team4909.robot.subsystems.intake.commands.CargoIntakeOut;
@@ -154,9 +155,9 @@ public class Robot extends TimedRobot {
     // manipulatorGamepad.buttonPressed(BionicF310.X, new ToggleCamera());
 
     /* Arm Setpoints */
-    manipulatorGamepad.buttonPressed(BionicF310.A, new Arm135()); // tune first
-    manipulatorGamepad.buttonPressed(BionicF310.B, new Arm90()); // tune first
-    manipulatorGamepad.buttonPressed(BionicF310.Y, new Arm45()); // tune first
+    manipulatorGamepad.buttonPressed(BionicF310.A, new SetWristAngle(RobotConstants.wristSetpointCargoIn));
+    manipulatorGamepad.buttonPressed(BionicF310.B, new SetWristAngle(RobotConstants.wristSetpointHatch));
+    manipulatorGamepad.buttonPressed(BionicF310.Y, new SetWristAngle(RobotConstants.wristSetpointCargoScore));
   }
 
   /**

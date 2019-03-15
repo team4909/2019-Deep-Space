@@ -50,18 +50,19 @@ public class RobotConstants {
   public static final double irSensorThreshold = 1.7;
 
   /* Elevator */
-  public static final double elevatorSpeedMultiplier = 0.5; // Multiplier for elevator speed
+  public static final double elevatorSpeedMultiplier = 0.75; // Multiplier for elevator speed
+  
+
+  public static final double elevatorMaxSpeedUp = .8;
+  public static final double elevatorMaxSpeedDown = -.4;
+
+  /* Wrist */
   public static final double elevatorArmSpeedMultiplier = 0.3; // Multiplier for elevator arm speed
 
-  public static final double initialp = 0.1;
-  public static final double initiali = 0;
-  public static final double initiald = 0;
+  public static final double wristMaxSpeedUp = .5;
+  public static final double wristMaxSpeedDown = -.3;
 
-  public static final double newp = 0;
-  public static final double newi = 0;
-  public static final double newd = 0;
-
-  /* Elevator Setpoints */ // TODO: need to be tuned
+  /* Elevator Setpoints */
   public static final int elevatorSetpointHatchLow = 0; // Bottom hatch position
   public static final int elevatorSetpointHatchMiddle = -25300; // Middle hatch position
   public static final int elevatorSetpointHatchHigh = -51300; // Top hatch position
@@ -71,11 +72,11 @@ public class RobotConstants {
   public static final int elevatorSetpointCargoHigh = -20000;
   public static final int elevatorSetpointCargoShip = -25300;
 
-  public static final int elevatorArmSetpointZero = 0; // makes arm upright
+  public static final int wristSetpointUpright = 1542; // makes arm upright
+  public static final int wristSetpointCargoScore = wristSetpointUpright - 237 ; // 45 degrees up
+  public static final int wristSetpointHatch = wristSetpointUpright - 807;  // horizontal arm
+  public static final int wristSetpointCargoIn = wristSetpointUpright - 1004; // 45 degrees down
   
-  public static final int elevatorArmSetpointHatch = -845;  // horizontal arm
-  public static final int elevatorArmSetpointCargoOut = -375 ; // 45 degrees up
-  public static final int elevatorArmSetpointCargoIn = -1000; // 45 degrees down
   /* Linefollow */
   public static final double fastVelocity = 0.7;
   public static final double mediumVelocity = 0.5; // constant velocity given to both motors

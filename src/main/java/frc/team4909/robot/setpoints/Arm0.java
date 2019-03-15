@@ -12,7 +12,7 @@ public class Arm0 extends Command {
 
     @Override
     protected void initialize() {
-        Robot.elevatorArmSubsystem.setAngle(RobotConstants.elevatorArmSetpointZero);
+        Robot.elevatorArmSubsystem.setAngle(RobotConstants.wristSetpointUpright);
         setTimeout(1.5);
     }
 

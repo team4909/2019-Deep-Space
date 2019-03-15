@@ -15,7 +15,7 @@ public class CargoShip extends Command {
     @Override
     protected void initialize() {
         Robot.elevatorSubsystem.setPosition(RobotConstants.elevatorSetpointCargoShip);  //need to find
-        Robot.elevatorArmSubsystem.setAngle(RobotConstants.elevatorArmSetpointCargoOut);
+        Robot.elevatorArmSubsystem.setAngle(RobotConstants.wristSetpointCargoScore);
         setTimeout(1.5);
     }
 

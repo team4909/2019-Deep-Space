@@ -76,9 +76,9 @@ public class ElevatorSubsystem extends Subsystem {
         rightSlave1.setInverted(true);
         rightSlave2.setInverted(false);
 
-        //@todo what is the point of this?
-        leftMaster.configPeakOutputForward(.4, RobotConstants.timeoutMs);
-        leftMaster.configPeakOutputReverse(-.4, RobotConstants.timeoutMs);
+        //Limit the max percent output
+        leftMaster.configPeakOutputForward(RobotConstants.elevatorMaxSpeedUp, RobotConstants.timeoutMs);
+        leftMaster.configPeakOutputReverse(RobotConstants.elevatorMaxSpeedDown, RobotConstants.timeoutMs);
 
         final int primarySlotIdx = 1;
         final int pidIdx = 0;
