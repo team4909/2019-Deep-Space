@@ -31,6 +31,7 @@ import frc.team4909.robot.subsystems.climber.commands.StiltsUpOnly;
 import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
 import frc.team4909.robot.subsystems.drivetrain.Linefollow;
 import frc.team4909.robot.subsystems.drivetrain.commands.InvertDriveDirection;
+import frc.team4909.robot.subsystems.drivetrain.commands.TogglePreciseMode;
 import frc.team4909.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.team4909.robot.subsystems.elevator.commands.SetElevatorPosition;
 import frc.team4909.robot.subsystems.elevatorarm.ElevatorArmSubsystem;
@@ -152,7 +153,7 @@ public class Robot extends TimedRobot {
     /* Sensors/Misc. */
     driverGamepad.buttonPressed(BionicF310.RB, new InvertDriveDirection());
     // driverGamepad.buttonPressed(BionicF310.B, new Linefollow());
-    // manipulatorGamepad.buttonPressed(BionicF310.X, new ToggleCamera());
+    driverGamepad.buttonPressed(BionicF310.X, new TogglePreciseMode());
 
     /* Arm Setpoints */
     manipulatorGamepad.buttonPressed(BionicF310.A, new SetWristAngle(RobotConstants.wristSetpointCargoIn));

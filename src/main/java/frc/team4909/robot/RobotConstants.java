@@ -1,17 +1,15 @@
 package frc.team4909.robot;
 
-import frc.team4909.robot.operator.generic.BionicAxis;
-
 public class RobotConstants {
   /* Operator Input */
   public static final double driverGamepadSensitivity = 0.6; // Value selected from 2018 code
   public static final double driverGamepadDeadzone = 0.1; // Value selected from 2018 code
 
   public static final double manipulatorGamepadSensitivity = 0.7; // Value selected from 2018 code
-  public static final double manipulatorGamepadDeadzone = 0.1; // Value selected from 2018 code
+  public static final double manipulatorGamepadDeadzone = 0.15; // Value selected from 2018 code
 
   public static final double climberGamepadSensitivity = 0.6; // Value selected from 2018 code
-  public static final double climberGamepadDeadzone = 0.1; // Value selected from 2018 code
+  public static final double climberGamepadDeadzone = 0.15; // Value selected from 2018 code
 
 
   /* Drivetrain */
@@ -21,12 +19,16 @@ public class RobotConstants {
   //0.7 is the desired multiplier speed at bottom; 0.1 is desired multiplier speed at top; 5000 is total height in encoder ticks
   public static double speedTurnMultiplier = 0.5; // As height increases, decrease speed ; calculation: 0.5 - (0.5-0.1)/5000
 
-  public static final double topSpeed = 0.7; // desired values for when elevator is at bottom
-  public static final double topTurnSpeed = 0.5; // desired values for when elevator is at bottom
+  public static final double maxDriveSpeed = 0.7; // desired values for when elevator is at bottom
   public static final double minDriveSpeed = 0.3; // Min velocity when elevator is at top
+
+  public static final double maxTurnSpeed = 0.5; // desired values for when elevator is at bottom
+  public static final double minTurnSpeed = 0.3; // desired values for when elevator is at bottom
+  
   public static final double elevatorEncoderTicks = 51000; // total height of elevator
 
-  public static final double speedTurnPreciseMultiplier = .4; // value when precise mode is activated; slows the turn; doesn't affect speed
+  public static final double turnPreciseMultiplier = .325; // value when precise mode is activated; slows the turn; doesn't affect speed
+  public static final double drivePreciseMultiplier = .5;
 
   /* Intake */
   public static final double cargoIntakeInSpeed = 1.0;
@@ -47,7 +49,7 @@ public class RobotConstants {
    */
 
   /* Sensors */
-  public static final double irSensorThreshold = 2.5;
+  public static final double irSensorThreshold = 2.25;
 
   /* Elevator */
   public static final double elevatorSpeedMultiplier = 0.75; // Multiplier for elevator speed

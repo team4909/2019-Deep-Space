@@ -108,10 +108,12 @@ public class ElevatorSubsystem extends Subsystem {
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Elevator Carriage - Current Position", getPosition());
-        SmartDashboard.putNumber("Elevator Carriage - Setpoint Position", holdingPosition);
-        SmartDashboard.putNumber("Elevator Carriage - Setpoint Error", getError());
+        SmartDashboard.putNumber("Elevator test", Math.random());
+        SmartDashboard.putNumber("Elevator - Current Position", getPosition());
+        SmartDashboard.putNumber("Elevator - Setpoint Position", holdingPosition);
+        SmartDashboard.putNumber("Elevator - Setpoint Error", getError());
     }
+
 
     @Override
     protected void initDefaultCommand() {
