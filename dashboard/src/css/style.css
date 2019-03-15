@@ -71,3 +71,30 @@ svg * {
     -ms-transform-origin: center;
     transform-origin: center;
 }
+
+table {
+    text-align: center;
+    width: 80%;
+    height: 100%;
+}
+
+video {
+    width: 95%;
+    height: 95%;
+    border:1px solid black;
+}
+
+tr {
+    height: 50%;
+}
+
+span {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+img#logo {
+    position: absolute;
+    bottom: 3%;
+    right: 3%;
+    width: 15%;
+}

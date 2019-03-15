@@ -5,11 +5,93 @@
     <meta charset="utf-8">
     <title>FRC Team 4909 - Primary Dashboard</title>
     <link href="css/style.css" rel="stylesheet">
+    <script type="text/javascript" src="cameras/adapter.min.js"></script>
+    <script type="text/javascript" src="cameras/janus.js"></script>
+    <script type="text/javascript" src="cameras/app.js"></script>
 </head>
 
-<body>
+<body><table>
+    <tr>
+      <td>
+        <span style='margin-left:20'>
+          Bitrate:
+          <span id=bitrate1></span>
+        </span>
+        ––––––––
+        <span style='margin-left:20'>
+          Resolution:
+          <span id=resolution1></span>
+        </span>
+        <br>
+        <video
+           autoplay
+           muted
+           id='video1'
+           />
+      </td>
+      
+      <td>
+        <span style='margin-left:20'>
+          Bitrate:
+          <span id=bitrate2></span>
+        </span>
+        ––––––––
+        <span style='margin-left:20'>
+          Resolution:
+          <span id=resolution2></span>
+        </span>
+        <br>
+        <video
+           autoplay
+           muted
+           id='video2'
+           />
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <span style='margin-left:20'>
+          Bitrate:
+          <span id=bitrate3></span>
+        </span>
+
+        ––––––––
+        <span style='margin-left:20'>
+          Resolution:
+          <span id=resolution3></span>
+        </span>
+        <br>
+        <video
+           autoplay
+           muted
+           id='video3'
+           />
+      </td>
+      
+      <td>
+        <span style='margin-left:20'>
+          Bitrate:
+          <span id=bitrate4></span>
+        </span>
+        ––––––––
+        <span style='margin-left:20'>
+          Resolution:
+          <span id=resolution4></span>
+        </span>
+        <br>
+        <video
+           autoplay
+           muted
+           id='video4'
+           />
+      </td>
+    </tr>
+    </table>
+    <img id="logo" src=4909.png>
     <script src="networktables/networktables.js"></script>
     <script src="ui.js"></script>
+    
 </body>
 
 </html>
