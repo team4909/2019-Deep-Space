@@ -1,5 +1,6 @@
 package frc.team4909.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -104,7 +105,7 @@ public class Robot extends TimedRobot {
 
     // Cameras (subsystem)
     stream = new Stream();
-    // // CameraServer.getInstance().startAutomaticCapture();
+    CameraServer.getInstance().startAutomaticCapture();
     stream.streamCamera();
     // grip = new GripPipeline();
 
