@@ -175,7 +175,7 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     SmartDashboard.putNumber("Time Remaining", DriverStation.getInstance().getMatchTime());//Useful Method to get match data.
     SmartDashboard.putNumber("LT Climber Rise", climberGamepad.getThresholdAxis(BionicF310.LT));
-    SmartDashboard.putNumber("LY Climber Elev", climberGamepad.getThresholdAxis(BionicF310.LY);
+    SmartDashboard.putNumber("LY Climber Elev", climberGamepad.getThresholdAxis(BionicF310.LY));
     SmartDashboard.putNumber("RY Climber Stilts", climberGamepad.getThresholdAxis(BionicF310.RY));
     SmartDashboard.putNumber("RT Climber Sink", climberGamepad.getThresholdAxis(BionicF310.RT));
     
