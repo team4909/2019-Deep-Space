@@ -56,6 +56,7 @@ public class SetStiltPosition extends Command {
          }
          else if (moveSpeed != 0 && moveStiltSpeed == 0 && moveElevatorSpeed == 0 && driveBothDown == 0 && driveBothUp == 0) { // Elevator via manipulator gamepad
             Robot.elevatorSubsystem.configReverseLimitSwitch(false);
+            Robot.elevatorSubsystem.configClearPositionOnLimitR(true);
             Robot.elevatorSubsystem.setSpeed(moveSpeed);
             Robot.elevatorSubsystem.holdingPosition = Robot.elevatorSubsystem.getPosition();
             SmartDashboard.putString("Climb", "Move Elevator Manipulator Gamepad");
@@ -67,6 +68,7 @@ public class SetStiltPosition extends Command {
         } 
         else if(moveElevatorSpeed != 0 && moveSpeed == 0 && moveStiltSpeed == 0 && driveBothDown == 0 && driveBothUp == 0){ // Elevator via climber gamepad
             Robot.elevatorSubsystem.configReverseLimitSwitch(true);
+            Robot.elevatorSubsystem.configClearPositionOnLimitR(false);
             Robot.elevatorSubsystem.setSpeed(moveElevatorSpeed);
             Robot.elevatorSubsystem.holdingPosition = Robot.elevatorSubsystem.getPosition();  
             SmartDashboard.putString("Climb", "Move Elevator Climber Gamepad");     
@@ -74,7 +76,8 @@ public class SetStiltPosition extends Command {
         
         else if(moveElevatorSpeed == 0 && moveSpeed == 0 && moveStiltSpeed == 0 && driveBothDown == 0 && driveBothUp != 0){
             SmartDashboard.putString("Climb", "Move Both Up Climber Gamepad");
-
+            Robot.elevatorSubsystem.configReverseLimitSwitch(true);
+            Robot.elevatorSubsystem.configClearPositionOnLimitR(false);
             Robot.climberSubsystem.setStiltsClimbSpeed(driveBothUp*2);
 
             // Elevator Drum is 1.3" Diameter, C = PI * D = Math.PI * 1.3
@@ -91,7 +94,8 @@ public class SetStiltPosition extends Command {
         }
         else if(moveElevatorSpeed == 0 && moveSpeed == 0 && moveStiltSpeed == 0 && driveBothDown != 0 && driveBothUp == 0){
             SmartDashboard.putString("Climb", "Move Both Down Climber Gamepad");
-           
+            Robot.elevatorSubsystem.configReverseLimitSwitch(true);
+            Robot.elevatorSubsystem.configClearPositionOnLimitR(false);
             Robot.climberSubsystem.setStiltsClimbSpeed(driveBothDown*2);
 
             // Elevator Drum is 1.3" Diameter, C = PI * D = Math.PI * 1.3
