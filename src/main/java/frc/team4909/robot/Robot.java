@@ -179,9 +179,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    elevatorSubsystem.setSensorZero();
-    elevatorArmSubsystem.setSensorZero();
-    climberSubsystem.setSensorZero();
+    // elevatorSubsystem.setSensorZero();
+    // elevatorArmSubsystem.setSensorZero();
+    // climberSubsystem.setSensorZero();
   }
 
   /**
