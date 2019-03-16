@@ -31,15 +31,15 @@ public class Stream {
 
       //Set Camera 0 Resolution and FPS
       camera0.setResolution(160, 120);    
-      camera0.setFPS(12);                   
+      camera0.setFPS(18);                   
 
       //Set Camera 1 Resolution and FPS
       camera1.setResolution(160, 120);    
-      camera1.setFPS(12);                 
+      camera1.setFPS(10);                 
 
       //Set Camera 2 Resolution and FPS
       camera2.setResolution(160, 120);    
-      camera2.setFPS(12);                 
+      camera2.setFPS(6);                 
 
       //Set Camera 3 Resolution and FPS
       camera3.setResolution(160, 120);    
