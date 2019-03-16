@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.team4909.robot.operator.controllers.BionicF310;
@@ -40,6 +41,7 @@ import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
 import frc.team4909.robot.subsystems.intake.commands.CargoIntakeIn;
 import frc.team4909.robot.subsystems.intake.commands.CargoIntakeOut;
 import frc.team4909.robot.subsystems.intake.commands.HatchPanelIntakeOpen;
+import frc.team4909.robot.subsystems.led.RGBStrip;
 
 import frc.team4909.robot.subsystems.climber.commands.ZeroStilts;
 import frc.team4909.robot.subsystems.elevator.commands.ZeroElevator;
@@ -93,6 +95,7 @@ public class Robot extends TimedRobot {
 
   // Sensors
   public static LidarLitePWM lidar;
+  public static RGBStrip LEDs;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -119,6 +122,7 @@ public class Robot extends TimedRobot {
     elevatorSubsystem = new ElevatorSubsystem();
     elevatorArmSubsystem = new ElevatorArmSubsystem();
     climberSubsystem = new ClimberSubsystem();
+    LEDs = new RGBStrip(2, 3, 4);
 
     // Sensors
     lidar = new LidarLitePWM(RobotMap.lidarPort);
