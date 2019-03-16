@@ -31,21 +31,30 @@ public class Stream {
 
       //Set Camera 0 Resolution and FPS
       camera0.setResolution(160, 120);    
-      camera0.setFPS(21);                   
+      camera0.setFPS(12);                   
 
       //Set Camera 1 Resolution and FPS
       camera1.setResolution(160, 120);    
-      camera1.setFPS(16);                 
+      camera1.setFPS(12);                 
 
       //Set Camera 2 Resolution and FPS
       camera2.setResolution(160, 120);    
-      camera2.setFPS(10);                 
+      camera2.setFPS(12);                 
 
       //Set Camera 3 Resolution and FPS
       camera3.setResolution(160, 120);    
-      camera3.setFPS(10);                 
+      camera3.setFPS(12);      
+
       CameraServer intakeServer = CameraServer.getInstance();//.addCamera(intakeServer);
       
+      // CvSink cvSink1 = CameraServer.getInstance().getVideo();
+      // CvSource outputStream = CameraServer.getInstance().putVideo("Source 1", 160, 120);
+      // CvSink cvSink2 = CameraServer.getInstance().getVideo();
+      // CvSource outputStream2 = CameraServer.getInstance().putVideo("Source 2", 160, 120);
+      // CvSink cvSink3 = CameraServer.getInstance().getVideo();
+      // CvSource outputStream3 = CameraServer.getInstance().putVideo("Source 3", 160, 120);
+      // CvSink cvSink4 = CameraServer.getInstance().getVideo();
+      // CvSource outputStream4 = CameraServer.getInstance().putVideo("Source 4", 160, 120);
 
       //Toggle Command In progress.
       while(!Thread.interrupted()) {
