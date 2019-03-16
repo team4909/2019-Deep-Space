@@ -105,7 +105,7 @@ public class Robot extends TimedRobot {
 
     // Cameras (subsystem)
     stream = new Stream();
-    CameraServer.getInstance().startAutomaticCapture();
+    // CameraServer.getInstance().startAutomaticCapture();
     stream.streamCamera();
     // grip = new GripPipeline();
 
@@ -174,6 +174,12 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     SmartDashboard.putNumber("Time Remaining", DriverStation.getInstance().getMatchTime());//Useful Method to get match data.
+    SmartDashboard.putNumber("LT Climber Rise", climberGamepad.getThresholdAxis(BionicF310.LT));
+    SmartDashboard.putNumber("LY Climber Elev", climberGamepad.getThresholdAxis(BionicF310.LY));
+    SmartDashboard.putNumber("RY Climber Stilts", climberGamepad.getThresholdAxis(BionicF310.RY));
+    SmartDashboard.putNumber("RT Climber Sink", climberGamepad.getThresholdAxis(BionicF310.RT));
+    SmartDashboard.putNumber("LY Elevator", manipulatorGamepad.getThresholdAxis(BionicF310.LY));
+    
     // process();
     Scheduler.getInstance().run();
   }

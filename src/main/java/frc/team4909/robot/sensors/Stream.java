@@ -45,7 +45,7 @@ public class Stream {
       camera3.setResolution(160, 120);    
       camera3.setFPS(12);      
 
-      CameraServer intakeServer = CameraServer.getInstance();//.addCamera(intakeServer);
+      // CameraServer intakeServer = CameraServer.getInstance();//.addCamera(intakeServer);
       
       // CvSink cvSink1 = CameraServer.getInstance().getVideo();
       // CvSource outputStream = CameraServer.getInstance().putVideo("Source 1", 160, 120);
@@ -57,18 +57,18 @@ public class Stream {
       // CvSource outputStream4 = CameraServer.getInstance().putVideo("Source 4", 160, 120);
 
       //Toggle Command In progress.
-      while(!Thread.interrupted()) {
-          if (seeHatchCam){
-              //Show Camera for Hatches
-              intakeServer.addCamera(camera2);
-              intakeServer.removeCamera(camera3.getName());
+  //     while(!Thread.interrupted()) {
+  //         if (seeHatchCam){
+  //             //Show Camera for Hatches
+  //             intakeServer.addCamera(camera2);
+  //             intakeServer.removeCamera(camera3.getName());
 
-          } else {
-              //Show Cargo Intake Camera
-              intakeServer.addCamera(camera3);
-              intakeServer.removeCamera(camera2.getName());
-          }
-  }
+  //         } else {
+  //             //Show Cargo Intake Camera
+  //             intakeServer.addCamera(camera3);
+  //             intakeServer.removeCamera(camera2.getName());
+  //         }
+  // }
   }).start();
   }
 }
