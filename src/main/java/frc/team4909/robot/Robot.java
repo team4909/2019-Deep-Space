@@ -178,6 +178,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("LY Climber Elev", climberGamepad.getThresholdAxis(BionicF310.LY));
     SmartDashboard.putNumber("RY Climber Stilts", climberGamepad.getThresholdAxis(BionicF310.RY));
     SmartDashboard.putNumber("RT Climber Sink", climberGamepad.getThresholdAxis(BionicF310.RT));
+    SmartDashboard.putNumber("LY Elevator", manipulatorGamepad.getThresholdAxis(BionicF310.LY));
     
     // process();
     Scheduler.getInstance().run();
