@@ -12,6 +12,7 @@ import frc.team4909.robot.RobotConstants;
 import frc.team4909.robot.RobotMap;
 import frc.team4909.robot.subsystems.intake.commands.CargoIntakeHold;
 import frc.team4909.robot.subsystems.intake.commands.HatchPanelIntakeClose;
+import frc.team4909.robot.subsystems.led.RGBStrip.Color;
 
 public class IntakeSubsystem extends Subsystem {
     DoubleSolenoid hatchPanelSolenoid;
@@ -49,6 +50,7 @@ public class IntakeSubsystem extends Subsystem {
     public void setCargoIntakeSpeed(double speed) {
         if(hasCargo() && speed > 0){
             speed = RobotConstants.cargoIntakeHoldSpeed;
+            Robot.LEDs.set(Color.Red);
         }
 
         cargoIntakeMotor.set(-speed);
