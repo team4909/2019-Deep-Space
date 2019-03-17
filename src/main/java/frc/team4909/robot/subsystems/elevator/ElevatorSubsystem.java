@@ -1,30 +1,20 @@
 package frc.team4909.robot.subsystems.elevator;
 
-import edu.wpi.first.wpilibj.Encoder;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-// import com.sun.org.apache.xerces.internal.xni.QName;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.RemoteLimitSwitchSource;
 
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.command.InstantCommand;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import java.lang.module.ModuleDescriptor.Requires;
-
-import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.team4909.robot.subsystems.elevator.commands.SetElevatorPosition;
+
 import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotConstants;
 import frc.team4909.robot.RobotMap;
-import frc.team4909.robot.operator.controllers.BionicF310;
 
 public class ElevatorSubsystem extends Subsystem {
     
@@ -32,7 +22,7 @@ public class ElevatorSubsystem extends Subsystem {
     // Public Methods that allow safe motion should be provided by the subsystem
     private WPI_VictorSPX leftSlave, rightSlave1, rightSlave2;
     private WPI_TalonSRX leftMaster;
-    public int holdingPosition = 0;
+    private int holdingPosition = 0;
 
     public ElevatorSubsystem() {
         // super should always be called to ensure proper subystem initialization
@@ -91,13 +81,6 @@ public class ElevatorSubsystem extends Subsystem {
         leftMaster.config_kI(primarySlotIdx, 0, RobotConstants.timeoutMs);
         leftMaster.config_kD(primarySlotIdx, 0, RobotConstants.timeoutMs);
 
-        final int secondarySlotIdx = 2;
-        // Used for when elevator is acting as stilt
-        leftMaster.config_kF(secondarySlotIdx, 0, RobotConstants.timeoutMs);
-        leftMaster.config_kP(secondarySlotIdx, 0.5, RobotConstants.timeoutMs);
-        leftMaster.config_kI(secondarySlotIdx, 0, RobotConstants.timeoutMs);
-        leftMaster.config_kD(secondarySlotIdx, 0, RobotConstants.timeoutMs);
-
         // These values are use for motion magic
 
         // When the code starts (IE robot powered on) call that zero.
@@ -117,6 +100,18 @@ public class ElevatorSubsystem extends Subsystem {
 
     @Override
     protected void initDefaultCommand() {
+        setDefaultCommand(new Command(){
+            @Override
+            protected void initialize() {
+                Robot.elevatorSubsystem.updateHoldingPos();
+                Robot.elevatorSubsystem.holdPosition();
+            }
+        
+            @Override
+            protected boolean isFinished() {
+                return false;
+            }
+        });
     }
 
     /* Methods */
@@ -129,36 +124,38 @@ public class ElevatorSubsystem extends Subsystem {
 
     public void setSpeed(double speed) { // set elevator speed value
         leftMaster.set(ControlMode.PercentOutput, speed);
+        updateHoldingPos();
     }
 
     public void setPosition(int position) {
         leftMaster.set(ControlMode.Position, position);
+        updateHoldingPos();
     }
 
     public int getPosition() {
         return leftMaster.getSelectedSensorPosition();
     }
 
-    public int getVelocity() {
-        return leftMaster.getSelectedSensorVelocity();
-    }
+    // public int getVelocity() {
+    //     return leftMaster.getSelectedSensorVelocity();
+    // }
 
     // Get the PID error from the SRX
     public int getError() {
         return leftMaster.getClosedLoopError();
     }
 
-    public void setVelocity(double speed) {
-        leftMaster.set(ControlMode.Velocity, speed);
-    }
+    // public void setVelocity(double speed) {
+    //     leftMaster.set(ControlMode.Velocity, speed);
+    // }
 
     public void setInitialPIDValues() {
         leftMaster.selectProfileSlot(1, 0);
     }
 
-    public void setNewPIDValues() {
-        leftMaster.selectProfileSlot(2, 0);
-    }
+    // public void setNewPIDValues() {
+    //     leftMaster.selectProfileSlot(2, 0);
+    // }
 
     public void configReverseLimitSwitch(boolean override) {
         if(override)
@@ -167,8 +164,20 @@ public class ElevatorSubsystem extends Subsystem {
             leftMaster.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
     }
 
-    public void setSensorZero(){
-        leftMaster.setSelectedSensorPosition(0);
-        holdingPosition = 0;
+    // public void setSensorZero(){
+    //     leftMaster.setSelectedSensorPosition(0);
+    //     holdingPosition = 0;
+    // }
+
+    public void updateHoldingPos() {
+        holdingPosition = getPosition();
+    }
+
+    public void updateHoldingPos(int positionInTicks) {
+        holdingPosition = positionInTicks;
+    }
+
+    public void holdPosition() {
+        setPosition(holdingPosition);
     }
 }
