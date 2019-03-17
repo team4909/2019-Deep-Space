@@ -1,49 +1,29 @@
 package frc.team4909.robot;
 
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.buttons.POVButton;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.team4909.robot.operator.controllers.BionicF310;
-import frc.team4909.robot.operator.controllers.FlightStick;
-import frc.team4909.robot.operator.generic.BionicPOV;
 import frc.team4909.robot.sensors.LidarLitePWM;
 import frc.team4909.robot.sensors.Stream;
-import frc.team4909.robot.setpoints.Arm0;
-import frc.team4909.robot.setpoints.Arm90;
-import frc.team4909.robot.setpoints.CargoHigh;
-import frc.team4909.robot.setpoints.CargoLow;
-import frc.team4909.robot.setpoints.CargoMiddle;
-import frc.team4909.robot.setpoints.CargoShip;
-import frc.team4909.robot.setpoints.HatchHigh;
-import frc.team4909.robot.setpoints.HatchLow;
-import frc.team4909.robot.setpoints.HatchMiddle;
-import frc.team4909.robot.setpoints.Arm135;
-import frc.team4909.robot.setpoints.Arm45;
+import frc.team4909.robot.subsystems.StiltWheel.StiltWheelSubsystem;
+import frc.team4909.robot.subsystems.StiltWheel.commands.MoveStiltWheels;
 import frc.team4909.robot.subsystems.climber.ClimberSubsystem;
-import frc.team4909.robot.subsystems.climber.commands.DriveStiltsBack;
-import frc.team4909.robot.subsystems.climber.commands.DriveStiltsForward;
-import frc.team4909.robot.subsystems.climber.commands.StiltsDownOnly;
-import frc.team4909.robot.subsystems.climber.commands.StiltsUpOnly;
+import frc.team4909.robot.subsystems.climber.commands.*;
 import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
-import frc.team4909.robot.subsystems.drivetrain.Linefollow;
 import frc.team4909.robot.subsystems.drivetrain.commands.InvertDriveDirection;
 import frc.team4909.robot.subsystems.drivetrain.commands.TogglePreciseMode;
 import frc.team4909.robot.subsystems.elevator.ElevatorSubsystem;
-import frc.team4909.robot.subsystems.elevator.commands.SetElevatorPosition;
+import frc.team4909.robot.subsystems.elevator.commands.*;
 import frc.team4909.robot.subsystems.elevatorarm.ElevatorArmSubsystem;
-import frc.team4909.robot.subsystems.elevatorarm.commands.SetWristAngle;
+import frc.team4909.robot.subsystems.elevatorarm.commands.*;
 import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
-import frc.team4909.robot.subsystems.intake.commands.CargoIntakeIn;
-import frc.team4909.robot.subsystems.intake.commands.CargoIntakeOut;
-import frc.team4909.robot.subsystems.intake.commands.HatchPanelIntakeOpen;
+import frc.team4909.robot.subsystems.intake.commands.*;
 
-import frc.team4909.robot.subsystems.climber.commands.ZeroStilts;
-import frc.team4909.robot.subsystems.elevator.commands.ZeroElevator;
 
 /* 
 CONTROLS
@@ -90,10 +70,25 @@ public class Robot extends TimedRobot {
   public static ElevatorSubsystem elevatorSubsystem;
   public static ElevatorArmSubsystem elevatorArmSubsystem;
   public static ClimberSubsystem climberSubsystem;
+  public static StiltWheelSubsystem stiltWheelSubsystem;
   public static Compressor c;
 
   // Sensors
   public static LidarLitePWM lidar;
+
+  /**
+   * map a number from one range to another
+   * 
+   * @param {num} value the value to be mapped
+   * @param {num} old_min the minimum of value
+   * @param {num} old_max the maximum of value
+   * @param {num} new_min the new minimum value
+   * @param {num} new_max the new maximum value
+   * @return {num} the value remaped on the range [new_min new_max]
+   */
+  public static double map(double value, double old_min, double old_max, double new_min, double new_max) {
+    return (value - old_min) / (old_max - old_min) * (new_max - new_min) + new_min;
+  }
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -120,6 +115,7 @@ public class Robot extends TimedRobot {
     elevatorSubsystem = new ElevatorSubsystem();
     elevatorArmSubsystem = new ElevatorArmSubsystem();
     climberSubsystem = new ClimberSubsystem();
+    stiltWheelSubsystem = new StiltWheelSubsystem();
 
     // Sensors
     lidar = new LidarLitePWM(RobotMap.lidarPort);
@@ -146,17 +142,49 @@ public class Robot extends TimedRobot {
     manipulatorGamepad.buttonHeld(BionicF310.LT, 0.2, new CargoIntakeIn());
     manipulatorGamepad.buttonHeld(BionicF310.RB, new HatchPanelIntakeOpen());
 
-    /* Climber */
+    /* Stilts */
+
     // climberGamepad.buttonHeld(BionicF310.RB, new StiltsUpOnly());
     // climberGamepad.buttonHeld(BionicF310.LB, new StiltsDownOnly());
 
 
-    /* Sensors/Misc. */
+
+    //?????????????????????????????????????????????????????????????????????????????
+
+    //@note: 0.2 is probably too big!
+
+    // ?????????????????????????????????????????????????????????????????????????????
+
+
+
+
+
+
+
+    /* Elevator */
+    manipulatorGamepad.buttonHeld(BionicF310.LY, RobotConstants.manipulatorGamepadDeadzone, new MoveElevatorOnly(manipulatorGamepad, BionicF310.LY));
+
+    //move just the stilts
+    climberGamepad.buttonHeld(BionicF310.RY, RobotConstants.climberGamepadDeadzone, new MoveStiltsOnly());
+
+    //move just the elevator
+    climberGamepad.buttonHeld(BionicF310.LY, RobotConstants.climberGamepadDeadzone, new MoveElevatorOnly(climberGamepad, BionicF310.LY));
+
+    // move both the elevator and stilts up
+    climberGamepad.buttonHeld(BionicF310.RT, 0.05, new MoveElevAndStitls(true));
+
+    //move both the elevator and stilts down
+    climberGamepad.buttonHeld(BionicF310.LT, 0.05, new MoveElevAndStitls(false));
+
+    //drive stilt wheels
+    driverGamepad.buttonHeld(BionicF310.RT, 0.05, new MoveStiltWheels(true));
+    driverGamepad.buttonHeld(BionicF310.LT, 0.05, new MoveStiltWheels(false));
+
+    /* Drivetrain */
     driverGamepad.buttonPressed(BionicF310.RB, new InvertDriveDirection());
-    // driverGamepad.buttonPressed(BionicF310.B, new Linefollow());
     driverGamepad.buttonPressed(BionicF310.X, new TogglePreciseMode());
 
-    /* Arm Setpoints */
+    /* Wrist Setpoints */
     manipulatorGamepad.buttonPressed(BionicF310.A, new SetWristAngle(RobotConstants.wristSetpointCargoIn));
     manipulatorGamepad.buttonPressed(BionicF310.B, new SetWristAngle(RobotConstants.wristSetpointHatch));
     manipulatorGamepad.buttonPressed(BionicF310.Y, new SetWristAngle(RobotConstants.wristSetpointCargoScore));
@@ -171,7 +199,6 @@ public class Robot extends TimedRobot {
    * This runs after the mode specific periodic functions, but before LiveWindow
    * and SmartDashboard integrated updating.
    */
-  @Override
   public void robotPeriodic() {
     SmartDashboard.putNumber("Time Remaining", DriverStation.getInstance().getMatchTime());//Useful Method to get match data.
     SmartDashboard.putNumber("LT Climber Rise", climberGamepad.getThresholdAxis(BionicF310.LT));
@@ -184,7 +211,6 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
   }
 
-  @Override
   public void autonomousInit() {
     // elevatorSubsystem.setSensorZero();
     // elevatorArmSubsystem.setSensorZero();
@@ -194,7 +220,6 @@ public class Robot extends TimedRobot {
   /**
    * This function is called periodically during autonomous.
    */
-  @Override
   public void autonomousPeriodic() {
   }
 
@@ -202,31 +227,25 @@ public class Robot extends TimedRobot {
    * This function is called periodically during operator control.
    */
 
-  @Override
   public void teleopInit() {
     // Reset elevator encoder
     
   }
-@Override
+  @Override
   public void disabledPeriodic() {
-    Scheduler.getInstance().run();
-    // elevatorSubsystem.reset();
-    // climberSubsystem.reset();
-    // elevatorArmSubsystem.reset(); 
+    Scheduler.getInstance().run(); 
 
-    Robot.elevatorSubsystem.holdingPosition = Robot.elevatorSubsystem.getPosition();
+    Robot.elevatorSubsystem.updateHoldingPos();
     Robot.elevatorArmSubsystem.holdingPosition = Robot.elevatorArmSubsystem.getPosition();
-    Robot.climberSubsystem.holdingStiltsPosition = Robot.climberSubsystem.getPosition();
+    Robot.climberSubsystem.updateHoldingPos();
   }
 
-  @Override
   public void teleopPeriodic() {
   }
 
   /**
    * This function is called periodically during test mode.
    */
-  @Override
   public void testPeriodic() {
   }
 }
