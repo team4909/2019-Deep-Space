@@ -61,6 +61,7 @@ public class RobotConstants {
   /* Wrist */
   public static final double elevatorArmSpeedMultiplier = 0.3; // Multiplier for elevator arm speed
 
+  public static final double elevatorArmSpeed = 0.2;
   public static final double wristMaxSpeedUp = .5;
   public static final double wristMaxSpeedDown = -.3;
 
