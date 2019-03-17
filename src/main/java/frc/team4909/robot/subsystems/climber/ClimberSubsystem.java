@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team4909.robot.RobotMap;
+import frc.team4909.robot.subsystems.climber.commands.Default_StiltsHoldPos;
 import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotConstants;
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -74,17 +75,7 @@ public class ClimberSubsystem extends Subsystem {
     }
 
     protected void initDefaultCommand() {
-        setDefaultCommand(new Command(){
-            @Override
-            protected void initialize() {
-                Robot.climberSubsystem.updateHoldingPos();
-                Robot.climberSubsystem.holdPosition();
-            }
-            @Override
-            protected boolean isFinished() {
-                return false;
-            }
-        });
+        setDefaultCommand(new Default_StiltsHoldPos());
     }
 
     // Zero the relative encoder
@@ -101,7 +92,6 @@ public class ClimberSubsystem extends Subsystem {
     // Use the closed loop control to move the stilts at speed
     public void setSpeed(double speed) {
         climberLiftMaster.set(ControlMode.PercentOutput, speed);
-        updateHoldingPos();
     }
 
     // Attempt to move both the elevator and the stilts at the same velocity.
@@ -120,7 +110,6 @@ public class ClimberSubsystem extends Subsystem {
     // Use the closed loop control to hold the stilts at pos
     public void setPosition(int pos) {
         climberLiftMaster.set(ControlMode.Position, pos);
-        updateHoldingPos();
     }
     // public void setSensorZero(){
     //     climberLiftMaster.setSelectedSensorPosition(0);

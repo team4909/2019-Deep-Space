@@ -15,6 +15,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotConstants;
 import frc.team4909.robot.RobotMap;
+import frc.team4909.robot.subsystems.elevator.commands.Default_ElevHoldPos;
 
 public class ElevatorSubsystem extends Subsystem {
     
@@ -100,18 +101,7 @@ public class ElevatorSubsystem extends Subsystem {
 
     @Override
     protected void initDefaultCommand() {
-        setDefaultCommand(new Command(){
-            @Override
-            protected void initialize() {
-                Robot.elevatorSubsystem.updateHoldingPos();
-                Robot.elevatorSubsystem.holdPosition();
-            }
-        
-            @Override
-            protected boolean isFinished() {
-                return false;
-            }
-        });
+        setDefaultCommand(new Default_ElevHoldPos());
     }
 
     /* Methods */
@@ -124,12 +114,10 @@ public class ElevatorSubsystem extends Subsystem {
 
     public void setSpeed(double speed) { // set elevator speed value
         leftMaster.set(ControlMode.PercentOutput, speed);
-        updateHoldingPos();
     }
 
     public void setPosition(int position) {
         leftMaster.set(ControlMode.Position, position);
-        updateHoldingPos();
     }
 
     public int getPosition() {

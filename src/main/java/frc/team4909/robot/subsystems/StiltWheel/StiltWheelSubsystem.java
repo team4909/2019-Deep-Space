@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotMap;
+import frc.team4909.robot.subsystems.StiltWheel.commands.Default_StiltWheelStop;
+
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 public class StiltWheelSubsystem extends Subsystem {
@@ -29,17 +31,7 @@ public class StiltWheelSubsystem extends Subsystem {
     }
 
     protected void initDefaultCommand() {
-        setDefaultCommand(new Command() {
-            @Override
-            protected void initialize() {
-                Robot.stiltWheelSubsystem.setSpeed(0);
-            }
-
-            @Override
-            protected boolean isFinished() {
-                return false;
-            }
-        });
+        setDefaultCommand(new Default_StiltWheelStop());
     }
 
     // Spin the wheels on the bottom of the stilts to move the robot forward

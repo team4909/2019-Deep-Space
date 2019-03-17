@@ -11,17 +11,19 @@ import frc.team4909.robot.operator.controllers.BionicF310;
 import frc.team4909.robot.sensors.LidarLitePWM;
 import frc.team4909.robot.sensors.Stream;
 import frc.team4909.robot.subsystems.StiltWheel.StiltWheelSubsystem;
+import frc.team4909.robot.subsystems.StiltWheel.commands.MoveStiltWheels;
 import frc.team4909.robot.subsystems.climber.ClimberSubsystem;
+import frc.team4909.robot.subsystems.climber.commands.*;
 import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
 import frc.team4909.robot.subsystems.drivetrain.commands.InvertDriveDirection;
 import frc.team4909.robot.subsystems.drivetrain.commands.TogglePreciseMode;
 import frc.team4909.robot.subsystems.elevator.ElevatorSubsystem;
+import frc.team4909.robot.subsystems.elevator.commands.*;
 import frc.team4909.robot.subsystems.elevatorarm.ElevatorArmSubsystem;
-import frc.team4909.robot.subsystems.elevatorarm.commands.SetWristAngle;
+import frc.team4909.robot.subsystems.elevatorarm.commands.*;
 import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
-import frc.team4909.robot.subsystems.intake.commands.CargoIntakeIn;
-import frc.team4909.robot.subsystems.intake.commands.CargoIntakeOut;
-import frc.team4909.robot.subsystems.intake.commands.HatchPanelIntakeOpen;
+import frc.team4909.robot.subsystems.intake.commands.*;
+
 
 /* 
 CONTROLS
@@ -160,197 +162,23 @@ public class Robot extends TimedRobot {
 
 
     /* Elevator */
-    manipulatorGamepad.buttonHeld(BionicF310.LY, 0.2, new Command()
-    {
-      // public Command() {
-      //   requires(Robot.elevatorSubsystem);
-      // }
-      protected void initialize() {
-        requires(Robot.elevatorSubsystem);
-        Robot.elevatorSubsystem.configReverseLimitSwitch(false);
-      }
-      protected void execute() {
-        double speed = manipulatorGamepad.getThresholdAxis(BionicF310.LY);
-        Robot.elevatorSubsystem.setSpeed(-1 * speed * RobotConstants.elevatorSpeedMultiplier);
-        Robot.elevatorSubsystem.updateHoldingPos();
-      }
-      protected boolean isFinished() {
-        return false;
-      }
-      protected void end() {
-        Robot.elevatorSubsystem.setSpeed(0);
-        Robot.elevatorSubsystem.updateHoldingPos();
-      }
-    });
+    manipulatorGamepad.buttonHeld(BionicF310.LY, RobotConstants.manipulatorGamepadDeadzone, new MoveElevatorOnly(manipulatorGamepad, BionicF310.LY));
 
     //move just the stilts
-    climberGamepad.buttonHeld(BionicF310.RY, 0.2, new Command() {
-      // public Command() {
-      //   requires(Robot.climberSubsystem);
-      // }
-      protected void initialize() {
-        requires(Robot.climberSubsystem);
-      }
-      protected void execute() {
-        double speed = climberGamepad.getThresholdAxis(BionicF310.RY);
-        climberSubsystem.setStiltsClimbSpeed(-1 * speed * RobotConstants.climbSpeedMultiplier);
-        climberSubsystem.updateHoldingPos();
-      }
-      protected boolean isFinished() {
-        return false;
-      }
-      protected void end() {
-        climberSubsystem.updateHoldingPos();
-        climberSubsystem.setStiltsClimbSpeed(0);
-      }
-    });
+    climberGamepad.buttonHeld(BionicF310.RY, RobotConstants.climberGamepadDeadzone, new MoveStiltsOnly());
 
     //move just the elevator
-    climberGamepad.buttonHeld(BionicF310.LY, 0.2, new Command() {
-      // public Command() {
-      //   requires(Robot.climberSubsystem);
-      // }
-      protected void initialize() {
-        requires(Robot.climberSubsystem);
-      }
-      protected void execute() {
-        double speed = climberGamepad.getThresholdAxis(BionicF310.LY);
-        elevatorSubsystem.setSpeed(-1 * speed * RobotConstants.elevatorSpeedMultiplier);
-        elevatorSubsystem.updateHoldingPos();
-      }
-      protected boolean isFinished() {
-        return false;
-      }
-      protected void end() {
-        elevatorSubsystem.updateHoldingPos();
-        elevatorSubsystem.setSpeed(0);
-      }
-    });
+    climberGamepad.buttonHeld(BionicF310.LY, RobotConstants.climberGamepadDeadzone, new MoveElevatorOnly(climberGamepad, BionicF310.LY));
 
     // move both the elevator and stilts up
-    climberGamepad.buttonHeld(BionicF310.RT, 0.2, new Command() {
-      int startStiltPos;
-      int startElevatorPos;
-      // public Command() {
-      //   requires(Robot.climberSubsystem);
-      //   requires(Robot.elevatorSubsystem);
-      // }
-      protected void initialize() {
-        requires(Robot.climberSubsystem);
-        requires(Robot.elevatorSubsystem);
-
-        startStiltPos = climberSubsystem.getPosition();
-        startElevatorPos = elevatorSubsystem.getPosition();
-      }
-      protected void execute() {
-        SmartDashboard.putString("Climb", "Move Both Up Climber Gamepad");
-
-        double speed = climberGamepad.getThresholdAxis(BionicF310.RT);
-        speed *= RobotConstants.climbBothSpeedMultiplier;
-
-        climberSubsystem.setStiltsClimbSpeed(speed * 2); //*2 because trigger only goes to .3
-
-        int stiltDelta = Math.abs(startStiltPos - climberSubsystem.getPosition());
-
-        // Elevator Drum is 1.3" Diameter, C = PI * D = Math.PI * 1.3
-        // Stilts pinion gear Pitch Diameter is 1.1" which is the circumference
-        int elevDelta = (int) (stiltDelta * (1.1/1.3));
-
-        // the sign here is the only difference between up and down
-        elevatorSubsystem.setPosition(startElevatorPos + elevDelta);
-      }
-      protected boolean isFinished() {
-        return false;
-      }
-      protected void end() {
-        elevatorSubsystem.setSpeed(0);
-        climberSubsystem.setSpeed(0);
-      }
-    });
+    climberGamepad.buttonHeld(BionicF310.RT, 0.05, new MoveElevAndStitls(true));
 
     //move both the elevator and stilts down
-    climberGamepad.buttonHeld(BionicF310.LT, 0.2, new Command() {
-      int startStiltPos;
-      int startElevatorPos;
-      // public Command() {
-      //   requires(Robot.climberSubsystem);
-      //   requires(Robot.elevatorSubsystem);
-      // }
-      protected void initialize() {
-        requires(Robot.climberSubsystem);
-        requires(Robot.elevatorSubsystem);
+    climberGamepad.buttonHeld(BionicF310.LT, 0.05, new MoveElevAndStitls(false));
 
-        startStiltPos = climberSubsystem.getPosition();
-        startElevatorPos = elevatorSubsystem.getPosition();
-      }
-      protected void execute() {
-        SmartDashboard.putString("Climb", "Move Both Down Climber Gamepad");
-
-        double speed = climberGamepad.getThresholdAxis(BionicF310.RT);
-        speed *= RobotConstants.climbBothSpeedMultiplier;
-
-        climberSubsystem.setStiltsClimbSpeed(speed * 2); //*2 because trigger only goes to .3
-
-        int stiltDelta = Math.abs(startStiltPos - climberSubsystem.getPosition());
-
-        // Elevator Drum is 1.3" Diameter, C = PI * D = Math.PI * 1.3
-        // Stilts pinion gear Pitch Diameter is 1.1" which is the circumference
-        int elevDelta = (int) (stiltDelta * (1.1/1.3));
-
-        // the sign here is the only difference between up and down
-        elevatorSubsystem.setPosition(startElevatorPos - elevDelta);
-      }
-      protected boolean isFinished() {
-        return false;
-      }
-      protected void end() {
-        elevatorSubsystem.setSpeed(0);
-        climberSubsystem.setSpeed(0);
-      }
-    });
-    driverGamepad.buttonHeld(BionicF310.RT, 0.2, new Command() {
-      // public Command() {
-      //   requires(stiltWheelSubsystem);
-      // }
-      @Override
-      protected void initialize() {
-        requires(stiltWheelSubsystem);
-      }
-      @Override
-      protected void execute() {
-        double speed = -Robot.driverGamepad.getThresholdAxis(BionicF310.RT);
-        stiltWheelSubsystem.setSpeed(-1 * speed * RobotConstants.climberDriveSpeedManual);
-      }
-      @Override
-      protected boolean isFinished() {
-        return false;
-      }
-      @Override
-      protected void end() {
-        stiltWheelSubsystem.setSpeed(0);
-      }
-    });
-    driverGamepad.buttonHeld(BionicF310.LT, 0.2, new Command() {
-      // public Command() {
-      //   requires(stiltWheelSubsystem);
-      // }
-      @Override
-      protected void initialize() {
-      }
-      @Override
-      protected void execute() {
-        double speed = Robot.driverGamepad.getThresholdAxis(BionicF310.LT) * RobotConstants.climberDriveSpeedManual;
-        stiltWheelSubsystem.setSpeed(speed * RobotConstants.climberDriveSpeedManual);
-      }
-      @Override
-      protected boolean isFinished() {
-        return false;
-      }
-      @Override
-      protected void end() {
-        stiltWheelSubsystem.setSpeed(0);
-      }
-    });
+    //drive stilt wheels
+    driverGamepad.buttonHeld(BionicF310.RT, 0.05, new MoveStiltWheels(true));
+    driverGamepad.buttonHeld(BionicF310.LT, 0.05, new MoveStiltWheels(false));
 
     /* Drivetrain */
     driverGamepad.buttonPressed(BionicF310.RB, new InvertDriveDirection());
