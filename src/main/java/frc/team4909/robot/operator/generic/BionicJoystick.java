@@ -130,7 +130,7 @@ public class BionicJoystick extends Joystick {
         }
 
         public boolean get() {
-            return inputJoystick.getRawAxis(axisNumber) > thresholdValue;
+            return Math.abs(inputJoystick.getRawAxis(axisNumber)) > thresholdValue;
         }
     }
 
