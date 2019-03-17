@@ -26,24 +26,24 @@ public class Stream {
       //Instantiate Cameras
       UsbCamera camera0 = CameraServer.getInstance().startAutomaticCapture(0); //Function: Drive
       UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture(1); //Function: Line
-      UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture(2); //Function: Hatch 
-      UsbCamera camera3 = CameraServer.getInstance().startAutomaticCapture(3); //Function: Cargo
+      // UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture(2); //Function: Hatch 
+      // UsbCamera camera3 = CameraServer.getInstance().startAutomaticCapture(3); //Function: Cargo
 
       //Set Camera 0 Resolution and FPS
       camera0.setResolution(160, 120);    
-      camera0.setFPS(12);                   
+      camera0.setFPS(16);                   
 
       //Set Camera 1 Resolution and FPS
       camera1.setResolution(160, 120);    
-      camera1.setFPS(12);                 
+      camera1.setFPS(10);                 
 
-      //Set Camera 2 Resolution and FPS
-      camera2.setResolution(160, 120);    
-      camera2.setFPS(12);                 
+      // //Set Camera 2 Resolution and FPS
+      // camera2.setResolution(160, 120);    
+      // camera2.setFPS(6);                 
 
-      //Set Camera 3 Resolution and FPS
-      camera3.setResolution(160, 120);    
-      camera3.setFPS(12);      
+      // //Set Camera 3 Resolution and FPS
+      // camera3.setResolution(160, 120);    
+      // camera3.setFPS(12);      
 
       // CameraServer intakeServer = CameraServer.getInstance();//.addCamera(intakeServer);
       
