@@ -58,7 +58,7 @@ public class ElevatorSubsystem extends Subsystem {
 
         // Pick a value so that positive PercentOutput yields a positive change in
         // sensor
-        leftMaster.setSensorPhase(true);
+        leftMaster.setSensorPhase(false);
 
         // One side needs to be inverted so the motors spin in the same direction
         // Also some of the 775 motors are wired backwards and require inversion

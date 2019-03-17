@@ -14,6 +14,10 @@ public class Default_ElevHoldPos extends Command {
         // Robot.elevatorSubsystem.updateHoldingPos();
         Robot.elevatorSubsystem.holdPosition();
     }
+    @Override
+    protected void execute() {
+        Robot.elevatorSubsystem.holdPosition();
+    }
 
     @Override
     protected boolean isFinished() {

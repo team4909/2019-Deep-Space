@@ -8,8 +8,8 @@ public class CargoIntakeOut extends Command {
     public CargoIntakeOut() {
         requires(Robot.intakeSubsystem);
     }
-
-    protected void execute() {
+    @Override
+    protected void initialize() {
         Robot.intakeSubsystem.setCargoIntakeSpeed(RobotConstants.cargoIntakeOutSpeed);
     }
 

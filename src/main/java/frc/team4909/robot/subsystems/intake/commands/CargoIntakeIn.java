@@ -9,13 +9,14 @@ public class CargoIntakeIn extends Command {
         requires(Robot.intakeSubsystem);
     }
 
-    protected void execute() {
+    @Override
+    protected void initialize() {
         Robot.intakeSubsystem.setCargoIntakeSpeed(RobotConstants.cargoIntakeInSpeed);
-       
     }
 
     @Override
     protected boolean isFinished() {
         return false;
     }
+
 }
