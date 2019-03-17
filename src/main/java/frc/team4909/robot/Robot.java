@@ -176,8 +176,8 @@ public class Robot extends TimedRobot {
     //move both the elevator and stilts down
     climberGamepad.buttonHeld(BionicF310.LT, 0.05, new MoveElevAndStitls(false));
 
-    climberGamepad.buttonHeld(BionicF310.RB, new SetWristSpeed(RobotConstants.elevatorArmSpeed));
-    climberGamepad.buttonHeld(BionicF310.LB, new SetWristSpeed(-RobotConstants.elevatorArmSpeed));
+    climberGamepad.buttonHeld(BionicF310.RB, new SetWristSpeed(-RobotConstants.elevatorArmSpeed));
+    climberGamepad.buttonHeld(BionicF310.LB, new SetWristSpeed(RobotConstants.elevatorArmSpeed));
 
 
     //drive stilt wheels
