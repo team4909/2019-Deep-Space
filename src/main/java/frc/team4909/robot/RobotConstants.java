@@ -27,7 +27,7 @@ public class RobotConstants {
   
   public static final double elevatorEncoderTicks = 51000; // total height of elevator
 
-  public static final double turnPreciseMultiplier = .325; // value when precise mode is activated; slows the turn; doesn't affect speed
+  public static final double turnPreciseMultiplier = .375; // value when precise mode is activated; slows the turn; doesn't affect speed
   public static final double drivePreciseMultiplier = .5;
 
   /* Intake */
