@@ -1,14 +1,11 @@
-package frc.team4909.robot.subsystems.climber;
+package frc.team4909.robot.subsystems.stilts;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team4909.robot.RobotMap;
-import frc.team4909.robot.subsystems.climber.commands.Default_StiltsHoldPos;
-import frc.team4909.robot.Robot;
+import frc.team4909.robot.subsystems.stilts.commands.Default_StiltsHoldPos;
 import frc.team4909.robot.RobotConstants;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
