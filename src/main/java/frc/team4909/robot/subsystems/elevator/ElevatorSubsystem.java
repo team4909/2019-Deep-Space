@@ -6,13 +6,9 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.ctre.phoenix.motorcontrol.ControlMode;
-
-import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotConstants;
 import frc.team4909.robot.RobotMap;
 import frc.team4909.robot.subsystems.elevator.commands.Default_ElevHoldPos;
