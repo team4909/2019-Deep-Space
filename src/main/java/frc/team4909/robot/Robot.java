@@ -18,8 +18,8 @@ import frc.team4909.robot.subsystems.drivetrain.commands.InvertDriveDirection;
 import frc.team4909.robot.subsystems.drivetrain.commands.TogglePreciseMode;
 import frc.team4909.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.team4909.robot.subsystems.elevator.commands.*;
-import frc.team4909.robot.subsystems.elevatorarm.ElevatorArmSubsystem;
-import frc.team4909.robot.subsystems.elevatorarm.commands.*;
+import frc.team4909.robot.subsystems.wrist.ElevatorArmSubsystem;
+import frc.team4909.robot.subsystems.wrist.commands.*;
 import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
 import frc.team4909.robot.subsystems.intake.commands.*;
 

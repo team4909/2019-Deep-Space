@@ -1,9 +1,7 @@
-package frc.team4909.robot.subsystems.elevatorarm.commands;
+package frc.team4909.robot.subsystems.wrist.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.team4909.robot.Robot;
-import frc.team4909.robot.subsystems.elevatorarm.ElevatorArmSubsystem;
 
 public class SetWristSpeed extends Command {
 

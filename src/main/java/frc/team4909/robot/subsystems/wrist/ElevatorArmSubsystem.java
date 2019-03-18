@@ -1,15 +1,10 @@
-package frc.team4909.robot.subsystems.elevatorarm;
+package frc.team4909.robot.subsystems.wrist;
 
-import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotConstants;
 import frc.team4909.robot.RobotMap;
-import frc.team4909.robot.operator.controllers.BionicF310;
-import frc.team4909.robot.subsystems.elevatorarm.commands.ElevatorArmOperatorControl;
-import frc.team4909.robot.subsystems.elevatorarm.commands.SetAngle;
-import edu.wpi.first.wpilibj.command.InstantCommand;
+import frc.team4909.robot.subsystems.wrist.commands.ElevatorArmOperatorControl;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -62,10 +57,6 @@ public class ElevatorArmSubsystem extends Subsystem{
         
         // Save the current encoder value as holding position
         holdCurrentPosition();        
-    }
-
-    public InstantCommand setAngle(int height){
-        return new SetAngle(height, this);
     }
 
     public void holdCurrentPosition(){
