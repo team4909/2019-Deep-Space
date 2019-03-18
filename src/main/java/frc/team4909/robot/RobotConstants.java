@@ -18,6 +18,7 @@ public class RobotConstants {
   public static double speedMultiplier = 0.7; 
   //0.7 is the desired multiplier speed at bottom; 0.1 is desired multiplier speed at top; 5000 is total height in encoder ticks
   public static double speedTurnMultiplier = 0.5; // As height increases, decrease speed ; calculation: 0.5 - (0.5-0.1)/5000
+  public static double elevatorGyroP = 0.2;
 
   public static final double maxDriveSpeed = 0.7; // desired values for when elevator is at bottom
   public static final double minDriveSpeed = 0.3; // Min velocity when elevator is at top

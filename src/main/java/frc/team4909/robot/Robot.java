@@ -1,7 +1,10 @@
 package frc.team4909.robot;
 
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -75,6 +78,7 @@ public class Robot extends TimedRobot {
 
   // Sensors
   public static LidarLitePWM lidar;
+  public static AHRS navx;
 
   /**
    * map a number from one range to another
@@ -119,6 +123,7 @@ public class Robot extends TimedRobot {
 
     // Sensors
     lidar = new LidarLitePWM(RobotMap.lidarPort);
+    navx = new AHRS(SPI.Port.kMXP);
 
     // Operator Input
     driverGamepad = new BionicF310(RobotMap.driverGamepadPort, // Port
@@ -204,6 +209,9 @@ public class Robot extends TimedRobot {
    * and SmartDashboard integrated updating.
    */
   public void robotPeriodic() {
+    SmartDashboard.putNumber("Gyro Roll", Robot.navx.getRoll());
+    SmartDashboard.putNumber("Gyro Pitch", Robot.navx.getPitch());
+    SmartDashboard.putNumber("Gyro Yaw", Robot.navx.getYaw());
     SmartDashboard.putNumber("Time Remaining", DriverStation.getInstance().getMatchTime());//Useful Method to get match data.
     SmartDashboard.putNumber("LT Climber Rise", climberGamepad.getThresholdAxis(BionicF310.LT));
     SmartDashboard.putNumber("LY Climber Elev", climberGamepad.getThresholdAxis(BionicF310.LY));
