@@ -7,11 +7,9 @@ import frc.team4909.robot.operator.controllers.BionicF310;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class ElevatorArmOperatorControl extends Command {
+public class Default_WristOperatorControl extends Command {
 
-    // private int holdingPosition = Robot.elevatorArmSubsystem.getPosition();
-
-    public ElevatorArmOperatorControl() {
+    public Default_WristOperatorControl() {
         requires(Robot.wristSubsystem);
         SmartDashboard.putString("Wrist - Status", "Constructor");
     }

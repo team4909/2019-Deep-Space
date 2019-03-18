@@ -2,7 +2,7 @@ package frc.team4909.robot.subsystems.wrist;
 
 import frc.team4909.robot.RobotConstants;
 import frc.team4909.robot.RobotMap;
-import frc.team4909.robot.subsystems.wrist.commands.ElevatorArmOperatorControl;
+import frc.team4909.robot.subsystems.wrist.commands.Default_WristOperatorControl;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -90,7 +90,7 @@ public class WristSubsystem extends Subsystem{
 
     @Override
     protected void initDefaultCommand() {
-        setDefaultCommand(new ElevatorArmOperatorControl());
+        setDefaultCommand(new Default_WristOperatorControl());
     }
 
 
