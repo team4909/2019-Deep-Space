@@ -1,12 +1,9 @@
-package frc.team4909.robot.subsystems.StiltWheel;
+package frc.team4909.robot.subsystems.stiltwheel;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotMap;
-import frc.team4909.robot.subsystems.StiltWheel.commands.Default_StiltWheelStop;
+import frc.team4909.robot.subsystems.stiltwheel.commands.Default_StiltWheelStop;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
