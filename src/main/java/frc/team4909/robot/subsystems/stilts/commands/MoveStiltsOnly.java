@@ -7,20 +7,20 @@ import frc.team4909.robot.operator.controllers.BionicF310;
 
 public class MoveStiltsOnly extends Command {
       public MoveStiltsOnly() {
-        requires(Robot.climberSubsystem);
+        requires(Robot.stiltSubsystem);
       }
       protected void initialize() {
       }
       protected void execute() {
         double speed = Robot.climberGamepad.getThresholdAxis(BionicF310.RY);
-        Robot.climberSubsystem.setStiltsClimbSpeed(-1 * speed * RobotConstants.climbSpeedMultiplier);
+        Robot.stiltSubsystem.setStiltsClimbSpeed(-1 * speed * RobotConstants.climbSpeedMultiplier);
         // climberSubsystem.updateHoldingPos();
       }
       protected boolean isFinished() {
         return false;
       }
       protected void end() {
-        Robot.climberSubsystem.updateHoldingPos();
-        Robot.climberSubsystem.setStiltsClimbSpeed(0);
+        Robot.stiltSubsystem.updateHoldingPos();
+        Robot.stiltSubsystem.setStiltsClimbSpeed(0);
       }
 }

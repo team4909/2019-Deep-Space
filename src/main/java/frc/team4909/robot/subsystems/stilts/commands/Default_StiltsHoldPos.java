@@ -7,11 +7,11 @@ public class Default_StiltsHoldPos extends Command {
 
     public Default_StiltsHoldPos()
     {
-        requires(Robot.climberSubsystem);
+        requires(Robot.stiltSubsystem);
     }
     @Override
     protected void initialize() {
-        Robot.climberSubsystem.holdPosition();
+        Robot.stiltSubsystem.holdPosition();
     }
 
     @Override

@@ -11,7 +11,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
-public class ClimberSubsystem extends Subsystem {
+public class StiltSubsystem extends Subsystem {
 
     // All motor controllers should be private.
     // Methods that allow safe motion should be provided by the subsystem
@@ -19,7 +19,7 @@ public class ClimberSubsystem extends Subsystem {
     private WPI_VictorSPX climberLiftSlave;
     private int holdingStiltsPosition = 0;
 
-    public ClimberSubsystem() {
+    public StiltSubsystem() {
         //super should always be called to ensure proper subystem initialization
         super();
         climberLiftMaster = new WPI_TalonSRX(RobotMap.climberMasterSRXID);

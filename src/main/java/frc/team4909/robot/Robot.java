@@ -11,7 +11,7 @@ import frc.team4909.robot.sensors.LidarLitePWM;
 import frc.team4909.robot.sensors.Stream;
 import frc.team4909.robot.subsystems.StiltWheel.StiltWheelSubsystem;
 import frc.team4909.robot.subsystems.StiltWheel.commands.MoveStiltWheels;
-import frc.team4909.robot.subsystems.stilts.ClimberSubsystem;
+import frc.team4909.robot.subsystems.stilts.StiltSubsystem;
 import frc.team4909.robot.subsystems.stilts.commands.*;
 import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
 import frc.team4909.robot.subsystems.drivetrain.commands.InvertDriveDirection;
@@ -68,26 +68,12 @@ public class Robot extends TimedRobot {
   public static IntakeSubsystem intakeSubsystem;
   public static ElevatorSubsystem elevatorSubsystem;
   public static ElevatorArmSubsystem elevatorArmSubsystem;
-  public static ClimberSubsystem climberSubsystem;
+  public static StiltSubsystem stiltSubsystem;
   public static StiltWheelSubsystem stiltWheelSubsystem;
   public static Compressor c;
 
   // Sensors
   public static LidarLitePWM lidar;
-
-  /**
-   * map a number from one range to another
-   * 
-   * @param {num} value the value to be mapped
-   * @param {num} old_min the minimum of value
-   * @param {num} old_max the maximum of value
-   * @param {num} new_min the new minimum value
-   * @param {num} new_max the new maximum value
-   * @return {num} the value remaped on the range [new_min new_max]
-   */
-  public static double map(double value, double old_min, double old_max, double new_min, double new_max) {
-    return (value - old_min) / (old_max - old_min) * (new_max - new_min) + new_min;
-  }
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -113,7 +99,7 @@ public class Robot extends TimedRobot {
     intakeSubsystem = new IntakeSubsystem();
     elevatorSubsystem = new ElevatorSubsystem();
     elevatorArmSubsystem = new ElevatorArmSubsystem();
-    climberSubsystem = new ClimberSubsystem();
+    stiltSubsystem = new StiltSubsystem();
     stiltWheelSubsystem = new StiltWheelSubsystem();
 
     // Sensors
@@ -240,7 +226,7 @@ public class Robot extends TimedRobot {
 
     Robot.elevatorSubsystem.updateHoldingPos();
     Robot.elevatorArmSubsystem.holdingPosition = Robot.elevatorArmSubsystem.getPosition();
-    Robot.climberSubsystem.updateHoldingPos();
+    Robot.stiltSubsystem.updateHoldingPos();
   }
 
   public void teleopPeriodic() {
