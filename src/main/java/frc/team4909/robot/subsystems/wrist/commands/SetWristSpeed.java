@@ -8,18 +8,18 @@ public class SetWristSpeed extends Command {
     private double  speed = 0;
 
     public SetWristSpeed(double speed1) {
-        requires(Robot.elevatorArmSubsystem);
+        requires(Robot.wristSubsystem);
         speed = speed1;
     }
 
     @Override
     public void initialize() {
-        Robot.elevatorArmSubsystem.elevatorArmSetSpeed(speed);
+        Robot.wristSubsystem.elevatorArmSetSpeed(speed);
     }
     @Override
     protected void end() {
-        Robot.elevatorArmSubsystem.elevatorArmSetSpeed(0);
-        Robot.elevatorArmSubsystem.holdingPosition = Robot.elevatorArmSubsystem.getPosition();
+        Robot.wristSubsystem.elevatorArmSetSpeed(0);
+        Robot.wristSubsystem.holdingPosition = Robot.wristSubsystem.getPosition();
     }
 
     @Override

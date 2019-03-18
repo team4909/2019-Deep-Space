@@ -18,7 +18,7 @@ import frc.team4909.robot.subsystems.drivetrain.commands.InvertDriveDirection;
 import frc.team4909.robot.subsystems.drivetrain.commands.TogglePreciseMode;
 import frc.team4909.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.team4909.robot.subsystems.elevator.commands.*;
-import frc.team4909.robot.subsystems.wrist.ElevatorArmSubsystem;
+import frc.team4909.robot.subsystems.wrist.WristSubsystem;
 import frc.team4909.robot.subsystems.wrist.commands.*;
 import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
 import frc.team4909.robot.subsystems.intake.commands.*;
@@ -67,7 +67,7 @@ public class Robot extends TimedRobot {
   public static DriveTrainSubsystem drivetrainSubsystem;
   public static IntakeSubsystem intakeSubsystem;
   public static ElevatorSubsystem elevatorSubsystem;
-  public static ElevatorArmSubsystem elevatorArmSubsystem;
+  public static WristSubsystem wristSubsystem;
   public static StiltSubsystem stiltSubsystem;
   public static StiltWheelSubsystem stiltWheelSubsystem;
   public static Compressor c;
@@ -98,7 +98,7 @@ public class Robot extends TimedRobot {
     drivetrainSubsystem = new DriveTrainSubsystem();
     intakeSubsystem = new IntakeSubsystem();
     elevatorSubsystem = new ElevatorSubsystem();
-    elevatorArmSubsystem = new ElevatorArmSubsystem();
+    wristSubsystem = new WristSubsystem();
     stiltSubsystem = new StiltSubsystem();
     stiltWheelSubsystem = new StiltWheelSubsystem();
 
@@ -225,7 +225,7 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run(); 
 
     Robot.elevatorSubsystem.updateHoldingPos();
-    Robot.elevatorArmSubsystem.holdingPosition = Robot.elevatorArmSubsystem.getPosition();
+    Robot.wristSubsystem.holdingPosition = Robot.wristSubsystem.getPosition();
     Robot.stiltSubsystem.updateHoldingPos();
   }
 

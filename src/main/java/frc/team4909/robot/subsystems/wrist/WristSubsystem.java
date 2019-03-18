@@ -10,12 +10,12 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-public class ElevatorArmSubsystem extends Subsystem{
+public class WristSubsystem extends Subsystem{
     TalonSRX wristMaster;
 
     public int holdingPosition = 0;
 
-    public ElevatorArmSubsystem(){
+    public WristSubsystem(){
         // super should always be called to ensure proper subystem initialization
         super();
         // Wrist

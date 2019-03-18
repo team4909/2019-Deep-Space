@@ -12,7 +12,7 @@ public class ElevatorArmOperatorControl extends Command {
     // private int holdingPosition = Robot.elevatorArmSubsystem.getPosition();
 
     public ElevatorArmOperatorControl() {
-        requires(Robot.elevatorArmSubsystem);
+        requires(Robot.wristSubsystem);
         SmartDashboard.putString("Wrist - Status", "Constructor");
     }
 
@@ -24,11 +24,11 @@ public class ElevatorArmOperatorControl extends Command {
 
         if (moveSpeed == 0) { // If Y-stick value is not moving, HOLD position
             SmartDashboard.putString("Wrist - Status", "Hold");
-            Robot.elevatorArmSubsystem.setPosition(Robot.elevatorArmSubsystem.holdingPosition);
+            Robot.wristSubsystem.setPosition(Robot.wristSubsystem.holdingPosition);
         } else { // Set speed to Y-stick value and HOLD position
             SmartDashboard.putString("Wrist - Status", "Move");
-            Robot.elevatorArmSubsystem.elevatorArmSetSpeed(moveSpeed);
-            Robot.elevatorArmSubsystem.holdingPosition = Robot.elevatorArmSubsystem.getPosition();
+            Robot.wristSubsystem.elevatorArmSetSpeed(moveSpeed);
+            Robot.wristSubsystem.holdingPosition = Robot.wristSubsystem.getPosition();
         }
 
     }
