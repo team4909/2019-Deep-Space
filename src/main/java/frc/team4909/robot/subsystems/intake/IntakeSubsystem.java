@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotConstants;
 import frc.team4909.robot.RobotMap;
-import frc.team4909.robot.subsystems.intake.commands.CargoIntakeHold;
-import frc.team4909.robot.subsystems.intake.commands.HatchPanelIntakeClose;
+import frc.team4909.robot.subsystems.intake.commands.Default_CargoIntakeHold;
+import frc.team4909.robot.subsystems.intake.commands.Default_HatchPanelIntakeClose;
 
 public class IntakeSubsystem extends Subsystem {
     DoubleSolenoid hatchPanelSolenoid;
@@ -37,13 +37,7 @@ public class IntakeSubsystem extends Subsystem {
     }
 
     public void holdCargoIntake(){
-        // if(hasCargo()){
-        //     setCargoIntakeSpeed(RobotConstants.cargoIntakeHoldSpeed);
-        // } else {
-        //     setCargoIntakeSpeed(0.0625);
-
         setCargoIntakeSpeed(RobotConstants.cargoIntakeHoldSpeed);
-        // }
     }
 
     public void setCargoIntakeSpeed(double speed) {
@@ -86,8 +80,8 @@ public class IntakeSubsystem extends Subsystem {
 
                 // Revert to Closed by Default, Will Simplify While
                 // Held/Toggle Open Commands in Future
-                addParallel(new HatchPanelIntakeClose());
-                addParallel(new CargoIntakeHold());
+                addParallel(new Default_HatchPanelIntakeClose());
+                addParallel(new Default_CargoIntakeHold());
             }
         });
     }

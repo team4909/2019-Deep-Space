@@ -1,4 +1,4 @@
-package frc.team4909.robot.subsystems.climber.commands;
+package frc.team4909.robot.subsystems.stilts.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -14,7 +14,7 @@ public class MoveElevAndStitls extends Command {
     private BionicAxis axis;
 
     public MoveElevAndStitls(boolean isGoingUp) {
-        requires(Robot.climberSubsystem);
+        requires(Robot.stiltSubsystem);
         requires(Robot.elevatorSubsystem);
         this.isGoingUp = isGoingUp;
         if (isGoingUp) {
@@ -24,7 +24,7 @@ public class MoveElevAndStitls extends Command {
         }
     }
     protected void initialize() {
-        startStiltPos = Robot.climberSubsystem.getPosition();
+        startStiltPos = Robot.stiltSubsystem.getPosition();
         startElevatorPos = Robot.elevatorSubsystem.getPosition();
     }
 
@@ -36,9 +36,9 @@ public class MoveElevAndStitls extends Command {
         double speed = Robot.climberGamepad.getThresholdAxis(axis);
         speed *= RobotConstants.climbBothSpeedMultiplier;
 
-        Robot.climberSubsystem.setStiltsClimbSpeed((isGoingUp ? 1 : -1) * speed * 2); // *2 because trigger only goes to .3
+        Robot.stiltSubsystem.setStiltsClimbSpeed((isGoingUp ? 1 : -1) * speed * 2); // *2 because trigger only goes to .3
 
-        int stiltDelta = Math.abs(startStiltPos - Robot.climberSubsystem.getPosition());
+        int stiltDelta = Math.abs(startStiltPos - Robot.stiltSubsystem.getPosition());
 
         // Elevator Drum is 1.3" Diameter, C = PI * D = Math.PI * 1.3
         // Stilts pinion gear Pitch Diameter is 1.1" which is the circumference
@@ -60,7 +60,7 @@ public class MoveElevAndStitls extends Command {
     protected void end() {
         Robot.elevatorSubsystem.setSpeed(0);
         Robot.elevatorSubsystem.updateHoldingPos();
-        Robot.climberSubsystem.setSpeed(0);
-        Robot.climberSubsystem.updateHoldingPos();
+        Robot.stiltSubsystem.setSpeed(0);
+        Robot.stiltSubsystem.updateHoldingPos();
     }
 }

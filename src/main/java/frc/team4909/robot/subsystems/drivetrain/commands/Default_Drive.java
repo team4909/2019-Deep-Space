@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.team4909.robot.Robot;
 import frc.team4909.robot.operator.controllers.BionicF310;
 
-public class Drive extends Command {
-    public Drive() {
+public class Default_Drive extends Command {
+    public Default_Drive() {
         requires(Robot.drivetrainSubsystem);
     }
 

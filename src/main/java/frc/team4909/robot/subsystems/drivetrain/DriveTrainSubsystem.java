@@ -9,10 +9,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team4909.robot.RobotMap;
-import frc.team4909.robot.operator.controllers.BionicF310;
 import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotConstants;
-import frc.team4909.robot.subsystems.drivetrain.commands.Drive;
+import frc.team4909.robot.subsystems.drivetrain.commands.Default_Drive;
 
 public class DriveTrainSubsystem extends Subsystem {
     CANSparkMax frontLeftSparkMax, rearLeftSparkMax, frontRightSparkMax, rearRightSparkMax;
@@ -88,7 +87,7 @@ public class DriveTrainSubsystem extends Subsystem {
     }
 
     protected void initDefaultCommand() {
-        setDefaultCommand(new Drive());
+        setDefaultCommand(new Default_Drive());
     }
 
     @Override

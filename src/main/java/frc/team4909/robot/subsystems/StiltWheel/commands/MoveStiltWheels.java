@@ -1,4 +1,4 @@
-package frc.team4909.robot.subsystems.StiltWheel.commands;
+package frc.team4909.robot.subsystems.stiltwheel.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team4909.robot.Robot;

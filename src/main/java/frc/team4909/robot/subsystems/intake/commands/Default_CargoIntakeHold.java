@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.team4909.robot.Robot;
 import frc.team4909.robot.RobotConstants;
 
-public class CargoIntakeHold extends Command{
-    public CargoIntakeHold(){
+public class Default_CargoIntakeHold extends Command{
+    public Default_CargoIntakeHold(){
         requires(Robot.intakeSubsystem);
     }
 

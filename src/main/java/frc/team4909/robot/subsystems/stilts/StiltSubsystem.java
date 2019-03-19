@@ -1,20 +1,17 @@
-package frc.team4909.robot.subsystems.climber;
+package frc.team4909.robot.subsystems.stilts;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team4909.robot.RobotMap;
-import frc.team4909.robot.subsystems.climber.commands.Default_StiltsHoldPos;
-import frc.team4909.robot.Robot;
+import frc.team4909.robot.subsystems.stilts.commands.Default_StiltsHoldPos;
 import frc.team4909.robot.RobotConstants;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
-public class ClimberSubsystem extends Subsystem {
+public class StiltSubsystem extends Subsystem {
 
     // All motor controllers should be private.
     // Methods that allow safe motion should be provided by the subsystem
@@ -22,7 +19,7 @@ public class ClimberSubsystem extends Subsystem {
     private WPI_VictorSPX climberLiftSlave;
     private int holdingStiltsPosition = 0;
 
-    public ClimberSubsystem() {
+    public StiltSubsystem() {
         //super should always be called to ensure proper subystem initialization
         super();
         climberLiftMaster = new WPI_TalonSRX(RobotMap.climberMasterSRXID);
@@ -126,6 +123,21 @@ public class ClimberSubsystem extends Subsystem {
 
     public void holdPosition() {
         setPosition(holdingStiltsPosition);
+    }
+
+    public boolean isAtTop() {
+        //@todo not sure if fwd or reverse
+        return climberLiftMaster.getSensorCollection().isFwdLimitSwitchClosed();
+    }
+
+    public void setCurrentLimit(int maxAmps) {
+        if (maxAmps == 0) {
+            climberLiftMaster.enableCurrentLimit(false);
+        } else {
+            climberLiftMaster.enableCurrentLimit(true);
+            climberLiftMaster.configPeakCurrentLimit(0, RobotConstants.timeoutMs);
+            climberLiftMaster.configContinuousCurrentLimit(maxAmps, RobotConstants.timeoutMs);
+        }
     }
 
    
