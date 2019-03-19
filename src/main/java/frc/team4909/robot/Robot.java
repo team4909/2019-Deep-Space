@@ -254,9 +254,13 @@ public class Robot extends TimedRobot {
   }
 
   public void teleopPeriodic() {
-    myDrive.tankDrive(0.5, 0.5);
-    SmartDashboard.putData("Pixy Follow", new PixyFollow());
-    // arduino.writeString("Hello arduino");
+    // myDrive.tankDrive(0.5, 0.5);
+    // SmartDashboard.putData("Pixy Follow", new PixyFollow());
+
+        Robot.arduino.writeString("g");  
+        int response = Robot.arduino.getBytesReceived();
+        System.out.println(response);    
+// arduino.writeString("Hello arduino");
     // String response = arduino.readString();
     // System.out.println(response);
 
