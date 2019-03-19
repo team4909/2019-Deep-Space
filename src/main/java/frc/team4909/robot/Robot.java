@@ -221,6 +221,7 @@ public class Robot extends TimedRobot {
   }
 
   public void autonomousInit() {
+    new MoveUpToLimit().start();
     // elevatorSubsystem.setSensorZero();
     // elevatorArmSubsystem.setSensorZero();
     // climberSubsystem.setSensorZero();
@@ -237,6 +238,7 @@ public class Robot extends TimedRobot {
    */
 
   public void teleopInit() {
+    new MoveUpToLimit().start();
     // Reset elevator encoder
     
   }
