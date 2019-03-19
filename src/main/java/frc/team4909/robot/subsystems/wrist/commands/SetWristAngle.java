@@ -12,7 +12,7 @@ public class SetWristAngle extends InstantCommand {
 
     @Override
     public void initialize() {
-        Robot.wristSubsystem.holdingPosition = setpoint;
+        Robot.wristSubsystem.updateHoldingPos(setpoint);
     }
 
 }

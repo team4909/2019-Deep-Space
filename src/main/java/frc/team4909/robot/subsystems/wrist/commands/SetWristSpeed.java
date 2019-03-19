@@ -19,7 +19,7 @@ public class SetWristSpeed extends Command {
     @Override
     protected void end() {
         Robot.wristSubsystem.elevatorArmSetSpeed(0);
-        Robot.wristSubsystem.holdingPosition = Robot.wristSubsystem.getPosition();
+        Robot.wristSubsystem.updateHoldingPos();
     }
 
     @Override

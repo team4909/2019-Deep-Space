@@ -18,10 +18,10 @@ public class Default_WristOperatorControl extends Command {
                 * RobotConstants.elevatorArmSpeedMultiplier;
 
         if (moveSpeed == 0) { // If Y-stick value is not moving, HOLD position
-            Robot.wristSubsystem.setPosition(Robot.wristSubsystem.holdingPosition);
+            Robot.wristSubsystem.updateHoldingPos();
         } else { // Set speed to Y-stick value and HOLD position
             Robot.wristSubsystem.elevatorArmSetSpeed(moveSpeed);
-            Robot.wristSubsystem.holdingPosition = Robot.wristSubsystem.getPosition();
+            Robot.wristSubsystem.updateHoldingPos();
         }
 
     }

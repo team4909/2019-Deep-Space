@@ -10,10 +10,10 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-public class WristSubsystem extends Subsystem{
+public class WristSubsystem extends Subsystem {
     TalonSRX wristMaster;
 
-    public int holdingPosition = 0;
+    private int holdingPosition = 0;
 
     public WristSubsystem(){
         // super should always be called to ensure proper subystem initialization
@@ -91,6 +91,14 @@ public class WristSubsystem extends Subsystem{
     @Override
     protected void initDefaultCommand() {
         setDefaultCommand(new Default_WristOperatorControl());
+    }
+
+    public void updateHoldingPos() {
+        holdingPosition = getPosition();
+    }
+
+    public void updateHoldingPos(int pos) {
+        holdingPosition = pos;
     }
 
 

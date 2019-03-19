@@ -226,7 +226,7 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run(); 
 
     Robot.elevatorSubsystem.updateHoldingPos();
-    Robot.wristSubsystem.holdingPosition = Robot.wristSubsystem.getPosition();
+    Robot.wristSubsystem.updateHoldingPos();
     Robot.stiltSubsystem.updateHoldingPos();
   }
 
