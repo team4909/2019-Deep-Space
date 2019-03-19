@@ -134,7 +134,7 @@ public class BionicJoystick extends Joystick {
         }
     }
 
-    private class BionicJoystickPOVButton extends Trigger {
+    private class BionicJoystickPOVButton extends BionicTrigger {
         private BionicJoystick inputJoystick;
         private int povAngle;
 
