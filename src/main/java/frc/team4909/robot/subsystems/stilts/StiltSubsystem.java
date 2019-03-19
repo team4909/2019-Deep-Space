@@ -125,6 +125,21 @@ public class StiltSubsystem extends Subsystem {
         setPosition(holdingStiltsPosition);
     }
 
+    public boolean isAtTop() {
+        //@todo not sure if fwd or reverse
+        return climberLiftMaster.getSensorCollection().isFwdLimitSwitchClosed();
+    }
+
+    public void setCurrentLimit(int maxAmps) {
+        if (maxAmps == 0) {
+            climberLiftMaster.enableCurrentLimit(false);
+        } else {
+            climberLiftMaster.enableCurrentLimit(true);
+            climberLiftMaster.configPeakCurrentLimit(0, RobotConstants.timeoutMs);
+            climberLiftMaster.configContinuousCurrentLimit(maxAmps, RobotConstants.timeoutMs);
+        }
+    }
+
    
 
     
