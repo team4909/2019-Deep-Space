@@ -76,6 +76,8 @@ public class Robot extends TimedRobot {
   public static DifferentialDrive myDrive;
   public static Spark m_left, m_right;
   public static SerialPort arduino;
+  String str = "y";    
+
 
   // // Sensors
   // public static LidarLitePWM lidar;
@@ -112,7 +114,9 @@ public class Robot extends TimedRobot {
   //   c = new Compressor(0); // Initialize Compressor
   //   c.setClosedLoopControl(true); // Start Compressor in Closed Loop Control
     m_left = new Spark(0);
+    m_left.setSafetyEnabled(false);
     m_right = new Spark(1);
+    m_right.setSafetyEnabled(false);
     myDrive = new DifferentialDrive(m_left, m_right);
     arduino = new SerialPort(115200, SerialPort.Port.kUSB);
 
@@ -254,13 +258,43 @@ public class Robot extends TimedRobot {
   }
 
   public void teleopPeriodic() {
-    // myDrive.tankDrive(0.5, 0.5);
-    // SmartDashboard.putData("Pixy Follow", new PixyFollow());
+    //  myDrive.tankDrive(0.5, 0.5);
+        SmartDashboard.putData("Pixy Follow", new PixyFollow());
+        Robot.arduino.writeString(str); 
+        byte[] arr = Robot.arduino.read(1);
+        System.out.println("Bytes to read" + Robot.arduino.getBytesReceived());
+        System.out.println("Value = " + arr[0]);
+        System.out.println("Array length " + arr.length);
 
-        Robot.arduino.writeString("g");  
-        int response = Robot.arduino.getBytesReceived();
-        System.out.println(response);    
-// arduino.writeString("Hello arduino");
+        if(arr[0] == 1){ // case 1 does not find line
+            Robot.myDrive.tankDrive(0.2, 0.2);
+            SmartDashboard.putString("Case", "1");
+        }
+        else if(arr[0] == 2){ // veering off to right, want to move left
+            Robot.myDrive.tankDrive(0.6, 0.4);
+            SmartDashboard.putString("Case", "2");
+
+        }
+        else if(arr[0] == 3){ // veering off to left, want to move right
+            Robot.myDrive.tankDrive(0.4, 0.6); 
+            SmartDashboard.putString("Case", "3");
+
+        }
+        else{ // drive normal
+            Robot.myDrive.tankDrive(0.5,0.5);
+            SmartDashboard.putString("Case", "4");
+
+        }
+
+
+    // Robot.arduino.writeString(str); 
+    // Robot.arduino.setReadBufferSize(1);
+    // byte[] response = Robot.arduino.read(3);
+    // System.out.println(arduino.read(1));
+    // System.out.println();
+    // System.out.println(Robot.arduino.readString());
+    // System.out.println(response.toString()); 
+   // arduino.writeString("Hello arduino");
     // String response = arduino.readString();
     // System.out.println(response);
 
