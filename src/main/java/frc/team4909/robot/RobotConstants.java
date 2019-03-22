@@ -3,7 +3,8 @@ package frc.team4909.robot;
 public class RobotConstants {
   /* Operator Input */
   public static final double driverGamepadSensitivity = 0.6; // Value selected from 2018 code
-  public static final double driverGamepadDeadzone = 0.1; // Value selected from 2018 code
+  public static final double driverGamepadDeadzone = 0.1
+  ; // Value selected from 2018 code
 
   public static final double manipulatorGamepadSensitivity = 0.7; // Value selected from 2018 code
   public static final double manipulatorGamepadDeadzone = 0.15; // Value selected from 2018 code
@@ -15,9 +16,9 @@ public class RobotConstants {
   /* Drivetrain */
   //TODO: Tune values
 
-  public static double speedMultiplier = 0.7; 
+  public static double speedMultiplier = 0.8; 
   //0.7 is the desired multiplier speed at bottom; 0.1 is desired multiplier speed at top; 5000 is total height in encoder ticks
-  public static double speedTurnMultiplier = 0.5; // As height increases, decrease speed ; calculation: 0.5 - (0.5-0.1)/5000
+  public static double speedTurnMultiplier = 0.7; // As height increases, decrease speed ; calculation: 0.5 - (0.5-0.1)/5000
 
   public static final double maxDriveSpeed = 0.7; // desired values for when elevator is at bottom
   public static final double minDriveSpeed = 0.3; // Min velocity when elevator is at top
@@ -27,7 +28,7 @@ public class RobotConstants {
   
   public static final double elevatorEncoderTicks = 51000; // total height of elevator
 
-  public static final double turnPreciseMultiplier = .375; // value when precise mode is activated; slows the turn; doesn't affect speed
+  public static final double turnPreciseMultiplier = .425; // value when precise mode is activated; slows the turn; doesn't affect speed
   public static final double drivePreciseMultiplier = .5;
 
   /* Intake */
@@ -93,7 +94,7 @@ public class RobotConstants {
   public static final double climbBothSpeedMultiplier = 0.3;
   public static final double climbVelocityMultiplier = 800;
   public static final double liftClimbSpeed = 0.3;
-
+  public static final double hookMoveSpeed = 0.5;
 
   /* Timeout */
   public static final int timeoutMs = 30; // milliseconds

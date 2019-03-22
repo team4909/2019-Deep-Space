@@ -50,6 +50,8 @@ Port 2: Climber Gamepad
   POV DOWN: Elevator & Stilts Down
   LY: Elevator Up/Down
   RY: Stilts Up/Down
+  Start: Move Hook In Position
+  Back: Move Hook Out Position
 
 */
 
@@ -192,6 +194,10 @@ public class Robot extends TimedRobot {
     manipulatorGamepad.buttonPressed(BionicF310.A, new SetWristAngle(RobotConstants.wristSetpointCargoIn));
     manipulatorGamepad.buttonPressed(BionicF310.B, new SetWristAngle(RobotConstants.wristSetpointHatch));
     manipulatorGamepad.buttonPressed(BionicF310.Y, new SetWristAngle(RobotConstants.wristSetpointCargoScore));
+    
+    /* Climb Hook */
+    climberGamepad.buttonPressed(BionicF310.Start, new SetHookSpeed(RobotConstants.hookMoveSpeed));
+    climberGamepad.buttonPressed(BionicF310.Back, new SetHookSpeed(-RobotConstants.hookMoveSpeed));
   }
 
   /**

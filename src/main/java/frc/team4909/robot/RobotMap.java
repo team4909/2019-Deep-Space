@@ -53,6 +53,7 @@ public class RobotMap {
   public static final int climberMasterSRXID = 10;
   public static final int climberSlaveSPXID = 2; // @todo not on robot yet
   public static final int climberDriveSPXID = 11;
+  public static final int climberHookSPXID = 14;
 
   /* Sensors */
   public static final int lidarPort = 4;

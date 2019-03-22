@@ -20,6 +20,7 @@ public class ClimberSubsystem extends Subsystem {
     // Methods that allow safe motion should be provided by the subsystem
     private WPI_TalonSRX climberLiftMaster;
     private WPI_VictorSPX climberLiftSlave;
+    private WPI_VictorSPX climberHook;
     private int holdingStiltsPosition = 0;
 
     public ClimberSubsystem() {
@@ -27,6 +28,8 @@ public class ClimberSubsystem extends Subsystem {
         super();
         climberLiftMaster = new WPI_TalonSRX(RobotMap.climberMasterSRXID);
         climberLiftSlave = new WPI_VictorSPX(RobotMap.climberSlaveSPXID);
+
+        climberHook = new WPI_VictorSPX(RobotMap.climberHookSPXID);
 
         // Talons have sticky nonvolatile flash memory.
         // Lets clear any sticky settings to ensure we use the settings configured below
@@ -128,7 +131,9 @@ public class ClimberSubsystem extends Subsystem {
         setPosition(holdingStiltsPosition);
     }
 
-   
+   public void setHookSpeed(double speed){
+       climberHook.set(speed);
+   }
 
     
 }
