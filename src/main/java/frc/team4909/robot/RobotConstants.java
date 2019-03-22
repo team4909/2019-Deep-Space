@@ -94,7 +94,7 @@ public class RobotConstants {
   public static final double climbBothSpeedMultiplier = 0.3;
   public static final double climbVelocityMultiplier = 800;
   public static final double liftClimbSpeed = 0.3;
-  public static final double hookMoveSpeed = 0.5;
+  public static final double hookMoveSpeed = 1.0;
 
   /* Timeout */
   public static final int timeoutMs = 30; // milliseconds
