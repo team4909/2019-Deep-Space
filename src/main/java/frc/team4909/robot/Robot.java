@@ -161,8 +161,6 @@ public class Robot extends TimedRobot {
 
 
 
-
-
     /* Elevator */
     manipulatorGamepad.buttonHeld(BionicF310.LY, RobotConstants.manipulatorGamepadDeadzone, new MoveElevatorOnly(manipulatorGamepad, BionicF310.LY));
 
@@ -196,8 +194,8 @@ public class Robot extends TimedRobot {
     manipulatorGamepad.buttonPressed(BionicF310.Y, new SetWristAngle(RobotConstants.wristSetpointCargoScore));
     
     /* Climb Hook */
-    climberGamepad.buttonPressed(BionicF310.Start, new SetHookSpeed(RobotConstants.hookMoveSpeed));
-    climberGamepad.buttonPressed(BionicF310.Back, new SetHookSpeed(-RobotConstants.hookMoveSpeed));
+    climberGamepad.buttonHeld(BionicF310.Start, new SetHookSpeed(RobotConstants.hookMoveSpeed));
+    climberGamepad.buttonHeld(BionicF310.Back, new SetHookSpeed(-RobotConstants.hookMoveSpeed));
   }
 
   /**
@@ -211,11 +209,12 @@ public class Robot extends TimedRobot {
    */
   public void robotPeriodic() {
     SmartDashboard.putNumber("Time Remaining", DriverStation.getInstance().getMatchTime());//Useful Method to get match data.
-    SmartDashboard.putNumber("LT Climber Rise", climberGamepad.getThresholdAxis(BionicF310.LT));
-    SmartDashboard.putNumber("LY Climber Elev", climberGamepad.getThresholdAxis(BionicF310.LY));
-    SmartDashboard.putNumber("RY Climber Stilts", climberGamepad.getThresholdAxis(BionicF310.RY));
-    SmartDashboard.putNumber("RT Climber Sink", climberGamepad.getThresholdAxis(BionicF310.RT));
-    SmartDashboard.putNumber("LY Elevator", manipulatorGamepad.getThresholdAxis(BionicF310.LY));
+    // SmartDashboard.putNumber("LT Climber Rise", climberGamepad.getThresholdAxis(BionicF310.LT));
+    // SmartDashboard.putNumber("LY Climber Elev", climberGamepad.getThresholdAxis(BionicF310.LY));
+    // SmartDashboard.putNumber("RY Climber Stilts", climberGamepad.getThresholdAxis(BionicF310.RY));
+    // SmartDashboard.putNumber("RT Climber Sink", climberGamepad.getThresholdAxis(BionicF310.RT));
+    // SmartDashboard.putNumber("LY Elevator", manipulatorGamepad.getThresholdAxis(BionicF310.LY));
+    SmartDashboard.putNumber("Loop Period", getPeriod());
     
     // process();
     Scheduler.getInstance().run();

@@ -6,7 +6,7 @@ import frc.team4909.robot.Robot;
 public class SetHookSpeed extends Command {
     private double speed;
       public SetHookSpeed(double speed) {
-        requires(Robot.climberSubsystem);
+        //requires(Robot.climberSubsystem);
         this.speed = speed;
       }
       protected void initialize() {
