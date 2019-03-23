@@ -36,7 +36,7 @@ public class MoveElevAndStitls extends Command {
         double speed = Robot.climberGamepad.getThresholdAxis(axis);
         speed *= RobotConstants.climbBothSpeedMultiplier;
 
-        Robot.climberSubsystem.setStiltsClimbSpeed((isGoingUp ? 1 : -1) * speed * 2); // *2 because trigger only goes to .3
+        Robot.climberSubsystem.setStiltsClimbSpeed((isGoingUp ? 1 :  -1) * speed * 2); // *2 because trigger only goes to .3
 
         int stiltDelta = Math.abs(startStiltPos - Robot.climberSubsystem.getPosition());
 
