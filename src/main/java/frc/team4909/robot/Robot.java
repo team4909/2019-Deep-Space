@@ -2,9 +2,11 @@ package frc.team4909.robot;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.team4909.robot.operator.controllers.BionicF310;
@@ -23,7 +25,7 @@ import frc.team4909.robot.operator.controllers.BionicF310;
 // import frc.team4909.robot.subsystems.elevatorarm.commands.*;
 // import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
 // import frc.team4909.robot.subsystems.intake.commands.*;
-
+import frc.team4909.robot.testing.DriveTrainSubsystem;
 
 /* 
 CONTROLS
@@ -61,7 +63,7 @@ public class Robot extends TimedRobot {
   // public static Stream stream;
   // // public static GripPipeline grip;
   // // Operator Input
-  // public static BionicF310 driverGamepad;
+  public static BionicF310 driverGamepad;
   // public static BionicF310 manipulatorGamepad;
   // public static BionicF310 climberGamepad;
 
@@ -77,6 +79,9 @@ public class Robot extends TimedRobot {
 
   // // Sensors
   // public static LidarLitePWM lidar;
+
+  public static DriveTrainSubsystem myDrive;
+  public static Spark m_left, m_right;
 
   /**
    * map a number from one range to another
@@ -106,6 +111,8 @@ public class Robot extends TimedRobot {
     // stream.streamCamera();
     // // grip = new GripPipeline();
 
+    myDrive = new DriveTrainSubsystem();
+
     // // Compressor
     // c = new Compressor(0); // Initialize Compressor
     // c.setClosedLoopControl(true); // Start Compressor in Closed Loop Control
@@ -122,11 +129,11 @@ public class Robot extends TimedRobot {
     // // Sensors
     // lidar = new LidarLitePWM(RobotMap.lidarPort);
 
-    // // Operator Input
-    // driverGamepad = new BionicF310(RobotMap.driverGamepadPort, // Port
-    //     RobotConstants.driverGamepadDeadzone, // Deadzone
-    //     RobotConstants.driverGamepadSensitivity // Gamepad sensitivity
-    // );
+    // Operator Input
+    driverGamepad = new BionicF310(RobotMap.driverGamepadPort, // Port
+        RobotConstants.driverGamepadDeadzone, // Deadzone
+        RobotConstants.driverGamepadSensitivity // Gamepad sensitivity
+    );
 
     // manipulatorGamepad = new BionicF310(RobotMap.manipulatorGamepadPort, // Port
     //     RobotConstants.manipulatorGamepadDeadzone, // Deadzone
