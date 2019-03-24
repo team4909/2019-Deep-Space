@@ -54,6 +54,7 @@ public class RobotConstants {
 
   /* Elevator */
   public static final double elevatorSpeedMultiplier = 0.85; // Multiplier for elevator speed
+  public static final double elevatorSpeedClimbMultiplier = 0.75; // multiplier for elevator when climbing
   
 
   public static final double elevatorMaxSpeedUp = .8;

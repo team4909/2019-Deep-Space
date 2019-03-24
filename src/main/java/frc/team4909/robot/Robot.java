@@ -167,7 +167,7 @@ public class Robot extends TimedRobot {
     climberGamepad.buttonHeld(BionicF310.RY, RobotConstants.climberGamepadDeadzone, new MoveStiltsOnly());
 
     //move just the elevator
-    climberGamepad.buttonHeld(BionicF310.LY, RobotConstants.climberGamepadDeadzone, new MoveElevatorOnly(climberGamepad, BionicF310.LY));
+    climberGamepad.buttonHeld(BionicF310.LY, RobotConstants.climberGamepadDeadzone, new MoveElevatorOnlyClimb(climberGamepad, BionicF310.LY));
 
     // move both the elevator and stilts up
     climberGamepad.buttonHeld(BionicF310.RT, 0.05, new MoveElevAndStitls(true));
