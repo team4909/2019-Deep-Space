@@ -1,15 +1,15 @@
-// package frc.team4909.robot.subsystems.intake.commands;
+package frc.team4909.robot.subsystems.intake.commands;
 
-// import edu.wpi.first.wpilibj.command.InstantCommand;
-// import frc.team4909.robot.Robot;
+import edu.wpi.first.wpilibj.command.InstantCommand;
+import frc.team4909.robot.Robot;
 
-// public class HatchPanelIntakeClose extends InstantCommand {
+public class HatchPanelIntakeClose extends InstantCommand {
 
-//     public HatchPanelIntakeClose() {
-//         requires(Robot.intakeSubsystem);
-//     }
+    public HatchPanelIntakeClose() {
+        requires(Robot.intakeSubsystem);
+    }
 
-//     protected void initialize() {
-//         Robot.intakeSubsystem.hatchPanelIntakeClose();
-//     }
-// }
+    protected void initialize() {
+        Robot.intakeSubsystem.hatchPanelIntakeClose();
+    }
+}

@@ -10,24 +10,24 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.team4909.robot.operator.controllers.BionicF310;
+import frc.team4909.robot.sensors.LidarLitePWM;
+import frc.team4909.robot.sensors.Stream;
+import frc.team4909.robot.subsystems.StiltWheel.StiltWheelSubsystem;
+import frc.team4909.robot.subsystems.StiltWheel.commands.MoveStiltWheels;
+import frc.team4909.robot.subsystems.climber.ClimberSubsystem;
+import frc.team4909.robot.subsystems.climber.commands.*;
+import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
+import frc.team4909.robot.subsystems.drivetrain.commands.InvertDriveDirection;
+import frc.team4909.robot.subsystems.drivetrain.commands.TogglePreciseMode;
+import frc.team4909.robot.subsystems.elevator.ElevatorSubsystem;
+import frc.team4909.robot.subsystems.elevator.commands.*;
+import frc.team4909.robot.subsystems.elevatorarm.ElevatorArmSubsystem;
+import frc.team4909.robot.subsystems.elevatorarm.commands.*;
+import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
+import frc.team4909.robot.subsystems.intake.commands.*;
 import frc.team4909.robot.testing.AssistedDrive;
-// import frc.team4909.robot.sensors.LidarLitePWM;
-// import frc.team4909.robot.sensors.Stream;
-// import frc.team4909.robot.subsystems.StiltWheel.StiltWheelSubsystem;
-// import frc.team4909.robot.subsystems.StiltWheel.commands.MoveStiltWheels;
-// import frc.team4909.robot.subsystems.climber.ClimberSubsystem;
-// import frc.team4909.robot.subsystems.climber.commands.*;
-// import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
-// import frc.team4909.robot.subsystems.drivetrain.commands.InvertDriveDirection;
-// import frc.team4909.robot.subsystems.drivetrain.commands.TogglePreciseMode;
-// import frc.team4909.robot.subsystems.elevator.ElevatorSubsystem;
-// import frc.team4909.robot.subsystems.elevator.commands.*;
-// import frc.team4909.robot.subsystems.elevatorarm.ElevatorArmSubsystem;
-// import frc.team4909.robot.subsystems.elevatorarm.commands.*;
-// import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
-// import frc.team4909.robot.subsystems.intake.commands.*;
-import frc.team4909.robot.testing.DriveTrainSubsystem;
 import frc.team4909.robot.testing.Vision;
+
 
 /* 
 CONTROLS
@@ -62,27 +62,26 @@ Port 2: Climber Gamepad
 public class Robot extends TimedRobot {
 
   // Camera
-  // public static Stream stream;
-  // // public static GripPipeline grip;
-  // // Operator Input
+  public static Stream stream;
+  // public static GripPipeline grip;
+  // Operator Input
   public static BionicF310 driverGamepad;
-  // public static BionicF310 manipulatorGamepad;
-  // public static BionicF310 climberGamepad;
+  public static BionicF310 manipulatorGamepad;
+  public static BionicF310 climberGamepad;
 
-  // // Subsystems
-  // public static PowerDistributionPanel powerDistributionPanel;
-  // public static DriveTrainSubsystem drivetrainSubsystem;
-  // public static IntakeSubsystem intakeSubsystem;
-  // public static ElevatorSubsystem elevatorSubsystem;
-  // public static ElevatorArmSubsystem elevatorArmSubsystem;
-  // public static ClimberSubsystem climberSubsystem;
-  // public static StiltWheelSubsystem stiltWheelSubsystem;
-  // public static Compressor c;
+  // Subsystems
+  public static PowerDistributionPanel powerDistributionPanel;
+  public static DriveTrainSubsystem drivetrainSubsystem;
+  public static IntakeSubsystem intakeSubsystem;
+  public static ElevatorSubsystem elevatorSubsystem;
+  public static ElevatorArmSubsystem elevatorArmSubsystem;
+  public static ClimberSubsystem climberSubsystem;
+  public static StiltWheelSubsystem stiltWheelSubsystem;
+  public static Compressor c;
 
-  // // Sensors
-  // public static LidarLitePWM lidar;
+  // Sensors
+  public static LidarLitePWM lidar;
 
-  public static DriveTrainSubsystem myDrive;
   public static Spark m_left, m_right;
   public static Vision vision = new Vision();
 
@@ -109,28 +108,26 @@ public class Robot extends TimedRobot {
   public void robotInit() {
 
     // Cameras (subsystem)
-    // stream = new Stream();
-    // // CameraServer.getInstance().startAutomaticCapture();
-    // stream.streamCamera();
-    // // grip = new GripPipeline();
+    stream = new Stream();
+    // CameraServer.getInstance().startAutomaticCapture();
+    stream.streamCamera();
+    // grip = new GripPipeline();
 
-    myDrive = new DriveTrainSubsystem();
+    // Compressor
+    c = new Compressor(0); // Initialize Compressor
+    c.setClosedLoopControl(true); // Start Compressor in Closed Loop Control
 
-    // // Compressor
-    // c = new Compressor(0); // Initialize Compressor
-    // c.setClosedLoopControl(true); // Start Compressor in Closed Loop Control
+    // Subsystems
+    powerDistributionPanel = new PowerDistributionPanel();
+    drivetrainSubsystem = new DriveTrainSubsystem();
+    intakeSubsystem = new IntakeSubsystem();
+    elevatorSubsystem = new ElevatorSubsystem();
+    elevatorArmSubsystem = new ElevatorArmSubsystem();
+    climberSubsystem = new ClimberSubsystem();
+    stiltWheelSubsystem = new StiltWheelSubsystem();
 
-    // // Subsystems
-    // powerDistributionPanel = new PowerDistributionPanel();
-    // drivetrainSubsystem = new DriveTrainSubsystem();
-    // intakeSubsystem = new IntakeSubsystem();
-    // elevatorSubsystem = new ElevatorSubsystem();
-    // elevatorArmSubsystem = new ElevatorArmSubsystem();
-    // climberSubsystem = new ClimberSubsystem();
-    // stiltWheelSubsystem = new StiltWheelSubsystem();
-
-    // // Sensors
-    // lidar = new LidarLitePWM(RobotMap.lidarPort);
+    // Sensors
+    lidar = new LidarLitePWM(RobotMap.lidarPort);
 
     // Operator Input
     driverGamepad = new BionicF310(RobotMap.driverGamepadPort, // Port
@@ -139,21 +136,22 @@ public class Robot extends TimedRobot {
     );
     
     driverGamepad.buttonHeld(BionicF310.RB, new AssistedDrive());
-    // manipulatorGamepad = new BionicF310(RobotMap.manipulatorGamepadPort, // Port
-    //     RobotConstants.manipulatorGamepadDeadzone, // Deadzone
-    //     RobotConstants.manipulatorGamepadSensitivity // Gamepad sensitivity
-    // );
 
-    // climberGamepad = new BionicF310(RobotMap.climberGamepadPort, // Port
-    //     RobotConstants.climberGamepadDeadzone, // Deadzone
-    //     RobotConstants.climberGamepadSensitivity // Gamepad sensitivity
-    // );
+    manipulatorGamepad = new BionicF310(RobotMap.manipulatorGamepadPort, // Port
+        RobotConstants.manipulatorGamepadDeadzone, // Deadzone
+        RobotConstants.manipulatorGamepadSensitivity // Gamepad sensitivity
+    );
+
+    climberGamepad = new BionicF310(RobotMap.climberGamepadPort, // Port
+        RobotConstants.climberGamepadDeadzone, // Deadzone
+        RobotConstants.climberGamepadSensitivity // Gamepad sensitivity
+    );
 
 
-    // /* Intake */
-    // manipulatorGamepad.buttonHeld(BionicF310.RT, 0.2, new CargoIntakeOut());
-    // manipulatorGamepad.buttonHeld(BionicF310.LT, 0.2, new CargoIntakeIn());
-    // manipulatorGamepad.buttonHeld(BionicF310.RB, new HatchPanelIntakeOpen());
+    /* Intake */
+    manipulatorGamepad.buttonHeld(BionicF310.RT, 0.2, new CargoIntakeOut());
+    manipulatorGamepad.buttonHeld(BionicF310.LT, 0.2, new CargoIntakeIn());
+    manipulatorGamepad.buttonHeld(BionicF310.RB, new HatchPanelIntakeOpen());
 
     /* Stilts */
 
@@ -172,41 +170,41 @@ public class Robot extends TimedRobot {
 
 
 
-    // /* Elevator */
-    // manipulatorGamepad.buttonHeld(BionicF310.LY, RobotConstants.manipulatorGamepadDeadzone, new MoveElevatorOnly(manipulatorGamepad, BionicF310.LY));
+    /* Elevator */
+    manipulatorGamepad.buttonHeld(BionicF310.LY, RobotConstants.manipulatorGamepadDeadzone, new MoveElevatorOnly(manipulatorGamepad, BionicF310.LY));
 
-    // //move just the stilts
-    // climberGamepad.buttonHeld(BionicF310.RY, RobotConstants.climberGamepadDeadzone, new MoveStiltsOnly());
+    //move just the stilts
+    climberGamepad.buttonHeld(BionicF310.RY, RobotConstants.climberGamepadDeadzone, new MoveStiltsOnly());
 
-    // //move just the elevator
-    // climberGamepad.buttonHeld(BionicF310.LY, RobotConstants.climberGamepadDeadzone, new MoveElevatorOnly(climberGamepad, BionicF310.LY));
+    //move just the elevator
+    climberGamepad.buttonHeld(BionicF310.LY, RobotConstants.climberGamepadDeadzone, new MoveElevatorOnly(climberGamepad, BionicF310.LY));
 
-    // // move both the elevator and stilts up
-    // climberGamepad.buttonHeld(BionicF310.RT, 0.05, new MoveElevAndStitls(true));
+    // move both the elevator and stilts up
+    climberGamepad.buttonHeld(BionicF310.RT, 0.05, new MoveElevAndStitls(true));
 
-    // //move both the elevator and stilts down
-    // climberGamepad.buttonHeld(BionicF310.LT, 0.05, new MoveElevAndStitls(false));
+    //move both the elevator and stilts down
+    climberGamepad.buttonHeld(BionicF310.LT, 0.05, new MoveElevAndStitls(false));
 
-    // climberGamepad.buttonHeld(BionicF310.RB, new SetWristSpeed(-RobotConstants.elevatorArmSpeed));
-    // climberGamepad.buttonHeld(BionicF310.LB, new SetWristSpeed(RobotConstants.elevatorArmSpeed));
+    climberGamepad.buttonHeld(BionicF310.RB, new SetWristSpeed(-RobotConstants.elevatorArmSpeed));
+    climberGamepad.buttonHeld(BionicF310.LB, new SetWristSpeed(RobotConstants.elevatorArmSpeed));
 
 
-    // //drive stilt wheels
-    // driverGamepad.buttonHeld(BionicF310.RT, 0.05, new MoveStiltWheels(true));
-    // driverGamepad.buttonHeld(BionicF310.LT, 0.05, new MoveStiltWheels(false));
+    //drive stilt wheels
+    driverGamepad.buttonHeld(BionicF310.RT, 0.05, new MoveStiltWheels(true));
+    driverGamepad.buttonHeld(BionicF310.LT, 0.05, new MoveStiltWheels(false));
 
-    // /* Drivetrain */
-    // driverGamepad.buttonPressed(BionicF310.RB, new InvertDriveDirection());
-    // driverGamepad.buttonPressed(BionicF310.X, new TogglePreciseMode());
+    /* Drivetrain */
+    driverGamepad.buttonPressed(BionicF310.RB, new InvertDriveDirection());
+    driverGamepad.buttonPressed(BionicF310.X, new TogglePreciseMode());
 
-    // /* Wrist Setpoints */
-    // manipulatorGamepad.buttonPressed(BionicF310.A, new SetWristAngle(RobotConstants.wristSetpointCargoIn));
-    // manipulatorGamepad.buttonPressed(BionicF310.B, new SetWristAngle(RobotConstants.wristSetpointHatch));
-    // manipulatorGamepad.buttonPressed(BionicF310.Y, new SetWristAngle(RobotConstants.wristSetpointCargoScore));
+    /* Wrist Setpoints */
+    manipulatorGamepad.buttonPressed(BionicF310.A, new SetWristAngle(RobotConstants.wristSetpointCargoIn));
+    manipulatorGamepad.buttonPressed(BionicF310.B, new SetWristAngle(RobotConstants.wristSetpointHatch));
+    manipulatorGamepad.buttonPressed(BionicF310.Y, new SetWristAngle(RobotConstants.wristSetpointCargoScore));
     
-    // /* Climb Hook */
-    // climberGamepad.buttonHeld(BionicF310.Start, new SetHookSpeed(RobotConstants.hookMoveSpeed));
-    // climberGamepad.buttonHeld(BionicF310.Back, new SetHookSpeed(-RobotConstants.hookMoveSpeed));
+    /* Climb Hook */
+    climberGamepad.buttonHeld(BionicF310.Start, new SetHookSpeed(RobotConstants.hookMoveSpeed));
+    climberGamepad.buttonHeld(BionicF310.Back, new SetHookSpeed(-RobotConstants.hookMoveSpeed));
   }
 
   /**
@@ -234,7 +232,7 @@ public class Robot extends TimedRobot {
   }
 
   public void autonomousInit() {
-    // new MoveUpToLimit().start();
+    new MoveUpToLimit().start();
     // elevatorSubsystem.setSensorZero();
     // elevatorArmSubsystem.setSensorZero();
     // climberSubsystem.setSensorZero();
@@ -252,7 +250,7 @@ public class Robot extends TimedRobot {
    */
 
   public void teleopInit() {
-    // new MoveUpToLimit().start();
+    new MoveUpToLimit().start();
     // Reset elevator encoder
     
   }
@@ -261,11 +259,9 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run(); 
     vision.updateVisionDashboard();
 
-
-
-    // Robot.elevatorSubsystem.updateHoldingPos();
-    // Robot.elevatorArmSubsystem.holdingPosition = Robot.elevatorArmSubsystem.getPosition();
-    // Robot.climberSubsystem.updateHoldingPos();
+    Robot.elevatorSubsystem.updateHoldingPos();
+    Robot.elevatorArmSubsystem.holdingPosition = Robot.elevatorArmSubsystem.getPosition();
+    Robot.climberSubsystem.updateHoldingPos();
   }
 
   public void teleopPeriodic() {

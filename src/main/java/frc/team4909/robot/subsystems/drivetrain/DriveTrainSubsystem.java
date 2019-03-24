@@ -1,98 +1,106 @@
 
-// package frc.team4909.robot.subsystems.drivetrain;
+package frc.team4909.robot.subsystems.drivetrain;
 
-// import com.revrobotics.CANSparkMax;
-// import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-// import edu.wpi.first.wpilibj.SpeedControllerGroup;
-// import edu.wpi.first.wpilibj.command.Subsystem;
-// import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-// import frc.team4909.robot.RobotMap;
-// import frc.team4909.robot.operator.controllers.BionicF310;
-// import frc.team4909.robot.Robot;
-// import frc.team4909.robot.RobotConstants;
-// import frc.team4909.robot.subsystems.drivetrain.commands.Drive;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.team4909.robot.RobotMap;
+import frc.team4909.robot.operator.controllers.BionicF310;
+import frc.team4909.robot.Robot;
+import frc.team4909.robot.RobotConstants;
+import frc.team4909.robot.subsystems.drivetrain.commands.Drive;
 
-// public class DriveTrainSubsystem extends Subsystem {
-//     CANSparkMax frontLeftSparkMax, rearLeftSparkMax, frontRightSparkMax, rearRightSparkMax;
-//     SpeedControllerGroup m_left, m_right;
-//     DifferentialDrive bionicDrive;
-//     double speedMultiplier = RobotConstants.speedMultiplier;
-//     double turnMultiplier = RobotConstants.speedTurnMultiplier;
-//     boolean inverted = false;
-//     boolean preciseMode = false;
+public class DriveTrainSubsystem extends Subsystem {
+    CANSparkMax frontLeftSparkMax, rearLeftSparkMax, frontRightSparkMax, rearRightSparkMax;
+    SpeedControllerGroup m_left, m_right;
+    DifferentialDrive bionicDrive;
+    double speedMultiplier = RobotConstants.speedMultiplier;
+    double turnMultiplier = RobotConstants.speedTurnMultiplier;
+    boolean inverted = false;
+    boolean preciseMode = false;
+    final double kP = 0.035;
+    final double kD = 0;
 
-//     public DriveTrainSubsystem() {
-//         frontLeftSparkMax = new CANSparkMax(RobotMap.driveFrontLeftSparkMaxCAN, MotorType.kBrushless);
-//         rearLeftSparkMax = new CANSparkMax(RobotMap.driveRearLeftSparkMaxCAN, MotorType.kBrushless);
-//         SpeedControllerGroup m_left = new SpeedControllerGroup(frontLeftSparkMax, rearLeftSparkMax);                    
+    public DriveTrainSubsystem() {
+        frontLeftSparkMax = new CANSparkMax(RobotMap.driveFrontLeftSparkMaxCAN, MotorType.kBrushless);
+        rearLeftSparkMax = new CANSparkMax(RobotMap.driveRearLeftSparkMaxCAN, MotorType.kBrushless);
+        SpeedControllerGroup m_left = new SpeedControllerGroup(frontLeftSparkMax, rearLeftSparkMax);                    
 
-//         frontRightSparkMax = new CANSparkMax(RobotMap.driveFrontRightSparkMaxCAN, MotorType.kBrushless);
-//         rearRightSparkMax = new CANSparkMax(RobotMap.driveRearRightSparkMaxCAN, MotorType.kBrushless);
-//         SpeedControllerGroup m_right = new SpeedControllerGroup(frontRightSparkMax, rearRightSparkMax);
+        frontRightSparkMax = new CANSparkMax(RobotMap.driveFrontRightSparkMaxCAN, MotorType.kBrushless);
+        rearRightSparkMax = new CANSparkMax(RobotMap.driveRearRightSparkMaxCAN, MotorType.kBrushless);
+        SpeedControllerGroup m_right = new SpeedControllerGroup(frontRightSparkMax, rearRightSparkMax);
 
-//         bionicDrive = new DifferentialDrive(m_left, m_right);
-//     }
+        bionicDrive = new DifferentialDrive(m_left, m_right);
+    }
 
-//     public void tankDrive(double leftSpeed, double rightSpeed) {
-//         double leftSpeedOutput = leftSpeed;
-//         double rightSpeedOutput = rightSpeed;
+    public void driveAssisted(double throttle, double angleOffset) {
+        // System.out.println("Angle offset = " + angleOffset);
+        double correction = angleOffset * kP - angleOffset * kD;
+        arcadeDrive(throttle * 0.5, correction);
+      }
 
-//         if (inverted) { //inverts tankDrive direction
-//             leftSpeedOutput = -rightSpeed;
-//             rightSpeedOutput = -leftSpeed;
-//         }
+    public void tankDrive(double leftSpeed, double rightSpeed) {
+        double leftSpeedOutput = leftSpeed;
+        double rightSpeedOutput = rightSpeed;
 
-//         leftSpeedOutput = leftSpeedOutput * speedMultiplier;
-//         rightSpeedOutput = rightSpeedOutput * speedMultiplier;
+        if (inverted) { //inverts tankDrive direction
+            leftSpeedOutput = -rightSpeed;
+            rightSpeedOutput = -leftSpeed;
+        }
 
-//         bionicDrive.tankDrive(leftSpeedOutput, rightSpeedOutput);
-//     }
+        leftSpeedOutput = leftSpeedOutput * speedMultiplier;
+        rightSpeedOutput = rightSpeedOutput * speedMultiplier;
 
-//     public void arcadeDrive(double leftSpeed, double rightSpeed) {
-//         double speedOutput = leftSpeed;
-//         double turnOutput = rightSpeed;
-//         if (preciseMode == true) {
-//             turnMultiplier = RobotConstants.turnPreciseMultiplier;
-//             speedMultiplier = RobotConstants.drivePreciseMultiplier;
+        bionicDrive.tankDrive(leftSpeedOutput, rightSpeedOutput);
+    }
 
-//         } else {
+    public void arcadeDrive(double leftSpeed, double rightSpeed) {
+        double speedOutput = leftSpeed;
+        double turnOutput = rightSpeed;
+        if (preciseMode == true) {
+            turnMultiplier = RobotConstants.turnPreciseMultiplier;
+            speedMultiplier = RobotConstants.drivePreciseMultiplier;
+
+        } else {
             
-//             turnMultiplier = RobotConstants.maxTurnSpeed  - ((RobotConstants.maxTurnSpeed - RobotConstants.minTurnSpeed) / RobotConstants.elevatorEncoderTicks) * (Math.abs(Robot.elevatorSubsystem.getPosition())); 
-//             speedMultiplier = RobotConstants.maxDriveSpeed  - ((RobotConstants.maxDriveSpeed - RobotConstants.minDriveSpeed) / RobotConstants.elevatorEncoderTicks) * (Math.abs(Robot.elevatorSubsystem.getPosition())); 
+            turnMultiplier = RobotConstants.maxTurnSpeed  - ((RobotConstants.maxTurnSpeed - RobotConstants.minTurnSpeed) / RobotConstants.elevatorEncoderTicks) * (Math.abs(Robot.elevatorSubsystem.getPosition())); 
+            speedMultiplier = RobotConstants.maxDriveSpeed  - ((RobotConstants.maxDriveSpeed - RobotConstants.minDriveSpeed) / RobotConstants.elevatorEncoderTicks) * (Math.abs(Robot.elevatorSubsystem.getPosition())); 
 
-//             SmartDashboard.putNumber("Drivetrain turnMultiplier", turnMultiplier);
-//             SmartDashboard.putNumber("Drivetrain speedMultiplier", speedMultiplier);
+            SmartDashboard.putNumber("Drivetrain turnMultiplier", turnMultiplier);
+            SmartDashboard.putNumber("Drivetrain speedMultiplier", speedMultiplier);
 
-//             turnMultiplier = RobotConstants.speedTurnMultiplier;
-//             speedMultiplier = RobotConstants.speedMultiplier;
-//         }
-//         if (inverted) { //inverts arcadeDrive
-//             speedOutput = -rightSpeed;
-//             turnOutput = -leftSpeed;
-//         }
+            turnMultiplier = RobotConstants.speedTurnMultiplier;
+            speedMultiplier = RobotConstants.speedMultiplier;
+        }
+        if (inverted) { //inverts arcadeDrive
+            speedOutput = -rightSpeed;
+            turnOutput = -leftSpeed;
+        }
 
-//         speedOutput = speedOutput * speedMultiplier;
-//         turnOutput = turnOutput * turnMultiplier;
+        speedOutput = speedOutput * speedMultiplier;
+        turnOutput = turnOutput * turnMultiplier;
 
-//         bionicDrive.arcadeDrive(speedOutput, turnOutput);
-//     }
+        bionicDrive.arcadeDrive(speedOutput, turnOutput);
+    }
 
-//     public void invertDriveDirection() {
-//         inverted = !inverted;
-//     }
+    public void invertDriveDirection() {
+        inverted = !inverted;
+    }
 
-//     public void togglePreciseMode() {
-//         preciseMode = !preciseMode;
-//     }
+    public void togglePreciseMode() {
+        preciseMode = !preciseMode;
+    }
 
-//     protected void initDefaultCommand() {
-//         setDefaultCommand(new Drive());
-//     }
+    protected void initDefaultCommand() {
+        setDefaultCommand(new Drive());
+    }
 
-//     @Override
-//     public void periodic() {
-//         SmartDashboard.putBoolean("Drivatrain - Precise", preciseMode);
-//     }
-// }
+    @Override
+    public void periodic() {
+        SmartDashboard.putBoolean("Drivatrain - Precise", preciseMode);
+    }
+}

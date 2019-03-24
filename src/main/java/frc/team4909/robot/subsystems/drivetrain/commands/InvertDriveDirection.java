@@ -1,14 +1,14 @@
-// package frc.team4909.robot.subsystems.drivetrain.commands;
+package frc.team4909.robot.subsystems.drivetrain.commands;
 
-// import edu.wpi.first.wpilibj.command.InstantCommand;
-// import frc.team4909.robot.Robot;
+import edu.wpi.first.wpilibj.command.InstantCommand;
+import frc.team4909.robot.Robot;
 
-// public class InvertDriveDirection extends InstantCommand {
-//     public InvertDriveDirection() {
-//         requires(Robot.drivetrainSubsystem);
-//     }
+public class InvertDriveDirection extends InstantCommand {
+    public InvertDriveDirection() {
+        requires(Robot.drivetrainSubsystem);
+    }
 
-//     protected void initialize() {
-//         Robot.drivetrainSubsystem.invertDriveDirection();
-//     }
-// }
+    protected void initialize() {
+        Robot.drivetrainSubsystem.invertDriveDirection();
+    }
+}
