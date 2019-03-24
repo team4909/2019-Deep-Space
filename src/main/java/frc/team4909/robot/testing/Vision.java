@@ -44,7 +44,7 @@ public class                Vision extends Subsystem {
    * @param cameraAngle  is used for the distance formulas
    */
   public Vision() {
-    this.frontCamFeed = NetworkTableInstance.getDefault().getTable("limelight-fcam");
+    this.frontCamFeed = NetworkTableInstance.getDefault().getTable("limelight");
     this.setFrontCamFeed();
     this.updateTableVariables();
   }
@@ -183,6 +183,15 @@ public class                Vision extends Subsystem {
     return this.usingFrontCam;
   }
 
+  public boolean targetAcquired(){
+    if(this.tv == 1){
+        return true;
+    }
+    else{
+        return false;
+    }
+  }
+
   /**
    * Updates the values of the Vision class.
    */
@@ -203,5 +212,7 @@ public class                Vision extends Subsystem {
     SmartDashboard.putBoolean("Front Camera: ", this.usingFrontCam);
 
     this.frontCamFeed.getEntry("ledMode").setNumber(this.frontLight);
+    SmartDashboard.putBoolean("Is Target Acquired?", this.targetAcquired());
   }
+
 }

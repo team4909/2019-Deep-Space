@@ -22,6 +22,7 @@ public class AssistedDrive extends Command {
 
   // Called repeatedly when this Command is scheduled to run
   protected void execute() {
+      System.out.println("X offset" + Robot.vision.getXOffset());
     if (Math.abs(Robot.vision.getXOffset()) > thresh
         && Math.abs(Robot.vision.getXOffset()) < max_offset) {
         Robot.myDrive.driveAssisted(

@@ -17,6 +17,8 @@ import frc.team4909.robot.RobotConstants;
 public class DriveTrainSubsystem extends Subsystem {
     Spark m_left, m_right;
     DifferentialDrive bionicDrive;
+    final double kP = 0.035;
+    final double kD = 0;
 
     public DriveTrainSubsystem() {
         
@@ -27,12 +29,12 @@ public class DriveTrainSubsystem extends Subsystem {
 
     public void arcadeDrive(double leftSpeed, double rightSpeed) {
         
-        bionicDrive.arcadeDrive(leftSpeed, rightSpeed);
+        bionicDrive.arcadeDrive(-leftSpeed, -rightSpeed);
     }
     public void driveAssisted(double throttle, double angleOffset) {
-        double adjustedThrottle = 0.4 * throttle;
-        double correction = angleOffset * 0.01 - angleOffset * 0;
-        arcadeDrive(adjustedThrottle + correction, adjustedThrottle - correction);
+        System.out.println("Angle offset = " + angleOffset);
+        double correction = angleOffset * kP - angleOffset * kD;
+        arcadeDrive(throttle * 0.5, correction);
       }
     
 

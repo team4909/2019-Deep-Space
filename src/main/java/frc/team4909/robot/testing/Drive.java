@@ -12,8 +12,8 @@ public class Drive extends Command {
     public void execute() {
         // Calls tank function using left Y and right Y
         // Negated since Y Axis is scaled -1 to +1 top to bottom (counterintuively)
-        Robot.myDrive.arcadeDrive(Robot.driverGamepad.getThresholdAxis(BionicF310.LY),
-                -Robot.driverGamepad.getThresholdAxis(BionicF310.RX));
+        Robot.myDrive.arcadeDrive(Robot.driverGamepad.getThresholdAxis(BionicF310.LY) * 0.5,
+                Robot.driverGamepad.getThresholdAxis(BionicF310.RX) * 0.5);
 
     }
 
