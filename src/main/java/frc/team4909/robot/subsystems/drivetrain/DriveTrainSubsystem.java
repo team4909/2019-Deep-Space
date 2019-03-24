@@ -35,6 +35,10 @@ public class DriveTrainSubsystem extends Subsystem {
         bionicDrive = new DifferentialDrive(m_left, m_right);
     }
 
+    public void driveeNoInvert(double speed) {
+        bionicDrive.tankDrive(speed, speed);
+    }
+
     public void tankDrive(double leftSpeed, double rightSpeed) {
         double leftSpeedOutput = leftSpeed;
         double rightSpeedOutput = rightSpeed;

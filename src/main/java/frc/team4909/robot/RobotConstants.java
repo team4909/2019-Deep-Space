@@ -16,7 +16,7 @@ public class RobotConstants {
   /* Drivetrain */
   //TODO: Tune values
 
-  public static double speedMultiplier = 0.8; 
+  public static double speedMultiplier = 0.9; 
   //0.7 is the desired multiplier speed at bottom; 0.1 is desired multiplier speed at top; 5000 is total height in encoder ticks
   public static double speedTurnMultiplier = 0.7; // As height increases, decrease speed ; calculation: 0.5 - (0.5-0.1)/5000
 
@@ -28,7 +28,7 @@ public class RobotConstants {
   
   public static final double elevatorEncoderTicks = 51000; // total height of elevator
 
-  public static final double turnPreciseMultiplier = .475; // value when precise mode is activated; slows the turn; doesn't affect speed
+  public static final double turnPreciseMultiplier = .6; // value when precise mode is activated; slows the turn; doesn't affect speed
   public static final double drivePreciseMultiplier = .5;
 
   /* Intake */
@@ -53,7 +53,7 @@ public class RobotConstants {
   public static final double irSensorThreshold = 2.25;
 
   /* Elevator */
-  public static final double elevatorSpeedMultiplier = 0.75; // Multiplier for elevator speed
+  public static final double elevatorSpeedMultiplier = 0.85; // Multiplier for elevator speed
   
 
   public static final double elevatorMaxSpeedUp = .8;
@@ -78,7 +78,7 @@ public class RobotConstants {
 
   public static final int wristSetpointUpright = 3713; // makes arm upright
   public static final int wristSetpointCargoScore = wristSetpointUpright - 393 ; // 45 degrees up
-  public static final int wristSetpointHatch = wristSetpointUpright - 940;  // horizontal arm
+  public static final int wristSetpointHatch = wristSetpointUpright - 981;  // horizontal arm
   public static final int wristSetpointCargoIn = wristSetpointUpright - 1205; // 45 degrees down
   
   /* Linefollow */

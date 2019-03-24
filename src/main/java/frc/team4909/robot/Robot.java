@@ -16,6 +16,7 @@ import frc.team4909.robot.subsystems.climber.ClimberSubsystem;
 import frc.team4909.robot.subsystems.climber.commands.*;
 import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
 import frc.team4909.robot.subsystems.drivetrain.commands.InvertDriveDirection;
+import frc.team4909.robot.subsystems.drivetrain.commands.StayOnHab;
 import frc.team4909.robot.subsystems.drivetrain.commands.TogglePreciseMode;
 import frc.team4909.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.team4909.robot.subsystems.elevator.commands.*;
@@ -159,8 +160,6 @@ public class Robot extends TimedRobot {
 
 
 
-
-
     /* Elevator */
     manipulatorGamepad.buttonHeld(BionicF310.LY, RobotConstants.manipulatorGamepadDeadzone, new MoveElevatorOnly(manipulatorGamepad, BionicF310.LY));
 
@@ -180,13 +179,17 @@ public class Robot extends TimedRobot {
     climberGamepad.buttonHeld(BionicF310.LB, new SetWristSpeed(RobotConstants.elevatorArmSpeed));
 
 
-    //drive stilt wheels
+    
+    /* Drivetrain && Stilt Wheels*/
+
+    // drive stilt wheels
     driverGamepad.buttonHeld(BionicF310.RT, 0.05, new MoveStiltWheels(true));
     driverGamepad.buttonHeld(BionicF310.LT, 0.05, new MoveStiltWheels(false));
 
-    /* Drivetrain */
+    // Drivetrain
     driverGamepad.buttonPressed(BionicF310.RB, new InvertDriveDirection());
     driverGamepad.buttonPressed(BionicF310.X, new TogglePreciseMode());
+    driverGamepad.buttonHeld(BionicF310.A, new StayOnHab());
 
     /* Wrist Setpoints */
     manipulatorGamepad.buttonPressed(BionicF310.A, new SetWristAngle(RobotConstants.wristSetpointCargoIn));
