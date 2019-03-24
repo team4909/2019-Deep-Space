@@ -8,6 +8,11 @@ public class Drive extends Command {
     public Drive() {
         requires(Robot.myDrive);
     }
+    @Override
+    protected void initialize() {
+        Robot.vision.setLights(1.0);
+        
+    }
 
     public void execute() {
         // Calls tank function using left Y and right Y
