@@ -35,10 +35,11 @@ public class Stilt_SetDown extends Command {
             this.initDefaultCommand();
         }
         else {
-            while (getPosition<=climberLiftMaster.getClosedLoopError())
+            while (Robot.stiltWheelSubsystem.getPosition()<=climberLiftMaster.getClosedLoopError())
             {
-                Robot.stiltWheelSubsystem.setSpeed(climbVelocityMultiplier*climbSpeedMultiplier);
+                Robot.stiltWheelSubsystem.setSpeed(-1 * speed * RobotConstants.climberDriveSpeedManual);
             }
+            Robot.stiltWheelSubsystem.holdPosition();
         }
     }
 
