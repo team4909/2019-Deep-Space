@@ -20,9 +20,13 @@ public class Stilt_SetDown extends Command {
 
     public boolean canClimb()
     {
-        if (getPosition()>=climberLiftMaster.getClosedLoopError())//returns boolean indicating if position is greater than or equal to threshold
+        if (getPosition()>climberLiftMaster.getClosedLoopError())//returns boolean indicating if position is greater than or equal to threshold
         {
             return false;       
+        }
+        else if (getPosition()<climberLiftMaster.getClosedLoopError())
+        {
+            return false;
         }
         else {
             return true;
@@ -35,10 +39,19 @@ public class Stilt_SetDown extends Command {
             this.initDefaultCommand();
         }
         else {
+            if (getPosition()<climberLiftMaster.getClosedLoopError()){}
             while (Robot.stiltWheelSubsystem.getPosition()<=climberLiftMaster.getClosedLoopError())
+            {
+                Robot.stiltWheelSubsystem.setSpeed(speed * RobotConstants.climberDriveSpeedManual);
+            }
+        }
+         else if (getPosition()<climberLiftMaster.getClosedLoopError())
+        {
+            while (Robot.stiltWheelSubsystem.getPosition()>climberLiftMaster.getClosedLoopError())
             {
                 Robot.stiltWheelSubsystem.setSpeed(-1 * speed * RobotConstants.climberDriveSpeedManual);
             }
+        }
             Robot.stiltWheelSubsystem.holdPosition();
         }
     }
