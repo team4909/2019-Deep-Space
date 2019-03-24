@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.team4909.robot.operator.controllers.BionicF310;
+import frc.team4909.robot.testing.AssistedDrive;
 // import frc.team4909.robot.sensors.LidarLitePWM;
 // import frc.team4909.robot.sensors.Stream;
 // import frc.team4909.robot.subsystems.StiltWheel.StiltWheelSubsystem;
@@ -26,6 +27,7 @@ import frc.team4909.robot.operator.controllers.BionicF310;
 // import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
 // import frc.team4909.robot.subsystems.intake.commands.*;
 import frc.team4909.robot.testing.DriveTrainSubsystem;
+import frc.team4909.robot.testing.Vision;
 
 /* 
 CONTROLS
@@ -82,6 +84,7 @@ public class Robot extends TimedRobot {
 
   public static DriveTrainSubsystem myDrive;
   public static Spark m_left, m_right;
+  public static Vision vision = new Vision();
 
   /**
    * map a number from one range to another
@@ -134,7 +137,8 @@ public class Robot extends TimedRobot {
         RobotConstants.driverGamepadDeadzone, // Deadzone
         RobotConstants.driverGamepadSensitivity // Gamepad sensitivity
     );
-
+    
+    driverGamepad.buttonHeld(BionicF310.RB, new AssistedDrive());
     // manipulatorGamepad = new BionicF310(RobotMap.manipulatorGamepadPort, // Port
     //     RobotConstants.manipulatorGamepadDeadzone, // Deadzone
     //     RobotConstants.manipulatorGamepadSensitivity // Gamepad sensitivity
@@ -222,7 +226,9 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putNumber("RT Climber Sink", climberGamepad.getThresholdAxis(BionicF310.RT));
     // SmartDashboard.putNumber("LY Elevator", manipulatorGamepad.getThresholdAxis(BionicF310.LY));
     SmartDashboard.putNumber("Loop Period", getPeriod());
-    
+    vision.updateVisionDashboard();
+
+
     // process();
     Scheduler.getInstance().run();
   }
@@ -238,6 +244,7 @@ public class Robot extends TimedRobot {
    * This function is called periodically during autonomous.
    */
   public void autonomousPeriodic() {
+  
   }
 
   /**
@@ -252,6 +259,9 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
     Scheduler.getInstance().run(); 
+    vision.updateVisionDashboard();
+
+
 
     // Robot.elevatorSubsystem.updateHoldingPos();
     // Robot.elevatorArmSubsystem.holdingPosition = Robot.elevatorArmSubsystem.getPosition();

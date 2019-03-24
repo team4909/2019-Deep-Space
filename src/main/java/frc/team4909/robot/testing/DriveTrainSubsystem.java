@@ -29,6 +29,12 @@ public class DriveTrainSubsystem extends Subsystem {
         
         bionicDrive.arcadeDrive(leftSpeed, rightSpeed);
     }
+    public void driveAssisted(double throttle, double angleOffset) {
+        double adjustedThrottle = 0.4 * throttle;
+        double correction = angleOffset * 0.01 - angleOffset * 0;
+        arcadeDrive(adjustedThrottle + correction, adjustedThrottle - correction);
+      }
+    
 
     @Override
     protected void initDefaultCommand() {
