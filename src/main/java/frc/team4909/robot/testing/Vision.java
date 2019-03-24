@@ -65,7 +65,9 @@ public class                Vision extends Subsystem {
   public void initDefaultCommand() {
   }
 
-
+  public void setLights(double ledState){
+    activeCamFeed.getEntry("ledMode").setNumber(ledState);
+  }
   /**
    * Gets the X offset in degrees.
    *
