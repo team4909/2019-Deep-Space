@@ -17,6 +17,7 @@ import frc.team4909.robot.subsystems.StiltWheel.commands.MoveStiltWheels;
 import frc.team4909.robot.subsystems.climber.ClimberSubsystem;
 import frc.team4909.robot.subsystems.climber.commands.*;
 import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
+import frc.team4909.robot.subsystems.drivetrain.commands.AssistedDrive;
 import frc.team4909.robot.subsystems.drivetrain.commands.InvertDriveDirection;
 import frc.team4909.robot.subsystems.drivetrain.commands.TogglePreciseMode;
 import frc.team4909.robot.subsystems.elevator.ElevatorSubsystem;
@@ -25,8 +26,7 @@ import frc.team4909.robot.subsystems.elevatorarm.ElevatorArmSubsystem;
 import frc.team4909.robot.subsystems.elevatorarm.commands.*;
 import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
 import frc.team4909.robot.subsystems.intake.commands.*;
-import frc.team4909.robot.testing.AssistedDrive;
-import frc.team4909.robot.testing.Vision;
+import frc.team4909.robot.Vision;
 
 
 /* 
@@ -135,7 +135,6 @@ public class Robot extends TimedRobot {
         RobotConstants.driverGamepadSensitivity // Gamepad sensitivity
     );
     
-    driverGamepad.buttonHeld(BionicF310.RB, new AssistedDrive());
 
     manipulatorGamepad = new BionicF310(RobotMap.manipulatorGamepadPort, // Port
         RobotConstants.manipulatorGamepadDeadzone, // Deadzone
@@ -196,6 +195,10 @@ public class Robot extends TimedRobot {
     /* Drivetrain */
     driverGamepad.buttonPressed(BionicF310.RB, new InvertDriveDirection());
     driverGamepad.buttonPressed(BionicF310.X, new TogglePreciseMode());
+
+    /* Limelight Drive */
+    driverGamepad.buttonHeld(BionicF310.LB, new AssistedDrive());
+
 
     /* Wrist Setpoints */
     manipulatorGamepad.buttonPressed(BionicF310.A, new SetWristAngle(RobotConstants.wristSetpointCargoIn));
