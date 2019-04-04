@@ -38,6 +38,7 @@ public class RobotMap {
   public static final int intakeMotorPDP = 4;
   public static final int leftIRSensor = 0;
   public static final int rightIRSensor = 1;
+  public static final int intakePhotoElectric = 2;
 
   /* Elevator */
   public static final int elevatorSRXID = 7; // Master SRX ID Back left
