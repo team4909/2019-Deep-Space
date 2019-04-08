@@ -67,12 +67,12 @@ public class IntakeSubsystem extends Subsystem {
 
     public boolean hasCargo() {
         // When photoelectric sensor returns that it detects an object
-        boolean currentHasCargo = intakePhotoElectric.get();
+        // boolean currentHasCargo = intakePhotoElectric.get();
 
-        boolean hasCargo = lastHasCargo && currentHasCargo;
-        lastHasCargo = currentHasCargo;
+        // boolean hasCargo = lastHasCargo && currentHasCargo;
+        // lastHasCargo = currentHasCargo;
 
-        return hasCargo;
+        return !intakePhotoElectric.get();
     }
 
     @Override
