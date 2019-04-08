@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.team4909.robot.operator.controllers.BionicF310;
+import frc.team4909.robot.operator.generic.BionicPOV;
 import frc.team4909.robot.sensors.LidarLitePWM;
 import frc.team4909.robot.sensors.Stream;
 import frc.team4909.robot.subsystems.StiltWheel.StiltWheelSubsystem;
@@ -195,6 +196,11 @@ public class Robot extends TimedRobot {
     manipulatorGamepad.buttonPressed(BionicF310.A, new SetWristAngle(RobotConstants.wristSetpointCargoIn));
     manipulatorGamepad.buttonPressed(BionicF310.B, new SetWristAngle(RobotConstants.wristSetpointHatch));
     manipulatorGamepad.buttonPressed(BionicF310.Y, new SetWristAngle(RobotConstants.wristSetpointCargoScore));
+
+    /* Elevator Setpoints */
+    manipulatorGamepad.povActive(BionicF310.Top,  new SetElevatorPosition(true));
+    manipulatorGamepad.povActive(BionicF310.Bottom,  new SetElevatorPosition(false));
+
     
     /* Climb Hook */
     climberGamepad.buttonHeld(BionicF310.Start, new SetHookSpeed(RobotConstants.hookMoveSpeed));
