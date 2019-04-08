@@ -16,7 +16,8 @@ public class CargoIntakeIn extends Command {
 
     @Override
     protected boolean isFinished() {
-        return Robot.intakeSubsystem.hasCargo();
+        // returns false when it detects ball, true when it does NOT detect ball
+        return Robot.intakeSubsystem.hasCargo(); // ! accounts for this ^
     }
 
 }
