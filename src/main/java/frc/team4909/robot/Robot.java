@@ -78,6 +78,7 @@ public class Robot extends TimedRobot {
 
   // Sensors
   public static LidarLitePWM lidar;
+  public static Vision vision;
 
   /**
    * map a number from one range to another
@@ -122,6 +123,10 @@ public class Robot extends TimedRobot {
 
     // Sensors
     lidar = new LidarLitePWM(RobotMap.lidarPort);
+
+    //Limelight
+    vision = new Vision();
+    vision.setLights(1);
 
     // Operator Input
     driverGamepad = new BionicF310(RobotMap.driverGamepadPort, // Port

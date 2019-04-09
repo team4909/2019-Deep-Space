@@ -83,6 +83,10 @@ public class DriveTrainSubsystem extends Subsystem {
         bionicDrive.arcadeDrive(speedOutput, turnOutput);
     }
 
+    public void curvatureDrive(double xSpeed, double zRotation, boolean isQuickTurn){
+        bionicDrive.curvatureDrive(xSpeed, zRotation, isQuickTurn);
+    }
+
     public void invertDriveDirection() {
         inverted = !inverted;
     }
