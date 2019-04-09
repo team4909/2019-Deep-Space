@@ -37,13 +37,13 @@ public class IntakeSubsystem extends Subsystem {
     }
 
     public void holdCargoIntake(){
-        // if(hasCargo()){
-        //     setCargoIntakeSpeed(RobotConstants.cargoIntakeHoldSpeed);
-        // } else {
-        //     setCargoIntakeSpeed(0.0625);
+        if(hasCargo()){
+            setCargoIntakeSpeed(RobotConstants.cargoIntakeHoldSpeed);
+        } else {
+            setCargoIntakeSpeed(0);
 
-        setCargoIntakeSpeed(RobotConstants.cargoIntakeHoldSpeed);
-        // }
+        //setCargoIntakeSpeed(RobotConstants.cargoIntakeHoldSpeed);
+        }
     }
 
     public void setCargoIntakeSpeed(double speed) {
