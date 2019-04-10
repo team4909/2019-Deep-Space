@@ -1,6 +1,7 @@
 package frc.team4909.robot.subsystems.intake;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
@@ -18,14 +19,13 @@ public class IntakeSubsystem extends Subsystem {
     WPI_VictorSPX cargoIntakeMotor;
     boolean lastHasCargo;
 
-    AnalogInput leftIRSensor, rightIRSensor;
+    DigitalInput intakePhotoElectric;
 
     public IntakeSubsystem() {
         hatchPanelSolenoid = new DoubleSolenoid(RobotMap.intakePCMChannelL,RobotMap.intakePCMChannelR);
         cargoIntakeMotor = new WPI_VictorSPX(RobotMap.intakeMotorCAN);
 
-        leftIRSensor = new AnalogInput(RobotMap.leftIRSensor);
-        rightIRSensor = new AnalogInput(RobotMap.rightIRSensor);
+         intakePhotoElectric = new DigitalInput(RobotMap.intakePhotoElectric);
     }
 
     public void hatchPanelIntakeOpen() {
@@ -37,13 +37,13 @@ public class IntakeSubsystem extends Subsystem {
     }
 
     public void holdCargoIntake(){
-        // if(hasCargo()){
-        //     setCargoIntakeSpeed(RobotConstants.cargoIntakeHoldSpeed);
-        // } else {
-        //     setCargoIntakeSpeed(0.0625);
+        if(hasCargo()){
+            setCargoIntakeSpeed(RobotConstants.cargoIntakeHoldSpeed);
+        } else {
+            setCargoIntakeSpeed(0);
 
-        setCargoIntakeSpeed(RobotConstants.cargoIntakeHoldSpeed);
-        // }
+        //setCargoIntakeSpeed(RobotConstants.cargoIntakeHoldSpeed);
+        }
     }
 
     public void setCargoIntakeSpeed(double speed) {
@@ -56,8 +56,7 @@ public class IntakeSubsystem extends Subsystem {
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Intake - Left IR Sensor Value", leftIRSensor.getVoltage());
-        SmartDashboard.putNumber("Intake - Right IR Sensor Value", rightIRSensor.getVoltage());
+        SmartDashboard.putBoolean("Intake - Does Photoelectric Detect Cargo", intakePhotoElectric.get());
 
         SmartDashboard.putBoolean("Intake - Has Cargo?", hasCargo());
     }
@@ -67,15 +66,13 @@ public class IntakeSubsystem extends Subsystem {
     }
 
     public boolean hasCargo() {
-        // When either IR Sensor Voltage Reading is Higher than the predetermined
-        // threshold.
-        boolean currentHasCargo = leftIRSensor.getVoltage() > RobotConstants.irSensorThreshold
-            || rightIRSensor.getVoltage() > RobotConstants.irSensorThreshold;
+        // When photoelectric sensor returns that it detects an object
+        // boolean currentHasCargo = intakePhotoElectric.get();
 
-        boolean hasCargo = lastHasCargo && currentHasCargo;
-        lastHasCargo = currentHasCargo;
+        // boolean hasCargo = lastHasCargo && currentHasCargo;
+        // lastHasCargo = currentHasCargo;
 
-        return hasCargo;
+        return !intakePhotoElectric.get();
     }
 
     @Override

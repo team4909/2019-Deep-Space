@@ -57,6 +57,7 @@ public class RobotMap {
 
   /* Sensors */
   public static final int lidarPort = 4;
+  public static final int intakePhotoElectric = 2;
 
 
 }
