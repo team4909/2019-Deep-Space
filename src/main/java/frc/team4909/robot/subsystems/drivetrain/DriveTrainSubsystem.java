@@ -72,10 +72,6 @@ public class DriveTrainSubsystem extends Subsystem {
             turnMultiplier = RobotConstants.speedTurnMultiplier;
             speedMultiplier = RobotConstants.speedMultiplier;
         }
-        if (inverted) { //inverts arcadeDrive
-            speedOutput = -rightSpeed;
-            turnOutput = -leftSpeed;
-        }
 
         speedOutput = speedOutput * speedMultiplier;
         turnOutput = turnOutput * turnMultiplier;
