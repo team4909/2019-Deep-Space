@@ -49,6 +49,15 @@ public class                Vision extends Subsystem {
     this.updateTableVariables();
   }
 
+  
+  
+  double ledState = 1;
+
+  @Override
+  public void periodic() {
+    frontCamFeed.getEntry("ledMode").setNumber(ledState);
+  }
+
   /**
    * Updates network frontCamFeed variables.
    */
@@ -66,7 +75,7 @@ public class                Vision extends Subsystem {
   }
 
   public void setLights(double ledState){
-    frontCamFeed.getEntry("ledMode").setNumber(ledState);
+    this.ledState = ledState;
   }
   /**
    * Gets the X offset in degrees.

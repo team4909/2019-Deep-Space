@@ -8,10 +8,16 @@ import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
 public class Drive extends Command {
     
     private final double kP = 0.15;
+    private final double kD = 0.5;
+    private double lastError;
 
     public Drive() {
         requires(Robot.drivetrainSubsystem);
         requires(Robot.vision);
+    }
+    @Override
+    protected void initialize() {
+        lastError = Robot.vision.getXOffset();
     }
 
     public void execute() {
@@ -24,14 +30,26 @@ public class Drive extends Command {
         
         if(Robot.driverGamepad.getRawButton(5))
         {
-            double lastError = Robot.vision.getXOffset();
             Robot.vision.setLights(3);
             Robot.drivetrainSubsystem.arcadeDrive(
                 -Robot.driverGamepad.getThresholdAxis(BionicF310.LY),
-                Robot.vision.getXOffset() * kP 
+                Robot.vision.getXOffset() * kP + (Robot.vision.getXOffset() - lastError) * kD
             // false
           );
-        } else {
+          lastError = Robot.vision.getXOffset();
+          
+        } 
+        else if(Robot.driverGamepad.getRawButton(6)){
+            Robot.vision.setLights(3);
+            Robot.drivetrainSubsystem.preciseModeTrue();
+            Robot.drivetrainSubsystem.arcadeDrive(
+                -Robot.driverGamepad.getThresholdAxis(BionicF310.LY),
+                Robot.vision.getXOffset() * kP + (Robot.vision.getXOffset() - lastError) * kD
+                );
+            lastError = Robot.vision.getXOffset();
+
+        }
+        else {
             Robot.vision.setLights(1);
 
             Robot.drivetrainSubsystem.arcadeDrive(

@@ -91,6 +91,10 @@ public class DriveTrainSubsystem extends Subsystem {
         preciseMode = !preciseMode;
     }
 
+    public void preciseModeTrue(){
+        preciseMode = true;
+    }
+
     protected void initDefaultCommand() {
         setDefaultCommand(new Drive());
     }
