@@ -80,8 +80,8 @@ public class RobotConstants {
   public static final int wristSetpointUpright = 3713; // makes arm upright
   public static final int wristSetpointCargoScore = wristSetpointUpright - 393 ; // 45 degrees up
   public static final int wristSetpointHatch = wristSetpointUpright - 981;  // horizontal arm
-  public static final int wristSetpointCargoIn = wristSetpointUpright - (1205 - 120); // 45 degrees down
-  
+  public static final int wristSetpointCargoIn = wristSetpointUpright - 1222; // 45 degrees down
+
   /* Linefollow */
   public static final double fastVelocity = 0.7;
   public static final double mediumVelocity = 0.5; // constant velocity given to both motors
