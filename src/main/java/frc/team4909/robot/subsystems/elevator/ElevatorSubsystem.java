@@ -82,6 +82,7 @@ public class ElevatorSubsystem extends Subsystem {
         leftMaster.config_kI(primarySlotIdx, 0, RobotConstants.timeoutMs);
         leftMaster.config_kD(primarySlotIdx, 0, RobotConstants.timeoutMs);
 
+        // leftMaster.configClosedloopRamp(. );
         // These values are use for motion magic
 
         // When the code starts (IE robot powered on) call that zero.

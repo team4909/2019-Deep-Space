@@ -7,7 +7,7 @@ import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
 
 public class Drive extends Command {
     
-    private final double kP = 0.07;
+    private final double kP = 0.15;
 
     public Drive() {
         requires(Robot.drivetrainSubsystem);
@@ -22,14 +22,18 @@ public class Drive extends Command {
         // else
         // Robot.vision.setLights(1);
         
-        if(Robot.driverGamepad.getRawButton(5)){
+        if(Robot.driverGamepad.getRawButton(5))
+        {
+            double lastError = Robot.vision.getXOffset();
             Robot.vision.setLights(3);
-            Robot.drivetrainSubsystem.curvatureDrive(
-            -Robot.driverGamepad.getThresholdAxis(BionicF310.LY),
-            Robot.vision.getXOffset() * kP,
-            false
+            Robot.drivetrainSubsystem.arcadeDrive(
+                -Robot.driverGamepad.getThresholdAxis(BionicF310.LY),
+                Robot.vision.getXOffset() * kP 
+            // false
           );
         } else {
+            Robot.vision.setLights(1);
+
             Robot.drivetrainSubsystem.arcadeDrive(
             -Robot.driverGamepad.getThresholdAxis(BionicF310.LY),
             Robot.driverGamepad.getThresholdAxis(BionicF310.RX)

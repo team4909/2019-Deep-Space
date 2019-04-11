@@ -113,6 +113,8 @@ public class Robot extends TimedRobot {
     c = new Compressor(0); // Initialize Compressor
     c.setClosedLoopControl(true); // Start Compressor in Closed Loop Control
 
+    // lights
+
     // Subsystems
     powerDistributionPanel = new PowerDistributionPanel();
     drivetrainSubsystem = new DriveTrainSubsystem();
