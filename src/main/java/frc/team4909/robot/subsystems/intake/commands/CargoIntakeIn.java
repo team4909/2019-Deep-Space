@@ -16,7 +16,7 @@ public class CargoIntakeIn extends Command {
 
     @Override
     protected boolean isFinished() {
-        return false;
+        return Robot.intakeSubsystem.hasCargo();
     }
 
 }

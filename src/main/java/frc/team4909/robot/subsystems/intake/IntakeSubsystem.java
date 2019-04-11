@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -25,6 +26,8 @@ public class IntakeSubsystem extends Subsystem {
         hatchPanelSolenoid = new DoubleSolenoid(RobotMap.intakePCMChannelL,RobotMap.intakePCMChannelR);
         cargoIntakeMotor = new WPI_VictorSPX(RobotMap.intakeMotorCAN);
 
+        cargoIntakeMotor.setNeutralMode(NeutralMode.Brake);
+
          intakePhotoElectric = new DigitalInput(RobotMap.intakePhotoElectric);
     }
 
@@ -37,13 +40,13 @@ public class IntakeSubsystem extends Subsystem {
     }
 
     public void holdCargoIntake(){
-        if(hasCargo()){
+        // if(hasCargo()){
+        //     setCargoIntakeSpeed(RobotConstants.cargoIntakeHoldSpeed);
+        // } else {
             setCargoIntakeSpeed(RobotConstants.cargoIntakeHoldSpeed);
-        } else {
-            setCargoIntakeSpeed(0);
 
         //setCargoIntakeSpeed(RobotConstants.cargoIntakeHoldSpeed);
-        }
+        // }
     }
 
     public void setCargoIntakeSpeed(double speed) {

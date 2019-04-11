@@ -33,7 +33,7 @@ public class RobotConstants {
 
   /* Intake */
   public static final double cargoIntakeInSpeed = 1.0;
-  public static final double cargoIntakeHoldSpeed = 0;
+  public static final double cargoIntakeHoldSpeed = 0.2;
   public static final double cargoIntakeOutSpeed = -1.0;
 
   // public static final double cargoIntakeCurrentLimit = 0;
