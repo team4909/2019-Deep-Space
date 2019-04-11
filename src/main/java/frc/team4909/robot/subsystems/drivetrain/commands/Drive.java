@@ -23,6 +23,7 @@ public class Drive extends Command {
         // Robot.vision.setLights(1);
         
         if(Robot.driverGamepad.getRawButton(5)){
+            Robot.vision.setLights(3);
             Robot.drivetrainSubsystem.curvatureDrive(
             -Robot.driverGamepad.getThresholdAxis(BionicF310.LY),
             Robot.vision.getXOffset() * kP,
