@@ -17,10 +17,10 @@ public class Drive extends Command {
     public void execute() {
         Robot.vision.updateVisionDashboard();
 
-        if(Robot.driverGamepad.getRawButton(6))
-        Robot.vision.setLights(3);
-        else
-        Robot.vision.setLights(1);
+        // if(Robot.driverGamepad.getRawButton(2))
+        // Robot.vision.setLights(3);
+        // else
+        // Robot.vision.setLights(1);
         
         if(Robot.driverGamepad.getRawButton(5)){
             Robot.drivetrainSubsystem.curvatureDrive(
