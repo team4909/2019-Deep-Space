@@ -3,18 +3,38 @@ package frc.team4909.robot.subsystems.drivetrain.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team4909.robot.Robot;
 import frc.team4909.robot.operator.controllers.BionicF310;
+import frc.team4909.robot.subsystems.drivetrain.DriveTrainSubsystem;
 
 public class Drive extends Command {
+    
+    private final double kP = 0.07;
+
     public Drive() {
         requires(Robot.drivetrainSubsystem);
+        requires(Robot.vision);
     }
 
     public void execute() {
-        // Calls tank function using left Y and right Y
-        // Negated since Y Axis is scaled -1 to +1 top to bottom (counterintuively)
-        Robot.drivetrainSubsystem.arcadeDrive(-Robot.driverGamepad.getThresholdAxis(BionicF310.LY),
-                Robot.driverGamepad.getThresholdAxis(BionicF310.RX));
+        Robot.vision.updateVisionDashboard();
 
+        // if(Robot.driverGamepad.getRawButton(2))
+        // Robot.vision.setLights(3);
+        // else
+        // Robot.vision.setLights(1);
+        
+        if(Robot.driverGamepad.getRawButton(5)){
+            Robot.vision.setLights(3);
+            Robot.drivetrainSubsystem.curvatureDrive(
+            -Robot.driverGamepad.getThresholdAxis(BionicF310.LY),
+            Robot.vision.getXOffset() * kP,
+            false
+          );
+        } else {
+            Robot.drivetrainSubsystem.arcadeDrive(
+            -Robot.driverGamepad.getThresholdAxis(BionicF310.LY),
+            Robot.driverGamepad.getThresholdAxis(BionicF310.RX)
+          );
+        }
     }
 
     @Override
