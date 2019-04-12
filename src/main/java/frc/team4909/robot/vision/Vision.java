@@ -1,4 +1,4 @@
-package frc.team4909.robot;
+package frc.team4909.robot.vision;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;

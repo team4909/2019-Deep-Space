@@ -24,7 +24,10 @@ import frc.team4909.robot.subsystems.elevatorarm.ElevatorArmSubsystem;
 import frc.team4909.robot.subsystems.elevatorarm.commands.*;
 import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
 import frc.team4909.robot.subsystems.intake.commands.*;
-import frc.team4909.robot.SetLights;
+import frc.team4909.robot.vision.commands.SetLights;
+import frc.team4909.robot.vision.Vision;
+import frc.team4909.robot.vision.commands.LimeLightFollow;
+import frc.team4909.robot.vision.commands.LimeLightPreciseFollow;
 
 
 /* 
@@ -199,6 +202,10 @@ public class Robot extends TimedRobot {
     driverGamepad.buttonPressed(BionicF310.X, new TogglePreciseMode());
     driverGamepad.buttonHeld(BionicF310.A, new StayOnHab());
     driverGamepad.buttonToggled(BionicF310.B, new SetLights());
+
+    // Limelight
+    driverGamepad.buttonHeld(BionicF310.LB, new LimeLightFollow());
+    driverGamepad.buttonHeld(BionicF310.RB, new LimeLightPreciseFollow());
 
     /* Wrist Setpoints */
     manipulatorGamepad.buttonPressed(BionicF310.A, new SetWristAngle(RobotConstants.wristSetpointCargoIn));
