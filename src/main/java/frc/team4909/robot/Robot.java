@@ -227,6 +227,8 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putNumber("RT Climber Sink", climberGamepad.getThresholdAxis(BionicF310.RT));
     // SmartDashboard.putNumber("LY Elevator", manipulatorGamepad.getThresholdAxis(BionicF310.LY));
     SmartDashboard.putNumber("Loop Period", getPeriod());
+    SmartDashboard.putNumber("Lidar distance", lidar.getDistance());
+
     
     // process();
     Scheduler.getInstance().run();
@@ -261,9 +263,13 @@ public class Robot extends TimedRobot {
     Robot.elevatorSubsystem.updateHoldingPos();
     Robot.elevatorArmSubsystem.holdingPosition = Robot.elevatorArmSubsystem.getPosition();
     Robot.climberSubsystem.updateHoldingPos();
+
+
   }
 
-  public void teleopPeriodic() {
+  public void teleopPeriodic() {   
+
+
   }
 
   /**
