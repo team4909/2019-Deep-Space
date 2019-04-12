@@ -50,6 +50,7 @@ public class Drive extends Command {
 
         }
         else {
+            Robot.vision.setLights(1);
 
             Robot.drivetrainSubsystem.arcadeDrive(
             -Robot.driverGamepad.getThresholdAxis(BionicF310.LY),
