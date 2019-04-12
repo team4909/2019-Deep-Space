@@ -98,6 +98,9 @@ public class DriveTrainSubsystem extends Subsystem {
     protected void initDefaultCommand() {
         setDefaultCommand(new Drive());
     }
+    public void setSpeed(int speed1, int speed2){
+        bionicDrive.arcadeDrive(speed1, speed2);
+    }
 
     @Override
     public void periodic() {

@@ -34,6 +34,7 @@ public class LimeLightFollow extends Command{
     @Override
     protected void end() {
         Robot.vision.setLights(1);
+        Robot.drivetrainSubsystem.setSpeed(0, 0);
         }
 
     @Override
