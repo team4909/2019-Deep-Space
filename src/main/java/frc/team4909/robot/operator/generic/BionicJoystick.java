@@ -98,7 +98,7 @@ public class BionicJoystick extends Joystick {
      * @param button      Button to Create Handler For
      * @param commandable Returns a Commandable that can be used by the operator and autonomous CommandGroups
      */
-    public void buttonToggled(BionicButton button, InstantCommand command) {
+    public void buttonToggled(BionicButton button, Command command) {
         JoystickButton newButton = new JoystickButton(this, button.getNumber());
 
         newButton.toggleWhenPressed(command);
