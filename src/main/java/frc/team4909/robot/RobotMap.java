@@ -56,7 +56,7 @@ public class RobotMap {
   public static final int climberHookSPXID = 14;
 
   /* Sensors */
-  public static final int lidarPort = 4;
+  public static final int lidarPort = 9;
   public static final int intakePhotoElectric = 0;
 
 

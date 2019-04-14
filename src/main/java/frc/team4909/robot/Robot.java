@@ -24,6 +24,7 @@ import frc.team4909.robot.subsystems.elevatorarm.ElevatorArmSubsystem;
 import frc.team4909.robot.subsystems.elevatorarm.commands.*;
 import frc.team4909.robot.subsystems.intake.IntakeSubsystem;
 import frc.team4909.robot.subsystems.intake.commands.*;
+import frc.team4909.robot.SetLights;
 
 
 /* 
@@ -78,6 +79,7 @@ public class Robot extends TimedRobot {
 
   // Sensors
   public static LidarLitePWM lidar;
+  public static Vision vision;
 
   /**
    * map a number from one range to another
@@ -111,6 +113,8 @@ public class Robot extends TimedRobot {
     c = new Compressor(0); // Initialize Compressor
     c.setClosedLoopControl(true); // Start Compressor in Closed Loop Control
 
+    // lights
+
     // Subsystems
     powerDistributionPanel = new PowerDistributionPanel();
     drivetrainSubsystem = new DriveTrainSubsystem();
@@ -122,6 +126,10 @@ public class Robot extends TimedRobot {
 
     // Sensors
     lidar = new LidarLitePWM(RobotMap.lidarPort);
+
+    //Limelight
+    vision = new Vision();
+    vision.setLights(1);
 
     // Operator Input
     driverGamepad = new BionicF310(RobotMap.driverGamepadPort, // Port
@@ -190,6 +198,7 @@ public class Robot extends TimedRobot {
     driverGamepad.buttonPressed(BionicF310.RB, new InvertDriveDirection());
     driverGamepad.buttonPressed(BionicF310.X, new TogglePreciseMode());
     driverGamepad.buttonHeld(BionicF310.A, new StayOnHab());
+    driverGamepad.buttonToggled(BionicF310.B, new SetLights());
 
     /* Wrist Setpoints */
     manipulatorGamepad.buttonPressed(BionicF310.A, new SetWristAngle(RobotConstants.wristSetpointCargoIn));
@@ -218,6 +227,8 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putNumber("RT Climber Sink", climberGamepad.getThresholdAxis(BionicF310.RT));
     // SmartDashboard.putNumber("LY Elevator", manipulatorGamepad.getThresholdAxis(BionicF310.LY));
     SmartDashboard.putNumber("Loop Period", getPeriod());
+    SmartDashboard.putNumber("Lidar distance", lidar.getDistance());
+
     
     // process();
     Scheduler.getInstance().run();
@@ -252,9 +263,13 @@ public class Robot extends TimedRobot {
     Robot.elevatorSubsystem.updateHoldingPos();
     Robot.elevatorArmSubsystem.holdingPosition = Robot.elevatorArmSubsystem.getPosition();
     Robot.climberSubsystem.updateHoldingPos();
+
+
   }
 
-  public void teleopPeriodic() {
+  public void teleopPeriodic() {   
+
+
   }
 
   /**

@@ -72,15 +72,15 @@ public class DriveTrainSubsystem extends Subsystem {
             turnMultiplier = RobotConstants.speedTurnMultiplier;
             speedMultiplier = RobotConstants.speedMultiplier;
         }
-        if (inverted) { //inverts arcadeDrive
-            speedOutput = -rightSpeed;
-            turnOutput = -leftSpeed;
-        }
 
         speedOutput = speedOutput * speedMultiplier;
         turnOutput = turnOutput * turnMultiplier;
 
         bionicDrive.arcadeDrive(speedOutput, turnOutput);
+    }
+
+    public void curvatureDrive(double xSpeed, double zRotation, boolean isQuickTurn){
+        bionicDrive.curvatureDrive(xSpeed, zRotation, isQuickTurn);
     }
 
     public void invertDriveDirection() {
@@ -89,6 +89,10 @@ public class DriveTrainSubsystem extends Subsystem {
 
     public void togglePreciseMode() {
         preciseMode = !preciseMode;
+    }
+
+    public void preciseModeTrue(){
+        preciseMode = true;
     }
 
     protected void initDefaultCommand() {
