@@ -16,11 +16,11 @@ public class RobotConstants {
   /* Drivetrain */
   //TODO: Tune values
 
-  public static double speedMultiplier = 0.9; 
+  public static double speedMultiplier = 1.0; 
   //0.7 is the desired multiplier speed at bottom; 0.1 is desired multiplier speed at top; 5000 is total height in encoder ticks
   public static double speedTurnMultiplier = 0.7; // As height increases, decrease speed ; calculation: 0.5 - (0.5-0.1)/5000
 
-  public static final double maxDriveSpeed = 0.7; // desired values for when elevator is at bottom
+  public static final double maxDriveSpeed = 1.0; // desired values for when elevator is at bottom
   public static final double minDriveSpeed = 0.3; // Min velocity when elevator is at top
 
   public static final double maxTurnSpeed = 0.5; // desired values for when elevator is at bottom

@@ -63,11 +63,11 @@ public class DriveTrainSubsystem extends Subsystem {
 
         } else {
             
-            turnMultiplier = RobotConstants.maxTurnSpeed  - ((RobotConstants.maxTurnSpeed - RobotConstants.minTurnSpeed) / RobotConstants.elevatorEncoderTicks) * (Math.abs(Robot.elevatorSubsystem.getPosition())); 
-            speedMultiplier = RobotConstants.maxDriveSpeed  - ((RobotConstants.maxDriveSpeed - RobotConstants.minDriveSpeed) / RobotConstants.elevatorEncoderTicks) * (Math.abs(Robot.elevatorSubsystem.getPosition())); 
+            //turnMultiplier = RobotConstants.maxTurnSpeed  - ((RobotConstants.maxTurnSpeed - RobotConstants.minTurnSpeed) / RobotConstants.elevatorEncoderTicks) * (Math.abs(Robot.elevatorSubsystem.getPosition())); 
+            //speedMultiplier = RobotConstants.maxDriveSpeed  - ((RobotConstants.maxDriveSpeed - RobotConstants.minDriveSpeed) / RobotConstants.elevatorEncoderTicks) * (Math.abs(Robot.elevatorSubsystem.getPosition())); 
 
-            SmartDashboard.putNumber("Drivetrain turnMultiplier", turnMultiplier);
-            SmartDashboard.putNumber("Drivetrain speedMultiplier", speedMultiplier);
+            //SmartDashboard.putNumber("Drivetrain turnMultiplier", turnMultiplier);
+            //SmartDashboard.putNumber("Drivetrain speedMultiplier", speedMultiplier);
 
             turnMultiplier = RobotConstants.speedTurnMultiplier;
             speedMultiplier = RobotConstants.speedMultiplier;
