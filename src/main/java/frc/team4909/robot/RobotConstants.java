@@ -77,10 +77,10 @@ public class RobotConstants {
   public static final int elevatorSetpointCargoHigh = -20000;
   public static final int elevatorSetpointCargoShip = -25300;
 
-  public static final int wristSetpointUpright = 3713; // makes arm upright
-  public static final int wristSetpointCargoScore = wristSetpointUpright - 393 ; // 45 degrees up
-  public static final int wristSetpointHatch = wristSetpointUpright - 1005;  // horizontal arm -981
-  public static final int wristSetpointCargoIn = wristSetpointUpright - 1222; // 45 degrees down
+  public static final int wristSetpointUpright = 4045; // makes arm upright 3713 3059
+  public static final int wristSetpointCargoScore = 3575 ; // 45 degrees up 393
+  public static final int wristSetpointHatch = 3049;  // horizontal arm -981
+  public static final int wristSetpointCargoIn = 2906; // 45 degrees down
 
   /* Linefollow */
   public static final double fastVelocity = 0.7;
